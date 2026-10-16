@@ -748,7 +748,7 @@
       const dots = document.querySelectorAll('#stackDots .dot');
       if(!cards.length) return;
       gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0% round 32px)', willChange: 'clip-path' });
-      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(0% 0% 100% 0% round 32px)' }); });
+      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0% round 32px)' }); });
       // left texts — Prompt Ninja style crossfade
       const texts = gsap.utils.toArray('.stack-text');
       gsap.set(texts, { autoAlpha: 0, y: 14 });
