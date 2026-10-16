@@ -740,9 +740,7 @@
       const dots = document.querySelectorAll('#stackDots .dot');
       if(!cards.length) return;
       gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0%)', willChange: 'clip-path, transform' });
-      cards.forEach((c,i)=> { c.style.zIndex = 5 - i; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
-      // fix stack order: next card must be on top to crop over current
-      cards.forEach((c,i)=> c.style.zIndex = i+1);
+      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '#stackedShowcase',
