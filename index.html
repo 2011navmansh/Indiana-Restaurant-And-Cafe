@@ -887,7 +887,7 @@
         setTimeout(()=>{ overlay.style.transition='none'; overlay.style.clipPath=`circle(0% at ${ox} ${oy})`; toggling=false; }, 180);
       }, 340);
     });
-    document.getElementById('reserveForm')?.addEventListener('submit',e=>{e.preventDefault(); document.getElementById('reserveSuccess').classList.remove('hidden'); e.target.reset(); setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),3000);});
+    document.getElementById('reserveForm')?.addEventListener('submit',async e=>{e.preventDefault();const f=e.target;const name=f.querySelector('input[placeholder*=Name]').value;const phone=f.querySelector('input[placeholder*=Phone]').value;const date=f.querySelector('input[type=date]').value;const guests=f.querySelector('select').value;try{const r=await fetch('/api/booking',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,date,guests})});const j=await r.json();if(j.wa) window.open(j.wa,'_blank');}catch(err){const msg=encodeURIComponent('Hi Indiana! Reserve table:%0AName: '+name+'%0APhone: '+phone+'%0ADate: '+date+'%0AGuests: '+guests);window.open('https://wa.me/919876543210?text='+msg,'_blank');}document.getElementById('reserveSuccess').classList.remove('hidden');f.reset();setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),4000);});
     // ===== RECREATED STRAIGHT — translateY ONLY (NO clipPath, NO DIAGONAL) =====
     // Root cause: clipPath with `round 32px` interpolates diagonally in browser.
     // Fix: use yPercent (straight vertical) + overflow:hidden parent. Pure Y, X locked 0.

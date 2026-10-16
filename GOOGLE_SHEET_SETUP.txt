@@ -1,0 +1,33 @@
+GOOGLE SHEET SETUP - 2 MIN (FREE)
+
+1. Google Sheet banao: https://sheets.google.com -> Blank sheet -> Name: Indiana Bookings
+   Row 1 me headings: id | name | phone | date | guests | message | createdAt | type | items | total
+
+2. Extensions -> Apps Script -> ye code paste karo:
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+  sheet.appendRow([data.id||'', data.name||'', data.phone||'', data.date||'', data.guests||'', data.message||'', data.createdAt||'', data.type||'booking', JSON.stringify(data.items||''), data.total||'']);
+  return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
+}
+function doGet(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const rows = sheet.getDataRange().getValues();
+  const headers = rows[0];
+  const out = rows.slice(1).map(r => { let o={}; headers.forEach((h,i)=>o[h]=r[i]); return o; });
+  const type = e.parameter.type;
+  const filtered = type ? out.filter(x=> (x.type||'booking')===type) : out;
+  return ContentService.createTextOutput(JSON.stringify(filtered)).setMimeType(ContentService.MimeType.JSON);
+}
+
+3. Deploy -> New Deployment -> Web app -> Execute as: Me, Who has access: Anyone -> Deploy -> URL copy karo
+
+4. Vercel Dashboard -> Your Project -> Settings -> Environment Variables -> Add:
+   GOOGLE_SHEET_URL = (paste URL)
+   ADMIN_PASSWORD = indiana123 (apni marzi ka)
+   (Optional) RESEND_API_KEY + NOTIFY_EMAIL for email
+
+5. Redeploy karo. Bas! /admin.html pe password se bookings dikhengi.
+
+Without Sheet bhi kaam karega - booking seedha WhatsApp pe jayegi.

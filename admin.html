@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Admin - Indiana</title><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#FFFBEB] text-ink font-sans p-6">
+<div class="max-w-[800px] mx-auto">
+<h1 class="font-display text-3xl">Admin - Bookings</h1>
+<p class="text-sm opacity-60 mt-1">Password protected. Set ADMIN_PASSWORD in Vercel env.</p>
+<div id="login" class="mt-6 flex gap-2"><input id="pw" type="password" placeholder="Password" class="rounded-full px-5 py-3 border border-black/10 flex-1"><button onclick="login()" class="bg-ink text-mustard rounded-full px-6 py-3 font-bold">Login</button></div>
+<div id="panel" class="hidden mt-6">
+<div class="flex gap-2 mb-4"><button onclick="load('bookings')" class="bg-mustard text-ink rounded-full px-5 py-2 font-bold text-sm">Bookings</button><button onclick="load('orders')" class="glass rounded-full px-5 py-2 font-bold text-sm">Orders</button></div>
+<div id="list" class="space-y-3"></div>
+</div>
+</div>
+<script>
+let token='';
+function login(){ token=document.getElementById('pw').value; document.getElementById('panel').classList.remove('hidden'); load('bookings'); }
+async function load(type){
+  const r=await fetch('/api/admin?type='+type, {headers:{'x-admin-pw':token}});
+  const j=await r.json();
+  if(j.error){ alert(j.error); return; }
+  document.getElementById('list').innerHTML=j.data.length?j.data.map(d=>`<div class="bg-white rounded-2xl p-4 border border-black/5"><div class="font-bold">${d.name} - ${d.phone}</div><div class="text-sm opacity-70">${d.date||''} ${d.guests||''} ${d.total?'Total Rs.'+d.total:''}</div><div class="text-xs opacity-50">${d.createdAt}</div></div>`).join(''):'<p class="opacity-60">No data yet. Connect Google Sheet to see bookings.</p>';
+}
+</script>
+</body></html>
