@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -49,6 +49,13 @@
     html.light .border-white\/10, html.light .border-white\/5 { border-color: rgba(0,0,0,0.08) !important; }
     html.light .bg-white\/10 { background: rgba(0,0,0,0.06) !important; }
     html.light .bg-white { background: #0A0A0A !important; color: #FFFBEB !important; }
+    /* Reviews section - keep cards correct in light mode */
+    html.light #reviews.bg-cream, html.light #reviews { background: #FFFBEB !important; }
+    html.light #reviews .bg-white { background: #FFFFFF !important; color: #0A0A0A !important; border-color: rgba(0,0,0,0.06) !important; }
+    html.light #reviews .bg-white .text-ink\/80 { color: rgba(10,10,10,0.8) !important; }
+    html.light #reviews .bg-ink { background: #0A0A0A !important; color: #FFFBEB !important; }
+    html.light #reviews .bg-ink.text-mustard { background: #0A0A0A !important; color: #FACC15 !important; }
+    html.light #reviews .bg-mustard { background: #FACC15 !important; color: #0A0A0A !important; }
     /* glass in light mode — white frosted */
     html.light .glass { background: rgba(255,255,255,0.82) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important; color: #0A0A0A !important; }
     html.light .glass-dark { background: rgba(255,255,255,0.88) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; color:#0A0A0A !important; }
@@ -69,6 +76,25 @@
     body, section, nav, footer, .glass, .glass-dark{transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease}
     #themeToggle{transition: transform 0.3s ease}
     #themeToggle:active{transform: scale(0.88) rotate(12deg)}
+    /* Luxury polish */
+    .font-display{letter-spacing:-0.03em}
+    .font-serif.italic{background:linear-gradient(135deg,#FACC15 0%,#CA8A04 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    html.light .font-serif.italic{-webkit-text-fill-color:#CA8A04;background:none}
+    .noise{position:absolute;inset:0;pointer-events:none;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .marquee-track{display:flex;gap:1rem;animation:marquee 30s linear infinite;width:max-content}
+    .marquee-track:hover{animation-play-state:paused}
+    /* Masonry helper */
+    .masonry{column-count:4;column-gap:1rem}
+    @media(max-width:1024px){.masonry{column-count:3}}
+    @media(max-width:640px){.masonry{column-count:2}}
+    .masonry-item{break-inside:avoid;margin-bottom:1rem}
+    #loader{position:fixed;inset:0;z-index:9999;background:#0A0A0A;display:grid;place-items:center;transition:opacity 0.5s, visibility 0.5s}
+    #loader.hidden{opacity:0;visibility:hidden}
+    .cursor-dot{width:8px;height:8px;background:#FACC15;border-radius:999px;position:fixed;left:0;top:0;pointer-events:none;z-index:9999;mix-blend-mode:difference;transform:translate(-50%,-50%)}
+    .cursor-ring{width:36px;height:36px;border:1px solid rgba(255,255,255,.6);border-radius:999px;position:fixed;left:0;top:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+    @media(max-width:1024px){.cursor-dot,.cursor-ring{display:none}}
+    .magnetic{transition:transform .25s cubic-bezier(0.23,1,0.32,1)}
     * {
       -webkit-font-smoothing: antialiased;
     }
@@ -92,11 +118,11 @@
 
     /* Liquid Glass System */
     .glass {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(22px) saturate(180%);
-      -webkit-backdrop-filter: blur(22px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.13);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
     }
 
     .glass-strong {
@@ -107,10 +133,11 @@
     }
 
     .glass-dark {
-      background: rgba(12, 12, 12, 0.58);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(12, 12, 12, 0.62);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
 
     .glass-yellow {
@@ -230,9 +257,9 @@
       backface-visibility: hidden;
     }
   </style>
-</head>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"Indiana Restaurant & Cafe","address":{"@type":"PostalAddress","addressLocality":"Jhalawar","addressRegion":"Rajasthan","postalCode":"326001","streetAddress":"Rajlaxmi nagar"},"servesCuisine":["Indian","Italian","Cafe"],"priceRange":"Rs.600-800","aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"200"}}</script></head>
 
-<body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
+<div id='loader'><div class='text-center'><div class='font-display text-5xl tracking-widest'>INDIANA</div><div class='text-xs tracking-[0.3em] opacity-60 mt-2'>RESTAURANT & CAFE</div><div class='w-32 h-[2px] bg-white/10 rounded-full mx-auto mt-6 overflow-hidden'><div id='loaderBar' class='h-full bg-mustard' style='width:0%'></div></div></div></div><div class='cursor-dot' id='cursorDot'></div><div class='cursor-ring' id='cursorRing'><body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
   <div id="themeOverlay"></div>
 
   <!-- STEP 2 — LOADER -->
@@ -372,7 +399,7 @@
               <div
                 class="absolute inset-0 rounded-full bg-white shadow-[0_30px_60px_rgba(0,0,0,0.18)] border-[10px] border-white overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80&auto=format&fit=crop"
-                  alt="Wood fired pizza" class="w-full h-full object-cover">
+                  alt="Wood fired pizza" loading="lazy" class="w-full h-full object-cover">
               </div>
               <!-- spinning badge -->
               <div
@@ -388,7 +415,7 @@
                 class="absolute -left-4 bottom-6 glass-cream rounded-full px-4 py-3 flex items-center gap-3 shadow-xl">
                 <div class="w-10 h-10 rounded-full overflow-hidden"><img
                     src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=80&auto=format&fit=crop"
-                    class="w-full h-full object-cover"></div>
+                    loading="lazy" class="w-full h-full object-cover"></div>
                 <div>
                   <div class="text-ink font-extrabold leading-none">Margherita</div>
                   <div class="text-[11px] font-bold tracking-widest text-ink/60">WOOD-FIRED • 12"</div>
@@ -458,12 +485,12 @@
         <button data-filter="dessert" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Desserts</button>
       </div>
       <div class="grid md:grid-cols-3 gap-5" id="menuGrid">
-        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Margherita Wood-Fired</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹399</span></div><p class="text-xs opacity-60">San Marzano • Fior di latte</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Pepperoni Inferno</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹549</span></div><p class="text-xs opacity-60">Spicy pepperoni • Honey</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Truffle Brunch Bowl</h3><span class="bg-mustard text-ink rounded-full px-3 py-1 text-xs font-extrabold">₹449</span></div><p class="text-xs opacity-60">Poached egg • Truffle</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="coffee" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Cold Brew Tonic</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹249</span></div><p class="text-xs opacity-60">Single origin • Citrus</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="dessert" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Choco Lava Fondant</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹299</span></div><p class="text-xs opacity-60">72% dark • Gelato</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Avocado Sourdough</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹379</span></div><p class="text-xs opacity-60">Chili flakes • Lime</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Margherita Wood-Fired</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹399</span></div><p class="text-xs opacity-60">San Marzano • Fior di latte</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Pepperoni Inferno</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹549</span></div><p class="text-xs opacity-60">Spicy pepperoni • Honey</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Truffle Brunch Bowl</h3><span class="bg-mustard text-ink rounded-full px-3 py-1 text-xs font-extrabold">₹449</span></div><p class="text-xs opacity-60">Poached egg • Truffle</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="coffee" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Cold Brew Tonic</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹249</span></div><p class="text-xs opacity-60">Single origin • Citrus</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="dessert" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Choco Lava Fondant</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹299</span></div><p class="text-xs opacity-60">72% dark • Gelato</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Avocado Sourdough</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹379</span></div><p class="text-xs opacity-60">Chili flakes • Lime</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
       </div>
       <div id="cartToast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added to cart ✓</div>
     </div>
@@ -510,23 +537,23 @@
       <!-- RIGHT CARDS — straight vertical stack, no diagonal -->
       <div class="relative w-full md:w-[56%] max-w-[640px] md:max-w-[620px] h-[480px] md:h-[460px] shrink-0 rounded-[32px] overflow-hidden bg-[#111]" id="stackWrap">
         <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="0" style="z-index:5">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
           <div class="flex-1 text-left"><div class="text-xs font-bold tracking-[0.2em] opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[36px] leading-none mt-1">MARGHERITA <span class="font-serif italic">Classico</span></h3><p class="text-sm opacity-70 mt-3">San Marzano • fior di latte • basil • 48h dough</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹399</span><span class="text-xs font-bold opacity-60">BESTSELLER</span></div></div>
         </div>
         <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-mustard text-ink" data-i="1" style="z-index:4">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
           <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">02 — INFERNO</div><h3 class="font-display text-[36px] leading-none mt-1">PEPPERONI <span class="font-serif italic">Inferno</span></h3><p class="text-sm opacity-70 mt-3">Spicy pepperoni + hot honey — sweet heat</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹549</span><span class="text-xs font-bold opacity-60">SPICY</span></div></div>
         </div>
         <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#0F2A18] text-cream" data-i="2" style="z-index:3">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
           <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">03 — BRUNCH</div><h3 class="font-display text-[36px] leading-none mt-1">TRUFFLE <span class="font-serif italic text-mustard">Bowl</span></h3><p class="text-sm opacity-70 mt-3">Poached egg • truffle • sourdough</p><div class="flex gap-3 mt-6 items-center"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹449</span><span class="text-xs font-bold opacity-60">CHEF\'S PICK</span></div></div>
         </div>
         <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-white text-ink" data-i="3" style="z-index:2">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
           <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">04 — BREW</div><h3 class="font-display text-[36px] leading-none mt-1">COLD BREW <span class="font-serif italic">Tonic</span></h3><p class="text-sm opacity-70 mt-3">Single-origin • citrus tonic</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹249</span><span class="text-xs font-bold opacity-60">SINGLE ORIGIN</span></div></div>
         </div>
         <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="4" style="z-index:1">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
           <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">05 — DESSERT</div><h3 class="font-display text-[36px] leading-none mt-1">CHOCO <span class="font-serif italic">Fondant</span></h3><p class="text-sm opacity-70 mt-3">72% dark • vanilla gelato</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹299</span><span class="text-xs font-bold opacity-60">MUST TRY</span></div></div>
         </div>
       </div>
@@ -545,11 +572,12 @@
           <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl">4.9★</div><div class="text-xs font-bold opacity-60">RATING</div></div>
         </div>
       </div>
-      <div class="rounded-[32px] overflow-hidden h-[420px]"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+      <div class="rounded-[32px] overflow-hidden h-[420px]"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
     </div>
   </section>
   <section class="bg-mustard py-3 overflow-hidden whitespace-nowrap"><div class="animate-[marquee_20s_linear_infinite] inline-flex gap-8 font-display text-lg tracking-widest">WOOD-FIRED • 48H DOUGH • FRESH • HAND-TOSSED • </div></section>
-  <section class="bg-ink text-cream py-16"><div class="max-w-[1280px] mx-auto px-4 md:px-6"><h2 class="font-display text-[40px] text-center">LOVED BY <span class="font-serif italic text-mustard">Diners</span></h2><p class="text-center text-sm opacity-60 mt-2">Real Google Review &bull; Food 5 &bull; Service 5 &bull; Atmosphere 5</p><div class="grid lg:grid-cols-3 gap-5 mt-8"><!-- FEATURED REAL REVIEW --><div class="lg:col-span-2 glass rounded-[24px] p-6 md:p-8"><div class="flex flex-wrap gap-2 mb-4"><span class="bg-mustard text-ink rounded-full px-4 py-1.5 text-xs font-extrabold">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</span><span class="glass rounded-full px-3 py-1.5 text-xs font-bold">Food: 5</span><span class="glass rounded-full px-3 py-1.5 text-xs font-bold">Service: 5</span><span class="glass rounded-full px-3 py-1.5 text-xs font-bold">Atmosphere: 5</span></div><p class="text-[15px] leading-7 opacity-90">&ldquo;Great place to have all fast food items. They have indoor as well as outdoor sitting - both sitting areas are clean and have great vibe. Food menu is very dynamic with great choices of pastas, pizzas, sandwich and even main course. They have great drinks menu as well - lot of choices in coffee. They have items for kids as well. Lot of parking available outside.&rdquo;</p><p class="text-[15px] leading-7 opacity-90 mt-3">&ldquo;Overall this is a great place to have lunch / dinner with family. May get busy on weekends&rdquo;</p><div class="grid grid-cols-3 gap-3 mt-6"><div class="rounded-[16px] overflow-hidden h-[140px] md:h-[160px]"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[140px] md:h-[160px]"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[140px] md:h-[160px]"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex gap-3 mt-6 items-center"><img src="https://i.pravatar.cc/100?img=12" class="w-10 h-10 rounded-full"><div><div class="font-bold text-sm">Verified Diner &bull; Google Review</div><div class="text-xs opacity-60">Family dining &bull; Jhalawar &bull; Indiana Restaurant & Cafe</div></div><span class="ml-auto hidden sm:inline-flex glass rounded-full px-3 py-1 text-[11px] font-bold">32 PHOTOS &rarr; GALLERY</span></div></div><div class="flex flex-col gap-5"><div class="bg-mustard text-ink rounded-[24px] p-6"><div>&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="mt-3 text-sm font-medium">&ldquo;48h dough is real! Wood-fired crust is unbeatable.&rdquo;</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full"><span class="text-sm font-bold">Sara &bull; Mumbai</span></div></div><div class="glass rounded-[24px] p-6"><div class="text-mustard">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="mt-3 text-sm opacity-80">&ldquo;Perfect Sunday vibe. Indoor + outdoor both clean!&rdquo;</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=15" class="w-9 h-9 rounded-full"><span class="text-sm font-bold">Rohan &bull; Pune</span></div></div><a href="gallery.html" class="glass rounded-[24px] p-5 flex items-center justify-between hover:bg-white/10 transition"><div><div class="font-extrabold text-sm">View all 32 photos</div><div class="text-xs opacity-60">Gallery &bull; Real ambience</div></div><span class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">&rarr;</span></a></div></div></div></section>
+  <section id="reviews" class="bg-cream text-ink py-16" style="background:#FFFBEB"><div class="max-w-[1280px] mx-auto px-4 md:px-6"><h2 class="font-display text-[40px] md:text-[48px] text-center leading-none">LOVED BY <span class="font-serif italic text-mustard" style="color:#CA8A04">Diners</span></h2><p class="text-center text-sm opacity-60 mt-2">Real Google Reviews &bull; Food 5 &bull; Service 5 &bull; Atmosphere 5 &bull; <a href="https://www.google.com/maps/place/Indiana+Restaurant+And+Cafe+-+Best+Restaurant,+Cafe,+Veg+Restaurant/@24.5867946,76.1768224,19z/data=!4m6!3m5!1s0x39653f5e97994c59:0x845456ba8f1efc7f!8m2!3d24.5867946!4d76.1768224!16s%2Fg%2F11fsbc3fn1?entry=ttu" target="_blank" class="underline hover:text-mustard">View on Google Maps &rarr;</a></p><div class="grid lg:grid-cols-3 gap-5 mt-8 items-start"><!-- FEATURED REAL REVIEW - Sanmeet --><div class="lg:col-span-2 bg-white rounded-[24px] p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5 flex flex-col"><div class="flex flex-wrap gap-2 mb-4"><span class="bg-mustard text-ink rounded-full px-4 py-1.5 text-xs font-extrabold">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Food: 5</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Service: 5</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Atmosphere: 5</span></div><p class="text-[15px] leading-7 text-ink/80">&ldquo;Great place to have all fast food items. They have indoor as well as outdoor sitting - both sitting areas are clean and have great vibe. Food menu is very dynamic with great choices of pastas, pizzas, sandwich and even main course. They have great drinks menu as well - lot of choices in coffee. They have items for kids as well. Lot of parking available outside.&rdquo;</p><p class="text-[15px] leading-7 text-ink/80 mt-3">&ldquo;Overall this is a great place to have lunch / dinner with family. May get busy on weekends&rdquo;</p><div class="grid grid-cols-3 gap-3 mt-6"><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex gap-3 mt-6 items-center bg-[#FFFBEB] border border-black/5 rounded-full px-4 py-3"><img src="https://i.postimg.cc/SQDXFf1M/image.png" class="w-10 h-10 rounded-full object-cover shrink-0 border border-black/10"><div class="min-w-0"><div class="font-bold text-sm leading-tight">Sanmeet Gurudatta &bull; Verified Diner &bull; Google Review</div><div class="text-xs opacity-60 leading-tight">Family dining &bull; Jhalawar &bull; Indiana Restaurant & Cafe</div></div><span class="ml-auto hidden sm:inline-flex bg-mustard text-ink rounded-full px-3 py-1 text-[11px] font-bold shrink-0">&#10003; Verified</span></div></div><div class="flex flex-col gap-5"><div class="bg-mustard text-ink rounded-[24px] p-6 shadow-[0_8px_24px_rgba(250,204,21,0.3)]"><div class="text-sm">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="font-extrabold ml-1">5.0</span></div><p class="mt-3 text-sm font-medium leading-6">&ldquo;48h dough is real! Wood-fired crust is unbeatable. Pure veg & super tasty!&rdquo;</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full object-cover"><span class="text-sm font-bold">Sara &bull; Mumbai</span><span class="ml-auto text-[11px] bg-ink text-mustard rounded-full px-2.5 py-1 font-bold">Dine in</span></div></div><div class="bg-white rounded-[24px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5"><div class="flex items-center gap-2"><span class="text-[#CA8A04] text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="bg-mustard text-ink rounded-full px-2.5 py-0.5 text-[11px] font-extrabold">5.0</span><span class="ml-auto text-[11px] font-bold opacity-50">2 weeks ago</span></div><p class="mt-3 text-[14px] leading-6 text-ink/80">&ldquo;Bohot badia restaurant hai, bohot acha khana he, hamare pas paise kam pad gaye the to hamse Kam pese lie inhone. bhagwan apko khush rakhe hamesha&rdquo;</p><div class="grid grid-cols-3 gap-2 mt-4"><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/dt9JRWMB/unnamed-(18).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/3JZ3jLMZ/unnamed-(17).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex flex-wrap gap-2 mt-4"><span class="bg-ink text-mustard rounded-full px-3 py-1 text-[11px] font-bold">Dine in</span><span class="bg-ink text-mustard rounded-full px-3 py-1 text-[11px] font-bold">&#8377;600&ndash;800 / person</span></div><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=26" class="w-9 h-9 rounded-full object-cover"><div><div class="text-sm font-bold leading-tight">Payal Yadav</div><div class="text-[11px] opacity-60 leading-tight">Verified &bull; Google Review</div></div><span class="ml-auto w-7 h-7 rounded-full bg-mustard text-ink grid place-items-center text-xs">&#10003;</span></div></div><a href="gallery.html" class="bg-white rounded-[24px] p-5 flex items-center justify-between hover:shadow-lg transition shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-black/5"><div><div class="font-extrabold text-sm">View all 32 photos</div><div class="text-xs opacity-60">Gallery &bull; Real ambience &bull; postimg.cc</div></div><span class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">&rarr;</span></a></div></div></div></section>
+<div class="bg-mustard py-3 overflow-hidden whitespace-nowrap border-y border-black/5"><div class="marquee-track font-display text-sm tracking-[0.18em]"><span>WOOD-FIRED &bull; 48H DOUGH &bull; 100% VEG &bull; JAIN OPTIONS &bull; HAND-TOSSED &bull; </span><span>WOOD-FIRED &bull; 48H DOUGH &bull; 100% VEG &bull; JAIN OPTIONS &bull; HAND-TOSSED &bull; </span><span>WOOD-FIRED &bull; 48H DOUGH &bull; 100% VEG &bull; JAIN OPTIONS &bull; HAND-TOSSED &bull; </span><span>WOOD-FIRED &bull; 48H DOUGH &bull; 100% VEG &bull; JAIN OPTIONS &bull; HAND-TOSSED &bull; </span></div></div>
   <!-- STEP 6 RESERVE -->
   <section id="reserve" class="bg-forest text-cream py-16">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10">
@@ -583,7 +611,7 @@
   <!-- CHEF SECTION — Bigger -->
   <section class="bg-ink text-cream py-16">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
-      <div class="rounded-[32px] overflow-hidden h-[460px]"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+      <div class="rounded-[32px] overflow-hidden h-[460px]"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
       <div>
         <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">MEET THE CHEF</div>
         <h2 class="font-display text-[44px] leading-none mt-4">CRAFTED BY <span class="font-serif italic text-mustard">Maestros</span></h2>
@@ -593,8 +621,8 @@
     </div>
   </section>
   <!-- LOCATION MAP — Indiana Restaurant Exact Coordinates -->
-  <section id="location" class="bg-ink text-cream py-16 border-t border-white/5">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+  <section id="location" class="bg-ink relative overflow-hidden text-cream py-16 border-t border-white/5">
+    <div class="noise"></div><div class="max-w-[1280px] mx-auto px-4 md:px-6">
       <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
         <div>
           <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">FIND US • JHALAWAR</div>
@@ -635,7 +663,7 @@
 
         <!-- RIGHT MAP -->
         <div class="lg:col-span-3">
-          <div class="relative rounded-[32px] overflow-hidden bg-[#111] border border-white/10 h-[420px] md:h-[520px]" style="isolation:isolate; -webkit-mask-image:-webkit-radial-gradient(white,black); mask-image:radial-gradient(white,black);">
+          <div class="relative rounded-[32px] overflow-hidden bg-[#111] border border-white/10 h-[420px] shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_70px_rgba(0,0,0,0.5)] transition-shadow duration-300 md:h-[520px]" style="isolation:isolate; -webkit-mask-image:-webkit-radial-gradient(white,black); mask-image:radial-gradient(white,black);">
             <iframe
               src="https://maps.google.com/maps?q=24.587048235784344,76.17682239644377&z=17&output=embed"
               width="100%" height="100%" style="border:0; filter: saturate(1.08) contrast(1.04);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Indiana Restaurant Location Map - 24.587048235784344, 76.17682239644377"></iframe>
