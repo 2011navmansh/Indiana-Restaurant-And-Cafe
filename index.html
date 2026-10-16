@@ -37,19 +37,36 @@
   <style>
     :root { color-scheme: dark; }
     html.light { color-scheme: light; }
-    html.light body { background: #FFFBEB; color: #0A0A0A; }
-    html.light .bg-ink, html.light .bg-\[\#0A0A0A\] { background-color: #FFFBEB !important; }
-    html.light #home, html.light #stackedShowcase, html.light section.bg-ink, html.light section.bg-\[\#0A0A0A\] { background: #FFFBEB !important; color: #0A0A0A !important; }
-    html.light .bg-forest { background: #FFFBEB !important; color: #0A0A0A !important; }
-    html.light .text-cream { color: #0A0A0A !important; }
-    html.light .glass-dark { background: rgba(255,255,255,0.72) !important; border-color: rgba(0,0,0,0.08) !important; color:#0A0A0A; }
-    html.light #home, html.light #stackedShowcase { background: #FFFBEB !important; }
+    /* ===== LIGHT MODE — proper cream theme ===== */
+    html.light body { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light .bg-ink, html.light .bg-\[\#0A0A0A\], html.light section.bg-ink, html.light section.bg-\[\#0A0A0A\], html.light footer.bg-ink, html.light #drawer { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light #home, html.light #stackedShowcase { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light .bg-forest { background: #FFF8DC !important; color: #0A0A0A !important; border-color: rgba(0,0,0,0.08) !important; }
     html.light .bg-forest.text-cream { color: #0A0A0A !important; }
+    html.light .text-cream { color: #0A0A0A !important; }
+    html.light .text-white, html.light .text-white\/60, html.light .text-white\/65, html.light [class*=\"text-white\"] { color: #0A0A0A !important; }
+    html.light .text-white\/65, html.light .opacity-60, html.light .opacity-70 { color: rgba(10,10,10,0.65) !important; opacity: 1 !important; }
+    html.light .border-white\/10, html.light .border-white\/5 { border-color: rgba(0,0,0,0.08) !important; }
+    html.light .bg-white\/10 { background: rgba(0,0,0,0.06) !important; }
+    html.light .bg-white { background: #0A0A0A !important; color: #FFFBEB !important; }
+    /* glass in light mode — white frosted */
+    html.light .glass { background: rgba(255,255,255,0.82) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important; color: #0A0A0A !important; }
+    html.light .glass-dark { background: rgba(255,255,255,0.88) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; color:#0A0A0A !important; }
+    html.light .glass-dark a { color: #0A0A0A !important; }
+    html.light .glass-dark a.bg-white { background: #0A0A0A !important; color: #fff !important; }
+    html.light #navbar .glass-dark { background: rgba(255,255,255,0.85) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
+    html.light .glass-cream { background: rgba(255,255,255,0.95) !important; }
+    /* keep mustard accents same */
+    html.light .bg-mustard, html.light .bg-mustardDark { color: #0A0A0A !important; }
+    html.light .text-mustard { color: #CA8A04 !important; }
+    /* loader & progress in light */
+    html.light #loader { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light #progress { background: #FACC15 !important; }
     /* Theme circle reveal */
     #themeOverlay{position:fixed;inset:0;pointer-events:none;z-index:9999;clip-path:circle(0% at var(--ox,95%) var(--oy,5%));background:#FFFBEB;opacity:0;transition:none}
     #themeOverlay.active{clip-path:circle(150% at var(--ox,95%) var(--oy,5%));opacity:1}
     #themeOverlay.to-dark{background:#0A0A0A}
-    body, section, nav, footer, .glass, .glass-dark{transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease}
+    body, section, nav, footer, .glass, .glass-dark{transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease}
     #themeToggle{transition: transform 0.3s ease}
     #themeToggle:active{transform: scale(0.88) rotate(12deg)}
     * {
@@ -208,12 +225,7 @@
     <div id="progress" class="h-full bg-mustard w-full"></div>
   </div>
 
-  <!-- STEP BADGE (dev) -->
-  <div class="fixed bottom-4 left-4 z-[90] hidden md:flex items-center gap-3 glass-dark rounded-full px-4 py-2 text-xs">
-    <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-    <span class="font-semibold tracking-widest uppercase">Step 2 — Loader + Cursor Active</span>
-    <span class="opacity-60">GSAP Counter • Custom Cursor</span>
-  </div>
+
 
   <!-- NAVBAR — Liquid Glass -->
   <nav id="navbar"
@@ -229,7 +241,7 @@
       </a>
       <div class="hidden lg:flex items-center gap-2 text-[12.5px] font-semibold tracking-wide">
         <a href="#home" class="px-4 py-2 rounded-full bg-white text-ink">Home</a>
-        <a href="#about" class="px-4 py-2 rounded-full hover:bg-white/10 transition">About</a>
+        <a href="about.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">About ↗</a>
         <a href="menu.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Menu ↗</a>
         <a href="gallery.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Gallery ↗</a>
         <a href="#reserve" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Reserve</a>
@@ -249,7 +261,7 @@
   <!-- MOBILE DRAWER -->
   <div id="drawer"
     class="fixed inset-0 z-40 bg-ink/90 backdrop-blur-xl translate-x-full transition duration-500 lg:hidden flex flex-col p-8 pt-24 gap-6 text-2xl font-display tracking-widest">
-    <a href="#home" class="drawer-link">HOME</a><a href="#about" class="drawer-link">ABOUT</a><a href="#menu"
+    <a href="#home" class="drawer-link">HOME</a><a href="about.html" class="drawer-link">ABOUT</a><a href="#menu"
       class="drawer-link">MENU</a><a href="#reserve" class="drawer-link">RESERVE</a>
     <button id="closeDrawer" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white text-ink">✕</button>
   </div>
@@ -398,51 +410,7 @@
     </div>
   </section>
 
-  <!-- FOUNDATION SHOWCASE — 3 Glass Cards to prove liquid glass -->
-  <section id="about" class="bg-cream text-ink py-14">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
-      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
-        <h2 class="font-display text-[42px] md:text-[56px] leading-none tracking-tight">LIQUID GLASS <span
-            class="font-serif italic font-normal">Foundation</span></h2>
-        <p class="max-w-[420px] text-sm leading-6 opacity-70">Step 1 — Design system ready. Glass blur, smooth scroll
-          (Lenis) and GSAP ScrollTrigger wired. Next steps me isi foundation pe pura restaurant banega.</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-5">
-        <div class="glass rounded-[24px] p-6 bg-white/70 !backdrop-blur-[16px] border-black/10">
-          <div class="w-10 h-10 rounded-full bg-mustard grid place-items-center text-ink font-bold">◈</div>
-          <h3 class="font-extrabold mt-4">Liquid Glass</h3>
-          <p class="text-sm opacity-70 mt-1">backdrop-blur + saturate + inset highlight. Navbar, cards, pills sab glass.
-          </p>
-        </div>
-        <div class="glass rounded-[24px] p-6 bg-white/70 border-black/10">
-          <div class="w-10 h-10 rounded-full bg-ink text-mustard grid place-items-center font-bold">⟡</div>
-          <h3 class="font-extrabold mt-4">Lenis Smooth Scroll</h3>
-          <p class="text-sm opacity-70 mt-1">duration 1.35, lerp 0.075, expo easing — 60fps buttery scroll.</p>
-        </div>
-        <div class="glass rounded-[24px] p-6 bg-white/70 border-black/10">
-          <div class="w-10 h-10 rounded-full bg-mustard grid place-items-center text-ink font-bold">⬢</div>
-          <h3 class="font-extrabold mt-4">GSAP + ScrollTrigger</h3>
-          <p class="text-sm opacity-70 mt-1">Parallax, stagger, progress bar, magnetic buttons — sab ready.</p>
-        </div>
-      </div>
 
-      <!-- steps roadmap -->
-      <div
-        class="mt-10 glass-dark !bg-ink text-cream rounded-[24px] p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center justify-between">
-        <div>
-          <div class="text-xs tracking-[0.2em] font-bold opacity-60">ROADMAP</div>
-          <div class="font-display text-2xl mt-1">5 STEPS ME FULL WEBSITE</div>
-        </div>
-        <div class="flex flex-wrap gap-2 text-xs font-bold">
-          <span class="bg-mustard text-ink rounded-full px-4 py-2">STEP 1 ✓ Foundation</span>
-          <span class="glass rounded-full px-4 py-2">STEP 2 → Hero+Loader</span>
-          <span class="glass rounded-full px-4 py-2">STEP 3 → About+Menu</span>
-          <span class="glass rounded-full px-4 py-2">STEP 4 → Chef+Testimonials</span>
-          <span class="glass rounded-full px-4 py-2">STEP 5 → Reserve+Footer</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- STEP 3 — SIGNATURE MENU BENTO -->
   <section id="menu" class="bg-ink text-cream py-16">
