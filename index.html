@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indiana Restaurant & Cafe — Taste the Joy of Flavour</title>
+  <meta name="description"
+    content="Premium dining experience in Indiana — wood-fired pizzas, brunch, specialty coffee. Liquid glass design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Bebas Neue', 'cursive'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FFFBEB',
+            mustard: '#FACC15',
+            mustardDark: '#EAB308',
+            ink: '#0A0A0A',
+            stone900: '#1C1917',
+            forest: '#0F2A18',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { color-scheme: dark; }
+    html.light { color-scheme: light; }
+    html.light body { background: #FFFBEB; color: #0A0A0A; }
+    html.light .bg-ink, html.light .bg-\[\#0A0A0A\] { background-color: #FFFBEB !important; }
+    html.light #home, html.light #stackedShowcase, html.light section.bg-ink, html.light section.bg-\[\#0A0A0A\] { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light .bg-forest { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light .text-cream { color: #0A0A0A !important; }
+    html.light .glass-dark { background: rgba(255,255,255,0.72) !important; border-color: rgba(0,0,0,0.08) !important; color:#0A0A0A; }
+    html.light #home, html.light #stackedShowcase { background: #FFFBEB !important; }
+    html.light .bg-forest.text-cream { color: #0A0A0A !important; }
+    /* Theme circle reveal */
+    #themeOverlay{position:fixed;inset:0;pointer-events:none;z-index:9999;clip-path:circle(0% at var(--ox,95%) var(--oy,5%));background:#FFFBEB;opacity:0;transition:none}
+    #themeOverlay.active{clip-path:circle(150% at var(--ox,95%) var(--oy,5%));opacity:1}
+    #themeOverlay.to-dark{background:#0A0A0A}
+    body, section, nav, footer, .glass, .glass-dark{transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease}
+    #themeToggle{transition: transform 0.3s ease}
+    #themeToggle:active{transform: scale(0.88) rotate(12deg)}
+    * {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    /* Liquid Glass System */
+    .glass {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .glass-dark {
+      background: rgba(12, 12, 12, 0.58);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-yellow {
+      background: rgba(250, 204, 21, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 20px 40px rgba(250, 204, 21, 0.25);
+    }
+
+    .glass-cream {
+      background: rgba(255, 251, 235, 0.92);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .liquid-shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-shine::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.18) 45%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0.9s ease;
+    }
+
+    .liquid-shine:hover::before {
+      transform: translateX(100%);
+    }
+
+    /* custom scrollbar progress */
+    #progress {
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    /* hide scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #FACC15;
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+
+    .reveal {
+      clip-path: inset(0 0 100% 0);
+    }
+
+    .magnetic {
+      transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* STEP 2 — Loader + Cursor */
+    #loader {
+      clip-path: inset(0 0 0 0);
+    }
+    #loaderBar {
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+    .cursor-dot {
+      width: 8px; height: 8px; background: #FACC15; border-radius: 999px;
+      position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.6); border-radius: 999px;
+      position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s;
+    }
+    @media (max-width: 1024px){ .cursor-dot, .cursor-ring{ display:none; } }
+    .hero-line{ overflow: hidden; }
+    .hero-line span{ display: inline-block; transform: translateY(110%); }
+    .plate-spin{ animation: plateFloat 6s ease-in-out infinite; }
+    @keyframes plateFloat{ 0%,100%{ transform: translateY(0) rotate(0deg)} 50%{ transform: translateY(-8px) rotate(0.6deg)} }
+    .badge-spin{ animation: spin 14s linear infinite; }
+    @keyframes spin{ to{ transform: rotate(360deg)} }
+  </style>
+</head>
+
+<body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
+  <div id="themeOverlay"></div>
+
+  <!-- STEP 2 — LOADER -->
+  <div id="loader" class="fixed inset-0 z-[200] bg-ink flex flex-col items-center justify-center">
+    <div class="text-center">
+      <div class="w-16 h-16 mx-auto rounded-full bg-mustard grid place-items-center text-ink font-display text-2xl">I</div>
+      <div class="font-display text-4xl tracking-[0.12em] mt-4">INDIANA</div>
+      <div class="text-[10px] tracking-[0.3em] opacity-60 font-semibold">RESTAURANT & CAFE</div>
+      <div id="loaderPercent" class="font-display text-6xl text-mustard mt-6 leading-none">0%</div>
+      <div class="w-[220px] h-[2px] bg-white/10 mt-4 overflow-hidden rounded-full mx-auto"><div id="loaderBar" class="h-full bg-mustard w-full"></div></div>
+    </div>
+  </div>
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 w-full h-[3px] bg-white/10 z-[100]">
+    <div id="progress" class="h-full bg-mustard w-full"></div>
+  </div>
+
+  <!-- STEP BADGE (dev) -->
+  <div class="fixed bottom-4 left-4 z-[90] hidden md:flex items-center gap-3 glass-dark rounded-full px-4 py-2 text-xs">
+    <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+    <span class="font-semibold tracking-widest uppercase">Step 2 — Loader + Cursor Active</span>
+    <span class="opacity-60">GSAP Counter • Custom Cursor</span>
+  </div>
+
+  <!-- NAVBAR — Liquid Glass -->
+  <nav id="navbar"
+    class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1280px] z-50 transition-all duration-500">
+    <div class="glass-dark rounded-[20px] md:rounded-full px-3 md:px-6 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div
+          class="w-9 h-9 rounded-full bg-mustard flex items-center justify-center text-ink font-display text-lg leading-none">
+          I</div>
+        <span class="font-display text-[22px] tracking-[0.04em] leading-none hidden sm:block">INDIANA</span>
+        <span class="hidden sm:block text-[10px] tracking-[0.18em] opacity-60 -ml-1 font-semibold">RESTAURANT &
+          CAFE</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-2 text-[12.5px] font-semibold tracking-wide">
+        <a href="#home" class="px-4 py-2 rounded-full bg-white text-ink">Home</a>
+        <a href="#about" class="px-4 py-2 rounded-full hover:bg-white/10 transition">About</a>
+        <a href="menu.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Menu ↗</a>
+        <a href="gallery.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Gallery ↗</a>
+        <a href="#reserve" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Reserve</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" title="Toggle Light/Dark" class="w-10 h-10 rounded-full glass grid place-items-center text-sm">🌙</button>
+        <a href="#reserve"
+          class="magnetic hidden md:inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-[10px] font-extrabold text-[13px] tracking-wide">
+          BOOK TABLE <span class="w-6 h-6 rounded-full bg-ink text-mustard grid place-items-center text-[12px]">↗</span>
+        </a>
+        <button id="menuBtn"
+          class="lg:hidden w-10 h-10 rounded-full bg-white text-ink grid place-items-center">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div id="drawer"
+    class="fixed inset-0 z-40 bg-ink/90 backdrop-blur-xl translate-x-full transition duration-500 lg:hidden flex flex-col p-8 pt-24 gap-6 text-2xl font-display tracking-widest">
+    <a href="#home" class="drawer-link">HOME</a><a href="#about" class="drawer-link">ABOUT</a><a href="#menu"
+      class="drawer-link">MENU</a><a href="#reserve" class="drawer-link">RESERVE</a>
+    <button id="closeDrawer" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white text-ink">✕</button>
+  </div>
+
+  <!-- HERO — Dribbble INDIANA Style (Full Width Premium) -->
+  <section id="home" class="relative min-h-[100vh] bg-[#0A0A0A] pt-[112px] pb-10 overflow-hidden">
+    <!-- soft glow -->
+    <div
+      class="pointer-events-none absolute -top-32 -left-32 w-[520px] h-[520px] bg-mustard/15 blur-[90px] rounded-full">
+    </div>
+    <div class="pointer-events-none absolute top-20 right-0 w-[420px] h-[420px] bg-white/5 blur-[70px] rounded-full">
+    </div>
+
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="grid lg:grid-cols-12 gap-6 items-start">
+
+        <!-- LEFT COPY -->
+        <div class="lg:col-span-7 flex flex-col gap-5">
+          <!-- badge -->
+          <div class="inline-flex items-center gap-2 glass rounded-full px-3 py-2 w-fit">
+            <span class="w-7 h-7 rounded-full bg-mustard grid place-items-center text-ink text-xs">✦</span>
+            <span class="text-xs font-bold tracking-[0.14em] uppercase">Wood-fired • Since 2018 • Indiana</span>
+            <span class="hidden sm:inline text-xs opacity-60">— Taste the Joy</span>
+          </div>
+
+          <h1 class="font-display leading-[0.88] tracking-[-0.02em]">
+            <span class="block text-[52px] md:text-[84px] lg:text-[92px]">TASTE <span
+                class="font-serif italic font-normal normal-case tracking-normal text-[42px] md:text-[68px] align-middle">the</span></span>
+            <span class="block text-[52px] md:text-[84px] lg:text-[92px]">JOY <span
+                class="font-serif italic font-normal text-mustard">OF</span></span>
+            <span class="block text-[52px] md:text-[84px] lg:text-[92px]">FLAVOUR</span>
+          </h1>
+
+          <p class="max-w-[520px] text-white/65 text-[14.5px] leading-6">
+            Hand-tossed sourdough, 48h fermented dough, 700°F wood oven. Brunch to late-night — liquid glass premium
+            dining experience inspired by the Dribbble shot you shared.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a href="#menu"
+              class="magnetic inline-flex items-center gap-3 bg-mustard text-ink rounded-full px-6 py-3 font-extrabold text-sm">
+              EXPLORE MENU <span class="w-7 h-7 rounded-full bg-ink text-mustard grid place-items-center">→</span>
+            </a>
+            <a href="#reserve" class="inline-flex items-center gap-2 glass rounded-full px-6 py-3 font-bold text-sm">
+              <span class="w-7 h-7 rounded-full bg-white text-ink grid place-items-center">◷</span> RESERVE TABLE
+            </a>
+          </div>
+
+          <!-- stats + mini cards row -->
+          <div class="grid grid-cols-3 gap-3 pt-4 max-w-[560px]">
+            <div class="glass rounded-[18px] p-4">
+              <div class="font-display text-2xl leading-none">4.9<span class="text-mustard">★</span></div>
+              <div class="text-[11px] tracking-widest opacity-60 font-bold">2.4k REVIEWS</div>
+            </div>
+            <div class="glass rounded-[18px] p-4">
+              <div class="font-display text-2xl leading-none">42+</div>
+              <div class="text-[11px] tracking-widest opacity-60 font-bold">SIGNATURE DISHES</div>
+            </div>
+            <div class="glass rounded-[18px] p-4">
+              <div class="font-display text-2xl leading-none">700°</div>
+              <div class="text-[11px] tracking-widest opacity-60 font-bold">WOOD OVEN</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT YELLOW CARD — Liquid Glass -->
+        <div class="lg:col-span-5 relative">
+          <div class="glass-yellow rounded-[28px] p-4 md:p-6 relative overflow-hidden liquid-shine">
+            <!-- header of card -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-ink text-mustard grid place-items-center text-xs">◉</span>
+                <span class="font-extrabold text-ink text-sm tracking-wide">WOOD-FIRED SPECIAL</span>
+              </div>
+              <span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">BESTSELLER</span>
+            </div>
+
+            <!-- circular pizza plate -->
+            <div class="relative mt-6 mx-auto w-[280px] h-[280px] md:w-[360px] md:h-[360px]">
+              <div
+                class="absolute inset-0 rounded-full bg-white shadow-[0_30px_60px_rgba(0,0,0,0.18)] border-[10px] border-white overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80&auto=format&fit=crop"
+                  alt="Wood fired pizza" class="w-full h-full object-cover">
+              </div>
+              <!-- spinning badge -->
+              <div
+                class="absolute -right-2 -top-2 w-[88px] h-[88px] rounded-full bg-ink text-mustard grid place-items-center border-4 border-mustard shadow-xl">
+                <div class="text-center leading-none">
+                  <div class="text-[10px] tracking-[0.18em] font-bold">FRESH</div>
+                  <div class="font-display text-lg leading-none">48H</div>
+                  <div class="text-[8px] tracking-widest opacity-70">DOUGH</div>
+                </div>
+              </div>
+              <!-- price glass pill -->
+              <div
+                class="absolute -left-4 bottom-6 glass-cream rounded-full px-4 py-3 flex items-center gap-3 shadow-xl">
+                <div class="w-10 h-10 rounded-full overflow-hidden"><img
+                    src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=80&auto=format&fit=crop"
+                    class="w-full h-full object-cover"></div>
+                <div>
+                  <div class="text-ink font-extrabold leading-none">Margherita</div>
+                  <div class="text-[11px] font-bold tracking-widest text-ink/60">WOOD-FIRED • 12"</div>
+                </div>
+                <div class="ml-2 bg-ink text-mustard rounded-full px-3 py-1 font-extrabold text-sm">₹399</div>
+              </div>
+            </div>
+
+            <div class="mt-8 grid grid-cols-2 gap-3">
+              <div class="bg-ink rounded-2xl p-4 text-mustard">
+                <div class="text-xs tracking-widest font-bold opacity-80">OPEN HOURS</div>
+                <div class="font-display text-xl leading-none mt-1">11AM — 11PM</div>
+                <div class="text-xs opacity-70">Daily • Dine-in & Takeaway</div>
+              </div>
+              <div class="bg-white rounded-2xl p-4 text-ink">
+                <div class="text-xs tracking-widest font-bold opacity-60">VISIT US</div>
+                <div class="font-extrabold leading-tight">Indiana, MG Road</div>
+                <div class="text-xs opacity-70">Get Directions ↗</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- floating tiny avatars glass -->
+          <div class="hidden md:flex absolute -bottom-6 -left-6 glass-dark rounded-full px-3 py-2 items-center gap-3">
+            <div class="flex -space-x-2">
+              <img src="https://i.pravatar.cc/100?img=11" class="w-8 h-8 rounded-full border-2 border-white/20">
+              <img src="https://i.pravatar.cc/100?img=32" class="w-8 h-8 rounded-full border-2 border-white/20">
+              <img src="https://i.pravatar.cc/100?img=15" class="w-8 h-8 rounded-full border-2 border-white/20">
+            </div>
+            <div class="text-xs leading-none pr-2">
+              <div class="font-bold">Loved by 2k+</div>
+              <div class="opacity-60">Happy diners</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARQUEE -->
+      <div class="mt-8 overflow-hidden rounded-full glass py-3">
+        <div
+          class="flex whitespace-nowrap animate-[marquee_18s_linear_infinite] gap-8 text-xs font-extrabold tracking-[0.18em]">
+          <span>WOOD-FIRED PIZZA • </span><span>48H FERMENTED DOUGH • </span><span>SPECIALTY COFFEE •
+          </span><span>BRUNCH DAILY • </span><span>WOOD-FIRED PIZZA • </span><span>48H FERMENTED DOUGH •
+          </span><span>SPECIALTY COFFEE • </span><span>BRUNCH DAILY • </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDATION SHOWCASE — 3 Glass Cards to prove liquid glass -->
+  <section id="about" class="bg-cream text-ink py-14">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+        <h2 class="font-display text-[42px] md:text-[56px] leading-none tracking-tight">LIQUID GLASS <span
+            class="font-serif italic font-normal">Foundation</span></h2>
+        <p class="max-w-[420px] text-sm leading-6 opacity-70">Step 1 — Design system ready. Glass blur, smooth scroll
+          (Lenis) and GSAP ScrollTrigger wired. Next steps me isi foundation pe pura restaurant banega.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="glass rounded-[24px] p-6 bg-white/70 !backdrop-blur-[16px] border-black/10">
+          <div class="w-10 h-10 rounded-full bg-mustard grid place-items-center text-ink font-bold">◈</div>
+          <h3 class="font-extrabold mt-4">Liquid Glass</h3>
+          <p class="text-sm opacity-70 mt-1">backdrop-blur + saturate + inset highlight. Navbar, cards, pills sab glass.
+          </p>
+        </div>
+        <div class="glass rounded-[24px] p-6 bg-white/70 border-black/10">
+          <div class="w-10 h-10 rounded-full bg-ink text-mustard grid place-items-center font-bold">⟡</div>
+          <h3 class="font-extrabold mt-4">Lenis Smooth Scroll</h3>
+          <p class="text-sm opacity-70 mt-1">duration 1.35, lerp 0.075, expo easing — 60fps buttery scroll.</p>
+        </div>
+        <div class="glass rounded-[24px] p-6 bg-white/70 border-black/10">
+          <div class="w-10 h-10 rounded-full bg-mustard grid place-items-center text-ink font-bold">⬢</div>
+          <h3 class="font-extrabold mt-4">GSAP + ScrollTrigger</h3>
+          <p class="text-sm opacity-70 mt-1">Parallax, stagger, progress bar, magnetic buttons — sab ready.</p>
+        </div>
+      </div>
+
+      <!-- steps roadmap -->
+      <div
+        class="mt-10 glass-dark !bg-ink text-cream rounded-[24px] p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center justify-between">
+        <div>
+          <div class="text-xs tracking-[0.2em] font-bold opacity-60">ROADMAP</div>
+          <div class="font-display text-2xl mt-1">5 STEPS ME FULL WEBSITE</div>
+        </div>
+        <div class="flex flex-wrap gap-2 text-xs font-bold">
+          <span class="bg-mustard text-ink rounded-full px-4 py-2">STEP 1 ✓ Foundation</span>
+          <span class="glass rounded-full px-4 py-2">STEP 2 → Hero+Loader</span>
+          <span class="glass rounded-full px-4 py-2">STEP 3 → About+Menu</span>
+          <span class="glass rounded-full px-4 py-2">STEP 4 → Chef+Testimonials</span>
+          <span class="glass rounded-full px-4 py-2">STEP 5 → Reserve+Footer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3 — SIGNATURE MENU BENTO -->
+  <section id="menu" class="bg-ink text-cream py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div>
+          <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">OUR SIGNATURE</div>
+          <h2 class="font-display text-[44px] md:text-[64px] leading-[0.9] mt-3">BITES <span class="font-serif italic font-normal text-mustard">Menu</span></h2>
+        </div>
+        <p class="max-w-[380px] text-sm opacity-60">Wood-fired, 48h fermented dough — filter & add to cart.</p>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-8" id="menuFilters">
+        <button data-filter="all" class="filter-btn active bg-mustard text-ink rounded-full px-5 py-2 text-xs font-extrabold">All</button>
+        <button data-filter="pizza" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Pizza</button>
+        <button data-filter="brunch" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Brunch</button>
+        <button data-filter="coffee" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Coffee</button>
+        <button data-filter="dessert" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Desserts</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5" id="menuGrid">
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Margherita Wood-Fired</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹399</span></div><p class="text-xs opacity-60">San Marzano • Fior di latte</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Pepperoni Inferno</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹549</span></div><p class="text-xs opacity-60">Spicy pepperoni • Honey</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Truffle Brunch Bowl</h3><span class="bg-mustard text-ink rounded-full px-3 py-1 text-xs font-extrabold">₹449</span></div><p class="text-xs opacity-60">Poached egg • Truffle</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="coffee" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Cold Brew Tonic</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹249</span></div><p class="text-xs opacity-60">Single origin • Citrus</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="dessert" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Choco Lava Fondant</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹299</span></div><p class="text-xs opacity-60">72% dark • Gelato</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Avocado Sourdough</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹379</span></div><p class="text-xs opacity-60">Chili flakes • Lime</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+      </div>
+      <div id="cartToast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added to cart ✓</div>
+    </div>
+  </section>
+  <!-- AM-ARC 5 CARDS STACK — SCROLL SCRUB (RIGHT MIDDLE + CLIP REVEAL) -->
+  <section id="stackedShowcase" class="relative bg-[#0A0A0A] text-cream overflow-hidden">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 pt-10 text-center">
+      <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">SIGNATURE STACK • SCROLL TO EXPLORE</div>
+      <h2 class="font-display text-[44px] md:text-[56px] leading-none mt-3">CRAFTED <span class="font-serif italic text-mustard">Dishes</span></h2>
+      <p class="text-sm opacity-60 mt-1">Scroll — clip se next dish crop hoke ayega — ekdum AM-ARC jaisa butter.</p>
+      <div class="flex justify-center gap-2 mt-3" id="stackDots"><span class="dot w-8 h-[6px] rounded-full bg-mustard"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span></div>
+    </div>
+    <!-- RIGHT MIDDLE — height middle like AM-ARC -->
+    <div id="stackPin" class="relative max-w-[1280px] mx-auto px-4 md:px-6 h-[62vh] md:h-[64vh] min-h-[460px] flex items-center justify-end overflow-hidden">
+      <div class="relative w-full max-w-[640px] md:max-w-[620px] h-[480px] md:h-[460px]" id="stackWrap">
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink shadow-[0_30px_80px_rgba(0,0,0,0.4)]" data-i="0" style="z-index:5">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold tracking-[0.2em] opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[36px] leading-none mt-1">MARGHERITA <span class="font-serif italic">Classico</span></h3><p class="text-sm opacity-70 mt-3">San Marzano • fior di latte • basil • 48h dough</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹399</span><span class="text-xs font-bold opacity-60">BESTSELLER</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-mustard text-ink shadow-[0_30px_80px_rgba(0,0,0,0.4)]" data-i="1" style="z-index:4">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">02 — INFERNO</div><h3 class="font-display text-[36px] leading-none mt-1">PEPPERONI <span class="font-serif italic">Inferno</span></h3><p class="text-sm opacity-70 mt-3">Spicy pepperoni + hot honey — sweet heat</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹549</span><span class="text-xs font-bold opacity-60">SPICY</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#0F2A18] text-cream shadow-[0_30px_80px_rgba(0,0,0,0.4)]" data-i="2" style="z-index:3">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">03 — BRUNCH</div><h3 class="font-display text-[36px] leading-none mt-1">TRUFFLE <span class="font-serif italic text-mustard">Bowl</span></h3><p class="text-sm opacity-70 mt-3">Poached egg • truffle • sourdough</p><div class="flex gap-3 mt-6"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹449</span><span class="text-xs font-bold opacity-60">CHEF'S PICK</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-white text-ink shadow-[0_30px_80px_rgba(0,0,0,0.4)]" data-i="3" style="z-index:2">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">04 — BREW</div><h3 class="font-display text-[36px] leading-none mt-1">COLD BREW <span class="font-serif italic">Tonic</span></h3><p class="text-sm opacity-70 mt-3">Single-origin • citrus tonic</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹249</span><span class="text-xs font-bold opacity-60">SINGLE ORIGIN</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink shadow-[0_30px_80px_rgba(0,0,0,0.4)]" data-i="4" style="z-index:1">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">05 — DESSERT</div><h3 class="font-display text-[36px] leading-none mt-1">CHOCO <span class="font-serif italic">Fondant</span></h3><p class="text-sm opacity-70 mt-3">72% dark • vanilla gelato</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹299</span><span class="text-xs font-bold opacity-60">MUST TRY</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="h-[6vh] flex items-center justify-center text-xs tracking-[0.2em] opacity-40 font-bold">↓ SCROLL — NEXT DISH CROP REVEAL</div>
+  </section>
+  <section id="story" class="bg-cream text-ink py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="border border-black/10 rounded-full px-4 py-2 text-[11px] font-bold inline-flex">OUR STORY</div>
+        <h2 class="font-display text-[44px] leading-none mt-4">FIRE • DOUGH • <span class="font-serif italic">Soul</span></h2>
+        <p class="mt-4 text-sm opacity-70 leading-7">48h fermented dough, 700°F wood fire, hand-stretched. Indiana is a ritual.</p>
+        <div class="grid grid-cols-3 gap-3 mt-8">
+          <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl">10+</div><div class="text-xs font-bold opacity-60">YEARS</div></div>
+          <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl">2k+</div><div class="text-xs font-bold opacity-60">DINERS</div></div>
+          <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl">4.9★</div><div class="text-xs font-bold opacity-60">RATING</div></div>
+        </div>
+      </div>
+      <div class="rounded-[32px] overflow-hidden h-[420px]"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+    </div>
+  </section>
+  <section class="bg-mustard py-3 overflow-hidden whitespace-nowrap"><div class="animate-[marquee_20s_linear_infinite] inline-flex gap-8 font-display text-lg tracking-widest">WOOD-FIRED • 48H DOUGH • FRESH • HAND-TOSSED • </div></section>
+  <section class="bg-ink text-cream py-16"><div class="max-w-[1280px] mx-auto px-4 md:px-6"><h2 class="font-display text-[40px] text-center">LOVED BY <span class="font-serif italic text-mustard">Diners</span></h2><div class="grid md:grid-cols-3 gap-5 mt-8"><div class="glass rounded-[24px] p-6"><div class="text-mustard">★★★★★</div><p class="mt-3 text-sm opacity-80">"Best pizza in town!"</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=12" class="w-9 h-9 rounded-full"><span class="text-sm font-bold">Aarav • Delhi</span></div></div><div class="bg-mustard text-ink rounded-[24px] p-6"><div>★★★★★</div><p class="mt-3 text-sm">"48h dough is real!"</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full"><span class="text-sm font-bold">Sara • Mumbai</span></div></div><div class="glass rounded-[24px] p-6"><div class="text-mustard">★★★★★</div><p class="mt-3 text-sm opacity-80">"Perfect Sunday vibe."</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=15" class="w-9 h-9 rounded-full"><span class="text-sm font-bold">Rohan • Pune</span></div></div></div></div></section>
+  <!-- STEP 6 RESERVE -->
+  <section id="reserve" class="bg-forest text-cream py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10">
+      <div><h2 class="font-display text-[42px] leading-none">RESERVE <span class="font-serif italic text-mustard">Your Table</span></h2><form id="reserveForm" class="mt-6 grid gap-3"><input required placeholder="Your Name" class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none placeholder:text-cream/50"><input required placeholder="Phone" class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none placeholder:text-cream/50"><div class="grid grid-cols-2 gap-3"><input type="date" required class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none"><select class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none"><option>2 Guests</option><option>4 Guests</option></select></div><button type="submit" class="bg-mustard text-ink rounded-full py-3 font-extrabold">CONFIRM RESERVATION ↗</button></form><div id="reserveSuccess" class="hidden mt-4 glass rounded-2xl p-4 text-sm">✓ Reservation received!</div></div>
+      <div class="space-y-4"><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">VISIT US</div><div class="font-bold">MG Road — 11AM to 11PM Daily</div></div><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">CALL</div><div class="font-bold">+91 98765 43210</div></div></div>
+    </div>
+  </section>
+  <!-- GALLERY — Make website bigger -->
+  <section class="bg-cream text-ink py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex items-end justify-between gap-4 mb-8">
+        <h2 class="font-display text-[44px] leading-none">GALLERY <span class="font-serif italic">Moments</span></h2>
+        <span class="text-xs font-bold tracking-widest opacity-60">INSTAGRAM → @indiana.cafe</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1512621776952-a57141f2eefd?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=500&q=80&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+      </div>
+    </div>
+  </section>
+  <!-- CHEF SECTION — Bigger -->
+  <section class="bg-ink text-cream py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div class="rounded-[32px] overflow-hidden h-[460px]"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+      <div>
+        <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">MEET THE CHEF</div>
+        <h2 class="font-display text-[44px] leading-none mt-4">CRAFTED BY <span class="font-serif italic text-mustard">Maestros</span></h2>
+        <p class="mt-4 text-sm opacity-70 leading-7">Our chefs trained in Naples, bringing authentic wood-fire techniques to Indiana. Every dough is hand-kneaded, every sauce slow-cooked for 6 hours.</p>
+        <div class="flex gap-4 mt-6"><span class="glass rounded-full px-5 py-2 text-xs font-bold">NAPOLI TRAINED</span><span class="glass rounded-full px-5 py-2 text-xs font-bold">12 YEARS EXP</span></div>
+      </div>
+    </div>
+  </section>
+  <footer class="bg-ink border-t border-white/10 py-8 text-center text-xs tracking-widest opacity-60">© 2026 INDIANA RESTAURANT & CAFE — Full Premium Build • Gallery + Chef Added</footer>
+
+  <style>
+    @keyframes marquee {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+  </style>
+
+  <!-- LIBS -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script>
+    // Lenis smooth scroll — premium settings
+    const lenis = new Lenis({
+      duration: 1.35,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+      lerp: 0.075,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.35,
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // GSAP + ScrollTrigger sync
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Progress bar
+    const progress = document.getElementById('progress');
+    lenis.on('scroll', ({ progress: p }) => {
+      progress.style.transform = `scaleX(${p})`;
+    });
+
+    // Navbar glass intensify on scroll
+    const navbar = document.getElementById('navbar');
+    lenis.on('scroll', ({ scroll }) => {
+      if (scroll > 20) navbar.querySelector('div').classList.add('!bg-black/70');
+      else navbar.querySelector('div').classList.remove('!bg-black/70');
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        gsap.to(btn, { x: x * 0.18, y: y * 0.28, duration: 0.35, ease: 'power3.out' });
+      });
+      btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.35)' }));
+    });
+
+    // Hero subtle parallax on scroll
+    gsap.to('#home .glass-yellow', {
+      yPercent: -6,
+      ease: 'none',
+      scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    // Reveal animation
+    gsap.from('#home h1 span', { y: 60, opacity: 0, duration: 1, stagger: 0.12, ease: 'power4.out', delay: 0.2 });
+    gsap.from('#home .glass, #home .glass-yellow', { y: 24, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', delay: 0.6 });
+
+    // Mobile drawer
+    const drawer = document.getElementById('drawer');
+    document.getElementById('menuBtn')?.addEventListener('click', () => drawer.classList.remove('translate-x-full'));
+    document.getElementById('closeDrawer')?.addEventListener('click', () => drawer.classList.add('translate-x-full'));
+    document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', () => drawer.classList.add('translate-x-full')));
+
+    // Smooth anchor with Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          e.preventDefault();
+          const el = document.querySelector(id);
+          if (el) lenis.scrollTo(el, { offset: -88, duration: 1.2 });
+        }
+      });
+    });
+
+    // STEP 2 — Loader + Cursor logic
+    let loaderDone=false;
+    const loader=document.getElementById('loader'), lp=document.getElementById('loaderPercent'), lb=document.getElementById('loaderBar');
+    // Ultra-smooth % — requestAnimationFrame + ease + roll effect (like your 99% image)
+    const loaderState={v:0};
+    const loaderEase = (t)=> 1 - Math.pow(1-t, 3); // easeOutCubic
+    const loaderDur = 1100; // total smooth count — half, snappy
+    const loaderStart = performance.now();
+    let loaderRaf;
+    function tickLoader(now){
+      const elapsed = now - loaderStart;
+      const p = Math.min(1, elapsed / loaderDur);
+      const eased = loaderEase(p);
+      const target = eased * 100;
+      // smooth lerp to target
+      loaderState.v += (target - loaderState.v) * 0.18;
+      if(p >= 1) loaderState.v = 100;
+      const shown = Math.floor(loaderState.v);
+      // rolling digits effect: tiny y flick on change
+      if(lp.textContent !== shown+'%'){
+        lp.textContent = shown+'%';
+        gsap.fromTo(lp, {y:6, opacity:0.7}, {y:0, opacity:1, duration:0.22, ease:'power2.out', overwrite:true});
+        gsap.to(lb, {scaleX: loaderState.v/100, duration:0.35, ease:'power2.out', overwrite:true});
+      }
+      if(p < 1 && !loaderDone){
+        loaderRaf = requestAnimationFrame(tickLoader);
+      } else {
+        // complete — slide out
+        lp.textContent='100%';
+        gsap.to(lb,{scaleX:1,duration:0.4, ease:'power2.out'});
+        setTimeout(()=>{ gsap.to(loader,{yPercent:-100,duration:0.65,ease:'power4.inOut',onComplete:()=>{loader.style.display='none'; loaderDone=true; gsap.from('#home h1 span',{y:60,opacity:0,duration:0.9,stagger:0.1,ease:'power4.out',delay:0.05})}})},120);
+      }
+    }
+    loaderRaf = requestAnimationFrame(tickLoader);
+    // Safety fallback 1.8s
+    setTimeout(()=>{ if(!loaderDone){ cancelAnimationFrame(loaderRaf); gsap.to(loader,{yPercent:-100,duration:0.6,ease:'power4.inOut',onComplete:()=>{loader.style.display='none'; loaderDone=true}})} },1800);
+    // Custom cursor
+    const dot=document.getElementById('cursorDot'), ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    window.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; gsap.to(dot,{x:mx,y:my,duration:0.08}); });
+    (function rafRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(rafRing); })();
+    document.querySelectorAll('a,button,.magnetic').forEach(el=>{ el.addEventListener('mouseenter',()=>{ gsap.to(ring,{scale:1.6,background:'rgba(255,255,255,0.08)',duration:0.2}) }); el.addEventListener('mouseleave',()=>{ gsap.to(ring,{scale:1,background:'transparent',duration:0.2}) }); });
+    console.log('✓ Step 1 Foundation — Lenis + GSAP + Liquid Glass active');
+    // STEP 3 — Menu filter + cart toast + GSAP reveal
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>{b.className='filter-btn glass rounded-full px-5 py-2 text-xs font-bold'});
+        btn.className='filter-btn active bg-mustard text-ink rounded-full px-5 py-2 text-xs font-extrabold';
+        const f=btn.dataset.filter;
+        document.querySelectorAll('.menu-card').forEach(card=>{
+          const show=f==='all'||card.dataset.cat===f;
+          gsap.to(card,{scale:show?1:0.92,opacity:show?1:0.3,duration:0.35,display:show?'block':'block'});
+          card.style.pointerEvents=show?'auto':'none';
+          if(show) card.style.display='block'; else setTimeout(()=>{ if(card.style.opacity<0.5) card.style.display='none'; },350);
+          if(show) card.style.display='block';
+        });
+        // fix display properly
+        setTimeout(()=>{
+          document.querySelectorAll('.menu-card').forEach(card=>{
+            const show=f==='all'||card.dataset.cat===f;
+            card.style.display=show?'block':'none';
+            if(show) gsap.fromTo(card,{scale:0.92,opacity:0},{scale:1,opacity:1,duration:0.4,ease:'power3.out'});
+          });
+        },360);
+      });
+    });
+    const toast=document.getElementById('cartToast');
+    document.querySelectorAll('.addBtn').forEach(b=> b.addEventListener('click',()=>{
+      toast.textContent='Added to cart ✓ — ' + b.closest('.menu-card').querySelector('h3').textContent;
+      toast.classList.remove('hidden'); gsap.fromTo(toast,{y:20,opacity:0},{y:0,opacity:1,duration:0.4});
+      setTimeout(()=> gsap.to(toast,{y:10,opacity:0,duration:0.4,onComplete:()=>toast.classList.add('hidden')}),1800);
+    }));
+    gsap.from('.menu-card',{y:30,opacity:0,duration:0.7,stagger:0.08,ease:'power3.out',scrollTrigger:{trigger:'#menuGrid',start:'top 85%'}});
+    console.log('✓ Step 2 Loader + Cursor active');
+    // Theme toggle — animated circle reveal (sun/moon)
+    const tt=document.getElementById('themeToggle');
+    const overlay=document.getElementById('themeOverlay');
+    const saved=localStorage.getItem('indiana-theme');
+    if(saved==='light'){ document.documentElement.classList.add('light'); tt.textContent='☀️'; }
+    let toggling=false;
+    tt.addEventListener('click',(e)=>{
+      if(toggling) return; toggling=true;
+      const rect=tt.getBoundingClientRect();
+      const ox=((rect.left+rect.width/2)/window.innerWidth*100).toFixed(2)+'%';
+      const oy=((rect.top+rect.height/2)/window.innerHeight*100).toFixed(2)+'%';
+      document.documentElement.style.setProperty('--ox', ox);
+      document.documentElement.style.setProperty('--oy', oy);
+      overlay.style.setProperty('--ox', ox); overlay.style.setProperty('--oy', oy);
+      const toLight=!document.documentElement.classList.contains('light');
+      // animate icon - snappier (lag kam)
+      gsap.to(tt,{scale:0.2,rotation:90,duration:0.14,ease:'power2.in',onComplete:()=>{
+        tt.textContent=toLight?'☀️':'🌙';
+        gsap.to(tt,{scale:1,rotation:0,duration:0.28,ease:'back.out(1.7)'});
+      }});
+      // circle overlay - fast reveal
+      overlay.classList.toggle('to-dark', !toLight);
+      overlay.style.transition='none'; overlay.style.clipPath=`circle(0% at ${ox} ${oy})`; overlay.style.opacity='1';
+      // force reflow
+      void overlay.offsetWidth;
+      overlay.style.transition='clip-path 0.32s cubic-bezier(0.65,0,0.35,1), opacity 0.12s';
+      overlay.classList.add('active');
+      setTimeout(()=>{
+        document.documentElement.classList.toggle('light', toLight);
+        localStorage.setItem('indiana-theme', toLight?'light':'dark');
+      }, 110);
+      setTimeout(()=>{
+        overlay.classList.remove('active');
+        overlay.style.opacity='0';
+        setTimeout(()=>{ overlay.style.transition='none'; overlay.style.clipPath=`circle(0% at ${ox} ${oy})`; toggling=false; }, 180);
+      }, 340);
+    });
+    document.getElementById('reserveForm')?.addEventListener('submit',e=>{e.preventDefault(); document.getElementById('reserveSuccess').classList.remove('hidden'); e.target.reset(); setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),3000);});
+    // AM-ARC — TRUE CLIP REVEAL (next card crops over current, like am-arc.com)
+    (() => {
+      const cards = gsap.utils.toArray('.stack-card');
+      const dots = document.querySelectorAll('#stackDots .dot');
+      if(!cards.length) return;
+      // Prepare clip: next cards hidden by clip-path inset(100% 0 0 0)
+      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0%)' });
+      cards.forEach((c,i)=> { if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#stackedShowcase',
+          start: 'top top',
+          end: '+=3400',
+          pin: '#stackPin',
+          scrub: 1.6,
+          anticipatePin: 1,
+          pinSpacing: true,
+          onUpdate: self => {
+            const idx = Math.min(4, Math.floor(self.progress * 5 + 0.0001));
+            dots.forEach((d,i)=> d.className = i===idx ? 'dot w-8 h-[6px] rounded-full bg-mustard' : 'dot w-6 h-[6px] rounded-full bg-white/20');
+          }
+        }
+      });
+      // Each step: next card's clip inset top 100% -> 0% (smooth crop reveal), current slightly scales down
+      cards.forEach((card, i) => {
+        if(i === cards.length - 1) return;
+        const next = cards[i+1];
+        // overlap time: while next crops in, current scales 1 -> 0.97 and fades slightly — NO sudden y jump
+        tl.to(card, { scale: 0.97, ease: 'none', duration: 1 }, i*1);
+        tl.to(next, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', duration: 1 }, i*1);
+        // subtle brightness on next for premium pop
+        tl.fromTo(next, { filter: 'brightness(0.92)' }, { filter: 'brightness(1)', ease: 'none', duration: 1 }, i*1);
+      });
+    })();
+    console.log('✓ Step 3 Menu Bento active');
+    console.log('✓ AM-ARC 5-Cards Stack Pin+Scrub active');
+    console.log('✓ Step 4 Story + Step 5 Marquee/Testimonials + Step 6 Reserve active');
+  </script>
+</body>
+
+</html>

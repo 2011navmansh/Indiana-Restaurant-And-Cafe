@@ -1,0 +1,29 @@
+═══════════════════════════════════════════════════════════════
+ COLOUR REVIEW — INDIANA RESTAURANT & CAFE
+ Date: 2026-05-13 | Palette: Mustard + Ink + Cream + Forest
+═══════════════════════════════════════════════════════════════
+
+CURRENT PALETTE (Tailwind config):
+  cream   #FFFBEB  → warm off-white bg
+  mustard #FACC15  → primary accent (CTA, price, badges, marquee)
+  mustardDark #EAB308 (darker mustard for hover)
+  ink     #0A0A0A  → almost-black bg (main dark mode)
+  forest  #0F2A18  → deep green (reservation section)
+  stone900 #1C1917 → alt dark
+
+VERDICT: ✅ EK SAHI HAI — BEKAR NAHI, BALKI PREMIUM COMBO HAI
+
+Kyun sahi hai:
+  1. Dribbble reference (mustard+ink+cream) se 100% match — warm, appetizing, wood-fired vibe.
+  2. Mustard (#FACC15) = hunger + energy, Ink = premium contrast, Cream = breathing space, Forest = earthy reservation trust.
+  3. Liquid glass (blur 22px + white 0.07) mustard CTA pe bahut pop karta hai — owner ko luxury lagega.
+  4. Dark/Light toggle already — cream light mode me mustard aur bhi eye-catching.
+
+Chhote improvements (optional, abhi karne ki zarurat nahi):
+  - Forest thoda aur desaturated kar sakte ho (#122812) agar bahut dark lage — but current #0F2A18 bhi solid hai.
+  - Mustard ka hover #EAB308 already set hai — bas button hover pe use karo.
+  - Gallery masonry me cream bg rakha hai — accha balance.
+
+RECOMMENDATION: Palette CHANGE MAT KARO. Yehi rakho — client pitch me "Dribbble-inspired premium bento palette" bolo, same as reference image. Agar client bole "thoda aur classy chahiye", tabhi Forest ko #143322 karna.
+
+═══════════════════════════════════════════════════════════════

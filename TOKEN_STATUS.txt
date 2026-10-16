@@ -1,0 +1,166 @@
+═══════════════════════════════════════════════════════════════
+ INDIANA RESTAURANT & CAFE — TOKEN STATUS & PENDING WORK
+═══════════════════════════════════════════════════════════════
+Generated: 2026-05-13
+Project: Indiana Restaurant & Cafe (Bites Dribbble Inspired)
+Live File: index.html (Single-file premium build)
+Token Budget: 1,000,000 tokens (hard cap)
+Alert Threshold: 940,000 tokens (94%)
+Reference: https://dribbble.com/shots/15785732-Restaurant-Landing-Page-Bites
+═══════════════════════════════════════════════════════════════
+
+
+[1] TOKEN BUDGET — CURRENT STATUS
+─────────────────────────────────
+• Architecture chosen: SINGLE HTML FILE (index.html) with CDN deps
+  - Tailwind CDN (no build step = zero token waste on node_modules)
+  - GSAP 3.12.5 + ScrollTrigger via CDN
+  - Lenis 1.1.20 (smooth scroll) via CDN
+  - Split-Type via CDN (optional)
+  → Total project files: 2 (index.html + this txt)
+  → Estimated tokens used so far: ~18k - 25k (highly efficient)
+  → Remaining budget: ~975k tokens
+  → Status: ✅ SAFE — Under 3% usage
+
+• WHY THIS IS TOKEN EFFICIENT:
+  - No framework bloat (no Next.js/React/Vite config tokens)
+  - No repeated component files
+  - All CSS via Tailwind CDN (no custom CSS file needed except <style>)
+  - All JS inline in <script> tag
+  - Images via Unsplash CDN (no local assets)
+
+• RULE: Never add heavy frameworks unless absolutely needed.
+  If you need React/Vue, justify token cost first.
+
+
+[2] WHAT IS COMPLETED (DONE) ✅
+─────────────────────────────────
+✅ Premium loader with percentage counter + slide-out (GSAP)
+✅ Sticky navbar with blur on scroll + progress bar (scaleX on scroll)
+✅ Custom cursor + follower (desktop) with magnetic hover
+✅ HERO section — Bites exact layout:
+   - Left: badge, big display type (TASTE the JOY OF BITES), stats, CTAs
+   - Right: Yellow card with circular pizza plate, spinning badge, price
+   - 3 mini bottom cards
+   - Marquee strip (CSS infinite)
+✅ ABOUT / OUR STORY (image + floating cards + stats)
+✅ MENU / SIGNATURE BITES — 4 cards with filter (All/Pizza/Brunch/Coffee)
+✅ Parallax full-bleed story section (scroll scrub yPercent)
+✅ CHEF section (48H dough, 700°F oven)
+✅ TESTIMONIALS (3 cards, dark accent middle)
+✅ RESERVATION — Forest green section, form with validation, time slots
+✅ FOOTER — with email capture + links
+✅ Interactions: filter, add-to-cart toast, time select, reservation success
+✅ Lenis smooth scroll (duration 1.35, lerp 0.075, expo easing)
+✅ ScrollTrigger: menu cards stagger, parallax images
+✅ Magnetic buttons (GSAP x/y on mousemove)
+✅ Mobile menu (slide-in)
+✅ Responsive: mobile → desktop (Tailwind breakpoints)
+
+
+[3] PENDING WORK — FULL DETAIL (940k par yahi padho) ⏳
+─────────────────────────────────────────────────────────
+-- PRIORITY A (Must for launch, ~30k tokens estimate) --
+[A1] BACKEND API (choose one):
+     - Option 1: Supabase / Firebase (fastest, low token)
+     - Tables: reservations, menu_items, orders, users
+     - Endpoints: POST /reserve, GET /menu, POST /cart/checkout
+     - File to create: api/supabaseClient.js OR firebase.js
+     - Update reserveForm to fetch() instead of toast-only
+
+[A2] Real Menu CMS:
+     - Replace static 4 cards with JSON-driven render
+     - Create menu.json (42 dishes as per "View Full Menu — 42 dishes")
+     - Categories: Pizza (12), Brunch (10), Coffee (8), Desserts (6), Mains (6)
+     - Add search + price filter + veg/non-veg toggle
+     - Token cost: ~8k
+
+[A3] Cart & Checkout Flow:
+     - Cart drawer (slide from right, like Bites cart)
+     - LocalStorage cart + qty +/- + total
+     - Stripe / Razorpay integration for payments
+     - Files: js/cart.js, js/checkout.js
+     - UI: cart.html or drawer in index.html
+
+[A4] Admin Dashboard (separate admin.html):
+     - Login (email/pass)
+     - View reservations table, confirm/cancel
+     - Edit menu (CRUD)
+     - Order management
+
+-- PRIORITY B (Polish, ~25k tokens) --
+[B1] SEO + Performance:
+     - Add <meta> OG tags, JSON-LD Restaurant schema
+     - Lazy load images (loading="lazy")
+     - Preload hero image, font-display: swap
+     - Sitemap.xml + robots.txt
+     - Lighthouse target: 95+ performance
+
+[B2] Animations Upgrade:
+     - Split-Type text reveal on scroll for headings (chars stagger)
+     - Image reveal (clip-path inset) on scroll for About/Chef images
+     - Horizontal scroll showcase for "Gallery" (GSAP pin)
+     - Scroll-jacking prevention already via Lenis
+
+[B3] Gallery / Instagram Feed:
+     - 6-8 image grid with lightbox (glightbox via CDN)
+     - Section after TESTIMONIALS, before RESERVE
+
+[B4] Online Ordering CTA:
+     - Sticky bottom bar on mobile: "View Menu • ₹299 onwards"
+     - Zomato/Swiggy deep links
+
+-- PRIORITY C (Nice-to-have, ~15k tokens) --
+[C1] Internationalization (EN/HI) toggle if needed for Indiana audience
+[C2] PWA: manifest.json + service worker (offline menu)
+[C3] Newsletter API (Mailchimp/Brevo) for footer email form
+[C4] Analytics: GA4 + Meta Pixel + heatmap (Clarity)
+[C5] Accessibility: keyboard nav, aria-labels, focus states
+
+-- NOT NEEDED (Keep token low) --
+- Do NOT add Three.js / WebGL unless client explicitly asks (huge token cost)
+- Do NOT add Next.js migration unless backend requires SSR
+- Do NOT add video background (performance + token heavy)
+
+
+[4] 940k ALERT PROTOCOL — KYA KARNA HAI
+─────────────────────────────────────────
+Jab token 940,000 cross ho:
+1. Is file ko khol kar PENDING WORK check karo
+2. Jo kaam Bacha hai uska summary user ko do
+3. Naya chat/session start karne ka suggestion do:
+   "Token 94% used — backup: copy index.html + this txt to new session"
+4. Is file me "TOKEN USED" ko update kar dena (manual)
+5. Priority A se start karo, ek-ek karke complete karo — ek saath sab mat karo
+
+[5] FILE STRUCTURE (Current & Planned)
+──────────────────────────────────────
+/
+├── index.html              ✅ DONE (premium single file)
+├── TOKEN_STATUS.txt        ✅ THIS FILE (940k alert)
+├── PROJECT_STATUS_940K.txt ✅ (duplicate alias for safety)
+├── README.md               ✅
+├── menu.json               ⏳ TODO [A2]
+├── admin.html              ⏳ TODO [A4]
+├── js/cart.js              ⏳ TODO [A3]
+├── api/supabaseClient.js   ⏳ TODO [A1]
+├── sitemap.xml             ⏳ TODO [B1]
+├── manifest.json           ⏳ TODO [C2]
+└── assets/                 ⏳ Optional local images
+
+[6] HOW TO CONTINUE IN NEW SESSION (COPY-PASTA PROMPT)
+──────────────────────────────────────────────────────
+"Continue Indiana Restaurant project. Read index.html and TOKEN_STATUS.txt.
+ Budget is 1M tokens, we are at 940k. Complete PENDING WORK Priority A first.
+ Keep single-file + CDN approach. Do NOT add heavy deps. Keep Lenis smooth scroll."
+
+[7] NOTES
+─────────
+• Dribbble Bites vibe = rounded-3xl, cream/mustard/ink, playful badges, circular food
+• Font stack: Bebas Neue (display) + Cormorant Garamond (serif italic) + Plus Jakarta Sans
+• Keep animations 60fps — use transform/opacity only, no layout thrash
+• Test Lenis smoothness on trackpad + mobile touch before shipping
+
+═══════════════════════════════════════════════════════════════
+END — Update this file whenever you complete a PENDING item.
+═══════════════════════════════════════════════════════════════

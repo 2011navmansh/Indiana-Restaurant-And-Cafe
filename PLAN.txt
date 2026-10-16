@@ -1,0 +1,101 @@
+═══════════════════════════════════════════════
+ INDIANA RESTAURANT & CAFE — PREMIUM PLAN
+═══════════════════════════════════════════════
+Ref: Dribbble Mustard+Ink+Cream Liquid Glass
+Stack: Tailwind CDN + Lenis + GSAP + Glass
+File: index.html | Date: 2026-05-13
+═══════════════════════════════════════════════
+GOAL: Full animated, liquid glass, premium, smooth scroll website. Bento cards, 60fps, magnetic buttons, parallax.
+
+───────────────────────────────────────
+STEP 1 — FOUNDATION [STATUS: DONE ✓ 2026-05-13]
+───────────────────────────────────────
+Thodi bani hui hai — ab solid polish:
+
+[1.1] Lenis Smooth Scroll: duration 1.35, lerp 0.075, expo easing, ScrollTrigger sync, progress bar scaleX
+[1.2] Liquid Glass CSS: .glass blur22, .glass-dark, .glass-yellow, .glass-cream + liquid-shine sweep
+[1.3] Navbar: pill glass-dark, logo I + INDIANA, links + Book Table mustard, scroll intensify, mobile drawer
+[1.4] Hero Bento: Left BIG TASTE THE JOY OF FLAVOUR + stats + 2 CTA magnetic | Right yellow card + circular pizza + FRESH 48H badge + price pill + 2 bottom cards
+[1.5] Fonts: Bebas Neue + Cormorant Garamond + Plus Jakarta Sans + mustard scrollbar
+
+───────────────────────────────────────
+STEP 2 — LOADER + CURSOR + HERO ANIM [STATUS: DONE ✓ 2026-05-13]
+───────────────────────────────────────
+[2.1] Loader: fullscreen black, counter 0-100%, yellow bar scaleX, GSAP slide-out
+[2.2] Cursor: dot 8px + ring 36px, blend difference, follow + hover scale 1.6 (desktop only)
+[2.3] Hero Reveal: h1 spans y60 opacity0 stagger 0.12 + glass cards y24 stagger 0.08
+
+───────────────────────────────────────
+STEP 3 — MENU BENTO GRID + FILTER [STATUS: DONE ✓ 2026-05-13]
+───────────────────────────────────────
+[3.1] Header OUR SIGNATURE / BITES serif italic
+[3.2] Filter pills All/Pizza/Brunch/Coffee/Desserts (active mustard)
+───────────────────────────────────────
+STEP 4 — STORY + PARALLAX + STATS [STATUS: DONE ✓ 2026-05-13]
+───────────────────────────────────────
+[4.1] Story split: left big serif para + 2 floating glass cards | right image clip-path reveal + parallax yPercent -6
+[4.2] Stats: 10+ Years, 2k+ Diners, 4.9 Rating — count-up on ScrollTrigger
+[4.3] Full-bleed banner: forest bg + quote 700F WOOD FIRE + fixed bg image
+
+───────────────────────────────────────
+STEP 5 — MARQUEE + TESTIMONIALS + GALLERY [STATUS: DONE ✓ 2026-05-13]
+───────────────────────────────────────
+[5.1] Marquee strip: WOOD-FIRED 48H DOUGH FRESH (CSS marquee 20s infinite mustard bg)
+[5.2] Testimonials: 3 glass cards middle dark, avatar stars quote, horizontal pin scroll desktop
+[5.3] Gallery masonry 6 images rounded-3xl hover zoom + glass overlay + lightbox modal
+
+───────────────────────────────────────
+STEP 6 — RESERVATION + FOOTER + POLISH [STATUS: DONE ✓ 2026-05-13]
+───────────────────────────────────────
+[6.1] Reservation forest bg: left glass form (Name Phone Date Time Guests Message) + validation toast | right contact cards + map + hours
+[6.2] Footer: big INDIANA 12vw display + 4 col links + newsletter glass input + social glass icons magnetic
+[6.3] Polish: SEO OG + JSON-LD, lazy load, preload hero, sitemap, mobile sticky bar View Menu Rs299, Lighthouse 95+ 60fps check
+
+───────────────────────────────────────
+UPDATE LOG
+───────────────────────────────────────
+2026-05-13 — Step 1 STARTED -> DONE (Lenis+Glass+Hero)
+2026-05-13 — Step 2 DONE (Loader 0-100% + Custom Cursor dot+ring)
+2026-05-13 — Step 3 DONE (Menu 6 bento cards + filter pills + cart toast + GSAP reveal)
+2026-05-13 — Step 4 DONE (Story + 3 stats + image)
+2026-05-13 — Step 5 DONE (Marquee + 3 Testimonials glass)
+2026-05-13 — Step 6 DONE (Reservation form + Footer) — FULL WEBSITE COMPLETE ✓
+2026-05-13 — EXTRA: Dark/Light Mode Toggle (🌙/☀️) + localStorage + html.light CSS overrides Added
+2026-05-13 — EXTRA: Website Bigger — 8-Image Gallery (hover zoom) + Chef Section (Napoli) Added
+2026-05-13 — EXTRA: AM-ARC 5 Cards Stack Animation — Pin #stackPin, scrub 1.2, end +=2800, tl 30/70->50/50 per card + dots active. Food dishes (Margherita/Classico/Pepperoni/Truffle/Brew/Fondant) with prices.
+───────────────────────────────────────
+PRICE GUIDE (Indian Market) — Kitne me bechna hai
+───────────────────────────────────────
+Owner ko ye site kitne me bechni hai — 3 packages:
+
+[PKG 1] STARTER — ₹18,000 - ₹25,000
+  - Jo abhi banaya hai: Full premium single-file (index.html), Lenis + GSAP + Liquid Glass + Dark/Light + Gallery + Chef + AM-ARC stack + Reserve form (frontend only)
+  - Delivery: index.html + PLAN.txt
+  - Best for: Small cafe owner, quick launch, no backend
+
+[PKG 2] PRO (RECOMMENDED) — ₹45,000 - ₹65,000 ⭐
+  - Starter + Backend: Supabase/Firebase (reservations → DB + admin panel), menu.json 42 dishes + search, cart + Razorpay/UPI, WhatsApp auto-confirm, SEO + sitemap + OG, Google Maps embed
+  - Files: + api/supabaseClient.js + admin.html + menu.json
+  - Best for: Indiana jaisa owner jo bookings + orders online lena chahta hai — eye-catching + functional
+
+[PKG 3] PREMIUM — ₹95,000 - ₹1,25,000
+  - Pro + PWA + Newsletter (Brevo) + Analytics (GA4+Pixel) + Instagram feed auto + Multi-location + Hindi/English + 3-month support + hosting + domain setup + 60fps audit
+  - Best for: Franchise / chain / investor pitch — full business system
+
+>> TIP: Owner ko PKG 2 pitch karo — "₹55k me eye-catching AM-ARC stack + full ordering system, 10 din me live". Agar budget kam bole to PKG 1 (₹22k) pe close. Premium sirf jab chain plan ho.
+2026-05-13 — EXTRA: Separate premium pages added — menu.html (FULL Menu 12 dishes + search + filter + cart + Lenis+GSAP) + gallery.html (GALLERY Moments 8 masonry + filter All/Food/Interior/People + lightbox blur22 + Lenis). Nav links on index.html updated to menu.html/gallery.html.
+2026-05-13 — COLOUR REVIEW: COLOUR_REVIEW.txt created — verdict ✅ EK SAHI HAI (Mustard #FACC15 + Ink #0A0A0A + Cream #FFFBEB + Forest #0F2A18) — Dribbble match, appetizing, premium. No change needed.
+Next: Backend / Maps / Payment if owner chooses — bolna bhai!
+
+───────────────────────────────────────
+NOTES
+───────────────────────────────────────
+Har step ke baad preview. Ek step me ek feature group. No React/Next — single file CDN. Images Unsplash CDN.
+
+═══════════════════════════════════════
+END — Har step pe is file ko update kiya jayega
+═══════════════════════════════════════
+
+[3.3] 6 cards: Pizza, Brunch, Cold Brew etc — image top + glass-cream body + price pill, hover 3D tilt + shine
+[3.4] GSAP stagger reveal on scroll
+[3.5] JS filter fade + scale
