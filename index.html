@@ -448,7 +448,7 @@
       <p class="text-sm opacity-60 mt-1">Scroll — clip se next dish crop hoke ayega — ekdum AM-ARC jaisa butter.</p>
       <div class="flex justify-center gap-2 mt-3" id="stackDots"><span class="dot w-8 h-[6px] rounded-full bg-mustard"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span></div>
     </div>
-    <!-- STACK PIN — left text + right cards (Prompt Ninja style) -->
+    <!-- STACK PIN — left text + right cards 1:1 lineup -->
     <div id="stackPin" class="relative max-w-[1280px] mx-auto px-4 md:px-6 h-[62vh] md:h-[64vh] min-h-[460px] flex items-center justify-between gap-6 md:gap-10 overflow-visible">
       <!-- LEFT TEXTS — not chipka, gap from wall -->
       <div id="stackLeft" class="hidden md:flex flex-col justify-center w-[44%] max-w-[500px] pl-4 lg:pl-10 relative h-[460px] shrink-0">
@@ -747,8 +747,12 @@
       const cards = gsap.utils.toArray('.stack-card');
       const dots = document.querySelectorAll('#stackDots .dot');
       if(!cards.length) return;
-      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0%)', willChange: 'clip-path, transform' });
-      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
+      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0% round 32px)', willChange: 'clip-path, transform' });
+      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0% round 32px)' }); });
+      // left texts — Prompt Ninja style crossfade
+      const texts = gsap.utils.toArray('.stack-text');
+      gsap.set(texts, { autoAlpha: 0, y: 14 });
+      gsap.set(texts[0], { autoAlpha: 1, y: 0 });
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '#stackedShowcase',
@@ -768,8 +772,9 @@
       cards.forEach((card, i) => {
         if(i === cards.length - 1) return;
         const next = cards[i+1];
-        tl.to(card, { scale: 0.97, ease: 'none', duration: 1 }, i*1);
-        tl.to(next, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', duration: 1 }, i*1);
+        tl.to(next, { clipPath: 'inset(0% 0% 0% 0% round 32px)', ease: 'none', duration: 1 }, i*1);
+        tl.to(texts[i], { autoAlpha: 0, y: -14, ease: 'none', duration: 0.45 }, i*1 + 0.28);
+        tl.to(texts[i+1], { autoAlpha: 1, y: 0, ease: 'none', duration: 0.45 }, i*1 + 0.32);
       });
     })();
     console.log('✓ Step 3 Menu Bento active');
