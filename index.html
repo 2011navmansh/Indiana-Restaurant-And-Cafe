@@ -747,8 +747,8 @@
       const cards = gsap.utils.toArray('.stack-card');
       const dots = document.querySelectorAll('#stackDots .dot');
       if(!cards.length) return;
-      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0% round 32px)', willChange: 'clip-path, transform' });
-      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0% round 32px)' }); });
+      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0%)', willChange: 'clip-path' });
+      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
       // left texts — Prompt Ninja style crossfade
       const texts = gsap.utils.toArray('.stack-text');
       gsap.set(texts, { autoAlpha: 0, y: 14 });
@@ -772,7 +772,7 @@
       cards.forEach((card, i) => {
         if(i === cards.length - 1) return;
         const next = cards[i+1];
-        tl.to(next, { clipPath: 'inset(0% 0% 0% 0% round 32px)', ease: 'none', duration: 1 }, i*1);
+        tl.to(next, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', duration: 1 }, i*1);
         tl.to(texts[i], { autoAlpha: 0, y: -14, ease: 'none', duration: 0.45 }, i*1 + 0.28);
         tl.to(texts[i+1], { autoAlpha: 1, y: 0, ease: 'none', duration: 0.45 }, i*1 + 0.32);
       });
