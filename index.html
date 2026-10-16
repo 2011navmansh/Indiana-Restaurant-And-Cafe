@@ -200,6 +200,22 @@
     @keyframes plateFloat{ 0%,100%{ transform: translateY(0) rotate(0deg)} 50%{ transform: translateY(-8px) rotate(0.6deg)} }
     .badge-spin{ animation: spin 14s linear infinite; }
     @keyframes spin{ to{ transform: rotate(360deg)} }
+
+    /* Fix: rounded corners clipping — prevents thin outline/border bleeding outside radius */
+    .rounded-\[32px\].overflow-hidden,
+    .rounded-\[28px\].overflow-hidden,
+    .rounded-\[24px\].overflow-hidden,
+    .rounded-\[20px\].overflow-hidden,
+    .rounded-\[16px\].overflow-hidden {
+      isolation: isolate;
+      transform: translateZ(0);
+    }
+    .rounded-\[32px\].overflow-hidden > img,
+    .rounded-\[28px\].overflow-hidden > img,
+    .rounded-\[24px\].overflow-hidden > img,
+    .rounded-\[20px\].overflow-hidden > img {
+      border-radius: inherit;
+    }
   </style>
 </head>
 
@@ -371,13 +387,13 @@
             <div class="mt-8 grid grid-cols-2 gap-3">
               <div class="bg-ink rounded-2xl p-4 text-mustard">
                 <div class="text-xs tracking-widest font-bold opacity-80">OPEN HOURS</div>
-                <div class="font-display text-xl leading-none mt-1">11AM — 11PM</div>
+                <div class="font-display text-xl leading-none mt-1">11AM — 10:45 PM</div>
                 <div class="text-xs opacity-70">Daily • Dine-in & Takeaway</div>
               </div>
               <div class="bg-white rounded-2xl p-4 text-ink">
                 <div class="text-xs tracking-widest font-bold opacity-60">VISIT US</div>
-                <div class="font-extrabold leading-tight">Indiana, MG Road</div>
-                <div class="text-xs opacity-70">Get Directions ↗</div>
+                <div class="font-extrabold leading-tight text-[13px]">Rajlaxmi nagar, Jhalawar, Rajasthan 326001</div>
+                <a href="https://www.google.com/maps/search/Rajlaxmi+nagar+Jhalawar+Rajasthan+326001" target="_blank" class="text-xs opacity-70 hover:opacity-100 underline">Get Directions ↗</a>
               </div>
             </div>
           </div>
@@ -525,7 +541,7 @@
   <section id="reserve" class="bg-forest text-cream py-16">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10">
       <div><h2 class="font-display text-[42px] leading-none">RESERVE <span class="font-serif italic text-mustard">Your Table</span></h2><form id="reserveForm" class="mt-6 grid gap-3"><input required placeholder="Your Name" class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none placeholder:text-cream/50"><input required placeholder="Phone" class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none placeholder:text-cream/50"><div class="grid grid-cols-2 gap-3"><input type="date" required class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none"><select class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none"><option>2 Guests</option><option>4 Guests</option></select></div><button type="submit" class="bg-mustard text-ink rounded-full py-3 font-extrabold">CONFIRM RESERVATION ↗</button></form><div id="reserveSuccess" class="hidden mt-4 glass rounded-2xl p-4 text-sm">✓ Reservation received!</div></div>
-      <div class="space-y-4"><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">VISIT US</div><div class="font-bold">MG Road — 11AM to 11PM Daily</div></div><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">CALL</div><div class="font-bold">+91 98765 43210</div></div></div>
+      <div class="space-y-4"><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">VISIT US</div><div class="font-bold leading-tight">Rajlaxmi nagar, Jhalawar, Rajasthan 326001 — 11AM to 10:45 PM Daily</div></div><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">CALL</div><div class="font-bold">+91 98765 43210</div></div></div>
     </div>
   </section>
   <!-- GALLERY — Make website bigger -->
