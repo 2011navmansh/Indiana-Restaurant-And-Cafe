@@ -734,38 +734,36 @@
       }, 340);
     });
     document.getElementById('reserveForm')?.addEventListener('submit',e=>{e.preventDefault(); document.getElementById('reserveSuccess').classList.remove('hidden'); e.target.reset(); setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),3000);});
-    // AM-ARC — TRUE CLIP REVEAL (next card crops over current, like am-arc.com)
+    // ULTRA SMOOTH — Prompt Ninja style (1:1 scrub, clip crop)
     (() => {
       const cards = gsap.utils.toArray('.stack-card');
       const dots = document.querySelectorAll('#stackDots .dot');
       if(!cards.length) return;
-      // Prepare clip: next cards hidden by clip-path inset(100% 0 0 0)
-      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0%)' });
-      cards.forEach((c,i)=> { if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
+      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0%)', willChange: 'clip-path, transform' });
+      cards.forEach((c,i)=> { c.style.zIndex = 5 - i; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0%)' }); });
+      // fix stack order: next card must be on top to crop over current
+      cards.forEach((c,i)=> c.style.zIndex = i+1);
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '#stackedShowcase',
           start: 'top top',
-          end: '+=3400',
+          end: '+=3800',
           pin: '#stackPin',
-          scrub: 1.6,
+          scrub: 1,
           anticipatePin: 1,
           pinSpacing: true,
+          invalidateOnRefresh: true,
           onUpdate: self => {
             const idx = Math.min(4, Math.floor(self.progress * 5 + 0.0001));
             dots.forEach((d,i)=> d.className = i===idx ? 'dot w-8 h-[6px] rounded-full bg-mustard' : 'dot w-6 h-[6px] rounded-full bg-white/20');
           }
         }
       });
-      // Each step: next card's clip inset top 100% -> 0% (smooth crop reveal), current slightly scales down
       cards.forEach((card, i) => {
         if(i === cards.length - 1) return;
         const next = cards[i+1];
-        // overlap time: while next crops in, current scales 1 -> 0.97 and fades slightly — NO sudden y jump
         tl.to(card, { scale: 0.97, ease: 'none', duration: 1 }, i*1);
         tl.to(next, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', duration: 1 }, i*1);
-        // subtle brightness on next for premium pop
-        tl.fromTo(next, { filter: 'brightness(0.92)' }, { filter: 'brightness(1)', ease: 'none', duration: 1 }, i*1);
       });
     })();
     console.log('✓ Step 3 Menu Bento active');
