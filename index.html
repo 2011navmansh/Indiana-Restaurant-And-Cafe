@@ -296,8 +296,7 @@
           </h1>
 
           <p class="max-w-[520px] text-white/65 text-[14.5px] leading-6">
-            Hand-tossed sourdough, 48h fermented dough, 700°F wood oven. Brunch to late-night — liquid glass premium
-            dining experience inspired by the Dribbble shot you shared.
+            Hand-tossed sourdough, 48h fermented dough, 700°F wood oven. Brunch to late-night.
           </p>
 
           <div class="flex flex-wrap gap-3 pt-1">
@@ -440,17 +439,38 @@
       <div id="cartToast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added to cart ✓</div>
     </div>
   </section>
-  <!-- AM-ARC 5 CARDS STACK — SCROLL SCRUB (RIGHT MIDDLE + CLIP REVEAL) -->
+    <!-- SIGNATURE STACK — REBUILT STRAIGHT (NO DIAGONAL, PERFECTLY ALIGNED) -->
   <section id="stackedShowcase" class="relative bg-[#0A0A0A] text-cream overflow-hidden">
+    <style>
+      #stackedShowcase #stackWrap{
+        position:relative;
+        overflow:hidden;
+        border-radius:32px;
+        background:#111;
+        /* isolate stacking */
+        isolation:isolate;
+      }
+      #stackedShowcase .stack-card{
+        position:absolute; inset:0;
+        border-radius:32px; overflow:hidden;
+        will-change: transform;
+        backface-visibility:hidden;
+        transform: translate3d(0,0,0);
+        /* kill any diagonal — lock X */
+        left:0 !important; right:0 !important; top:0 !important; bottom:0 !important;
+        margin:0 !important;
+      }
+      #stackedShowcase #stackPin{ align-items:center; }
+    </style>
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 pt-10 text-center">
       <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">SIGNATURE STACK • SCROLL TO EXPLORE</div>
       <h2 class="font-display text-[44px] md:text-[56px] leading-none mt-3">CRAFTED <span class="font-serif italic text-mustard">Dishes</span></h2>
-      <p class="text-sm opacity-60 mt-1">Scroll — clip se next dish crop hoke ayega — ekdum AM-ARC jaisa butter.</p>
+      <p class="text-sm opacity-60 mt-1">Scroll — next dish rises straight from bottom, perfectly aligned.</p>
       <div class="flex justify-center gap-2 mt-3" id="stackDots"><span class="dot w-8 h-[6px] rounded-full bg-mustard"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span><span class="dot w-6 h-[6px] rounded-full bg-white/20"></span></div>
     </div>
-    <!-- STACK PIN — left text + right cards 1:1 lineup -->
+    <!-- PIN ROW — left text + right cards perfectly aligned STRAIGHT -->
     <div id="stackPin" class="relative max-w-[1280px] mx-auto px-4 md:px-6 h-[62vh] md:h-[64vh] min-h-[460px] flex items-center justify-between gap-6 md:gap-10 overflow-visible">
-      <!-- LEFT TEXTS — not chipka, gap from wall -->
+      <!-- LEFT TEXTS -->
       <div id="stackLeft" class="hidden md:flex flex-col justify-center w-[44%] max-w-[500px] pl-4 lg:pl-10 relative h-[460px] shrink-0">
         <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="0"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Margherita<br><span class="font-serif italic font-normal">Classico</span></h3><p class="text-sm opacity-60 mt-3 leading-6">San Marzano • fior di latte • basil • 48h dough. Our bestseller, 700° wood-fired.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
         <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="1"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">02 — INFERNO</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Pepperoni<br><span class="font-serif italic font-normal text-mustard">Inferno</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Spicy pepperoni + hot honey — sweet heat that hits different.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
@@ -458,32 +478,33 @@
         <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="3"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">04 — BREW</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Cold Brew<br><span class="font-serif italic font-normal">Tonic</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Single-origin • citrus tonic — cold, crisp, clean.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
         <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="4"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">05 — DESSERT</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Choco<br><span class="font-serif italic font-normal">Fondant</span></h3><p class="text-sm opacity-60 mt-3 leading-6">72% dark • vanilla gelato — molten centre.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
       </div>
-      <div class="relative w-full md:w-[56%] max-w-[640px] md:max-w-[620px] h-[480px] md:h-[460px] shrink-0 rounded-[32px] overflow-hidden" id="stackWrap">
-        <div class="stack-card absolute inset-0 overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="0" style="z-index:5">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
-          <div class="flex-1 text-left"><div class="text-xs font-bold tracking-[0.2em] opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[36px] leading-none mt-1">MARGHERITA <span class="font-serif italic">Classico</span></h3><p class="text-sm opacity-70 mt-3">San Marzano • fior di latte • basil • 48h dough</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹399</span><span class="text-xs font-bold opacity-60">BESTSELLER</span></div></div>
+      <!-- RIGHT CARDS — straight vertical stack, no diagonal -->
+      <div class="relative w-full md:w-[56%] max-w-[640px] md:max-w-[620px] h-[480px] md:h-[460px] shrink-0 rounded-[32px] overflow-hidden bg-[#111]" id="stackWrap">
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="0" style="z-index:5">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold tracking-[0.2em] opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[36px] leading-none mt-1">MARGHERITA <span class="font-serif italic">Classico</span></h3><p class="text-sm opacity-70 mt-3">San Marzano • fior di latte • basil • 48h dough</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹399</span><span class="text-xs font-bold opacity-60">BESTSELLER</span></div></div>
         </div>
-        <div class="stack-card absolute inset-0 overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-mustard text-ink" data-i="1" style="z-index:4">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
-          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">02 — INFERNO</div><h3 class="font-display text-[36px] leading-none mt-1">PEPPERONI <span class="font-serif italic">Inferno</span></h3><p class="text-sm opacity-70 mt-3">Spicy pepperoni + hot honey — sweet heat</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹549</span><span class="text-xs font-bold opacity-60">SPICY</span></div></div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-mustard text-ink" data-i="1" style="z-index:4">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">02 — INFERNO</div><h3 class="font-display text-[36px] leading-none mt-1">PEPPERONI <span class="font-serif italic">Inferno</span></h3><p class="text-sm opacity-70 mt-3">Spicy pepperoni + hot honey — sweet heat</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹549</span><span class="text-xs font-bold opacity-60">SPICY</span></div></div>
         </div>
-        <div class="stack-card absolute inset-0 overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#0F2A18] text-cream" data-i="2" style="z-index:3">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
-          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">03 — BRUNCH</div><h3 class="font-display text-[36px] leading-none mt-1">TRUFFLE <span class="font-serif italic text-mustard">Bowl</span></h3><p class="text-sm opacity-70 mt-3">Poached egg • truffle • sourdough</p><div class="flex gap-3 mt-6"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹449</span><span class="text-xs font-bold opacity-60">CHEF'S PICK</span></div></div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#0F2A18] text-cream" data-i="2" style="z-index:3">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">03 — BRUNCH</div><h3 class="font-display text-[36px] leading-none mt-1">TRUFFLE <span class="font-serif italic text-mustard">Bowl</span></h3><p class="text-sm opacity-70 mt-3">Poached egg • truffle • sourdough</p><div class="flex gap-3 mt-6 items-center"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹449</span><span class="text-xs font-bold opacity-60">CHEF\'S PICK</span></div></div>
         </div>
-        <div class="stack-card absolute inset-0 overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-white text-ink" data-i="3" style="z-index:2">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
-          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">04 — BREW</div><h3 class="font-display text-[36px] leading-none mt-1">COLD BREW <span class="font-serif italic">Tonic</span></h3><p class="text-sm opacity-70 mt-3">Single-origin • citrus tonic</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹249</span><span class="text-xs font-bold opacity-60">SINGLE ORIGIN</span></div></div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-white text-ink" data-i="3" style="z-index:2">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">04 — BREW</div><h3 class="font-display text-[36px] leading-none mt-1">COLD BREW <span class="font-serif italic">Tonic</span></h3><p class="text-sm opacity-70 mt-3">Single-origin • citrus tonic</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹249</span><span class="text-xs font-bold opacity-60">SINGLE ORIGIN</span></div></div>
         </div>
-        <div class="stack-card absolute inset-0 overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="4" style="z-index:1">
-          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
-          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">05 — DESSERT</div><h3 class="font-display text-[36px] leading-none mt-1">CHOCO <span class="font-serif italic">Fondant</span></h3><p class="text-sm opacity-70 mt-3">72% dark • vanilla gelato</p><div class="flex gap-3 mt-6"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹299</span><span class="text-xs font-bold opacity-60">MUST TRY</span></div></div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="4" style="z-index:1">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">05 — DESSERT</div><h3 class="font-display text-[36px] leading-none mt-1">CHOCO <span class="font-serif italic">Fondant</span></h3><p class="text-sm opacity-70 mt-3">72% dark • vanilla gelato</p><div class="flex gap-3 mt-6 items-center"><span class="bg-ink text-mustard rounded-full px-5 py-2 font-extrabold">₹299</span><span class="text-xs font-bold opacity-60">MUST TRY</span></div></div>
         </div>
       </div>
     </div>
-    <div class="h-[6vh] flex items-center justify-center text-xs tracking-[0.2em] opacity-40 font-bold">↓ SCROLL — NEXT DISH CROP REVEAL</div>
+    <div class="h-[6vh] flex items-center justify-center text-xs tracking-[0.2em] opacity-40 font-bold">↓ SCROLL — NEXT DISH</div>
   </section>
-  <section id="story" class="bg-cream text-ink py-16">
+  <section id="story" <section id="story" class="bg-cream text-ink py-16">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
       <div>
         <div class="border border-black/10 rounded-full px-4 py-2 text-[11px] font-bold inline-flex">OUR STORY</div>
@@ -742,40 +763,55 @@
       }, 340);
     });
     document.getElementById('reserveForm')?.addEventListener('submit',e=>{e.preventDefault(); document.getElementById('reserveSuccess').classList.remove('hidden'); e.target.reset(); setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),3000);});
-    // STRAIGHT BOTTOM REVEAL — cards rise vertically from bottom, perfectly aligned in layers (no diagonal)
+    // ===== RECREATED STRAIGHT — translateY ONLY (NO clipPath, NO DIAGONAL) =====
+    // Root cause: clipPath with `round 32px` interpolates diagonally in browser.
+    // Fix: use yPercent (straight vertical) + overflow:hidden parent. Pure Y, X locked 0.
     (() => {
       const cards = gsap.utils.toArray('.stack-card');
-      const dots = document.querySelectorAll('#stackDots .dot');
-      if(!cards.length) return;
-      gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0% round 32px)', willChange: 'clip-path' });
-      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(0% 0% 100% 0% round 32px)' }); });
-      // left texts — Prompt Ninja style crossfade
       const texts = gsap.utils.toArray('.stack-text');
-      gsap.set(texts, { autoAlpha: 0, y: 14 });
-      gsap.set(texts[0], { autoAlpha: 1, y: 0 });
+      const dots  = document.querySelectorAll('#stackDots .dot');
+      if(!cards.length) return;
+
+      // Kill any previous clipPath / transform
+      cards.forEach(c=>{ c.style.clipPath='none'; c.style.webkitClipPath='none'; });
+
+      // z-index: 1 bottom → 5 top, so next card slides OVER previous straight
+      cards.forEach((c,i)=>{
+        c.style.zIndex = String(i+1);
+        // lock X, rotation, scale — only Y will animate
+        gsap.set(c, { x:0, xPercent:0, rotation:0, scale:1, transformOrigin:'center center', willChange:'transform' });
+        if(i===0) gsap.set(c, { yPercent:0 });
+        else      gsap.set(c, { yPercent:100 }); // hidden straight below, no X offset
+      });
+      gsap.set(texts, { autoAlpha:0, y:16, x:0, rotation:0 });
+      gsap.set(texts[0], { autoAlpha:1, y:0 });
+
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#stackedShowcase',
-          start: 'top top',
-          end: '+=3800',
-          pin: '#stackPin',
-          scrub: 1,
-          anticipatePin: 1,
-          pinSpacing: true,
-          invalidateOnRefresh: true,
-          onUpdate: self => {
-            const idx = Math.min(4, Math.floor(self.progress * 5 + 0.0001));
+        scrollTrigger:{
+          trigger:'#stackedShowcase',
+          start:'top top',
+          end:'+=4000',
+          pin:'#stackPin',
+          scrub:1,
+          anticipatePin:1,
+          pinSpacing:true,
+          invalidateOnRefresh:true,
+          onUpdate:self=>{
+            const idx = Math.min(cards.length-1, Math.floor(self.progress * cards.length + 0.0001));
             dots.forEach((d,i)=> d.className = i===idx ? 'dot w-8 h-[6px] rounded-full bg-mustard' : 'dot w-6 h-[6px] rounded-full bg-white/20');
           }
         }
       });
-      cards.forEach((card, i) => {
-        if(i === cards.length - 1) return;
+
+      // Each next card slides STRAIGHT UP: yPercent 100 → 0 (only Y, X=0 locked)
+      cards.forEach((_, i)=>{
+        if(i >= cards.length-1) return;
         const next = cards[i+1];
-        tl.to(next, { clipPath: 'inset(0% 0% 0% 0% round 32px)', ease: 'none', duration: 1 }, i*1);
-        tl.to(texts[i], { autoAlpha: 0, y: -14, ease: 'none', duration: 0.45 }, i*1 + 0.28);
-        tl.to(texts[i+1], { autoAlpha: 1, y: 0, ease: 'none', duration: 0.45 }, i*1 + 0.32);
+        tl.to(next, { yPercent:0, x:0, xPercent:0, rotation:0, ease:'none', duration:1 }, i*1);
+        tl.to(texts[i],   { autoAlpha:0, y:-16, x:0, ease:'none', duration:0.4 }, i*1 + 0.30);
+        tl.to(texts[i+1], { autoAlpha:1, y:0,  x:0, ease:'none', duration:0.4 }, i*1 + 0.34);
       });
+      ScrollTrigger.refresh();
     })();
     console.log('✓ Step 3 Menu Bento active');
     console.log('✓ AM-ARC 5-Cards Stack Pin+Scrub active');
