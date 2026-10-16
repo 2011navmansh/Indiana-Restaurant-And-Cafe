@@ -742,13 +742,13 @@
       }, 340);
     });
     document.getElementById('reserveForm')?.addEventListener('submit',e=>{e.preventDefault(); document.getElementById('reserveSuccess').classList.remove('hidden'); e.target.reset(); setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),3000);});
-    // ULTRA SMOOTH — Prompt Ninja style (1:1 scrub, clip crop)
+    // STRAIGHT BOTTOM REVEAL — cards rise vertically from bottom, perfectly aligned in layers (no diagonal)
     (() => {
       const cards = gsap.utils.toArray('.stack-card');
       const dots = document.querySelectorAll('#stackDots .dot');
       if(!cards.length) return;
       gsap.set(cards, { clipPath: 'inset(0% 0% 0% 0% round 32px)', willChange: 'clip-path' });
-      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(100% 0% 0% 0% round 32px)' }); });
+      cards.forEach((c,i)=> { c.style.zIndex = i+1; if(i>0) gsap.set(c, { clipPath: 'inset(0% 0% 100% 0% round 32px)' }); });
       // left texts — Prompt Ninja style crossfade
       const texts = gsap.utils.toArray('.stack-text');
       gsap.set(texts, { autoAlpha: 0, y: 14 });
