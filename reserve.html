@@ -168,7 +168,7 @@
     .rv-foot button { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; opacity: .65; transition: .25s; }
     .rv-foot button:hover { opacity: 1; color: #FACC15; }
     .rv-pop-lbl { font-size: 9.5px; font-weight: 800; letter-spacing: .2em; opacity: .45; margin-bottom: 9px; }
-    .rv-list { display: grid; gap: 3px; max-height: 236px; overflow-y: auto; margin: -3px; padding: 3px; }
+    .rv-list { display: grid; gap: 3px; max-height: 236px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; margin: -3px; padding: 3px; }
     .rv-opt { text-align: left; padding: 10px 13px; border-radius: 12px; font-size: 13px; font-weight: 700; font-family: inherit; color: inherit; cursor: pointer; transition: .2s; }
     .rv-opt:hover { background: rgba(250, 204, 21, .14); }
     .rv-opt.sel { background: linear-gradient(135deg, #FACC15, #EAB308); color: #0A0A0A; }
@@ -385,7 +385,7 @@
                 </button>
                 <input type="hidden" id="rvDate">
                 <em class="rv-err">Please choose a date.</em>
-                <div class="rv-pop" id="rvCal" role="dialog" aria-label="Choose reservation date">
+                <div class="rv-pop" data-lenis-prevent id="rvCal" role="dialog" aria-label="Choose reservation date">
                   <div class="rv-pop-h">
                     <button type="button" class="rv-nav" id="rvPrev" aria-label="Previous month">‹</button>
                     <div class="rv-mo" id="rvMonth"></div>
@@ -919,6 +919,22 @@
       dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph'); renderCal();
     });
 
+    /* popups ke andar wheel-scroll chale (Lenis/smooth-scroll hijack na kare) */
+    [cal, timePop, gPop].forEach(p => p && p.setAttribute('data-lenis-prevent', ''));
+
+    /* default: aaj ki date (IST) pehle se selected */
+    function istToday() {
+      const n = new Date();
+      const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
+      return new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
+    }
+    (function selectToday() {
+      const t = istToday();
+      picked = t; view = new Date(t.getFullYear(), t.getMonth(), 1);
+      dateInput.value = iso(t); dateText.textContent = pretty(t); dateText.classList.remove('rv-ph');
+      renderCal();
+    })();
+
     const slots = [];
     for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
       const h24 = Math.floor(m / 60), mm = m % 60;
@@ -1129,8 +1145,8 @@
       form.classList.remove('hidden');
       form.reset();
       fieldError('f-email', false);
-      picked = null; view = new Date(now.getFullYear(), now.getMonth(), 1);
-      dateInput.value = ''; dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph');
+      const t2 = istToday(); picked = t2; view = new Date(t2.getFullYear(), t2.getMonth(), 1);
+      dateInput.value = iso(t2); dateText.textContent = pretty(t2); dateText.classList.remove('rv-ph');
       timeInput.value = '7:30 PM'; timeText.textContent = '7:30 PM';
       gInput.value = '2 Guests'; gText.textContent = '2 Guests';
       [...timeList.children].forEach(c => c.classList.toggle('sel', c.textContent === '7:30 PM'));

@@ -364,7 +364,7 @@
     .rv-foot button { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; opacity: .65; transition: .25s; }
     .rv-foot button:hover { opacity: 1; color: #FACC15; }
     .rv-pop-lbl { font-size: 9.5px; font-weight: 800; letter-spacing: .2em; opacity: .45; margin-bottom: 9px; }
-    .rv-list { display: grid; gap: 3px; max-height: 236px; overflow-y: auto; margin: -3px; padding: 3px; }
+    .rv-list { display: grid; gap: 3px; max-height: 236px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; margin: -3px; padding: 3px; }
     .rv-opt {
       text-align: left; padding: 10px 13px; border-radius: 12px; font-size: 13px; font-weight: 700;
       font-family: inherit; color: inherit; cursor: pointer; transition: .2s;
@@ -822,7 +822,7 @@
                   <span class="rv-ph" id="rvDateText">Pick a date</span>
                 </button>
                 <input type="hidden" id="rvDate">
-                <div class="rv-pop" id="rvCal" role="dialog" aria-label="Choose reservation date">
+                <div class="rv-pop" data-lenis-prevent id="rvCal" role="dialog" aria-label="Choose reservation date">
                   <div class="rv-pop-h">
                     <button type="button" class="rv-nav" id="rvPrev" aria-label="Previous month">‹</button>
                     <div class="rv-mo" id="rvMonth"></div>
@@ -1325,6 +1325,19 @@
         e.stopPropagation(); picked = null; dateInput.value = '';
         dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph'); render();
       });
+
+      /* popups ke andar wheel-scroll chale (Lenis hijack na kare) */
+      [cal, timePop, gPop].forEach(p => p && p.setAttribute('data-lenis-prevent', ''));
+
+      /* default: aaj ki date (IST) pehle se selected */
+      (function selectToday() {
+        const n = new Date();
+        const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
+        const t = new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
+        picked = t; view = new Date(t.getFullYear(), t.getMonth(), 1);
+        dateInput.value = iso(t); dateText.textContent = pretty(t); dateText.classList.remove('rv-ph');
+        render();
+      })();
 
       /* ---------- TIME SLOTS ---------- */
       const slots = [];
