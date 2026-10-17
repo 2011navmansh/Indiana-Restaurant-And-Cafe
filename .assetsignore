@@ -32,6 +32,9 @@ GOOGLE_SHEET_SETUP.txt
 MENU-IMAGE-LINKS.txt
 MENU-IMAGE-REPORT.txt
 README.md
+EMAIL-SETUP-2026.txt
+apps-script-email.gs
+*.gs
 
 # --- purane / backup files ---
 _g.txt

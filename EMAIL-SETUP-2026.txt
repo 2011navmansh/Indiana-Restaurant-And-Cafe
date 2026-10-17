@@ -1,0 +1,114 @@
+=========================================================
+INDIANA — EMAIL AUTOMATION SETUP (FREE, NO CARD)
+=========================================================
+Kaise kaam karega:
+
+  Guest booking kare  ->  OWNER ko email aayegi
+  Owner admin me CONFIRM dabaye  ->  GUEST ko confirmation email
+  Owner admin me CANCEL dabaye   ->  GUEST ko cancellation email
+  Menu se order aaye  ->  OWNER ko order email
+
+Email bhejne ka kaam GOOGLE karega (Gmail) — 100 email/din FREE.
+Koi card nahi, koi paisa nahi. Bas 1 baar 5 minute ka setup.
+
+Worker (indiana-api) me ye code PEHLE SE likha hua hai, sirf
+webhook URL daalna hai. Neeche 4 steps:
+
+---------------------------------------------------------
+STEP 1 — Apps Script banao
+---------------------------------------------------------
+1. https://script.google.com  ->  "New project"
+2. Left me "Code.gs" khulega. Uska saara code delete karo.
+3. Is folder ki file  apps-script-email.gs  kholo aur POORA
+   code copy karke wahan paste karo.
+4. Sabse upar 2 lines badlo:
+      const OWNER_EMAIL = 'apna-email@gmail.com';   <- apna Gmail
+      const KEY = 'indiana-change-this-key';        <- koi random word
+   KEY yaad rakhna (aage URL me lagega).
+5. Ctrl+S (Save). Project ka naam rakh do: Indiana Mail
+
+(Optional: chahte ho ki saari bookings ek Google Sheet me bhi
+ dikhein? Sheet me Extensions -> Apps Script karke banao — tab
+ script usi sheet me "Bookings" tab khud bana ke rows likhega.
+ Bina sheet ke bhi sab kaam karega.)
+
+---------------------------------------------------------
+STEP 2 — Deploy karo (webhook URL lo)
+---------------------------------------------------------
+1. Top-right: Deploy  ->  New deployment
+2. Left gear icon  ->  type: "Web app"
+3. Description: indiana mail
+4. Execute as:  Me (apna email)
+   Who has access:  Anyone
+5. Deploy  ->  "Authorize access"  ->  apna Google account
+   -> "Advanced" -> "Go to Indiana Mail (unsafe)" -> Allow
+   (Google ka normal warning hai, safe hai — ye aapka hi script hai)
+6. URL copy karo. Aisa dikhega:
+   https://script.google.com/macros/s/AKfycb..../exec
+
+---------------------------------------------------------
+STEP 3 — Test email bhejo
+---------------------------------------------------------
+Browser me ye URL kholo (KEY apna likho):
+
+   <copied-URL>?key=indiana-change-this-key&test=1
+
+Screen pe {"ok":true,"test":"sent to ..."} aana chahiye
+aur OWNER_EMAIL pe test email aa jayegi.
+
+Nahi aayi? -> KEY same hai? -> Deploy me "Who has access: Anyone"?
+             -> Spam folder dekho.
+Aayi? -> aage badho.
+
+---------------------------------------------------------
+STEP 4 — Cloudflare me webhook lagao
+---------------------------------------------------------
+1. https://dash.cloudflare.com  ->  Workers & Pages
+2. Worker kholo:  indiana-api
+3. Settings  ->  Variables and Secrets  ->  Add
+      Name:  NOTIFY_WEBHOOK
+      Value: <copied-URL>?key=indiana-change-this-key
+      (pura URL + ?key=... ek saath paste karo)
+      Type:  Secret (ya Text — dono chalega)
+   -> Save / Deploy
+4. (Agar Worker dashboard me "Quick edit" se banaya tha to Save
+   karte hi redeploy ho jata hai. Kuch na ho to code ek baar
+   Save/Deploy kar do.)
+
+---------------------------------------------------------
+FINAL TEST (asli flow)
+---------------------------------------------------------
+1. reserve.html  ->  form bharo (email ZAROORI hai)  -> CONFIRM
+     => owner ke Gmail pe "📅 Naya booking IND-XXXX" aa jayegi
+2. admin.html  ->  us booking pe CONFIRM dabao
+     => guest ke email pe "✅ Table confirmed" aa jayegi
+3. admin.html  ->  CANCEL dabao
+     => guest ko "Booking cancelled" email
+4. menu.html se order (agar orders wire hai) -> owner email
+
+---------------------------------------------------------
+Kya-kya email me aata hai?
+---------------------------------------------------------
+OWNER email (nayi booking): naam, phone, email, date, time,
+   guests, seating, occasion, notes + guest ko WhatsApp karne
+   ka button + admin console link.
+
+GUEST email (confirm): reference, date, time, guests, address,
+   phone, Google Maps directions link.
+
+GUEST email (cancel): saaf message + "reply kar do, hum nayi
+   table set kar denge" + nayi booking ka link.
+
+Emails OWNER_EMAIL ke Gmail se jaati hain aur guest ke reply
+seedhe OWNER_EMAIL pe aate hain (replyTo set hai).
+
+---------------------------------------------------------
+Limits / notes
+---------------------------------------------------------
+- Free Gmail: 100 email/din (Indiana ke liye bahut zyada hai).
+- Password change nahi karna padta, koi monthly fee nahi.
+- KEY kisi ko na batao — usse hi spam se bachaav hai.
+- Apps Script ka URL kabhi delete/re-deploy mat karo, warna
+  naya URL aayega aur Cloudflare me dobara daalna padega.
+
+=========================================================

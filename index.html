@@ -804,69 +804,34 @@
       </div>
 
       <div class="grid lg:grid-cols-12 gap-6 mt-12 items-start">
-        <!-- FORM CARD -->
-        <div class="lg:col-span-7 glass rounded-[32px] p-5 md:p-7 relative z-30">
-          <div class="flex items-center justify-between gap-3 mb-6">
-            <div class="font-display text-[22px] leading-none">BOOKING <span class="font-serif italic text-mustard">Details</span></div>
-            <span class="hidden sm:inline-flex text-[10px] font-bold tracking-[0.18em] opacity-55">TAKES 30 SECONDS</span>
+        <!-- CTA CARD — booking ab reserve.html pe hoti hai -->
+        <div class="lg:col-span-7 glass rounded-[32px] p-6 md:p-8 relative z-30">
+          <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] opacity-55">
+            <span class="w-2 h-2 rounded-full bg-mustard"></span> TABLE BOOKING
           </div>
-          <form id="reserveForm" class="grid gap-4">
-            <div class="grid sm:grid-cols-2 gap-4">
-              <label class="rv-field"><span>Full Name</span><input id="hpName" required placeholder="Aarav Sharma" autocomplete="name"></label>
-              <label class="rv-field"><span>Phone</span><input id="hpPhone" required inputmode="tel" placeholder="12345678910" autocomplete="tel"></label>
+          <h3 class="font-display text-[30px] md:text-[40px] leading-[0.94] mt-4">READY IN <span class="font-serif italic text-mustard">30 seconds</span></h3>
+          <p class="text-sm md:text-[15px] opacity-60 mt-4 max-w-[540px] leading-relaxed">Name, phone, email, date and time &mdash; that is all. You get a booking reference instantly, and the moment the owner confirms it, a confirmation email lands in your inbox. No prepayment, ever.</p>
+          <div class="flex flex-wrap gap-3 mt-7">
+            <a href="reserve.html" class="inline-flex items-center justify-center gap-2 bg-mustard text-ink rounded-full px-8 py-4 text-[12px] font-extrabold tracking-[0.14em] w-full sm:w-auto hover:brightness-105 transition">BOOK A TABLE <span aria-hidden="true">↗</span></a>
+            <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-7 py-4 text-[12px] font-extrabold tracking-[0.14em] hover:bg-white/10 transition" style="border:1px solid rgba(128,128,128,.4)">WHATSAPP US</a>
+          </div>
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10.5px] font-bold tracking-[0.14em] opacity-55 mt-7">
+            <span>✓ NO PREPAYMENT</span><span>✓ INSTANT REFERENCE</span><span>✓ EMAIL CONFIRMATION</span>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-4 mt-7">
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(128,128,128,.12)">
+              <div class="text-[10px] font-bold tracking-[0.16em] opacity-55">STEP 1</div>
+              <div class="text-[12.5px] font-bold mt-1">FILL THE FORM</div>
             </div>
-            <div class="grid sm:grid-cols-3 gap-4">
-              <div class="rv-field">
-                <span>Date</span>
-                <button type="button" id="rvDateBtn" class="rv-input" aria-haspopup="dialog" aria-expanded="false">
-                  <span class="rv-ph" id="rvDateText">Pick a date</span>
-                </button>
-                <input type="hidden" id="rvDate">
-                <div class="rv-pop" data-lenis-prevent id="rvCal" role="dialog" aria-label="Choose reservation date">
-                  <div class="rv-pop-h">
-                    <button type="button" class="rv-nav" id="rvPrev" aria-label="Previous month">‹</button>
-                    <div class="rv-mo" id="rvMonth"></div>
-                    <button type="button" class="rv-nav" id="rvNext" aria-label="Next month">›</button>
-                  </div>
-                  <div class="rv-dow"><span>SU</span><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span></div>
-                  <div class="rv-days" id="rvDays"></div>
-                  <div class="rv-foot">
-                    <button type="button" id="rvClear">CLEAR</button>
-                    <button type="button" id="rvToday">TODAY</button>
-                  </div>
-                </div>
-              </div>
-              <div class="rv-field rv-field--r">
-                <span>Time</span>
-                <button type="button" id="rvTimeBtn" class="rv-input" aria-haspopup="listbox" aria-expanded="false">
-                  <span id="rvTimeText">7:30 PM</span>
-                </button>
-                <input type="hidden" id="rvTime" value="7:30 PM">
-                <div class="rv-pop" id="rvTimePop" role="dialog" aria-label="Choose time">
-                  <div class="rv-pop-lbl">SERVICE SLOTS &bull; 30 MIN</div>
-                  <div class="rv-list" id="rvTimeList"></div>
-                </div>
-              </div>
-              <div class="rv-field rv-field--r">
-                <span>Guests</span>
-                <button type="button" id="rvGuestsBtn" class="rv-input" aria-haspopup="listbox" aria-expanded="false">
-                  <span id="rvGuestsText">2 Guests</span>
-                </button>
-                <input type="hidden" id="rvGuests" value="2 Guests">
-                <div class="rv-pop" id="rvGuestsPop" role="dialog" aria-label="Choose party size">
-                  <div class="rv-pop-lbl">PARTY SIZE</div>
-                  <div class="rv-list" id="rvGuestsList"></div>
-                </div>
-              </div>
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(128,128,128,.12)">
+              <div class="text-[10px] font-bold tracking-[0.16em] opacity-55">STEP 2</div>
+              <div class="text-[12.5px] font-bold mt-1">GET YOUR REFERENCE</div>
             </div>
-            <label class="rv-field"><span>Special Request <em class="not-italic opacity-50">(optional)</em></span><input id="hpNotes" placeholder="Birthday, window seat, high chair&hellip;"></label>
-            <button type="submit" class="rv-submit mt-1 w-full">CONFIRM RESERVATION <span aria-hidden="true">↗</span></button>
-            <p id="hpErr" class="hidden text-center text-[12.5px] font-bold text-red-500"></p>
-            <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10.5px] font-bold tracking-[0.14em] opacity-55">
-              <span>✓ NO PREPAYMENT</span><span>✓ INSTANT CONFIRM</span><span>✓ FREE CANCELLATION</span>
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(128,128,128,.12)">
+              <div class="text-[10px] font-bold tracking-[0.16em] opacity-55">STEP 3</div>
+              <div class="text-[12.5px] font-bold mt-1">EMAIL CONFIRMATION</div>
             </div>
-          </form>
-          <div id="reserveSuccess" class="hidden mt-5 rounded-[20px] bg-mustard text-ink px-5 py-4 text-sm font-extrabold">✓ Reservation received — see you soon at Indiana!</div>
+          </div>
         </div>
 
         <!-- INFO CARDS -->
