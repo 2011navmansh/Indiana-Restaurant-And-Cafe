@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Indiana Restaurant & Cafe — Taste the Joy of Flavour</title>
+  <title>Indiana Restaurant & Cafe - Taste the Joy of Flavour</title>
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/2j4wTB2c/image.png">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/2j4wTB2c/image.png">
   <meta name="description"
     content="Premium dining experience in Indiana — wood-fired pizzas, brunch, specialty coffee. Liquid glass design.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -229,6 +231,88 @@
       transform-origin: center;
       backface-visibility: hidden;
     }
+
+    /* ===== LIGHT MODE FIX v2 — cards stay light, chips stay dark ===== */
+    html.light .bg-white { background: #FFFFFF !important; color: #0A0A0A !important; }
+    html.light a.bg-white, html.light button.bg-white { background: #0A0A0A !important; color: #FFFBEB !important; }
+    /* dark pills/badges inside light cards must stay dark */
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink { background: #0A0A0A !important; }
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink.text-cream,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-cream,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-white { color: #FFFBEB !important; }
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink.text-mustard,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-mustard { color: #FACC15 !important; }
+    /* dark coloured cards keep light text */
+    html.light .bg-\[\#0F2A18\] { background: #0F2A18 !important; }
+    html.light .bg-\[\#0F2A18\].text-cream, html.light .bg-\[\#0F2A18\] .text-cream, html.light .bg-\[\#0F2A18\] .text-white { color: #FFFBEB !important; }
+    /* stack stage: no black frame in light mode */
+    html.light #stackWrap { background: #EFE7D2 !important; }
+    html.light .stack-card { box-shadow: 0 24px 60px rgba(10,10,10,0.12); }
+    /* nav scrolled state + cursor + scrollbar in light mode */
+    html.light [class*="bg-black/70"] { background: rgba(255,255,255,0.82) !important; }
+    html.light .cursor-ring { border-color: rgba(10,10,10,0.4) !important; }
+    html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
+
+    /* ===== PREMIUM LIQUID-GLASS HERO CARD ===== */
+    .hero-lc {
+      position: relative;
+      isolation: isolate;
+      background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 44px 90px -42px rgba(250, 204, 21, 0.8), 0 26px 60px -32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+    }
+    .hero-lc::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(120% 85% at 12% 0%, rgba(255, 255, 255, 0.6), transparent 55%),
+        radial-gradient(80% 60% at 100% 100%, rgba(255, 255, 255, 0.25), transparent 60%);
+    }
+    .hero-lc::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -140%;
+      width: 55%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: skewX(-16deg);
+      transition: left 0.95s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .hero-lc:hover::after { left: 140%; }
+    .glass-chip-dark {
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    .glass-chip-light {
+      background: rgba(255, 255, 255, 0.74);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+    html.light .glass-chip-dark.text-mustard, html.light .glass-chip-dark .text-mustard { color: #FACC15 !important; }
+    /* the mustard brand card keeps its own colours in both themes */
+    html.light .hero-lc { background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%) !important; }
+    html.light .hero-lc .text-ink, html.light .hero-lc .text-ink\/60, html.light .hero-lc .text-ink\/80 { color: #0A0A0A !important; }
+    html.light .hero-lc .text-ink\/60 { color: rgba(10, 10, 10, 0.6) !important; }
+    html.light .hero-lc .text-ink\/80 { color: rgba(10, 10, 10, 0.8) !important; }
+    @media (max-width: 640px) { .hero-lc::after { display: none; } }
+
+    /* ===== PREMIUM FOOTER ===== */
+    .foot-link { letter-spacing: 0.14em; font-weight: 700; opacity: 0.6; transition: opacity 0.25s, color 0.25s; }
+    .foot-link:hover { opacity: 1; color: #FACC15; }
+    html.light .foot-link:hover { color: #A16207; }
   </style>
 </head>
 
@@ -238,7 +322,8 @@
   
   <div id="loader" class="fixed inset-0 z-[200] bg-ink flex flex-col items-center justify-center">
     <div class="text-center">
-      <div class="w-16 h-16 mx-auto rounded-full bg-mustard grid place-items-center text-ink font-display text-2xl">I</div>
+      <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"
+        class="w-20 h-20 mx-auto rounded-full object-cover ring-1 ring-mustard/40 shadow-[0_20px_50px_-20px_rgba(250,204,21,0.55)]">
       <div class="font-display text-4xl tracking-[0.12em] mt-4">INDIANA</div>
       <div class="text-[10px] tracking-[0.3em] opacity-60 font-semibold">RESTAURANT & CAFE</div>
       <div id="loaderPercent" class="font-display text-6xl text-mustard mt-6 leading-none">0%</div>
@@ -258,9 +343,8 @@
     class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1280px] z-50 transition-all duration-500">
     <div class="glass-dark rounded-[20px] md:rounded-full px-3 md:px-6 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <div
-          class="w-9 h-9 rounded-full bg-mustard flex items-center justify-center text-ink font-display text-lg leading-none">
-          I</div>
+        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"
+          class="w-9 h-9 rounded-full object-cover ring-1 ring-mustard/40 shrink-0">
         <span class="font-display text-[22px] tracking-[0.04em] leading-none hidden sm:block">INDIANA</span>
         <span class="hidden sm:block text-[10px] tracking-[0.18em] opacity-60 -ml-1 font-semibold">RESTAURANT &
           CAFE</span>
@@ -354,56 +438,63 @@
 
         <!-- RIGHT YELLOW CARD — Liquid Glass -->
         <div class="lg:col-span-5 relative">
-          <div class="glass-yellow rounded-[28px] p-4 md:p-6 relative overflow-hidden liquid-shine">
+          <div class="hero-lc rounded-[32px] p-4 md:p-6 relative overflow-hidden">
             <!-- header of card -->
-            <div class="flex items-center justify-between">
+            <div class="relative flex items-center justify-between gap-3">
               <div class="flex items-center gap-2">
-                <span class="w-8 h-8 rounded-full bg-ink text-mustard grid place-items-center text-xs">◉</span>
+                <span class="w-8 h-8 rounded-full glass-chip-dark text-mustard grid place-items-center text-xs">◉</span>
                 <span class="font-extrabold text-ink text-sm tracking-wide">WOOD-FIRED SPECIAL</span>
               </div>
-              <span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">BESTSELLER</span>
+              <span class="glass-chip-dark text-mustard rounded-full px-3 py-1.5 text-[10px] font-extrabold tracking-[0.16em]">BESTSELLER</span>
             </div>
 
             <!-- circular pizza plate -->
-            <div class="relative mt-6 mx-auto w-[280px] h-[280px] md:w-[360px] md:h-[360px]">
-              <div
-                class="absolute inset-0 rounded-full bg-white shadow-[0_30px_60px_rgba(0,0,0,0.18)] border-[10px] border-white overflow-hidden">
+            <div class="relative mt-8 mx-auto w-[280px] h-[280px] md:w-[340px] md:h-[340px]">
+              <!-- liquid glass rings -->
+              <div class="pointer-events-none absolute -inset-4 rounded-full border border-white/45"></div>
+              <div class="pointer-events-none absolute -inset-7 rounded-full border border-dashed border-white/40 badge-spin"></div>
+              <div class="absolute inset-0 rounded-full bg-white shadow-[0_35px_70px_-25px_rgba(0,0,0,0.5)] border-[10px] border-white/90 overflow-hidden plate-spin">
                 <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80&auto=format&fit=crop"
                   alt="Wood fired pizza" class="w-full h-full object-cover">
+                <div class="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-45px_60px_-30px_rgba(0,0,0,0.6)]"></div>
               </div>
               <!-- spinning badge -->
               <div
-                class="absolute -right-2 -top-2 w-[88px] h-[88px] rounded-full bg-ink text-mustard grid place-items-center border-4 border-mustard shadow-xl">
+                class="absolute -right-2 -top-2 w-[88px] h-[88px] rounded-full glass-chip-dark text-mustard grid place-items-center border-4 border-mustard/90 shadow-xl">
                 <div class="text-center leading-none">
                   <div class="text-[10px] tracking-[0.18em] font-bold">FRESH</div>
                   <div class="font-display text-lg leading-none">48H</div>
                   <div class="text-[8px] tracking-widest opacity-70">DOUGH</div>
                 </div>
               </div>
+              <!-- wood oven glass chip -->
+              <div class="absolute -left-3 top-8 glass-chip-light rounded-full px-3 py-2 text-[10px] font-extrabold tracking-[0.16em] text-ink -rotate-6">
+                700° WOOD OVEN
+              </div>
               <!-- price glass pill -->
               <div
-                class="absolute -left-4 bottom-6 glass-cream rounded-full px-4 py-3 flex items-center gap-3 shadow-xl">
-                <div class="w-10 h-10 rounded-full overflow-hidden"><img
+                class="absolute -left-4 bottom-6 glass-chip-light rounded-full p-2 pr-3 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden shrink-0"><img
                     src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=80&auto=format&fit=crop"
                     class="w-full h-full object-cover"></div>
                 <div>
                   <div class="text-ink font-extrabold leading-none">Margherita</div>
-                  <div class="text-[11px] font-bold tracking-widest text-ink/60">WOOD-FIRED • 12"</div>
+                  <div class="text-[10px] font-bold tracking-widest text-ink/60">WOOD-FIRED • 12"</div>
                 </div>
-                <div class="ml-2 bg-ink text-mustard rounded-full px-3 py-1 font-extrabold text-sm">₹399</div>
+                <div class="ml-1 glass-chip-dark text-mustard rounded-full px-3 py-1.5 font-extrabold text-sm">₹399</div>
               </div>
             </div>
 
-            <div class="mt-8 grid grid-cols-2 gap-3">
-              <div class="bg-ink rounded-2xl p-4 text-mustard">
-                <div class="text-xs tracking-widest font-bold opacity-80">OPEN HOURS</div>
+            <div class="relative mt-10 grid grid-cols-2 gap-3">
+              <div class="glass-chip-dark rounded-2xl p-4 text-mustard">
+                <div class="text-[10px] tracking-[0.18em] font-bold opacity-80">OPEN HOURS</div>
                 <div class="font-display text-xl leading-none mt-1">11AM — 10:45 PM</div>
-                <div class="text-xs opacity-70">Daily • Dine-in & Takeaway</div>
+                <div class="text-[11px] opacity-70 mt-1">Daily • Dine-in &amp; Takeaway</div>
               </div>
-              <div class="bg-white rounded-2xl p-4 text-ink">
-                <div class="text-xs tracking-widest font-bold opacity-60">VISIT US</div>
-                <div class="font-extrabold leading-tight text-[13px]">Rajlaxmi nagar, Jhalawar, Rajasthan 326001</div>
-                <a href="https://www.google.com/maps/search/Rajlaxmi+nagar+Jhalawar+Rajasthan+326001" target="_blank" class="text-xs opacity-70 hover:opacity-100 underline">Get Directions ↗</a>
+              <div class="glass-chip-light rounded-2xl p-4 text-ink">
+                <div class="text-[10px] tracking-[0.18em] font-bold opacity-60">VISIT US</div>
+                <div class="font-extrabold leading-tight text-[13px] mt-1">Rajlaxmi nagar, Jhalawar, Rajasthan 326001</div>
+                <a href="https://www.google.com/maps/search/Rajlaxmi+nagar+Jhalawar+Rajasthan+326001" target="_blank" class="text-[11px] opacity-70 hover:opacity-100 underline inline-block mt-1">Get Directions ↗</a>
               </div>
             </div>
           </div>
@@ -653,7 +744,26 @@
     </div>
   </section>
 
-  <footer class="bg-ink border-t border-white/10 py-8 text-center text-xs tracking-widest opacity-60">© 2026 INDIANA RESTAURANT & CAFE — Full Premium Build • Gallery + Chef Added</footer>
+  <footer class="bg-ink border-t border-white/10 py-10">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
+      <div class="flex items-center gap-3">
+        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"
+          class="w-11 h-11 rounded-full object-cover ring-1 ring-mustard/40">
+        <div>
+          <div class="font-display text-[20px] tracking-[0.06em] leading-none">INDIANA</div>
+          <div class="opacity-60 tracking-[0.18em] text-[9px] font-bold mt-1">THOUSAND FLAVOURS AHEAD</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="#home" class="foot-link">HOME</a>
+        <a href="about.html" class="foot-link">ABOUT</a>
+        <a href="menu.html" class="foot-link">MENU</a>
+        <a href="gallery.html" class="foot-link">GALLERY</a>
+        <a href="#reserve" class="foot-link">RESERVE</a>
+      </div>
+      <div class="opacity-60 tracking-[0.14em] text-center">© 2026 INDIANA • FULL PREMIUM BUILD</div>
+    </div>
+  </footer>
 
   <style>
     @keyframes marquee {
