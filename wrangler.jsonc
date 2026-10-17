@@ -20,8 +20,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "indiana-restaurant-and-cafe",
   "main": "_worker.js",
-  "compatibility_date": "2026-10-17",
+  "compatibility_date": "2026-10-12",
 
+  // Cloudflare dashboard me logs dekhne ke liye
+  "observability": {
+    "enabled": true
+  },
+
+  // Website ki files (repo root) + binding ka naam: env.ASSETS
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
