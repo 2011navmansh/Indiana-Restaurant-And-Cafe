@@ -233,9 +233,14 @@ export default {
         const body = await req.json().catch(() => ({}));
         const status = clean(body.status, 20);
         if (!BOOKING_STATUS.includes(status)) return fail(400, 'Unknown status', C);
+        const before = await env.DB.prepare('SELECT * FROM bookings WHERE id = ?').bind(id).first();
         await env.DB.prepare('UPDATE bookings SET status = ?, updatedAt = ? WHERE id = ?')
           .bind(status, new Date().toISOString(), id).run();
         const row = await env.DB.prepare('SELECT * FROM bookings WHERE id = ?').bind(id).first();
+        // Owner ne CONFIRM / CANCEL dabaya -> guest ko email jaye (Apps Script webhook)
+        if (before && before.status !== status && (status === 'confirmed' || status === 'cancelled')) {
+          await notify(env, { type: 'status', booking: row });
+        }
         return ok({ booking: row }, C);
       }
       if (m === 'DELETE') {

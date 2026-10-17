@@ -76,7 +76,7 @@
         </div>
         <div class="flex items-center gap-2 md:gap-3">
           <span id="livePill" class="hidden sm:inline-flex st st-pending"><span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span><span id="liveTxt">CONNECTING</span></span>
-          <span id="clock" class="hidden md:inline text-[11px] font-bold tracking-[0.14em] opacity-60">--:--</span>
+          <span id="clock" class="inline whitespace-nowrap text-[10.5px] md:text-[11px] font-bold tracking-[0.14em] opacity-60">--:--:--</span>
           <a href="index.html" class="tbtn hidden sm:inline-block" style="text-decoration:none">SITE ↗</a>
           <button id="logoutBtn" class="tbtn hidden">LOGOUT</button>
         </div>
@@ -218,14 +218,55 @@
     setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 600); }, 4200);
   }
 
-  /* ---------- IST helpers ---------- */
-  function istNow() { const n = new Date(); return new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000); }
-  function istDateStr() { const d = istNow(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
-  function clockTick() {
-    const d = istNow();
-    $('#clock').textContent = String(d.getHours() % 12 || 12).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ' ' + (d.getHours() >= 12 ? 'PM' : 'AM') + ' IST';
+  /* ---------- IST helpers (device-timezone proof + real clock sync) ---------- */
+  var IST_OFFSET = 0; // device-clock correction in ms (server / time-API)
+  var IST_SYNCED = false;
+  var IST_DOW = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  var IST_MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  var istNow = function () { return new Date(Date.now() + IST_OFFSET + 330 * 60000); }; // read ONLY via getUTC*()
+  function istDateStr(iso) {
+    var x = iso ? new Date(new Date(iso).getTime() + 330 * 60000) : istNow();
+    return x.getUTCFullYear() + '-' + String(x.getUTCMonth() + 1).padStart(2, '0') + '-' + String(x.getUTCDate()).padStart(2, '0');
   }
-  setInterval(clockTick, 15000); clockTick();
+  function istPretty() {
+    var x = istNow(), h = x.getUTCHours(), m = x.getUTCMinutes();
+    return IST_DOW[x.getUTCDay()] + ', ' + x.getUTCDate() + ' ' + IST_MON[x.getUTCMonth()] + ' ' + x.getUTCFullYear() + ' - ' + String(h % 12 || 12).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ' ' + (h >= 12 ? 'PM' : 'AM') + ' IST';
+  }
+  function clockTick() {
+    var d = istNow(), h = d.getUTCHours(), m = d.getUTCMinutes(), s = d.getUTCSeconds();
+    var el = document.getElementById('clock');
+    if (el) {
+      el.textContent = String(h % 12 || 12).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0') + ' ' + (h >= 12 ? 'PM' : 'AM') + ' IST';
+      el.title = istPretty() + (IST_SYNCED ? ' (synced)' : ' (device clock)');
+    }
+  }
+  setInterval(clockTick, 1000); clockTick();
+  function istSync(ts) { if (ts) { IST_OFFSET = ts - Date.now(); IST_SYNCED = true; clockTick(); } }
+  function syncFromNet() {
+    fetch('https://worldtimeapi.org/api/timezone/Asia/Kolkata', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j && j.unixtime) istSync(j.unixtime * 1000);
+        else if (j && j.datetime) istSync(new Date(j.datetime).getTime());
+      })
+      .catch(function () {
+        fetch('https://timeapi.io/api/Time/current/zone?timeZone=Asia/Kolkata', { cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (j) { if (j && j.dateTime) istSync(new Date(j.dateTime).getTime()); })
+          .catch(function () {});
+      });
+  }
+  function syncServerClock() {
+    fetch('/api/health', { cache: 'no-store' }).then(function (r) {
+      var dt = r.headers.get('date');
+      if (dt) istSync(new Date(dt).getTime());
+      return r.json().catch(function () { return null; });
+    }).then(function (j) {
+      if (j && j.time) istSync(new Date(j.time).getTime());
+    }).catch(syncFromNet);
+    setTimeout(function () { if (!IST_SYNCED) syncFromNet(); }, 2500);
+  }
+  syncServerClock(); setInterval(syncServerClock, 300000);
 
   /* ---------- API ---------- */
   async function api(path, opts = {}) {
@@ -377,7 +418,7 @@
     $('#kpiTodaySub').textContent = today.length ? 'incl. ' + today.filter(b => b.status === 'seated').length + ' seated' : 'no bookings yet';
     $('#kpiPending').textContent = bookings.filter(b => b.status === 'pending').length;
     $('#kpiGuests').textContent = today.filter(b => b.status !== 'cancelled').reduce((s, b) => s + (parseInt(b.guests, 10) || 0), 0);
-    const ot = orders.filter(o => (o.createdAt || '').slice(0, 10) === t || (o.date || '') === t);
+    const ot = orders.filter(o => istDateStr(o.createdAt) === t || (o.date || '') === t);
     $('#kpiOrders').textContent = ot.length;
     $('#kpiOrdersSub').textContent = 'Rs ' + ot.reduce((s, o) => s + (parseInt(o.total, 10) || 0), 0) + ' value';
   }

@@ -416,6 +416,8 @@ SECTION 16 — KHARCHA (kya kab paisa lagega)
   protect.js         → Image protection   → Pages pe upload
   cookie-banner.js   → Cookie card        → Pages pe upload
   credit.js          → Credit line        → Pages pe upload
+  live-clock.js      → Live IST clock + open/closed strip → Pages pe upload
+  skeleton.js        → Premium loading skeleton           → Pages pe upload
   worker.js          → BACKEND (Cloudflare)→ Worker editor me paste
   schema.sql         → Database tables    → D1 Console me paste
   server.js          → LOCAL backend      → sirf PC pe (upload nahi)
@@ -664,6 +666,209 @@ SECTION 18 — PHONE, PASSWORD, HOURS, ADDRESS, PRICES KAISE BADLE
         - website pe naya number/address dikhe
         - ek booking karke Google Sheet me row aayi? (agar webhook laga hai)
 
+
+================================================================
+SECTION 19 — 100% FREE EMAIL AUTOMATION (confirm / decline emails)
+================================================================
+
+  FLOW (jo aapne chaha):
+
+     Guest form bhare (naam, phone, EMAIL)
+        |
+        v
+     [EMAIL 1] guest ko: "Booking request received"
+        |
+        v
+     Owner admin.html me request dekhe
+        |
+        +-- CONFIRM dabaya  -->  [EMAIL 2] "Table confirmed"
+        +-- CANCEL  dabaya  -->  [EMAIL 2] "Couldn't confirm - call us"
+
+  Sab kuch Google Apps Script se hota hai (owner ke Gmail se) aur ye
+  BILKUL FREE hai: no card, no API key, koi 3rd-party service nahi.
+  Gmail free quota: 100 email/day (roz 50 bookings se zyada nahi hongi).
+
+  Kaam kaise karta hai: Cloudflare Worker har nayi booking aur har
+  CONFIRM/CANCEL pe aapke Apps Script webhook ko POST karta hai ->
+  Apps Script: (a) Google Sheet me row likhta hai, (b) guest ko email
+  bhejta hai. Bas itna hi.
+
+  SETUP (10 minute):
+
+  1. Google Sheet: https://sheets.google.com -> Blank sheet
+     Name: Indiana Bookings
+     Row 1 headings (12 columns, ek-ek cell me):
+     ID | TYPE | NAME | PHONE | DATE | TIME | GUESTS | SEATING | OCCASION | NOTES | STATUS | CREATED
+
+  2. Sheet me: Extensions -> Apps Script -> purana code delete karke
+     niche wala PURA code paste karo:
+
+  NOTE: Ye Section 17 wale script ka UPDATED version hai (Sheet +
+  email dono karta hai). Agar Section 17 laga rakha tha to us code
+  ko DELETE karke yahi lagao.
+
+----------------- YAHAN SE COPY KARO -----------------------------
+
+/* ===== INDIANA RESTAURANT & CAFE - Sheet + FREE email automation ===== */
+const CONFIG = {
+  RESTAURANT: 'Indiana Restaurant & Cafe',
+  PHONE: '+91 98765 43210',
+  ADDRESS: 'Rajlaxmi nagar, Jhalawar, Rajasthan 326001',
+  OWNER_EMAIL: '',
+  NOTIFY_OWNER_ON_NEW: true
+};
+
+function doPost(e) {
+  let data = {};
+  try { data = JSON.parse(e.postData.contents); } catch (err) {}
+  if (data.type === 'order') return handleOrder(data.order || {});
+  if (data.type === 'status') return handleStatus(data.booking || {});
+  return handleBooking(data.booking || data);
+}
+function doGet() { return out({ ok: true, service: 'indiana-webhook' }); }
+
+/* ---- new booking: sheet row + "request received" email ---- */
+function handleBooking(b) {
+  upsert(b.id, [b.id||'', 'BOOKING', b.name||'', b.phone||'', b.date||'', b.time||'', b.guests||'', b.seating||'', b.occasion||'', b.notes||'', b.status||'pending', b.createdAt||'']);
+  if (b.email) {
+    sendMail(b.email, 'Booking request received - ' + (b.id || ''),
+      shell('Booking Request Received',
+        '<p>Hi ' + first(b.name) + ',</p>'
+      + '<p>Thank you! Your table request has been received. Our team is checking availability right now - you will get <b>one more email</b> as soon as it is confirmed.</p>'
+      + details(b)
+      + '<p style="color:#9a9a9a;font-size:12px">Need a change? Reply to this email or call us: ' + CONFIG.PHONE + '</p>'));
+  }
+  if (CONFIG.NOTIFY_OWNER_ON_NEW && CONFIG.OWNER_EMAIL) {
+    sendMail(CONFIG.OWNER_EMAIL, 'New booking - ' + (b.id||'') + ' - ' + (b.date||'') + ' ' + (b.time||''), shell('New Booking Request', details(b)));
+  }
+  return out({ ok: true });
+}
+
+/* ---- owner CONFIRM / CANCEL -> guest email ---- */
+function handleStatus(b) {
+  upsert(b.id, [b.id||'', 'BOOKING', b.name||'', b.phone||'', b.date||'', b.time||'', b.guests||'', b.seating||'', b.occasion||'', b.notes||'', b.status||'', b.createdAt||'']);
+  if (b.status === 'confirmed' && b.email) {
+    sendMail(b.email, 'Table confirmed - ' + (b.id || ''),
+      shell('Your Table is Confirmed',
+        '<p>Hi ' + first(b.name) + ',</p>'
+      + '<p>Great news - your table at <b>' + CONFIG.RESTAURANT + '</b> is <b>CONFIRMED</b>. We look forward to hosting you!</p>'
+      + details(b)
+      + '<p style="color:#9a9a9a;font-size:12px">Please arrive within 20 minutes of your slot. Running late? Call ' + CONFIG.PHONE + '</p>'));
+  }
+  if (b.status === 'cancelled' && b.email) {
+    sendMail(b.email, 'Update on your reservation - ' + (b.id || ''),
+      shell('Reservation Update',
+        '<p>Hi ' + first(b.name) + ',</p>'
+      + '<p>We are sorry - we could not confirm your table for <b>' + (b.date||'') + ' at ' + (b.time||'') + '</b>. That slot may be full.</p>'
+      + '<p>We would love to host you another time - book again on our website or call us directly.</p>'
+      + details(b)));
+  }
+  return out({ ok: true });
+}
+
+/* ---- orders ---- */
+function handleOrder(o) {
+  const items = (o.items || []).map(function (i) { return i.qty + 'x ' + i.name; }).join(', ');
+  upsert(o.id, [o.id||'', 'ORDER', o.name||'', o.phone||'', '', '', '', '', '', items + ' | Total: Rs ' + (o.total||0), o.status||'new', o.createdAt||'']);
+  return out({ ok: true });
+}
+
+/* ---- sheet helpers ---- */
+function upsert(id, row) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['ID','TYPE','NAME','PHONE','DATE','TIME','GUESTS','SEATING','OCCASION','NOTES','STATUS','CREATED']);
+  }
+  const at = findRow(sheet, id);
+  if (at) sheet.getRange(at, 1, 1, row.length).setValues([row]);
+  else sheet.appendRow(row);
+}
+function findRow(sheet, id) {
+  if (!id || sheet.getLastRow() < 2) return 0;
+  const ids = sheet.getRange(2, 1, sheet.getLastRow() - 1, 1).getValues();
+  for (let i = 0; i < ids.length; i++) if (String(ids[i][0]) === String(id)) return i + 2;
+  return 0;
+}
+
+/* ---- email helpers ---- */
+function sendMail(to, subject, html) {
+  try { if (to && to.indexOf('@') > 0) MailApp.sendEmail({ to: to, subject: subject, htmlBody: html }); }
+  catch (err) { Logger.log('mail error: ' + err); }
+}
+function first(n) { return String(n || '').split(' ')[0] || 'there'; }
+function details(b) {
+  const rows = [['Reference', b.id], ['Name', b.name], ['Date', b.date], ['Time', b.time], ['Guests', b.guests], ['Seating', b.seating || 'Any'], ['Occasion', b.occasion || '-']];
+  return '<table style="width:100%;border-collapse:collapse;margin:14px 0">'
+    + rows.map(function (r) {
+        return '<tr><td style="padding:7px 0;color:#9a9a9a;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:38%">' + r[0] + '</td>'
+          + '<td style="padding:7px 0;color:#ffffff;font-weight:bold">' + ((r[1] === 0 || r[1]) ? r[1] : '-') + '</td></tr>';
+      }).join('')
+    + '</table>';
+}
+function shell(title, inner) {
+  return '<div style="font-family:Arial,Helvetica,sans-serif;background:#0A0A0A;padding:26px">'
+    + '<div style="max-width:560px;margin:0 auto;background:#111111;border:1px solid #2b2b2b;border-radius:16px;overflow:hidden">'
+    + '<div style="background:linear-gradient(135deg,#EAB308,#FACC15);color:#0A0A0A;padding:20px 24px">'
+    + '<div style="font-size:12px;letter-spacing:2px;font-weight:bold">' + String(CONFIG.RESTAURANT).toUpperCase() + '</div>'
+    + '<div style="font-size:21px;font-weight:bold;margin-top:4px">' + title + '</div></div>'
+    + '<div style="padding:22px 24px;color:#eeeeee;font-size:14px;line-height:1.7">' + inner + '</div>'
+    + '<div style="padding:14px 24px;border-top:1px solid #2b2b2b;color:#9a9a9a;font-size:11px">' + CONFIG.ADDRESS + ' | ' + CONFIG.PHONE + '</div>'
+    + '</div></div>';
+}
+
+/* ---- test + output ---- */
+function testEmail() {
+  sendMail(Session.getActiveUser().getEmail(), 'Indiana test email',
+    shell('Test Email', '<p>Sab kaam kar raha hai. Ye email aapke Apps Script se aayi hai.</p>'));
+}
+function out(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj || { ok: true })).setMimeType(ContentService.MimeType.JSON);
+}
+
+----------------- YAHAN TAK COPY KARO -----------------------------
+
+  3. Code me upar CONFIG me apni details bharo:
+       - PHONE : apna restaurant number (jaise +91 98765 43210)
+       - ADDRESS: apna address (email ke footer me dikhta hai)
+       - OWNER_EMAIL: apna Gmail (har nayi booking pe aapko alert;
+         nahi chahiye to NOTIFY_OWNER_ON_NEW: false kar do)
+
+  4. Save (Ctrl+S) -> Project name: Indiana Webhook
+
+  5. TEST EMAIL pehle: upar function dropdown -> testEmail select ->
+     Run -> "Authorize access" -> apna Google account -> Advanced ->
+     "Go to Indiana Webhook (unsafe)" -> Allow
+     (ye warning normal hai - script aapka apna hai)
+     -> Inbox me "Indiana test email" aani chahiye
+
+  6. Deploy -> New deployment -> Select type: Web app ->
+     Execute as: Me -> Who has access: Anyone -> Deploy
+     -> URL copy karo (https://script.google.com/macros/s/...../exec)
+
+  7. Cloudflare -> Workers & Pages -> indiana-api -> Settings ->
+     Variables and Secrets -> Add -> Type: Secret
+       Name: NOTIFY_WEBHOOK   Value: (copied URL)  -> Save / Deploy
+
+  8. LIVE TEST (poora flow):
+     a) Website (reserve.html) se booking karo, apni email dalo
+        -> 5-20 second me EMAIL 1 + Google Sheet me row
+     b) admin.html -> us booking pe CONFIRM -> EMAIL 2 aaye
+     c) CANCEL dabao -> "couldn't confirm" email aaye
+
+  ZAROORI BAATEIN:
+   - Apps Script me code CHANGE karne ke baad: Deploy -> Manage
+     deployments -> pencil -> Version: "New version" -> Deploy
+     (warna purana code chalta rahega).
+   - Emails owner ke Gmail address se jati hain; guest ko bolo
+     Spam/Promotions folder check kare aur ek baar "Not spam" kar de.
+   - Guest ne email nahi diya to email skip - booking normal rahegi.
+   - SEAT / NO-SHOW pe koi email nahi jata - sirf CONFIRM/CANCEL pe.
+   - Backend local (Live Preview) me emails nahi jayenge - normal hai.
+
+  AGAR APPS SCRIPT KE BINA KARNA HO (optional):
+  Brevo (300/day free) ya Resend (3000/month free) bhi hain - lekin
+  un me API key + domain verify ka setup padta hai. Apps Script me wo
+  sab nahi chahiye - isliye yahi recommended hai.
 
 ================================================================
   BAS ITNA. 45 MINUTE ME LIVE.  Rs 0.  No card.  🎉

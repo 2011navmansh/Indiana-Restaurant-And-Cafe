@@ -192,9 +192,11 @@
   <script src="protect.js" defer></script>
   <script src="cookie-banner.js" defer></script>
   <script src="credit.js" defer></script>
+  <script src="live-clock.js" defer></script>
 </head>
 
 <body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
+<script src="skeleton.js"></script>
 
   <div id="progress" class="fixed top-0 left-0 w-full h-[3px] bg-mustard z-[100]"></div>
   <div id="themeOverlay"></div>
@@ -340,6 +342,12 @@
                 <em class="rv-err">Please enter a valid phone number.</em>
               </label>
             </div>
+
+            <label class="rv-field" id="f-email">
+              <span>Email *</span>
+              <input id="rvEmail" name="email" type="email" required inputmode="email" placeholder="you@email.com" autocomplete="email">
+              <em class="rv-err">Please enter a valid email - your booking confirmation is emailed here.</em>
+            </label>
 
             <div class="grid sm:grid-cols-3 gap-4">
               <div class="rv-field" id="f-date">
@@ -1021,18 +1029,21 @@
       e.preventDefault();
       const name = $('rvName').value.trim();
       const phone = $('rvPhone').value.trim();
+      const email = $('rvEmail').value.trim();
       const okPhone = /^[+]?[\d\s\-()]{8,18}$/.test(phone);
+      const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
       fieldError('f-name', name.length < 2);
       fieldError('f-phone', !okPhone);
+      fieldError('f-email', !okEmail);
       fieldError('f-date', !dateInput.value);
-      if (name.length < 2 || !okPhone || !dateInput.value) {
+      if (name.length < 2 || !okPhone || !okEmail || !dateInput.value) {
         const bad = document.querySelector('.rv-field.invalid');
         if (bad) bad.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
       const payload = {
-        name, phone,
+        name, phone, email,
         date: dateInput.value,
         time: timeInput.value,
         guests: gInput.value,
@@ -1071,7 +1082,7 @@
 
       const live = !!result;
       $('successLine').innerHTML = `${live ? 'Confirmed' : 'Saved'} — booking reference <b>${ref}</b>.<br>${payload.date} at ${payload.time} • ${payload.guests} • ${seating} seating.`
-        + (live ? '' : '<br><span class="text-[12px]">Backend is offline, so please tap WhatsApp to confirm instantly.</span>');
+        + (live ? `<br><span class="text-[12px]">Confirmation email will reach <b>${payload.email}</b> once our team reviews this booking — you can also call us anytime.</span>` : '<br><span class="text-[12px]">Backend is offline, so please tap WhatsApp to confirm instantly.</span>');
 
       const msg = `Hi Indiana! I booked a table.%0A%0ARef: ${ref}%0AName: ${payload.name}%0ADate: ${payload.date}%0ATime: ${payload.time}%0AGuests: ${payload.guests}%0ASeating: ${seating}${occasion ? '%0AOccasion: ' + occasion : ''}${payload.notes ? '%0ANote: ' + encodeURIComponent(payload.notes) : ''}`;
       $('waConfirm').href = `https://wa.me/919876543210?text=${msg}`;
@@ -1087,6 +1098,7 @@
       document.getElementById('reserveSuccess').classList.add('hidden');
       form.classList.remove('hidden');
       form.reset();
+      fieldError('f-email', false);
       picked = null; view = new Date(now.getFullYear(), now.getMonth(), 1);
       dateInput.value = ''; dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph');
       timeInput.value = '7:30 PM'; timeText.textContent = '7:30 PM';
