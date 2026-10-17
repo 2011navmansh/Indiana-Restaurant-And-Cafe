@@ -234,7 +234,7 @@
 
     /* ===== LIGHT MODE FIX v2 — cards stay light, chips stay dark ===== */
     html.light .bg-white { background: #FFFFFF !important; color: #0A0A0A !important; }
-    html.light a.bg-white, html.light button.bg-white { background: #0A0A0A !important; color: #FFFBEB !important; }
+    html.light a.bg-white, html.light button.bg-white { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
     /* dark pills/badges inside light cards must stay dark */
     html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink { background: #0A0A0A !important; }
     html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink.text-cream,
