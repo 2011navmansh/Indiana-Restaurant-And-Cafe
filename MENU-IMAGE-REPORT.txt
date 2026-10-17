@@ -1,0 +1,8 @@
+Indiana Menu image report
+Total: 148
+exact: 146
+cat-fallback: 2
+duplicate/reused: 0
+missing->fallback: 0
+
+(no duplicates)

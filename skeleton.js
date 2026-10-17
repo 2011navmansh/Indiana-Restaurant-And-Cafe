@@ -76,6 +76,6 @@
     }
     if (document.readyState === 'complete') hide();
     else window.addEventListener('load', hide);
-    setTimeout(hide, 10000); /* failsafe: skeleton kabhi stuck na rahe */
+    setTimeout(hide, 10000); /* failsafe: never keep the skeleton stuck */
   } catch (e) { /* skeleton must never block the site */ }
 })();
