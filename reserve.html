@@ -111,6 +111,12 @@
     .rv-chip.on { background: linear-gradient(135deg, #FACC15, #EAB308); color: #0A0A0A; border-color: transparent; box-shadow: 0 12px 26px -14px rgba(250, 204, 21, .9); }
     .rv-card { position: relative; overflow: hidden; transition: transform .5s cubic-bezier(.2, .7, .2, 1), box-shadow .5s; }
     .rv-card:hover { transform: translateY(-4px); box-shadow: 0 26px 54px -30px rgba(250, 204, 21, .5); }
+    .status-pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 9px 14px; font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: background .4s, border-color .4s, color .4s; }
+    .status-pill.open { background: rgba(34, 197, 94, .12); border-color: rgba(74, 222, 128, .38); color: #BBF7D0; }
+    .status-pill.closed { background: rgba(250, 204, 21, .1); border-color: rgba(250, 204, 21, .35); color: #FDE68A; }
+    html.light .status-pill { background: rgba(255, 255, 255, .9); border-color: rgba(10, 10, 10, .08); color: #0A0A0A; }
+    html.light .status-pill.open { background: #F0FDF4; border-color: rgba(22, 163, 74, .3); color: #166534; }
+    html.light .status-pill.closed { background: #FEFCE8; border-color: rgba(202, 138, 4, .35); color: #854D0E; }
     html.light .rv-field input, html.light .rv-field textarea, html.light .rv-input { background-color: #FFFDF6; border-color: rgba(10, 10, 10, .1); color: #0A0A0A; box-shadow: inset 0 1px 2px rgba(10, 10, 10, .04); }
     html.light .rv-input:hover { background-color: #FFF8E1; border-color: rgba(202, 138, 4, .45); }
     html.light .rv-field input::placeholder, html.light .rv-field textarea::placeholder { color: rgba(10, 10, 10, .35); }
@@ -161,6 +167,7 @@
     .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 10, 10, .1), #0A0A0A); }
     @media (prefers-reduced-motion: reduce) { .liquid-shine::after, .rv-card { transition: none !important; } }
   </style>
+  <script src="protect.js" defer></script>
 </head>
 
 <body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
@@ -211,9 +218,15 @@
     <div class="relative max-w-[1280px] mx-auto px-4 md:px-6">
       <div class="grid lg:grid-cols-12 gap-10 items-center">
         <div class="lg:col-span-7" data-reveal>
-          <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2">
-            <span class="w-6 h-6 rounded-full bg-mustard text-ink grid place-items-center text-[11px]">✦</span>
-            <span class="text-[10.5px] font-bold tracking-[0.2em] uppercase">Reservations &bull; Jhalawar</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2">
+              <span class="w-6 h-6 rounded-full bg-mustard text-ink grid place-items-center text-[11px]">✦</span>
+              <span class="text-[10.5px] font-bold tracking-[0.2em] uppercase">Reservations &bull; Jhalawar</span>
+            </div>
+            <span id="statusPill" class="status-pill" aria-live="polite">
+              <span id="statusDot" class="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0"></span>
+              <span id="statusText">CHECKING HOURS…</span>
+            </span>
           </div>
           <h1 class="font-display text-[58px] sm:text-[82px] md:text-[104px] leading-[0.86] mt-5">
             BOOK YOUR <span class="font-serif italic">Table</span>
@@ -473,23 +486,26 @@
   </section>
 
   <!-- ===== FAQ ===== -->
-  <section class="bg-cream text-ink py-16" style="background:#FFFBEB">
+  <section class="bg-ink text-cream py-16 md:py-20 border-t border-white/5">
     <div class="max-w-[900px] mx-auto px-4 md:px-6">
-      <h2 class="font-display text-[40px] md:text-[50px] text-center leading-none" data-reveal>BOOKING <span class="font-serif italic text-mustard" style="color:#A16207">Questions</span></h2>
+      <div class="text-center" data-reveal>
+        <div class="text-[10px] font-bold tracking-[0.22em] opacity-55">GOOD TO KNOW</div>
+        <h2 class="font-display text-[40px] md:text-[50px] leading-none mt-2">BOOKING <span class="font-serif italic text-mustard">Questions</span></h2>
+      </div>
       <div class="grid gap-3 mt-8" id="faq">
-        <div class="faq-item bg-white rounded-[20px] border border-black/5 px-5 py-4" data-reveal>
+        <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
           <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Do I need to pay anything to reserve?<span class="faq-ico text-mustard text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">No. Reservations are completely free — you pay only for what you order. Cancellations are free too.</p></div>
         </div>
-        <div class="faq-item bg-white rounded-[20px] border border-black/5 px-5 py-4" data-reveal>
+        <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
           <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">How late can I book for tonight?<span class="faq-ico text-mustard text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Bookings close 30 minutes before the last slot (10:15 PM). For anything later, please call us directly.</p></div>
         </div>
-        <div class="faq-item bg-white rounded-[20px] border border-black/5 px-5 py-4" data-reveal>
+        <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
           <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Can we sit outside?<span class="faq-ico text-mustard text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Yes — choose “Outdoor” as your seating preference. Garden tables are limited, so book ahead on weekends.</p></div>
         </div>
-        <div class="faq-item bg-white rounded-[20px] border border-black/5 px-5 py-4" data-reveal>
+        <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
           <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Do you take large groups?<span class="faq-ico text-mustard text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Absolutely. Add a note with your party size and we will arrange joined tables. Groups of 15+ please call ahead.</p></div>
         </div>
@@ -720,17 +736,51 @@
     chipGroup('seatingChips', d => { seating = d.seating; });
     chipGroup('occasionChips', d => { occasion = d.occasion || ''; });
 
-    /* ================= OPEN / CLOSED STATE ================= */
+    /* ================= OPEN / CLOSED STATE (live, IST) ================= */
     (function () {
-      const d = new Date();
-      const mins = d.getHours() * 60 + d.getMinutes();
-      const open = mins >= 660 && mins <= 1305;
-      const el = document.getElementById('openState');
-      if (!open) {
-        el.textContent = 'CLOSED NOW — BOOK FOR LATER';
-        el.parentElement.querySelector('.animate-pulse').style.background = '#FACC15';
+      const OPEN_MIN = 11 * 60, CLOSE_MIN = 22 * 60 + 45; // 11:00 AM — 10:45 PM IST
+      const openState = document.getElementById('openState');
+      const statusPill = document.getElementById('statusPill');
+      const statusText = document.getElementById('statusText');
+      const statusDot = document.getElementById('statusDot');
+      const heroToday = document.getElementById('heroToday');
+
+      function istParts() {
+        // India Standard Time regardless of the visitor's timezone
+        const now = new Date();
+        const ist = new Date(now.getTime() + (now.getTimezoneOffset() + 330) * 60000);
+        return { mins: ist.getHours() * 60 + ist.getMinutes(), date: ist };
       }
-      document.getElementById('heroToday').textContent = pretty(new Date()).toUpperCase();
+
+      function render() {
+        const { mins, date } = istParts();
+        const open = mins >= OPEN_MIN && mins <= CLOSE_MIN;
+        const closingSoon = open && mins >= CLOSE_MIN - 60;
+        const openingSoon = !open && mins >= OPEN_MIN - 60 && mins < OPEN_MIN;
+
+        if (openState) {
+          openState.textContent = open
+            ? (closingSoon ? 'KITCHEN OPEN — CLOSING SOON' : 'KITCHEN OPEN NOW')
+            : 'CLOSED NOW — BOOK FOR LATER';
+          const dot = openState.parentElement.querySelector('.animate-pulse');
+          if (dot) dot.style.background = open ? '#4ADE80' : '#FACC15';
+        }
+        if (statusPill) {
+          statusPill.classList.toggle('open', open);
+          statusPill.classList.toggle('closed', !open);
+          if (statusDot) statusDot.style.background = open ? '#4ADE80' : '#FACC15';
+          if (statusText) {
+            statusText.textContent = open
+              ? (closingSoon ? 'OPEN — LAST ORDERS SOON' : 'OPEN NOW — TILL 10:45 PM')
+              : (openingSoon ? 'OPENS IN LESS THAN AN HOUR' : 'CLOSED — OPENS 11:00 AM DAILY');
+          }
+        }
+        if (heroToday) heroToday.textContent = pretty(date).toUpperCase();
+      }
+
+      render();
+      setInterval(render, 30000);
+      document.addEventListener('visibilitychange', render);
     })();
 
     /* ================= SUBMIT ================= */
