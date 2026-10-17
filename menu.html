@@ -48,13 +48,13 @@
     html.light .border-white\/10, html.light .border-white\/5 { border-color: rgba(0,0,0,0.08) !important; }
     html.light .bg-white\/10, html.light .bg-white\/5 { background: rgba(0,0,0,0.06) !important; }
     html.light .bg-white { background: #FFFFFF !important; color: #0A0A0A !important; }
-    html.light a.bg-white, html.light button.bg-white { background: #0A0A0A !important; color: #FFFBEB !important; }
+    html.light a.bg-white, html.light button.bg-white { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
     html.light .glass { background: rgba(255,255,255,0.82) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important; color: #0A0A0A !important; }
     html.light .glass-dark { background: rgba(255,255,255,0.88) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; color: #0A0A0A !important; }
     html.light .glass-dark a { color: #0A0A0A !important; }
     html.light #navbar .glass-dark { background: rgba(255,255,255,0.85) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
     html.light .bg-mustard, html.light .bg-mustardDark { color: #0A0A0A !important; }
-    html.light .text-mustard { color: #CA8A04 !important; }
+    html.light .text-mustard { color: #A16207 !important; }
     html.light #progress { background: #FACC15 !important; }
     html.light [class*="bg-black/70"] { background: rgba(255,255,255,0.82) !important; }
     html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
@@ -116,6 +116,10 @@
     .no-bar::-webkit-scrollbar { display: none; }
     .no-bar { scrollbar-width: none; }
 
+    /* ===== LOGO BADGE ===== */
+    .logo-badge { position: relative; display: inline-grid; place-items: center; flex: 0 0 auto; border-radius: 999px; overflow: hidden; background: #0A0A0A; }
+    .logo-badge > img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.12); }
+
     /* ===== FILTER CHIPS ===== */
     .fbtn { border-radius: 999px; padding: 9px 16px; font-size: 12.5px; font-weight: 800; letter-spacing: .02em; white-space: nowrap; cursor: pointer; transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s, color .3s, border-color .3s, box-shadow .3s; }
     .fbtn:hover { transform: translateY(-2px); }
@@ -161,7 +165,7 @@
   <nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1280px] z-50">
     <div class="glass-dark rounded-[20px] md:rounded-full px-3 md:px-6 py-3 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-3">
-        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo" class="w-9 h-9 rounded-full object-cover ring-1 ring-mustard/40 shrink-0">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40 shrink-0"><img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"></span>
         <span class="font-display text-[22px] tracking-[0.04em] leading-none hidden sm:block">INDIANA</span>
         <span class="hidden sm:block text-[10px] tracking-[0.18em] opacity-60 -ml-1 font-semibold">RESTAURANT &amp; CAFE</span>
       </a>
@@ -475,7 +479,7 @@
   <footer class="bg-ink border-t border-white/10 py-10">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
       <div class="flex items-center gap-3">
-        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo" class="w-11 h-11 rounded-full object-cover ring-1 ring-mustard/40">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40"><img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"></span>
         <div>
           <div class="font-display text-[20px] tracking-[0.06em] leading-none">INDIANA</div>
           <div class="opacity-60 tracking-[0.16em] text-[9px] font-semibold mt-1">THOUSAND FLAVOURS AHEAD</div>

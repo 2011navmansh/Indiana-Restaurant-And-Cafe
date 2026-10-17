@@ -55,12 +55,12 @@
     html.light .glass { background: rgba(255,255,255,0.82) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important; color: #0A0A0A !important; }
     html.light .glass-dark { background: rgba(255,255,255,0.88) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; color:#0A0A0A !important; }
     html.light .glass-dark a { color: #0A0A0A !important; }
-    html.light .glass-dark a.bg-white { background: #0A0A0A !important; color: #fff !important; }
+    html.light .glass-dark a.bg-white { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
     html.light #navbar .glass-dark { background: rgba(255,255,255,0.85) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
     html.light .glass-cream { background: rgba(255,255,255,0.95) !important; }
     /* keep mustard accents same */
     html.light .bg-mustard, html.light .bg-mustardDark { color: #0A0A0A !important; }
-    html.light .text-mustard { color: #CA8A04 !important; }
+    html.light .text-mustard { color: #A16207 !important; }
     /* loader & progress in light */
     html.light #loader { background: #FFFBEB !important; color: #0A0A0A !important; }
     html.light #progress { background: #FACC15 !important; }
@@ -242,6 +242,12 @@
     html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-white { color: #FFFBEB !important; }
     html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink.text-mustard,
     html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-mustard { color: #FACC15 !important; }
+    /* no harsh black pills in light mode — soft mustard brand chips instead */
+    html.light .menu-card .bg-ink { background: #FEF3C7 !important; color: #92400E !important; box-shadow: inset 0 0 0 1px rgba(202,138,4,.3); }
+    html.light .menu-card .bg-ink.text-mustard { color: #92400E !important; }
+    html.light .menu-card button.bg-ink, html.light .menu-card button.bg-ink.text-mustard { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
+    html.light #reviews .bg-ink { background: #FEF3C7 !important; color: #92400E !important; box-shadow: inset 0 0 0 1px rgba(202,138,4,.3); }
+    html.light #reviews .bg-ink.text-mustard { color: #92400E !important; }
     /* dark coloured cards keep light text */
     html.light .bg-\[\#0F2A18\] { background: #0F2A18 !important; }
     html.light .bg-\[\#0F2A18\].text-cream, html.light .bg-\[\#0F2A18\] .text-cream, html.light .bg-\[\#0F2A18\] .text-white { color: #FFFBEB !important; }
@@ -252,6 +258,117 @@
     html.light [class*="bg-black/70"] { background: rgba(255,255,255,0.82) !important; }
     html.light .cursor-ring { border-color: rgba(10,10,10,0.4) !important; }
     html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
+
+    /* ===== LOGO BADGE (circular crop + inner zoom so the emblem reads clearly) ===== */
+    .logo-badge {
+      position: relative; display: inline-grid; place-items: center; flex: 0 0 auto;
+      border-radius: 999px; overflow: hidden; background: #0A0A0A;
+    }
+    .logo-badge > img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.12); }
+
+    /* ===== RESERVE SECTION ===== */
+    .rv-field { position: relative; display: flex; flex-direction: column; gap: 7px; }
+    .rv-field--r .rv-pop { left: auto; right: 0; }
+    .rv-field > span { font-size: 9.5px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
+    .rv-field input, .rv-field select, .rv-input {
+      width: 100%; border-radius: 16px; padding: 13px 16px; font-size: 14px; font-weight: 600;
+      font-family: inherit; color: inherit; outline: none; appearance: none; -webkit-appearance: none;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+      transition: border-color .3s, background .3s, box-shadow .3s;
+    }
+    .rv-field input::placeholder { color: rgba(255,251,235,.4); font-weight: 500; }
+    .rv-field input:focus, .rv-field select:focus, .rv-input:focus-visible {
+      border-color: rgba(250,204,21,.8); background: rgba(250,204,21,.09);
+      box-shadow: 0 0 0 4px rgba(250,204,21,.14);
+    }
+    .rv-input {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      text-align: left; cursor: pointer; padding-right: 42px; position: relative;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FACC15' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 16px;
+    }
+    .rv-input:hover { border-color: rgba(250,204,21,.45); background-color: rgba(250,204,21,.05); }
+    .rv-input.open { border-color: rgba(250,204,21,.8); box-shadow: 0 0 0 4px rgba(250,204,21,.14); }
+    .rv-input .rv-ph { opacity: .45; font-weight: 500; }
+    .rv-submit {
+      border-radius: 999px; padding: 17px 22px; font-size: 12.5px; font-weight: 800; letter-spacing: .14em;
+      background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%); color: #0A0A0A;
+      box-shadow: 0 22px 44px -20px rgba(250,204,21,.9), inset 0 1px 0 rgba(255,255,255,.5);
+      transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, filter .3s;
+    }
+    .rv-submit:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .rv-card { position: relative; overflow: hidden; transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s; }
+    .rv-card:hover { transform: translateY(-4px); box-shadow: 0 26px 54px -30px rgba(250,204,21,.5); }
+    .rv-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: .02em; padding: 7px 13px; border-radius: 999px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); color: inherit;
+    }
+
+    /* ===== PREMIUM POPOVER PICKERS (date / time / guests) ===== */
+    .rv-pop {
+      position: absolute; z-index: 60; top: calc(100% + 10px); left: 0; width: 306px; max-width: calc(100vw - 40px);
+      padding: 14px; border-radius: 22px; color: #FFFBEB;
+      background: rgba(14,14,14,.94); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: 0 36px 72px -32px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.08);
+      opacity: 0; transform: translateY(-10px) scale(.97); pointer-events: none;
+      transition: opacity .24s ease, transform .32s cubic-bezier(.2,.7,.2,1);
+    }
+    .rv-pop.open { opacity: 1; transform: none; pointer-events: auto; }
+    .rv-pop-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+    .rv-mo { font-size: 13.5px; font-weight: 800; letter-spacing: .04em; }
+    .rv-mo em { font-style: normal; opacity: .5; font-weight: 700; }
+    .rv-nav {
+      width: 32px; height: 32px; border-radius: 999px; display: grid; place-items: center; font-size: 16px; line-height: 1;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13); color: inherit; cursor: pointer; transition: .25s;
+    }
+    .rv-nav:hover { background: #FACC15; color: #0A0A0A; border-color: transparent; transform: translateY(-1px); }
+    .rv-dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 5px; }
+    .rv-dow span { text-align: center; font-size: 9px; font-weight: 800; letter-spacing: .12em; opacity: .42; }
+    .rv-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .rv-day {
+      height: 34px; border-radius: 12px; display: grid; place-items: center;
+      font-size: 12.5px; font-weight: 700; font-family: inherit; color: inherit;
+      background: transparent; border: 1px solid transparent; cursor: pointer; transition: .2s;
+    }
+    .rv-day:hover { background: rgba(250,204,21,.16); border-color: rgba(250,204,21,.4); transform: translateY(-1px); }
+    .rv-day.other { opacity: .22; cursor: default; }
+    .rv-day.other:hover { background: transparent; border-color: transparent; transform: none; }
+    .rv-day.off { opacity: .22; cursor: not-allowed; }
+    .rv-day.off:hover { background: transparent; border-color: transparent; transform: none; }
+    .rv-day.today { border-color: rgba(250,204,21,.55); box-shadow: inset 0 0 0 0 transparent; }
+    .rv-day.sel { background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; border-color: transparent; box-shadow: 0 12px 24px -12px rgba(250,204,21,.95); }
+    .rv-day.sel:hover { background: linear-gradient(135deg,#FACC15,#EAB308); }
+    .rv-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 11px; border-top: 1px solid rgba(255,255,255,.1); }
+    .rv-foot button { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; opacity: .65; transition: .25s; }
+    .rv-foot button:hover { opacity: 1; color: #FACC15; }
+    .rv-pop-lbl { font-size: 9.5px; font-weight: 800; letter-spacing: .2em; opacity: .45; margin-bottom: 9px; }
+    .rv-list { display: grid; gap: 3px; max-height: 236px; overflow-y: auto; margin: -3px; padding: 3px; }
+    .rv-opt {
+      text-align: left; padding: 10px 13px; border-radius: 12px; font-size: 13px; font-weight: 700;
+      font-family: inherit; color: inherit; cursor: pointer; transition: .2s;
+    }
+    .rv-opt:hover { background: rgba(250,204,21,.14); }
+    .rv-opt.sel { background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; }
+    .rv-list::-webkit-scrollbar { width: 5px; }
+    .rv-list::-webkit-scrollbar-thumb { background: rgba(250,204,21,.6); border-radius: 999px; }
+    html.light .rv-field input, html.light .rv-field select, html.light .rv-input {
+      background-color: #FFFDF6; border-color: rgba(10,10,10,.1); color: #0A0A0A;
+      box-shadow: inset 0 1px 2px rgba(10,10,10,.04);
+    }
+    html.light .rv-input:hover { background-color: #FFF8E1; border-color: rgba(202,138,4,.45); }
+    html.light .rv-field input::placeholder { color: rgba(10,10,10,.35); }
+    html.light .rv-input { background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CA8A04' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+    html.light .rv-pop {
+      background: rgba(255,253,246,.98); color: #0A0A0A; border-color: rgba(10,10,10,.08);
+      box-shadow: 0 36px 72px -34px rgba(10,10,10,.4), inset 0 1px 0 #fff;
+    }
+    html.light .rv-nav { background: #FFFFFF; border-color: rgba(10,10,10,.1); }
+    html.light .rv-day:hover { background: rgba(202,138,4,.12); }
+    html.light .rv-foot { border-color: rgba(10,10,10,.08); }
+    html.light .rv-foot button { opacity: .55; }
+    html.light .rv-foot button:hover { opacity: 1; color: #A16207; }
+    html.light .rv-tag { background: #FFFFFF; border-color: rgba(10,10,10,.1); color: #0A0A0A; }
 
     /* ===== PREMIUM LIQUID-GLASS HERO CARD ===== */
     .hero-lc {
@@ -302,6 +419,10 @@
       box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.95);
     }
     html.light .glass-chip-dark.text-mustard, html.light .glass-chip-dark .text-mustard { color: #FACC15 !important; }
+    /* dark surfaces always keep light text — no dark-on-dark in light mode */
+    html.light .glass-chip-dark, html.light .glass-chip-dark * { color: #FACC15 !important; }
+    html.light .bg-\[\#0F2A18\], html.light .bg-\[\#0F2A18\] * { color: #FFFBEB !important; }
+    html.light .bg-\[\#0F2A18\] .text-mustard, html.light .bg-\[\#0F2A18\] .font-serif.italic { color: #FACC15 !important; }
     /* the mustard brand card keeps its own colours in both themes */
     html.light .hero-lc { background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%) !important; }
     html.light .hero-lc .text-ink, html.light .hero-lc .text-ink\/60, html.light .hero-lc .text-ink\/80 { color: #0A0A0A !important; }
@@ -322,8 +443,9 @@
   
   <div id="loader" class="fixed inset-0 z-[200] bg-ink flex flex-col items-center justify-center">
     <div class="text-center">
-      <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"
-        class="w-20 h-20 mx-auto rounded-full object-cover ring-1 ring-mustard/40 shadow-[0_20px_50px_-20px_rgba(250,204,21,0.55)]">
+      <span class="logo-badge w-[92px] h-[92px] mx-auto ring-1 ring-mustard/40 shadow-[0_20px_50px_-20px_rgba(250,204,21,0.55)]">
+        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo">
+      </span>
       <div class="font-display text-4xl tracking-[0.12em] mt-4">INDIANA</div>
       <div class="text-[10px] tracking-[0.3em] opacity-60 font-semibold">RESTAURANT & CAFE</div>
       <div id="loaderPercent" class="font-display text-6xl text-mustard mt-6 leading-none">0%</div>
@@ -343,8 +465,9 @@
     class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1280px] z-50 transition-all duration-500">
     <div class="glass-dark rounded-[20px] md:rounded-full px-3 md:px-6 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"
-          class="w-9 h-9 rounded-full object-cover ring-1 ring-mustard/40 shrink-0">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40 shrink-0">
+          <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo">
+        </span>
         <span class="font-display text-[22px] tracking-[0.04em] leading-none hidden sm:block">INDIANA</span>
         <span class="hidden sm:block text-[10px] tracking-[0.18em] opacity-60 -ml-1 font-semibold">RESTAURANT &
           CAFE</span>
@@ -637,12 +760,134 @@
     </div>
   </section>
   <section class="bg-mustard py-3 overflow-hidden whitespace-nowrap"><div class="animate-[marquee_20s_linear_infinite] inline-flex gap-8 font-display text-lg tracking-widest">WOOD-FIRED • 48H DOUGH • FRESH • HAND-TOSSED • </div></section>
-  <section class="bg-cream text-ink py-16" style="background:#FFFBEB"><div class="max-w-[1280px] mx-auto px-4 md:px-6"><h2 class="font-display text-[40px] md:text-[48px] text-center leading-none">LOVED BY <span class="font-serif italic text-mustard" style="color:#CA8A04">Diners</span></h2><p class="text-center text-sm opacity-60 mt-2">Real Google Reviews &bull; Food 5 &bull; Service 5 &bull; Atmosphere 5 &bull; <a href="https://www.google.com/maps/place/Indiana+Restaurant+And+Cafe+-+Best+Restaurant,+Cafe,+Veg+Restaurant/@24.5867946,76.1768224,19z/data=!4m6!3m5!1s0x39653f5e97994c59:0x845456ba8f1efc7f!8m2!3d24.5867946!4d76.1768224!16s%2Fg%2F11fsbc3fn1?entry=ttu" target="_blank" class="underline hover:text-mustard">View on Google Maps &rarr;</a></p><div class="grid lg:grid-cols-3 gap-5 mt-8 items-start"><!-- FEATURED REAL REVIEW - Sanmeet --><div class="lg:col-span-2 bg-white rounded-[24px] p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5 flex flex-col"><div class="flex flex-wrap gap-2 mb-4"><span class="bg-mustard text-ink rounded-full px-4 py-1.5 text-xs font-extrabold">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Food: 5</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Service: 5</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Atmosphere: 5</span></div><p class="text-[15px] leading-7 text-ink/80">&ldquo;Great place to have all fast food items. They have indoor as well as outdoor sitting - both sitting areas are clean and have great vibe. Food menu is very dynamic with great choices of pastas, pizzas, sandwich and even main course. They have great drinks menu as well - lot of choices in coffee. They have items for kids as well. Lot of parking available outside.&rdquo;</p><p class="text-[15px] leading-7 text-ink/80 mt-3">&ldquo;Overall this is a great place to have lunch / dinner with family. May get busy on weekends&rdquo;</p><div class="grid grid-cols-3 gap-3 mt-6"><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex gap-3 mt-6 items-center bg-[#FFFBEB] border border-black/5 rounded-full px-4 py-3"><img src="https://i.postimg.cc/SQDXFf1M/image.png" class="w-10 h-10 rounded-full object-cover shrink-0 border border-black/10"><div class="min-w-0"><div class="font-bold text-sm leading-tight">Sanmeet Gurudatta &bull; Verified Diner &bull; Google Review</div><div class="text-xs opacity-60 leading-tight">Family dining &bull; Jhalawar &bull; Indiana Restaurant & Cafe</div></div><span class="ml-auto hidden sm:inline-flex bg-mustard text-ink rounded-full px-3 py-1 text-[11px] font-bold shrink-0">&#10003; Verified</span></div></div><div class="flex flex-col gap-5"><div class="bg-mustard text-ink rounded-[24px] p-6 shadow-[0_8px_24px_rgba(250,204,21,0.3)]"><div class="text-sm">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="font-extrabold ml-1">5.0</span></div><p class="mt-3 text-sm font-medium leading-6">&ldquo;48h dough is real! Wood-fired crust is unbeatable. Pure veg & super tasty!&rdquo;</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full object-cover"><span class="text-sm font-bold">Sara &bull; Mumbai</span><span class="ml-auto text-[11px] bg-ink text-mustard rounded-full px-2.5 py-1 font-bold">Dine in</span></div></div><div class="bg-white rounded-[24px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5"><div class="flex items-center gap-2"><span class="text-[#CA8A04] text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="bg-mustard text-ink rounded-full px-2.5 py-0.5 text-[11px] font-extrabold">5.0</span><span class="ml-auto text-[11px] font-bold opacity-50">2 weeks ago</span></div><p class="mt-3 text-[14px] leading-6 text-ink/80">&ldquo;Bohot badia restaurant hai, bohot acha khana he, hamare pas paise kam pad gaye the to hamse Kam pese lie inhone. bhagwan apko khush rakhe hamesha&rdquo;</p><div class="grid grid-cols-3 gap-2 mt-4"><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/dt9JRWMB/unnamed-(18).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/3JZ3jLMZ/unnamed-(17).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex flex-wrap gap-2 mt-4"><span class="bg-ink text-mustard rounded-full px-3 py-1 text-[11px] font-bold">Dine in</span><span class="bg-ink text-mustard rounded-full px-3 py-1 text-[11px] font-bold">&#8377;600&ndash;800 / person</span></div><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=26" class="w-9 h-9 rounded-full object-cover"><div><div class="text-sm font-bold leading-tight">Payal Yadav</div><div class="text-[11px] opacity-60 leading-tight">Verified &bull; Google Review</div></div><span class="ml-auto w-7 h-7 rounded-full bg-mustard text-ink grid place-items-center text-xs">&#10003;</span></div></div><a href="gallery.html" class="bg-white rounded-[24px] p-5 flex items-center justify-between hover:shadow-lg transition shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-black/5"><div><div class="font-extrabold text-sm">View all 32 photos</div><div class="text-xs opacity-60">Gallery &bull; Real ambience &bull; postimg.cc</div></div><span class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">&rarr;</span></a></div></div></div></section>
+  <section id="reviews" class="bg-cream text-ink py-16" style="background:#FFFBEB"><div class="max-w-[1280px] mx-auto px-4 md:px-6"><h2 class="font-display text-[40px] md:text-[48px] text-center leading-none">LOVED BY <span class="font-serif italic text-mustard" style="color:#CA8A04">Diners</span></h2><p class="text-center text-sm opacity-60 mt-2">Real Google Reviews &bull; Food 5 &bull; Service 5 &bull; Atmosphere 5 &bull; <a href="https://www.google.com/maps/place/Indiana+Restaurant+And+Cafe+-+Best+Restaurant,+Cafe,+Veg+Restaurant/@24.5867946,76.1768224,19z/data=!4m6!3m5!1s0x39653f5e97994c59:0x845456ba8f1efc7f!8m2!3d24.5867946!4d76.1768224!16s%2Fg%2F11fsbc3fn1?entry=ttu" target="_blank" class="underline hover:text-mustard">View on Google Maps &rarr;</a></p><div class="grid lg:grid-cols-3 gap-5 mt-8 items-start"><!-- FEATURED REAL REVIEW - Sanmeet --><div class="lg:col-span-2 bg-white rounded-[24px] p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5 flex flex-col"><div class="flex flex-wrap gap-2 mb-4"><span class="bg-mustard text-ink rounded-full px-4 py-1.5 text-xs font-extrabold">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Food: 5</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Service: 5</span><span class="bg-ink text-mustard rounded-full px-3 py-1.5 text-xs font-bold">Atmosphere: 5</span></div><p class="text-[15px] leading-7 text-ink/80">&ldquo;Great place to have all fast food items. They have indoor as well as outdoor sitting - both sitting areas are clean and have great vibe. Food menu is very dynamic with great choices of pastas, pizzas, sandwich and even main course. They have great drinks menu as well - lot of choices in coffee. They have items for kids as well. Lot of parking available outside.&rdquo;</p><p class="text-[15px] leading-7 text-ink/80 mt-3">&ldquo;Overall this is a great place to have lunch / dinner with family. May get busy on weekends&rdquo;</p><div class="grid grid-cols-3 gap-3 mt-6"><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex gap-3 mt-6 items-center bg-[#FFFBEB] border border-black/5 rounded-full px-4 py-3"><img src="https://i.postimg.cc/SQDXFf1M/image.png" class="w-10 h-10 rounded-full object-cover shrink-0 border border-black/10"><div class="min-w-0"><div class="font-bold text-sm leading-tight">Sanmeet Gurudatta &bull; Verified Diner &bull; Google Review</div><div class="text-xs opacity-60 leading-tight">Family dining &bull; Jhalawar &bull; Indiana Restaurant & Cafe</div></div><span class="ml-auto hidden sm:inline-flex bg-mustard text-ink rounded-full px-3 py-1 text-[11px] font-bold shrink-0">&#10003; Verified</span></div></div><div class="flex flex-col gap-5"><div class="bg-mustard text-ink rounded-[24px] p-6 shadow-[0_8px_24px_rgba(250,204,21,0.3)]"><div class="text-sm">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="font-extrabold ml-1">5.0</span></div><p class="mt-3 text-sm font-medium leading-6">&ldquo;48h dough is real! Wood-fired crust is unbeatable. Pure veg & super tasty!&rdquo;</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full object-cover"><span class="text-sm font-bold">Sara &bull; Mumbai</span><span class="ml-auto text-[11px] bg-ink text-mustard rounded-full px-2.5 py-1 font-bold">Dine in</span></div></div><div class="bg-white rounded-[24px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5"><div class="flex items-center gap-2"><span class="text-[#CA8A04] text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="bg-mustard text-ink rounded-full px-2.5 py-0.5 text-[11px] font-extrabold">5.0</span><span class="ml-auto text-[11px] font-bold opacity-50">2 weeks ago</span></div><p class="mt-3 text-[14px] leading-6 text-ink/80">&ldquo;Bohot badia restaurant hai, bohot acha khana he, hamare pas paise kam pad gaye the to hamse Kam pese lie inhone. bhagwan apko khush rakhe hamesha&rdquo;</p><div class="grid grid-cols-3 gap-2 mt-4"><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/dt9JRWMB/unnamed-(18).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/3JZ3jLMZ/unnamed-(17).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex flex-wrap gap-2 mt-4"><span class="bg-ink text-mustard rounded-full px-3 py-1 text-[11px] font-bold">Dine in</span><span class="bg-ink text-mustard rounded-full px-3 py-1 text-[11px] font-bold">&#8377;600&ndash;800 / person</span></div><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=26" class="w-9 h-9 rounded-full object-cover"><div><div class="text-sm font-bold leading-tight">Payal Yadav</div><div class="text-[11px] opacity-60 leading-tight">Verified &bull; Google Review</div></div><span class="ml-auto w-7 h-7 rounded-full bg-mustard text-ink grid place-items-center text-xs">&#10003;</span></div></div><a href="gallery.html" class="bg-white rounded-[24px] p-5 flex items-center justify-between hover:shadow-lg transition shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-black/5"><div><div class="font-extrabold text-sm">View all 32 photos</div><div class="text-xs opacity-60">Gallery &bull; Real ambience &bull; postimg.cc</div></div><span class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">&rarr;</span></a></div></div></div></section>
   <!-- STEP 6 RESERVE -->
-  <section id="reserve" class="bg-forest text-cream py-16">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10">
-      <div><h2 class="font-display text-[42px] leading-none">RESERVE <span class="font-serif italic text-mustard">Your Table</span></h2><form id="reserveForm" class="mt-6 grid gap-3"><input required placeholder="Your Name" class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none placeholder:text-cream/50"><input required placeholder="Phone" class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none placeholder:text-cream/50"><div class="grid grid-cols-2 gap-3"><input type="date" required class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none"><select class="rounded-full px-5 py-3 bg-white/10 border border-white/15 outline-none"><option>2 Guests</option><option>4 Guests</option></select></div><button type="submit" class="bg-mustard text-ink rounded-full py-3 font-extrabold">CONFIRM RESERVATION ↗</button></form><div id="reserveSuccess" class="hidden mt-4 glass rounded-2xl p-4 text-sm">✓ Reservation received!</div></div>
-      <div class="space-y-4"><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">VISIT US</div><div class="font-bold leading-tight">Rajlaxmi nagar, Jhalawar, Rajasthan 326001 — 11AM to 10:45 PM Daily</div></div><div class="glass rounded-2xl p-6"><div class="text-xs opacity-60">CALL</div><div class="font-bold">+91 98765 43210</div></div></div>
+  <section id="reserve" class="relative overflow-hidden bg-forest text-cream py-20 md:py-24">
+    <div class="pointer-events-none absolute -top-28 -left-24 w-[460px] h-[460px] rounded-full bg-mustard/10 blur-[120px]"></div>
+    <div class="pointer-events-none absolute -bottom-32 -right-16 w-[420px] h-[420px] rounded-full bg-mustard/10 blur-[120px]"></div>
+
+    <div class="relative max-w-[1280px] mx-auto px-4 md:px-6">
+      <!-- HEADER -->
+      <div class="max-w-[720px] mx-auto text-center">
+        <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2">
+          <span class="w-6 h-6 rounded-full bg-mustard text-ink grid place-items-center text-[11px]">✦</span>
+          <span class="text-[10.5px] font-bold tracking-[0.2em] uppercase">Reservations &bull; Open All 7 Days</span>
+        </div>
+        <h2 class="font-display text-[46px] md:text-[64px] leading-[0.88] mt-5">RESERVE <span class="font-serif italic text-mustard">Your Table</span></h2>
+        <p class="text-sm md:text-[15px] opacity-60 mt-4 max-w-[520px] mx-auto leading-relaxed">Thirty seconds, one form, zero waiting. Tell us when you are coming and we will keep the table warm &mdash; indoors or out.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-6 mt-12 items-start">
+        <!-- FORM CARD -->
+        <div class="lg:col-span-7 glass rounded-[32px] p-5 md:p-7 relative z-30">
+          <div class="flex items-center justify-between gap-3 mb-6">
+            <div class="font-display text-[22px] leading-none">BOOKING <span class="font-serif italic text-mustard">Details</span></div>
+            <span class="hidden sm:inline-flex text-[10px] font-bold tracking-[0.18em] opacity-55">TAKES 30 SECONDS</span>
+          </div>
+          <form id="reserveForm" class="grid gap-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <label class="rv-field"><span>Full Name</span><input required placeholder="Aarav Sharma" autocomplete="name"></label>
+              <label class="rv-field"><span>Phone</span><input required inputmode="tel" placeholder="+91 98765 43210" autocomplete="tel"></label>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div class="rv-field">
+                <span>Date</span>
+                <button type="button" id="rvDateBtn" class="rv-input" aria-haspopup="dialog" aria-expanded="false">
+                  <span class="rv-ph" id="rvDateText">Pick a date</span>
+                </button>
+                <input type="hidden" id="rvDate">
+                <div class="rv-pop" id="rvCal" role="dialog" aria-label="Choose reservation date">
+                  <div class="rv-pop-h">
+                    <button type="button" class="rv-nav" id="rvPrev" aria-label="Previous month">‹</button>
+                    <div class="rv-mo" id="rvMonth"></div>
+                    <button type="button" class="rv-nav" id="rvNext" aria-label="Next month">›</button>
+                  </div>
+                  <div class="rv-dow"><span>SU</span><span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span></div>
+                  <div class="rv-days" id="rvDays"></div>
+                  <div class="rv-foot">
+                    <button type="button" id="rvClear">CLEAR</button>
+                    <button type="button" id="rvToday">TODAY</button>
+                  </div>
+                </div>
+              </div>
+              <div class="rv-field rv-field--r">
+                <span>Time</span>
+                <button type="button" id="rvTimeBtn" class="rv-input" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="rvTimeText">7:30 PM</span>
+                </button>
+                <input type="hidden" id="rvTime" value="7:30 PM">
+                <div class="rv-pop" id="rvTimePop" role="dialog" aria-label="Choose time">
+                  <div class="rv-pop-lbl">SERVICE SLOTS &bull; 30 MIN</div>
+                  <div class="rv-list" id="rvTimeList"></div>
+                </div>
+              </div>
+              <div class="rv-field rv-field--r">
+                <span>Guests</span>
+                <button type="button" id="rvGuestsBtn" class="rv-input" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="rvGuestsText">2 Guests</span>
+                </button>
+                <input type="hidden" id="rvGuests" value="2 Guests">
+                <div class="rv-pop" id="rvGuestsPop" role="dialog" aria-label="Choose party size">
+                  <div class="rv-pop-lbl">PARTY SIZE</div>
+                  <div class="rv-list" id="rvGuestsList"></div>
+                </div>
+              </div>
+            </div>
+            <label class="rv-field"><span>Special Request <em class="not-italic opacity-50">(optional)</em></span><input placeholder="Birthday, window seat, high chair&hellip;"></label>
+            <button type="submit" class="rv-submit mt-1 w-full">CONFIRM RESERVATION <span aria-hidden="true">↗</span></button>
+            <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10.5px] font-bold tracking-[0.14em] opacity-55">
+              <span>✓ NO PREPAYMENT</span><span>✓ INSTANT CONFIRM</span><span>✓ FREE CANCELLATION</span>
+            </div>
+          </form>
+          <div id="reserveSuccess" class="hidden mt-5 rounded-[20px] bg-mustard text-ink px-5 py-4 text-sm font-extrabold">✓ Reservation received — see you soon at Indiana!</div>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="lg:col-span-5 grid gap-4 relative z-10">
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">📍</span>
+              <div>
+                <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">VISIT US</div>
+                <div class="font-extrabold mt-1 leading-snug">Rajlaxmi Nagar, Jhalawar,<br>Rajasthan 326001</div>
+                <a href="https://www.google.com/maps?q=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-[11px] font-extrabold tracking-[0.14em] text-mustard">GET DIRECTIONS ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">◷</span>
+              <div class="flex-1">
+                <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">OPEN DAILY</div>
+                <div class="font-extrabold mt-1">11:00 AM — 10:45 PM</div>
+                <div class="flex items-center gap-2 mt-3 text-[11px] font-bold tracking-[0.1em]">
+                  <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> KITCHEN OPEN NOW
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">☎</span>
+              <div class="flex-1">
+                <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">CALL OR WHATSAPP</div>
+                <a href="tel:+919876543210" class="font-extrabold mt-1 block hover:text-mustard transition">+91 98765 43210</a>
+                <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 text-[11.5px] font-extrabold tracking-[0.1em]">RESERVE ON WHATSAPP ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">GOOD FOR</div>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="rv-tag">Family Dinners</span><span class="rv-tag">Date Nights</span><span class="rv-tag">Birthdays</span><span class="rv-tag">Groups 8+</span><span class="rv-tag">Outdoor Seating</span>
+            </div>
+            <p class="text-[11.5px] opacity-55 mt-4 leading-relaxed">Coming with a big group? Give us a ring so we can join the tables before you arrive.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <!-- GALLERY — Real Photos (32) — Preview 8 -->
@@ -747,8 +992,9 @@
   <footer class="bg-ink border-t border-white/10 py-10">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
       <div class="flex items-center gap-3">
-        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"
-          class="w-11 h-11 rounded-full object-cover ring-1 ring-mustard/40">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40">
+          <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo">
+        </span>
         <div>
           <div class="font-display text-[20px] tracking-[0.06em] leading-none">INDIANA</div>
           <div class="opacity-60 tracking-[0.18em] text-[9px] font-bold mt-1">THOUSAND FLAVOURS AHEAD</div>
@@ -966,7 +1212,159 @@
         setTimeout(()=>{ overlay.style.transition='none'; overlay.style.clipPath=`circle(0% at ${ox} ${oy})`; toggling=false; }, 180);
       }, 340);
     });
-    document.getElementById('reserveForm')?.addEventListener('submit',e=>{e.preventDefault(); document.getElementById('reserveSuccess').classList.remove('hidden'); e.target.reset(); setTimeout(()=>document.getElementById('reserveSuccess').classList.add('hidden'),3000);});
+    /* ========== PREMIUM DATE • TIME • GUESTS PICKERS ========== */
+    (function () {
+      const MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const DAY = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const $ = id => document.getElementById(id);
+      if (!$('rvDateBtn')) return;
+
+      const now = new Date(); now.setHours(0,0,0,0);
+      let view = new Date(now.getFullYear(), now.getMonth(), 1);
+      let picked = null;
+
+      const dateBtn = $('rvDateBtn'), dateText = $('rvDateText'), dateInput = $('rvDate');
+      const cal = $('rvCal'), monthEl = $('rvMonth'), daysEl = $('rvDays');
+      const timeBtn = $('rvTimeBtn'), timeText = $('rvTimeText'), timeInput = $('rvTime');
+      const timePop = $('rvTimePop'), timeList = $('rvTimeList');
+      const gBtn = $('rvGuestsBtn'), gText = $('rvGuestsText'), gInput = $('rvGuests');
+      const gPop = $('rvGuestsPop'), gList = $('rvGuestsList');
+
+      const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      const pretty = d => DAY[d.getDay()].slice(0, 3) + ', ' + d.getDate() + ' ' + MON[d.getMonth()].slice(0, 3) + ' ' + d.getFullYear();
+
+      const pops = [[cal, dateBtn], [timePop, timeBtn], [gPop, gBtn]];
+      function closeAll(except) {
+        pops.forEach(([p, b]) => {
+          if (p === except) return;
+          p.classList.remove('open'); b.classList.remove('open'); b.setAttribute('aria-expanded', 'false');
+        });
+      }
+      function toggle(pop, btn) {
+        const wasOpen = pop.classList.contains('open');
+        closeAll();
+        if (wasOpen) return;
+        pop.classList.add('open'); btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+        pop.style.left = ''; pop.style.right = '';
+        requestAnimationFrame(() => {
+          pop.style.left = ''; pop.style.right = '';
+          const r = pop.getBoundingClientRect();
+          if (r.right > window.innerWidth - 16) { pop.style.left = 'auto'; pop.style.right = '0'; }
+          else if (r.left < 16) { pop.style.left = '0'; pop.style.right = 'auto'; }
+        });
+      }
+      document.addEventListener('click', e => { if (!e.target.closest('.rv-field')) closeAll(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+      /* ---------- CALENDAR ---------- */
+      function render() {
+        monthEl.innerHTML = MON[view.getMonth()] + ' <em>' + view.getFullYear() + '</em>';
+        const start = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+        const dim = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+        const prevDim = new Date(view.getFullYear(), view.getMonth(), 0).getDate();
+        daysEl.innerHTML = '';
+        for (let i = 0; i < 42; i++) {
+          const n = i - start + 1;
+          let d, other = false;
+          if (n < 1) { d = new Date(view.getFullYear(), view.getMonth() - 1, prevDim + n); other = true; }
+          else if (n > dim) { d = new Date(view.getFullYear(), view.getMonth() + 1, n - dim); other = true; }
+          else d = new Date(view.getFullYear(), view.getMonth(), n);
+          const b = document.createElement('button');
+          b.type = 'button'; b.className = 'rv-day'; b.textContent = d.getDate();
+          if (other) b.classList.add('other');
+          if (d.getTime() === now.getTime()) b.classList.add('today');
+          if (d < now) b.classList.add('off');
+          if (picked && iso(d) === iso(picked)) b.classList.add('sel');
+          b.addEventListener('click', () => {
+            if (other || d < now) return;
+            picked = d;
+            dateInput.value = iso(d);
+            dateText.textContent = pretty(d);
+            dateText.classList.remove('rv-ph');
+            render(); closeAll();
+          });
+          daysEl.appendChild(b);
+        }
+      }
+      dateBtn.addEventListener('click', e => { e.stopPropagation(); render(); toggle(cal, dateBtn); });
+      $('rvPrev').addEventListener('click', e => { e.stopPropagation(); view.setMonth(view.getMonth() - 1); render(); });
+      $('rvNext').addEventListener('click', e => { e.stopPropagation(); view.setMonth(view.getMonth() + 1); render(); });
+      $('rvToday').addEventListener('click', e => {
+        e.stopPropagation();
+        picked = new Date(now); view = new Date(now.getFullYear(), now.getMonth(), 1);
+        dateInput.value = iso(picked); dateText.textContent = pretty(picked);
+        dateText.classList.remove('rv-ph'); render(); closeAll();
+      });
+      $('rvClear').addEventListener('click', e => {
+        e.stopPropagation(); picked = null; dateInput.value = '';
+        dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph'); render();
+      });
+
+      /* ---------- TIME SLOTS ---------- */
+      const slots = [];
+      for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
+        const h24 = Math.floor(m / 60), mm = m % 60;
+        slots.push((h24 % 12 === 0 ? 12 : h24 % 12) + ':' + String(mm).padStart(2, '0') + ' ' + (h24 >= 12 ? 'PM' : 'AM'));
+      }
+      slots.forEach(s => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'rv-opt' + (s === timeInput.value ? ' sel' : ''); b.textContent = s;
+        b.addEventListener('click', e => {
+          e.stopPropagation(); timeInput.value = s; timeText.textContent = s;
+          [...timeList.children].forEach(c => c.classList.toggle('sel', c === b)); closeAll();
+        });
+        timeList.appendChild(b);
+      });
+      timeBtn.addEventListener('click', e => {
+        e.stopPropagation(); toggle(timePop, timeBtn);
+        const sel = timeList.querySelector('.sel'); if (sel) sel.scrollIntoView({ block: 'center' });
+      });
+
+      /* ---------- GUESTS ---------- */
+      const sizes = [];
+      for (let i = 1; i <= 12; i++) sizes.push(i + (i === 1 ? ' Guest' : ' Guests'));
+      sizes.push('13+ Guests (call us)');
+      sizes.forEach(s => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'rv-opt' + (s === gInput.value ? ' sel' : ''); b.textContent = s;
+        b.addEventListener('click', e => {
+          e.stopPropagation(); gInput.value = s; gText.textContent = s;
+          [...gList.children].forEach(c => c.classList.toggle('sel', c === b)); closeAll();
+        });
+        gList.appendChild(b);
+      });
+      gBtn.addEventListener('click', e => {
+        e.stopPropagation(); toggle(gPop, gBtn);
+        const sel = gList.querySelector('.sel'); if (sel) sel.scrollIntoView({ block: 'center' });
+      });
+
+      window.__rvReset = () => {
+        picked = null; view = new Date(now.getFullYear(), now.getMonth(), 1);
+        dateInput.value = '';
+        dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph');
+        timeText.textContent = '7:30 PM'; gText.textContent = '2 Guests';
+        [...timeList.children].forEach(c => c.classList.toggle('sel', c.textContent === '7:30 PM'));
+        [...gList.children].forEach(c => c.classList.toggle('sel', c.textContent === '2 Guests'));
+        closeAll();
+      };
+    })();
+
+    document.getElementById('reserveForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      const dEl = document.getElementById('rvDate'), dBtn = document.getElementById('rvDateBtn');
+      if (!dEl.value) {
+        dBtn.style.borderColor = 'rgba(248,113,113,.9)';
+        dBtn.style.boxShadow = '0 0 0 4px rgba(248,113,113,.16)';
+        dBtn.focus();
+        setTimeout(() => { dBtn.style.borderColor = ''; dBtn.style.boxShadow = ''; }, 1500);
+        return;
+      }
+      const ok = document.getElementById('reserveSuccess');
+      ok.classList.remove('hidden');
+      e.target.reset();
+      if (window.__rvReset) window.__rvReset();
+      setTimeout(() => ok.classList.add('hidden'), 4000);
+    });
     // ===== RECREATED STRAIGHT — translateY ONLY (NO clipPath, NO DIAGONAL) =====
     // Root cause: clipPath with `round 32px` interpolates diagonally in browser.
     // Fix: use yPercent (straight vertical) + overflow:hidden parent. Pure Y, X locked 0.
