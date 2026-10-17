@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="https://i.postimg.cc/2j4wTB2c/image.png">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/2j4wTB2c/image.png">
   <meta name="description"
-    content="32 real moments from Indiana Restaurant & Cafe — food, interior and vibes. Premium fullscreen lightbox gallery in Jhalawar.">
+    content="32 real moments from Indiana Restaurant & Cafe — food, interior and vibes. Full-size, uncropped photo gallery in Jhalawar.">
   <!-- theme boot: apply saved theme before paint (no flash) -->
   <script>
     try { if (localStorage.getItem('indiana-theme') === 'light') document.documentElement.classList.add('light'); } catch (e) { }
@@ -81,8 +81,7 @@
     .keep-dark { background: rgba(12,12,12,.66) !important; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,.16) !important; color: #fff !important; box-shadow: 0 18px 40px -20px rgba(0,0,0,.7); }
     .keep-dark * { color: #fff !important; }
     .keep-dark .btn-ink, .keep-dark a.btn-ink { background: #FACC15 !important; color: #0A0A0A !important; }
-    #lightbox { color: #fff; }
-    #lightbox .lb-muted { color: rgba(255,255,255,0.6) !important; }
+
 
     /* ===== GLASS SYSTEM ===== */
     .glass {
@@ -158,50 +157,39 @@
     .gbtn.on { background: linear-gradient(135deg, #FACC15 0%, #EAB308 100%); color: #0A0A0A; border-color: transparent; box-shadow: 0 12px 30px -12px rgba(250,204,21,.75); }
     .gbtn.on .cnt { opacity: .7; }
 
-    .seg-btn { border-radius: 999px; padding: 8px 12px; font-size: 11px; font-weight: 800; letter-spacing: .04em; cursor: pointer; color: rgba(255,255,255,.65); transition: .3s; display: inline-flex; align-items: center; gap: 6px; }
-    html.light .seg-btn { color: rgba(10,10,10,.6); }
-    .seg-btn.on { background: #fff; color: #0A0A0A; box-shadow: 0 6px 18px -8px rgba(0,0,0,.5); }
-    html.light .seg-btn.on { background: #0A0A0A; color: #fff; }
-
-    /* ===== GRID ===== */
-    #grid.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-    @media (max-width: 1024px) { #grid.tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-    @media (max-width: 700px) { #grid.tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
-    #grid.masonry { display: block; column-count: 4; column-gap: 14px; }
-    @media (max-width: 1024px) { #grid.masonry { column-count: 3; } }
-    @media (max-width: 700px) { #grid.masonry { column-count: 2; column-gap: 10px; } }
-    #grid.masonry .gcard { margin-bottom: 14px; break-inside: avoid; }
-    #grid.masonry .gwrap { aspect-ratio: auto; }
-    #grid.masonry .gwrap img { height: auto; }
-    @media (max-width: 700px) { #grid.masonry .gcard { margin-bottom: 10px; } }
+    /* ===== GRID — full images, no crop (natural heights) ===== */
+    #grid { column-count: 4; column-gap: 14px; }
+    @media (max-width: 1024px) { #grid { column-count: 3; } }
+    @media (max-width: 700px) { #grid { column-count: 2; column-gap: 10px; } }
+    #grid .gcard { margin-bottom: 14px; break-inside: avoid; display: block; width: 100%; }
+    @media (max-width: 700px) { #grid .gcard { margin-bottom: 10px; } }
 
     /* ===== PREMIUM CARD ===== */
     .gcard {
-      position: relative; border-radius: 22px; overflow: hidden; cursor: pointer; background: #101010;
+      position: relative; border-radius: 22px; overflow: hidden; cursor: default; background: #101010;
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 18px 42px -26px rgba(0,0,0,.92);
       isolation: isolate;
       transform: translateZ(0);
       transition: transform .55s cubic-bezier(.2,.7,.2,1), box-shadow .55s, border-color .55s;
     }
-    .gcard:hover, .gcard:focus-visible {
+    .gcard:hover {
       transform: translateY(-6px);
       border-color: rgba(250,204,21,.6);
       box-shadow: 0 34px 64px -28px rgba(250,204,21,.3), 0 18px 42px -24px rgba(0,0,0,.95);
-      outline: none;
     }
-    .gwrap { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+    .gwrap { position: relative; overflow: hidden; }
     .gwrap img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      opacity: 0; transform: scale(1.06);
+      width: 100%; height: auto; display: block;
+      opacity: 0; transform: scale(1.02);
       transition: opacity .7s ease, transform 1s cubic-bezier(.2,.7,.2,1);
     }
     .gwrap img.ld { opacity: 1; }
-    .gcard:hover .gwrap img { transform: scale(1.13); }
+    .gcard:hover .gwrap img { transform: scale(1.05); }
     .gveil {
       position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.32) 44%, rgba(0,0,0,0) 72%);
-      opacity: .92; transition: opacity .5s;
+      background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.22) 34%, rgba(0,0,0,0) 58%);
+      opacity: .85; transition: opacity .5s;
     }
     .gcard:hover .gveil { opacity: 1; }
     .gcard::after {
@@ -226,30 +214,8 @@
     }
     .gchip.food { background: rgba(250,204,21,.9); border-color: transparent; color: #0A0A0A !important; }
     .gtitle { font-size: 14px; font-weight: 800; letter-spacing: -0.01em; }
-    .gview {
-      position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 999px;
-      display: grid; place-items: center; color: #fff !important; font-size: 15px;
-      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.26);
-      backdrop-filter: blur(10px); opacity: 0; transform: scale(.75) rotate(-25deg);
-      transition: .5s cubic-bezier(.2,.7,.2,1); pointer-events: none;
-    }
-    .gcard:hover .gview, .gcard:focus-visible .gview { opacity: 1; transform: scale(1) rotate(0deg); }
     .gcard.hide { display: none !important; }
 
-    /* ===== LIGHTBOX ===== */
-    #lightbox { background: rgba(0,0,0,.86); backdrop-filter: blur(26px) saturate(140%); -webkit-backdrop-filter: blur(26px) saturate(140%); }
-    .lb-btn {
-      width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center;
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(14px); color: #fff; font-size: 18px; cursor: pointer; transition: .3s;
-    }
-    .lb-btn:hover { background: #FACC15; color: #0A0A0A; border-color: transparent; transform: scale(1.06); }
-    .lbnav { width: 52px; height: 52px; border-radius: 999px; display: grid; place-items: center; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(14px); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; transition: .3s; z-index: 2; }
-    .lbnav:hover { background: #FACC15; color: #0A0A0A; border-color: transparent; }
-    .lbthumb { width: 52px; height: 52px; border-radius: 14px; overflow: hidden; flex: 0 0 auto; cursor: pointer; opacity: .45; border: 2px solid transparent; transition: .3s; }
-    .lbthumb:hover { opacity: .85; }
-    .lbthumb.on { opacity: 1; border-color: #FACC15; transform: translateY(-3px); }
-    .lbthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .no-bar::-webkit-scrollbar { display: none; }
     .no-bar { scrollbar-width: none; }
 
@@ -316,7 +282,7 @@
         <div class="lg:col-span-7">
           <div class="inline-flex items-center gap-2 glass rounded-full px-3 py-2 w-fit" data-reveal>
             <span class="w-7 h-7 rounded-full bg-mustard grid place-items-center text-ink text-xs">✦</span>
-            <span class="text-[11px] font-bold tracking-[0.16em] uppercase">32 Real Moments • Premium Lightbox</span>
+            <span class="text-[11px] font-bold tracking-[0.16em] uppercase">32 Real Photos • Full Size, No Crop</span>
           </div>
 
           <h1 class="font-display text-[52px] sm:text-[76px] md:text-[104px] leading-[0.86] mt-4">
@@ -325,7 +291,7 @@
 
           <p class="text-sm md:text-base opacity-60 mt-4 max-w-[520px] leading-relaxed">
             Every plate, every corner, every vibe — photographed inside Indiana Restaurant &amp; Cafe, Jhalawar.
-            Tap any frame for fullscreen viewing with smooth keyboard browsing.
+            Every frame is shown at its full size — nothing cropped, nothing hidden.
           </p>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-7 max-w-[620px]">
@@ -360,13 +326,13 @@
         <!-- PHOTO CLUSTER -->
         <div class="lg:col-span-5 relative h-[340px] sm:h-[420px] lg:h-[480px]">
           <div class="floaty absolute left-0 top-8 w-[56%] h-[58%] rounded-[24px] overflow-hidden border border-white/12 shadow-[0_40px_80px_-40px_rgba(0,0,0,.95)] -rotate-[6deg]">
-            <img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" alt="Indiana interior vibe" class="w-full h-full object-cover">
+            <img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" alt="Indiana interior vibe" class="w-full h-full object-cover" width="300" height="225">
           </div>
           <div class="floaty-d absolute right-0 top-0 w-[46%] h-[46%] rounded-[24px] overflow-hidden border border-white/12 shadow-[0_40px_80px_-40px_rgba(0,0,0,.95)] rotate-[5deg]">
-            <img src="https://i.postimg.cc/RVmMnkY7/unnamed-(4).jpg" alt="Coffee and drinks at Indiana" class="w-full h-full object-cover">
+            <img src="https://i.postimg.cc/RVmMnkY7/unnamed-(4).jpg" alt="Coffee and drinks at Indiana" class="w-full h-full object-cover" width="300" height="225">
           </div>
           <div class="floaty-d absolute right-[6%] bottom-2 w-[52%] h-[42%] rounded-[24px] overflow-hidden border border-white/12 shadow-[0_40px_80px_-40px_rgba(0,0,0,.95)] -rotate-[3deg]">
-            <img src="https://i.postimg.cc/fTsw0GPC/unnamed-(6).jpg" alt="Indiana food platter" class="w-full h-full object-cover">
+            <img src="https://i.postimg.cc/fTsw0GPC/unnamed-(6).jpg" alt="Indiana food platter" class="w-full h-full object-cover" width="300" height="225">
           </div>
           <div class="absolute left-[6%] bottom-6 keep-dark rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.14em]">
             📸 CAPTURED AT INDIANA
@@ -411,10 +377,7 @@
         </div>
         <div class="flex items-center justify-between md:justify-end gap-3">
           <span class="text-[11px] font-bold tracking-[0.16em] opacity-60" id="shownCount">SHOWING 32 OF 32</span>
-          <div class="seg flex items-center gap-1 rounded-full p-1 bg-white/5 border border-white/10">
-            <button class="seg-btn on" data-mode="grid" title="Uniform grid">▦ GRID</button>
-            <button class="seg-btn" data-mode="masonry" title="Masonry view">▤ MASONRY</button>
-          </div>
+          <span class="text-[11px] font-bold tracking-[0.16em] opacity-40">FULL SIZE • NO CROP</span>
         </div>
       </div>
     </div>
@@ -423,230 +386,198 @@
   <!-- ===== GRID ===== -->
   <section id="gallery" class="bg-ink pb-16 scroll-mt-40">
     <div class="max-w-[1280px] mx-auto px-4 md:px-6">
-      <div id="grid" class="tiles mt-4">
+      <div id="grid" class="mt-4">
 
-        <figure class="gcard" data-cat="interior" data-label="Indoor Vibe" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" alt="Indoor vibe at Indiana Restaurant & Cafe" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Indoor Vibe">
+          <div class="gwrap"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" alt="Indoor vibe at Indiana Restaurant & Cafe" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Indoor Vibe</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Outdoor Sitting" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" alt="Outdoor sitting area" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Outdoor Sitting">
+          <div class="gwrap"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" alt="Outdoor sitting area" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Outdoor Sitting</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Pizza &amp; Pasta" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" alt="Pizza and pasta" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Pizza &amp; Pasta">
+          <div class="gwrap"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" alt="Pizza and pasta" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Pizza &amp; Pasta</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Family Dining" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/J481BfFZ/unnamed-(3).jpg" alt="Family dining moment" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Family Dining">
+          <div class="gwrap"><img src="https://i.postimg.cc/J481BfFZ/unnamed-(3).jpg" alt="Family dining moment" loading="lazy" decoding="async" width="300" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Family Dining</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Coffee &amp; Drinks" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/RVmMnkY7/unnamed-(4).jpg" alt="Coffee and drinks" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Coffee &amp; Drinks">
+          <div class="gwrap"><img src="https://i.postimg.cc/RVmMnkY7/unnamed-(4).jpg" alt="Coffee and drinks" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Coffee &amp; Drinks</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Kids Friendly" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/gkpY6C7y/unnamed-(5).jpg" alt="Kids friendly space" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Kids Friendly">
+          <div class="gwrap"><img src="https://i.postimg.cc/gkpY6C7y/unnamed-(5).jpg" alt="Kids friendly space" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Kids Friendly</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Parking Space" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/fTsw0GPC/unnamed-(6).jpg" alt="Parking space" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Parking Space">
+          <div class="gwrap"><img src="https://i.postimg.cc/fTsw0GPC/unnamed-(6).jpg" alt="Parking space" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Parking Space</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Great Vibe" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" alt="Great vibe at Indiana" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Great Vibe">
+          <div class="gwrap"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" alt="Great vibe at Indiana" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Great Vibe</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Wood-Fired" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/c4Ws8pzT/unnamed-(8).jpg" alt="Wood fired special" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Wood-Fired">
+          <div class="gwrap"><img src="https://i.postimg.cc/c4Ws8pzT/unnamed-(8).jpg" alt="Wood fired special" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Wood-Fired</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Main Course" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/pXv2nwSq/unnamed-(9).jpg" alt="Main course" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Main Course">
+          <div class="gwrap"><img src="https://i.postimg.cc/pXv2nwSq/unnamed-(9).jpg" alt="Main course" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Main Course</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Sandwich" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/TYxRWzst/unnamed-(10).jpg" alt="Sandwich platter" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Sandwich">
+          <div class="gwrap"><img src="https://i.postimg.cc/TYxRWzst/unnamed-(10).jpg" alt="Sandwich platter" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Sandwich</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Pasta Choice" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/X7gnK2M9/unnamed-(11).jpg" alt="Pasta choice" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Pasta Choice">
+          <div class="gwrap"><img src="https://i.postimg.cc/X7gnK2M9/unnamed-(11).jpg" alt="Pasta choice" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Pasta Choice</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Clean &amp; Cosy" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/zXkqwdmW/unnamed-(12).jpg" alt="Clean and cosy ambience" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Clean &amp; Cosy">
+          <div class="gwrap"><img src="https://i.postimg.cc/zXkqwdmW/unnamed-(12).jpg" alt="Clean and cosy ambience" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Clean &amp; Cosy</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Dynamic Menu" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/hP0K8CF9/unnamed-(13).jpg" alt="Dynamic menu wall" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Dynamic Menu">
+          <div class="gwrap"><img src="https://i.postimg.cc/hP0K8CF9/unnamed-(13).jpg" alt="Dynamic menu wall" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Dynamic Menu</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Fast Food" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/rF9qGh6G/unnamed-(14).jpg" alt="Fast food plate" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Fast Food">
+          <div class="gwrap"><img src="https://i.postimg.cc/rF9qGh6G/unnamed-(14).jpg" alt="Fast food plate" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Fast Food</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Weekend Vibe" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/pXBPQ0NY/unnamed-(15).jpg" alt="Weekend vibe" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Weekend Vibe">
+          <div class="gwrap"><img src="https://i.postimg.cc/pXBPQ0NY/unnamed-(15).jpg" alt="Weekend vibe" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Weekend Vibe</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Indoor Comfort" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/qMGpcmfx/unnamed-(16).jpg" alt="Indoor comfort seating" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Indoor Comfort">
+          <div class="gwrap"><img src="https://i.postimg.cc/qMGpcmfx/unnamed-(16).jpg" alt="Indoor comfort seating" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Indoor Comfort</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Open Air" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/3JZ3jLMZ/unnamed-(17).jpg" alt="Open air seating" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Open Air">
+          <div class="gwrap"><img src="https://i.postimg.cc/3JZ3jLMZ/unnamed-(17).jpg" alt="Open air seating" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Open Air</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Chef's Special" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/dt9JRWMB/unnamed-(18).jpg" alt="Chef's special dish" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Chef's Special">
+          <div class="gwrap"><img src="https://i.postimg.cc/dt9JRWMB/unnamed-(18).jpg" alt="Chef's special dish" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Chef's Special</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Warm Service" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/02C9Gtgn/unnamed-(19).jpg" alt="Warm service" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Warm Service">
+          <div class="gwrap"><img src="https://i.postimg.cc/02C9Gtgn/unnamed-(19).jpg" alt="Warm service" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Warm Service</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Golden Hour" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/Dyc7QCV5/unnamed-(20).jpg" alt="Golden hour atmosphere" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Golden Hour">
+          <div class="gwrap"><img src="https://i.postimg.cc/Dyc7QCV5/unnamed-(20).jpg" alt="Golden hour atmosphere" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Golden Hour</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Family Lunch" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/MKYz0sk9/unnamed-(21).jpg" alt="Family lunch table" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Family Lunch">
+          <div class="gwrap"><img src="https://i.postimg.cc/MKYz0sk9/unnamed-(21).jpg" alt="Family lunch table" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Family Lunch</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Dinner Spot" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/m2ST3dxp/unnamed-(22).jpg" alt="Dinner spot" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Dinner Spot">
+          <div class="gwrap"><img src="https://i.postimg.cc/m2ST3dxp/unnamed-(22).jpg" alt="Dinner spot" loading="lazy" decoding="async" width="300" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Dinner Spot</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Menu Choices" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/FsxhbPtP/unnamed-(23).jpg" alt="Menu choices" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Menu Choices">
+          <div class="gwrap"><img src="https://i.postimg.cc/FsxhbPtP/unnamed-(23).jpg" alt="Menu choices" loading="lazy" decoding="async" width="600" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Menu Choices</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Drinks Menu" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/pXBPQ0N6/unnamed-(24).jpg" alt="Drinks menu" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Drinks Menu">
+          <div class="gwrap"><img src="https://i.postimg.cc/pXBPQ0N6/unnamed-(24).jpg" alt="Drinks menu" loading="lazy" decoding="async" width="600" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Drinks Menu</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="food" data-label="Coffee Break" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/wTk95WKb/unnamed-(25).jpg" alt="Coffee break" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="food" data-label="Coffee Break">
+          <div class="gwrap"><img src="https://i.postimg.cc/wTk95WKb/unnamed-(25).jpg" alt="Coffee break" loading="lazy" decoding="async" width="300" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip food">Food</span><span class="gtitle">Coffee Break</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Kids Items" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/GhjbPM0f/unnamed-(26).jpg" alt="Kids items" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Kids Items">
+          <div class="gwrap"><img src="https://i.postimg.cc/GhjbPM0f/unnamed-(26).jpg" alt="Kids items" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Kids Items</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Easy Parking" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/VLFz97yT/unnamed-(27).jpg" alt="Easy parking" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Easy Parking">
+          <div class="gwrap"><img src="https://i.postimg.cc/VLFz97yT/unnamed-(27).jpg" alt="Easy parking" loading="lazy" decoding="async" width="300" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Easy Parking</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Busy Weekends" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/5Nmf5PcD/unnamed-(28).jpg" alt="Busy weekends at Indiana" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Busy Weekends">
+          <div class="gwrap"><img src="https://i.postimg.cc/5Nmf5PcD/unnamed-(28).jpg" alt="Busy weekends at Indiana" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Busy Weekends</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="vibes" data-label="Great Place" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/vHvG7PRp/unnamed-(29).jpg" alt="Great place to be" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="vibes" data-label="Great Place">
+          <div class="gwrap"><img src="https://i.postimg.cc/vHvG7PRp/unnamed-(29).jpg" alt="Great place to be" loading="lazy" decoding="async" width="300" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Vibes</span><span class="gtitle">Great Place</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Indiana Cafe" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/15Ky0Whx/unnamed-(30).jpg" alt="Indiana Cafe interior" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Indiana Cafe">
+          <div class="gwrap"><img src="https://i.postimg.cc/15Ky0Whx/unnamed-(30).jpg" alt="Indiana Cafe interior" loading="lazy" decoding="async" width="300" height="450"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Indiana Cafe</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
-        <figure class="gcard" data-cat="interior" data-label="Jhalawar" tabindex="0">
-          <div class="gwrap"><img src="https://i.postimg.cc/4N1Xv8kk/unnamed-(31).jpg" alt="Jhalawar" loading="lazy" decoding="async" width="900" height="1125"></div>
+        <figure class="gcard" data-cat="interior" data-label="Jhalawar">
+          <div class="gwrap"><img src="https://i.postimg.cc/4N1Xv8kk/unnamed-(31).jpg" alt="Jhalawar" loading="lazy" decoding="async" width="300" height="225"></div>
           <div class="gveil"></div>
           <figcaption class="gmeta"><span class="gchip">Interior</span><span class="gtitle">Jhalawar</span></figcaption>
-          <span class="gview">⤢</span>
         </figure>
 
       </div>
@@ -748,32 +679,6 @@
   </footer>
 
   <button id="toTop" class="fixed bottom-6 right-6 z-[60] w-12 h-12 rounded-full bg-mustard text-ink grid place-items-center font-extrabold shadow-lg opacity-0 pointer-events-none transition-all duration-300" title="Back to top">↑</button>
-
-  <!-- ===== LIGHTBOX ===== -->
-  <div id="lightbox" class="fixed inset-0 z-[80] hidden flex-col p-3 md:p-6">
-    <div class="flex items-center justify-between gap-3 shrink-0">
-      <div class="flex items-center gap-2">
-        <span id="lbChip" class="gchip food">Food</span>
-        <span class="text-[11px] font-bold tracking-[0.2em] lb-muted" id="lbCount">01 / 32</span>
-      </div>
-      <button class="lb-btn" id="lbClose" title="Close (Esc)">✕</button>
-    </div>
-
-    <div class="relative flex-1 min-h-0 flex items-center justify-center gap-2 md:gap-5">
-      <button class="lbnav" id="lbPrev" title="Previous (←)">‹</button>
-      <img id="lbImg" src="" alt="" class="max-h-full max-w-full rounded-[22px] object-contain shadow-2xl">
-      <button class="lbnav" id="lbNext" title="Next (→)">›</button>
-    </div>
-
-    <div class="shrink-0 flex flex-col items-center gap-3 pt-3">
-      <div class="text-center">
-        <div id="lbTitle" class="font-display text-[24px] leading-none">Moment</div>
-        <div class="text-[10px] font-bold tracking-[0.2em] lb-muted mt-2">INDIANA RESTAURANT &amp; CAFE • JHALAWAR</div>
-      </div>
-      <div id="lbThumbs" class="flex gap-2 max-w-full overflow-x-auto no-bar pb-1"></div>
-      <div class="hidden sm:block text-[10px] font-bold tracking-[0.18em] lb-muted">← → BROWSE • ESC CLOSE</div>
-    </div>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -895,7 +800,6 @@
       }
       updateCount();
       ScrollTrigger.refresh();
-      if (openIndex > -1) rebuildThumbs();
     }
 
     document.querySelectorAll('.gbtn').forEach(btn => {
@@ -903,19 +807,6 @@
         document.querySelectorAll('.gbtn').forEach(b => { b.classList.remove('on'); b.classList.add('glass'); });
         btn.classList.add('on'); btn.classList.remove('glass');
         applyFilter(btn.dataset.f, true);
-      });
-    });
-
-    document.querySelectorAll('.seg-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.classList.contains('on')) return;
-        document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('on'));
-        btn.classList.add('on');
-        const mode = btn.dataset.mode;
-        grid.classList.toggle('masonry', mode === 'masonry');
-        grid.classList.toggle('tiles', mode === 'grid');
-        gsap.fromTo(allCards, { opacity: 0.25 }, { opacity: 1, duration: 0.5, ease: 'power2.out' });
-        ScrollTrigger.refresh();
       });
     });
 
@@ -928,101 +819,6 @@
     });
     const totalEl = document.getElementById('statTotal');
     if (totalEl) totalEl.textContent = allCards.length;
-
-    /* ========== LIGHTBOX ========== */
-    const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg'),
-      lbTitle = document.getElementById('lbTitle'), lbChip = document.getElementById('lbChip'),
-      lbCount = document.getElementById('lbCount'), lbThumbs = document.getElementById('lbThumbs');
-    let openIndex = -1;
-
-    const catName = { food: 'Food', interior: 'Interior', vibes: 'Vibes' };
-
-    function list() { return visible(); }
-
-    function rebuildThumbs() {
-      lbThumbs.innerHTML = '';
-      list().forEach((c, i) => {
-        const t = document.createElement('div');
-        t.className = 'lbthumb' + (i === openIndex ? ' on' : '');
-        t.innerHTML = `<img src="${c.querySelector('img').src}" alt="">`;
-        t.addEventListener('click', (e) => { e.stopPropagation(); show(i); });
-        lbThumbs.appendChild(t);
-      });
-      const on = lbThumbs.querySelector('.lbthumb.on');
-      if (on) on.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-    }
-
-    function show(i, dir) {
-      const items = list();
-      if (!items.length) return;
-      openIndex = (i + items.length) % items.length;
-      const card = items[openIndex];
-      const src = card.querySelector('img').src;
-      const label = card.dataset.label || 'Moment';
-      const cat = card.dataset.cat;
-
-      lbImg.style.opacity = '0';
-      const pre = new Image();
-      pre.src = src;
-      const paint = () => {
-        lbImg.src = src;
-        lbImg.alt = label + ' — Indiana Restaurant & Cafe';
-        gsap.fromTo(lbImg, { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.42, ease: 'power2.out' });
-      };
-      if (pre.complete) paint(); else pre.onload = paint;
-
-      lbTitle.textContent = label;
-      lbChip.textContent = catName[cat] || 'Moment';
-      lbChip.className = 'gchip' + (cat === 'food' ? ' food' : '');
-      lbCount.textContent = String(openIndex + 1).padStart(2, '0') + ' / ' + String(items.length).padStart(2, '0');
-      rebuildThumbs();
-      // preload neighbours
-      [1, -1].forEach(d => { const n = items[(openIndex + d + items.length) % items.length]; const im = new Image(); im.src = n.querySelector('img').src; });
-    }
-
-    function openLB(card) {
-      const items = list();
-      const i = items.indexOf(card);
-      show(i < 0 ? 0 : i);
-      lb.classList.remove('hidden'); lb.classList.add('flex');
-      document.body.style.overflow = 'hidden'; lenis.stop();
-      gsap.fromTo(lb, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' });
-    }
-
-    function closeLB() {
-      gsap.to(lb, {
-        opacity: 0, duration: 0.22, ease: 'power2.in', onComplete: () => {
-          lb.classList.add('hidden'); lb.classList.remove('flex'); lb.style.opacity = '';
-          document.body.style.overflow = ''; lenis.start();
-        }
-      });
-    }
-
-    allCards.forEach(card => {
-      card.addEventListener('click', () => openLB(card));
-      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLB(card); } });
-    });
-
-    document.getElementById('lbClose').addEventListener('click', closeLB);
-    document.getElementById('lbPrev').addEventListener('click', (e) => { e.stopPropagation(); show(openIndex - 1); });
-    document.getElementById('lbNext').addEventListener('click', (e) => { e.stopPropagation(); show(openIndex + 1); });
-    lbImg.addEventListener('click', (e) => e.stopPropagation());
-    lb.addEventListener('click', (e) => { if (e.target === lb || e.target.classList.contains('relative')) closeLB(); });
-    document.addEventListener('keydown', (e) => {
-      if (lb.classList.contains('hidden')) return;
-      if (e.key === 'Escape') closeLB();
-      if (e.key === 'ArrowRight') show(openIndex + 1);
-      if (e.key === 'ArrowLeft') show(openIndex - 1);
-    });
-
-    /* Swipe on touch */
-    let sx = 0, sy = 0;
-    lb.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-    lb.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) show(openIndex + (dx < 0 ? 1 : -1));
-      else if (dy > 90 && Math.abs(dy) > Math.abs(dx)) closeLB();
-    }, { passive: true });
 
     /* ========== REVEAL ========== */
     gsap.set('[data-reveal]', { y: 26, opacity: 0 });
@@ -1039,7 +835,7 @@
     ScrollTrigger.refresh();
 
     window.addEventListener('load', () => ScrollTrigger.refresh());
-    console.log('✓ Gallery premium build — dark mode + lightbox active');
+    console.log('✓ Gallery premium build — full-size photos, no crop');
   </script>
 </body>
 
