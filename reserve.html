@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>try { if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }</script>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Reserve Your Table — Indiana Restaurant &amp; Cafe, Jhalawar</title>
   <meta name="description"
@@ -776,7 +777,7 @@
     /* ================= THEME ================= */
     (function () {
       const saved = localStorage.getItem('indiana-theme');
-      if (saved === 'light') document.documentElement.classList.add('light');
+      if (saved !== 'dark') document.documentElement.classList.add('light');
       const btn = document.getElementById('themeToggle');
       const overlay = document.getElementById('themeOverlay');
       let toggling = false;

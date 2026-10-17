@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>try { if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Indiana Restaurant & Cafe - Taste the Joy of Flavour</title>
   <link rel="icon" type="image/png" href="https://i.postimg.cc/2j4wTB2c/image.png">
@@ -1184,7 +1185,7 @@
     const tt=document.getElementById('themeToggle');
     const overlay=document.getElementById('themeOverlay');
     const saved=localStorage.getItem('indiana-theme');
-    if(saved==='light'){ document.documentElement.classList.add('light'); tt.textContent='☀️'; }
+    if(saved!=='dark'){ document.documentElement.classList.add('light'); tt.textContent='☀️'; }
     let toggling=false;
     tt.addEventListener('click',(e)=>{
       if(toggling) return; toggling=true;
