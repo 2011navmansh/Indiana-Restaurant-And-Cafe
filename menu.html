@@ -183,14 +183,30 @@
     .dish-price { font-weight: 800; font-size: 12.5px; border-radius: 999px; padding: 5px 12px; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; box-shadow: 0 10px 24px -12px rgba(250,204,21,.8); white-space: nowrap; flex: 0 0 auto; }
     .veg-dot { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid #16A34A; display: grid; place-items: center; background: #FFFFFF; flex: 0 0 auto; }
     .veg-dot i { width: 6px; height: 6px; border-radius: 999px; background: #16A34A; display: block; }
-    .add-btn { border-radius: 999px; padding: 10px 16px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; transition: transform .3s, box-shadow .3s, filter .3s; }
+    .add-btn { border-radius: 999px; padding: 10px 16px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; transition: transform .3s, box-shadow .3s, filter .3s; position: relative; overflow: hidden; -webkit-tap-highlight-color: transparent; will-change: transform; }
     .add-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(250,204,21,.85); filter: brightness(1.04); }
+    .add-btn:active { transform: translateY(0) scale(.955); box-shadow: 0 6px 16px -10px rgba(250,204,21,.9); transition-duration: .09s; }
+    .add-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.5) 50%, transparent 65%); transform: translateX(-130%); pointer-events: none; }
+    .add-btn:hover::before { animation: addShine .85s ease; }
+    @keyframes addShine { to { transform: translateX(130%); } }
+    .add-btn.added { background: linear-gradient(135deg,#22C55E,#16A34A); color: #FFFFFF; box-shadow: 0 16px 34px -14px rgba(34,197,94,.85); animation: addPop .5s cubic-bezier(.2,.9,.25,1.15); }
+    @keyframes addPop { 0% { transform: scale(1); } 28% { transform: scale(1.085); } 58% { transform: scale(.978); } 100% { transform: scale(1); } }
+    .add-btn .rip { position: absolute; border-radius: 999px; background: rgba(255,255,255,.55); transform: scale(0); opacity: .95; pointer-events: none; animation: addRip .6s ease-out forwards; }
+    @keyframes addRip { 0% { transform: scale(0); opacity: .95; } 100% { transform: scale(1); opacity: 0; } }
+    .add-btn .tick { display: inline-block; animation: tickIn .42s cubic-bezier(.2,.9,.25,1.35) both; }
+    @keyframes tickIn { from { transform: scale(0) rotate(-30deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      .add-btn, .add-btn.added, .add-btn .rip, .add-btn::before, .add-btn .tick, .q-val.bump { animation: none !important; }
+    }
     .qty-step { display: inline-flex; align-items: center; gap: 2px; border-radius: 999px; padding: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); flex: 0 0 auto; }
     html.light .qty-step { background: #F5F0DE; border-color: rgba(0,0,0,.08); }
-    .qty-step button { width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-weight: 800; font-size: 14px; line-height: 1; background: rgba(255,255,255,.1); color: inherit; transition: background .25s, color .25s; }
+    .qty-step button { width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-weight: 800; font-size: 14px; line-height: 1; background: rgba(255,255,255,.1); color: inherit; transition: background .25s, color .25s, transform .12s; }
     html.light .qty-step button { background: #FFFFFF; border: 1px solid rgba(0,0,0,.06); }
     .qty-step button:hover { background: #FACC15; color: #0A0A0A; }
-    .qty-step .q-val { min-width: 26px; text-align: center; font-weight: 800; font-size: 13px; }
+    .qty-step button:active { transform: scale(.85); }
+    .qty-step .q-val { min-width: 26px; text-align: center; font-weight: 800; font-size: 13px; display: inline-block; }
+    .q-val.bump { animation: valBump .32s cubic-bezier(.2,.9,.25,1.3); }
+    @keyframes valBump { 45% { transform: scale(1.42); } 100% { transform: scale(1); } }
     .dish.hide, .msect.hide { display: none !important; }
     .spicy-chip { font-size: 11px; letter-spacing: -1px; }
     #noResults { display: none; }
@@ -613,6 +629,29 @@
       waOrder.href = cart.length ? 'https://wa.me/919057967791?text=' + msg : '#';
     }
 
+    /* ADD button ka premium animation: click ripple + "ADDED ✓" pop */
+    function addPress(btn, e) {
+      const r = btn.getBoundingClientRect();
+      const label = btn.dataset.label || btn.textContent.trim();
+      btn.dataset.label = label;
+
+      btn.classList.add('added');
+      btn.innerHTML = '<span class="tick">ADDED</span> ✓';
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { btn.classList.remove('added'); btn.innerHTML = label; }, 1100);
+
+      const size = Math.max(r.width, r.height) * 2.2;
+      const cx = (e.clientX || (r.left + r.width / 2)) - r.left;
+      const cy = (e.clientY || (r.top + r.height / 2)) - r.top;
+      const rip = document.createElement('span');
+      rip.className = 'rip';
+      rip.style.width = rip.style.height = size + 'px';
+      rip.style.left = (cx - size / 2) + 'px';
+      rip.style.top = (cy - size / 2) + 'px';
+      btn.appendChild(rip);
+      setTimeout(() => rip.remove(), 650);
+    }
+
     rootEl.addEventListener('click', e => {
       const step = e.target.closest('.qty-step button');
       if (step) {
@@ -621,6 +660,7 @@
         let q = parseInt(val.textContent, 10) || 1;
         q = step.classList.contains('q-inc') ? Math.min(30, q + 1) : Math.max(1, q - 1);
         val.textContent = q;
+        val.classList.remove('bump'); void val.offsetWidth; val.classList.add('bump');
         return;
       }
       const btn = e.target.closest('.add-btn'); if (!btn) return;
@@ -632,6 +672,7 @@
       if (existing) existing.qty += qty; else cart.push({ name, price, qty });
       updateCart();
       showToast('Added ✓ ' + name + ' × ' + qty);
+      addPress(btn, e);
       const val = card.querySelector('.q-val'); if (val) val.textContent = '1';
     });
 
