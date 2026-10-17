@@ -888,7 +888,7 @@
                 <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">OPEN DAILY</div>
                 <div class="font-extrabold mt-1">11:00 AM — 10:45 PM</div>
                 <div class="flex items-center gap-2 mt-3 text-[11px] font-bold tracking-[0.1em]">
-                  <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> KITCHEN OPEN NOW
+                  <span data-door-dot class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> <span id="openState">KITCHEN OPEN NOW</span>
                 </div>
               </div>
             </div>
@@ -1444,6 +1444,49 @@
     console.log('✓ Step 3 Menu Bento active');
     console.log('✓ AM-ARC 5-Cards Stack Pin+Scrub active');
     console.log('✓ Step 4 Story + Step 5 Marquee/Testimonials + Step 6 Reserve active');
+  </script>
+
+  <!-- ================= LIVE DOOR STATUS (owner console toggle) ================= -->
+  <script>
+    (function () {
+      var text = document.getElementById('openState');
+      var dot = document.querySelector('[data-door-dot]');
+      if (!text) return;
+
+      var OPEN_MIN = 11 * 60;          // 11:00 AM IST
+      var CLOSE_MIN = 22 * 60 + 45;    // 10:45 PM IST
+      var doorOverride = null;         // owner ke toggle se aata hai (GET /api/status)
+
+      function istMinutes() {
+        var now = new Date();
+        var ist = new Date(now.getTime() + (now.getTimezoneOffset() + 330) * 60000);
+        return ist.getHours() * 60 + ist.getMinutes();
+      }
+
+      function paint() {
+        var mins = istMinutes();
+        var timeOpen = mins >= OPEN_MIN && mins <= CLOSE_MIN;
+        var open = doorOverride === null ? timeOpen : doorOverride;
+        var closingSoon = open && timeOpen && mins >= CLOSE_MIN - 60;
+
+        text.textContent = open
+          ? (closingSoon ? 'KITCHEN OPEN — CLOSING SOON' : 'KITCHEN OPEN NOW')
+          : (doorOverride === false ? 'TEMPORARILY CLOSED — BACK SOON' : 'CLOSED NOW — BOOK FOR LATER');
+        if (dot) dot.style.background = open ? '#4ADE80' : '#FACC15';
+      }
+
+      function load() {
+        fetch('/api/status', { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) { if (j && typeof j.open === 'boolean') { doorOverride = j.open; paint(); } })
+          .catch(function () { /* offline: time-based status hi rehne do */ });
+      }
+
+      paint();
+      load();
+      setInterval(load, 60000);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+    })();
   </script>
 </body>
 
