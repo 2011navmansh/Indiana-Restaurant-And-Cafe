@@ -1,0 +1,200 @@
+============================================================
+ INDIANA RESTAURANT & CAFE - MENU IMAGE LINKS (SWAP SHEET)
+============================================================
+ Total dishes: 148
+ NOTE: Abhi ye images web (Wikimedia Commons - free/open) se
+       li gayi hain. Jab aap apni storage (postimg etc.) se
+       images upload karo, to sirf neeche wala link replace
+       kar do. menu-data.js me bhi wahi "img" link update kar
+       sakte ho (dono jagah same URL hona chahiye).
+ FORMAT: DISH NAME | PRICE | IMAGE LINK
+============================================================
+
+--- [1] SOUPS -----------------------------------------------
+Cream Of Tomato Soup | ₹100 | https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Empty_tomato_soup_dish_and_wine_glass.jpg/960px-Empty_tomato_soup_dish_and_wine_glass.jpg
+Lemon & Coriander Soup | ₹100 | https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Lemon_Chilli_Coriander_Soup_-_The_Asian_Curry_House%2C_Bangalore_-_Karnataka_-_PXL2005.jpg/960px-Lemon_Chilli_Coriander_Soup_-_The_Asian_Curry_House%2C_Bangalore_-_Karnataka_-_PXL2005.jpg
+Veg Clear Soup | ₹100 | https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Beef_and_Vegetables_on_Rice_%E7%89%9B%E8%82%89%E7%9B%96%E9%A5%AD_-_Qionglai_Clear_Soup_Restaurant_%281648229041%29.jpg/960px-Beef_and_Vegetables_on_Rice_%E7%89%9B%E8%82%89%E7%9B%96%E9%A5%AD_-_Qionglai_Clear_Soup_Restaurant_%281648229041%29.jpg
+Manchow Soup | ₹110 | https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Manchow_soup_-_Indo-Chinese_cuisine.jpg/960px-Manchow_soup_-_Indo-Chinese_cuisine.jpg
+Hot & Sour Soup | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Hot-and-Sour-Soup-Bowl.jpg/960px-Hot-and-Sour-Soup-Bowl.jpg
+Sweet Corn Soup | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Set_D_-_Tomato_Soup_Macaroni_with_Scrambled_Egg%2C_Toasted_Bun%2C_Buttered_Sweet_Corn_-_HOKO_2024-12-21.jpg/960px-Set_D_-_Tomato_Soup_Macaroni_with_Scrambled_Egg%2C_Toasted_Bun%2C_Buttered_Sweet_Corn_-_HOKO_2024-12-21.jpg
+Talumin Soup | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Traditional_Vegetable_Soup_from_Argentina.jpg/960px-Traditional_Vegetable_Soup_from_Argentina.jpg
+Veg Thukpa | ₹199 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Thukpa%2C_Tibetan_noodle_in_Osaka%2C_Japan.jpg/960px-Thukpa%2C_Tibetan_noodle_in_Osaka%2C_Japan.jpg
+
+--- [2] TANDOORI STARTERS -----------------------------------
+Mast Soya Chaap | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Malai Soya Chaap | ₹210 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Paneer Tikka | ₹230 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Tandoori Platter | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Pahadi Paneer Roasted | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Achari Paneer Tikka | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Malai Paneer Tikka | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Mushroom Malai Tikka | ₹300 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Lahori Paneer Tikka | ₹300 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [3] INDIAN STARTERS -------------------------------------
+Chilli Cheese Nuggets | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Mix Veg Pakoda | ₹130 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dahi Ke Kabab | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Paneer Pakoda | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Corn Cheese Kabab | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Bist Roll | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [4] GARLIC BREAD ----------------------------------------
+Garlic Bread With Cheese | ₹140 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Garlic Bread Spicy Supreme | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [5] CHINESE STARTERS ------------------------------------
+Chinese Bhel | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chilly Potato | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Honey Chilly Potato | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Spring Roll | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Manchurian (Dry / Gravy) | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Crispy Corn | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Crispy Veg | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chilly Paneer (Dry / Gravy) | ₹195 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Paneer 65 | ₹195 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chilly Mushroom | ₹220 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Sesame Top Gold Coin | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [6] CHEF'S SPECIAL IN ORIENTAL --------------------------
+Cheese Corn Chilly Toast | ₹130 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Cheese Baked Nachos With Mexican Salsa | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Cheese Baked Momos | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Baked Macaroni | ₹220 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Baked Lasagne | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Stuffed Cheese Baked Paneer | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/A_delicious%2C_freshly_baked_paneer_pizza_with_an_incredible_cheese_pull.jpg/960px-A_delicious%2C_freshly_baked_paneer_pizza_with_an_incredible_cheese_pull.jpg
+
+--- [7] SALADS — CHOPS OF VEGETABLES ------------------------
+Onion Salad | ₹40 | https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Kachumbari.jpg/960px-Kachumbari.jpg
+Sirka Onion | ₹40 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Silberzwiebeln_%289373-75%29.jpg/960px-Silberzwiebeln_%289373-75%29.jpg
+Green Salad | ₹50 | https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/960px-Salad_platter.jpg
+Kachumber Salad | ₹80 | https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Kachumber_Salad.JPG/960px-Kachumber_Salad.JPG
+Aloo Chat Salad | ₹100 | https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Aloo_Chaat.jpg/960px-Aloo_Chaat.jpg
+Russian Salad | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/2023_Sa%C5%82atka_jarzynowa_%281%29.jpg/960px-2023_Sa%C5%82atka_jarzynowa_%281%29.jpg
+
+--- [8] LEAVENED SOFT BREADS --------------------------------
+Plain Naan | ₹45 | https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Wheat_Naan_3.jpg/960px-Wheat_Naan_3.jpg
+Butter Naan | ₹50 | https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Naan_baked_in_Tandoor.jpg/960px-Naan_baked_in_Tandoor.jpg
+Garlic Naan | ₹70 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Naan_Bread.JPG/960px-Naan_Bread.JPG
+Chilli Garlic Naan | ₹80 | https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Naan_Flatbread_inside_Tandoor_02.jpg/960px-Naan_Flatbread_inside_Tandoor_02.jpg
+Kashmiri Naan | ₹80 | https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Naan_Flatbread_inside_Tandoor_03.jpg/960px-Naan_Flatbread_inside_Tandoor_03.jpg
+Paneer Naan | ₹90 | https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Naan_Flatbread_inside_Tandoor_01.jpg/960px-Naan_Flatbread_inside_Tandoor_01.jpg
+Cheese Naan | ₹100 | https://upload.wikimedia.org/wikipedia/commons/c/c5/Naan_shiva.jpg
+Stuffed Naan | ₹100 | https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Cumin_spicy_naan_crumble.jpg/960px-Cumin_spicy_naan_crumble.jpg
+Bread Basket | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Naan_Bakery%2C_Iran%2C_Qajar_era_%28circa_1850%29.jpg/960px-Naan_Bakery%2C_Iran%2C_Qajar_era_%28circa_1850%29.jpg
+
+--- [9] BURGERS — BUNS OF INGREDIENTS -----------------------
+Vegetable Burger | ₹80 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Vegetable Cheese Burger | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Cheese Loaded Burger | ₹140 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Paneer Cheese Burger | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Spicy Burger | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Double Decker Burger | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [10] CHINESE RICE ----------------------------------------
+Veg Fried Rice | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Vegetable_fried_rice_from_Kerala.jpg/960px-Vegetable_fried_rice_from_Kerala.jpg
+Schezwan Fried Rice | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Burned Garlic Fried Rice | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Mushroom Fried Rice | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Paneer Fried Rice | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [11] BIRYANI & RICE --------------------------------------
+Steamed Rice | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Zeera Rice | ₹140 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Matar Rice | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Pulao | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Achari Chana Pulao | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Biryani | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Kashmiri Pulao | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Hyderabadi Veg Biryani | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [12] VEGETABLES ------------------------------------------
+Aloo Zeera | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Sev Tamatar | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Mix Veg | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Matar Masala | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chana Masala | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Kolhapuri | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Jalfrezi | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chana Amritsari | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Corn Palak | ₹210 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dum Aloo | ₹210 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [13] RICH CURRIES ----------------------------------------
+Kadhai Soya | ₹230 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Methi Matar Malai | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Malai Pyaaz | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Navratan Korma | ₹260 | https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Navratan_korma_picture.JPG/960px-Navratan_korma_picture.JPG
+Mushroom Masala | ₹260 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Mushroom_Masala_Dosa.jpg/960px-Mushroom_Masala_Dosa.jpg
+Kaju Curry | ₹270 | https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Kaju_curry_and_Paratha.jpg/960px-Kaju_curry_and_Paratha.jpg
+Kaju Masala | ₹270 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Cashew_Curry.JPG/960px-Cashew_Curry.JPG
+Mushroom Do Pyaza | ₹270 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Makhmali Paneer | ₹280 | https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Creamy_Lentils_%28Dal_Makhani%29_%282239000538%29.jpg/960px-Creamy_Lentils_%28Dal_Makhani%29_%282239000538%29.jpg
+Kaju Paneer (White / Red) | ₹300 | https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Shahi_Samosa_with_Kaju_Katli.jpg/960px-Shahi_Samosa_with_Kaju_Katli.jpg
+Kumb Kaju Matar | ₹300 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Kaeng_khae-963.JPG/960px-Kaeng_khae-963.JPG
+
+--- [14] PANEER SPECIAL --------------------------------------
+Matar Paneer | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Matar-Paneer.JPG/960px-Matar-Paneer.JPG
+Palak Paneer | ₹200 | https://upload.wikimedia.org/wikipedia/commons/5/58/Shahi_Paneer_%26_Butter_Naan.jpg
+Paneer Butter Masala | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Curry_house_curry_pan.jpg/960px-Curry_house_curry_pan.jpg
+Paneer Khurchan | ₹220 | https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Matar_Paneer_Curry_1.jpg/960px-Matar_Paneer_Curry_1.jpg
+Paneer Taka-Tak | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Meen_curry_2.JPG/960px-Meen_curry_2.JPG
+Paneer Lababdar | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Eating_a_curry_pan_at_Brighton_and_Hove_Japanese_Club_Open_Day_2023.jpg/960px-Eating_a_curry_pan_at_Brighton_and_Hove_Japanese_Club_Open_Day_2023.jpg
+Kadhai Paneer | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Shahi_Paneer_with_mint.jpg/960px-Shahi_Paneer_with_mint.jpg
+Paneer Do-Pyaza | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Spinach_and_paneer_curry_-_Planet_India.jpg/960px-Spinach_and_paneer_curry_-_Planet_India.jpg
+Naughty Paneer | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Paneer_Curry_6000.JPG/960px-Paneer_Curry_6000.JPG
+Shahi Paneer | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Spinach_Paneer_Curry_-_Kolkata_2011-02-10_0972.JPG/960px-Spinach_Paneer_Curry_-_Kolkata_2011-02-10_0972.JPG
+Handi Paneer | ₹240 | https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Cheese_Curry_Bread_and_Matcha_Nama_Doughnut_-_Japanese_Curry_Bread_Kanazawa_2025-09-18.jpg/960px-Cheese_Curry_Bread_and_Matcha_Nama_Doughnut_-_Japanese_Curry_Bread_Kanazawa_2025-09-18.jpg
+Paneer Tikka Masala | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Naan_shahi_paneer.jpg/960px-Naan_shahi_paneer.jpg
+Paneer Jhalawari | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Palak_Paneer_curry_on_plate.jpg/960px-Palak_Paneer_curry_on_plate.jpg
+Cheese Paneer Tomato | ₹260 | https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Aloo_Paneer_curry.jpg/960px-Aloo_Paneer_curry.jpg
+Paneer Angara | ₹300 | https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Paneer_Curry_with_Rice.jpg/960px-Paneer_Curry_with_Rice.jpg
+
+--- [15] KOFTA SPECIAL ---------------------------------------
+Chota Ballu | ₹200 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Malai Kofta (White / Red) | ₹220 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Kofta Shaam Savera | ₹220 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Butter Ball | ₹250 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [16] LENTILS ---------------------------------------------
+Dal Fry | ₹140 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dal Fry Butter | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dal Tadka | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dal Palak | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dal Makhani | ₹180 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Dal Punjabi Tadka | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [17] SMOOTH STEP — CURD & RAITA --------------------------
+Plain Curd | ₹60 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Plain Raita | ₹80 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Boondi Raita | ₹100 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Raita | ₹110 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Pineapple Raita | ₹130 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Mix Fruit Raita | ₹130 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [18] MINI MEALS (11:30 AM – 5 PM) ------------------------
+Curd + 2 Aloo Paratha | ₹140 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Veg Biryani + Raita | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Student Meal | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chhola + 2 Bhatura | ₹160 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Daal Makhani + 2 Butter Naan / 2 Lachcha Paratha | ₹170 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Chhola + 2 Kulcha / 2 Lachcha Paratha | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Butter Paneer Masala + 2 Lachcha Paratha / 2 Butter Naan | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Manchurian + Fried Rice + Cold Drink | ₹190 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Noodles + Chilly Paneer + Cold Drink | ₹220 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+
+--- [19] ICE CREAM & DESSERTS --------------------------------
+Gulab Jamun (2 Pcs) | ₹50 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Vanilla Ice Cream (2 Scoop) | ₹60 | https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/North_Indian_Vegetarian_Thali-MB51.jpg/960px-North_Indian_Vegetarian_Thali-MB51.jpg
+Strawberry Ice Cream (2 Scoop) | ₹60 | https://upload.wikimedia.org/wikipedia/commons/d/da/Strawberry_ice_cream_cone_%285076899310%29.jpg
+Chocolate Ice Cream (2 Scoop) | ₹60 | https://upload.wikimedia.org/wikipedia/commons/e/ea/Ice_cream_cone_%28cropped%29.jpg
+Hot Brownie | ₹120 | https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Kodak_Brownie_127.jpg/960px-Kodak_Brownie_127.jpg
+Brownie With Ice Cream | ₹140 | https://upload.wikimedia.org/wikipedia/commons/5/52/Brownie_ice_cream_2.jpg
+Sizzling Brownie | ₹150 | https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Sizzling_brownie_%282065099914%29.jpg/960px-Sizzling_brownie_%282065099914%29.jpg
+Gulab Jamun With Ice Cream | ₹70 | https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Gulab_Jamun_with_Ice_Cream_-_Worthing_Indian_Cafe_%26_Bar_2026-04-27.jpg/960px-Gulab_Jamun_with_Ice_Cream_-_Worthing_Indian_Cafe_%26_Bar_2026-04-27.jpg
+
+--- [20] JUICES ----------------------------------------------
+Orange | ₹60 | https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Orange_juice_1_edit1.jpg/960px-Orange_juice_1_edit1.jpg
+Pineapple | ₹60 | https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Pineapple_Juice_in_Glass_Jar.jpg/960px-Pineapple_Juice_in_Glass_Jar.jpg
+Mixed Fruit | ₹60 | https://upload.wikimedia.org/wikipedia/commons/6/69/Mixed_fruit_juice_chilled.jpg
+

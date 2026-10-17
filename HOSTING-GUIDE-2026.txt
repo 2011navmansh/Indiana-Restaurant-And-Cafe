@@ -361,7 +361,7 @@ SECTION 14 — KUCH TOOT JAYE TO (TROUBLESHOOTING)
 
   [9] Kuch aur samajh nahi aa raha
       → Cloudflare Docs: https://developers.cloudflare.com/workers/
-      → Ya mujhe (Navmansh Sen) WhatsApp/call karo: +91-7014198045
+      → Ya mujhe (Navmansh Sen) WhatsApp karo: +91-9057967791
 
 
 ================================================================
@@ -563,7 +563,7 @@ SECTION 18 — PHONE, PASSWORD, HOURS, ADDRESS, PRICES KAISE BADLE
        → naya code paste → Deploy (warna purana number chalta rahega)
      - HTML files change karne ke baad → Pages → Create new deployment
        → files dobara upload
-     - "credit.js" wala number (+91-7014198045) DEVELOPER ka hai — usse
+     - "credit.js" wala number (+91-9057967791) DEVELOPER ka hai — usse
        chhedna mat (wo aapka credit hai)
 
 
@@ -872,6 +872,6 @@ function out(obj) {
 
 ================================================================
   BAS ITNA. 45 MINUTE ME LIVE.  Rs 0.  No card.  🎉
-  Kuch samajh na aaye to: Navmansh Sen — +91-7014198045 (call/WhatsApp)
+  Kuch samajh na aaye to: Navmansh Sen — +91-9057967791 (WhatsApp)
 ================================================================
 

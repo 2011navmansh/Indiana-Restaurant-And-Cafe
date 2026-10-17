@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu — Indiana Restaurant & Cafe</title>
+  <title>Full Menu — Indiana Restaurant & Cafe</title>
   <link rel="icon" type="image/png" href="https://i.postimg.cc/2j4wTB2c/image.png">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/2j4wTB2c/image.png">
-  <meta name="description" content="Indiana Restaurant & Cafe menu — wood-fired pizzas, brunch bowls, specialty coffee and desserts. 100% veg, Jain options available.">
+  <meta name="description" content="Indiana Restaurant & Cafe ka full menu — soups, tandoori starters, Indo-Chinese, rich curries, paneer specials, biryani, burgers, breads, desserts & more. 100% vegetarian, Jhalawar me fresh made.">
   <script>
     try { if (localStorage.getItem('indiana-theme') === 'light') document.documentElement.classList.add('light'); } catch (e) { }
   </script>
@@ -56,7 +56,6 @@
     html.light .bg-mustard, html.light .bg-mustardDark { color: #0A0A0A !important; }
     html.light .text-mustard { color: #A16207 !important; }
     html.light #progress { background: #FACC15 !important; }
-    html.light [class*="bg-black/70"] { background: rgba(255,255,255,0.82) !important; }
     html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
     /* dark chips stay dark inside light cards */
     html.light :is(.bg-white,.glass,.glass-cream,.bg-mustard) .bg-ink { background: #0A0A0A !important; }
@@ -80,15 +79,11 @@
       border: 1px solid rgba(255, 255, 255, 0.09);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.07);
     }
-    .glass-cream {
-      background: rgba(255, 251, 235, 0.92);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-    }
+    .glass-cream { background: rgba(255, 251, 235, 0.92); backdrop-filter: blur(18px); border: 1px solid rgba(255, 255, 255, 0.6); }
     .liquid-shine { position: relative; overflow: hidden; }
     .liquid-shine::after {
       content: ""; position: absolute; top: 0; left: -140%; width: 55%; height: 100%;
-      background: linear-gradient(105deg, transparent, rgba(255,255,255,0.22), transparent);
+      background: linear-gradient(105deg, transparent, rgba(255,255,255,0.18), transparent);
       transform: skewX(-16deg); pointer-events: none;
       transition: left 0.9s cubic-bezier(0.2,0.7,0.2,1);
     }
@@ -120,10 +115,30 @@
     .logo-badge { position: relative; display: inline-grid; place-items: center; flex: 0 0 auto; border-radius: 999px; overflow: hidden; background: #0A0A0A; }
     .logo-badge > img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.12); }
 
-    /* ===== FILTER CHIPS ===== */
-    .fbtn { border-radius: 999px; padding: 9px 16px; font-size: 12.5px; font-weight: 800; letter-spacing: .02em; white-space: nowrap; cursor: pointer; transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s, color .3s, border-color .3s, box-shadow .3s; }
-    .fbtn:hover { transform: translateY(-2px); }
-    .fbtn.on { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; border-color: transparent !important; box-shadow: 0 12px 30px -12px rgba(250,204,21,.75); }
+    /* ===== CATEGORY BAR ===== */
+    #catbarWrap { position: sticky; top: 84px; z-index: 30; }
+    #catbarWrap::before { content: ""; position: absolute; inset: -12px -16px; background: rgba(10,10,10,.74); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.08); border-radius: 26px; z-index: -1; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    #catbarWrap.stuck::before { opacity: 1; }
+    html.light #catbarWrap::before { background: rgba(255,251,235,.86); border-color: rgba(0,0,0,.06); }
+    .catbtn { border-radius: 999px; padding: 9px 15px; font-size: 12.5px; font-weight: 800; letter-spacing: .02em; white-space: nowrap; cursor: pointer; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: inherit; display: inline-flex; align-items: center; gap: 7px; transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s, color .3s, border-color .3s, box-shadow .3s; }
+    .catbtn:hover { transform: translateY(-2px); border-color: rgba(250,204,21,.5); }
+    .catbtn.on { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; border-color: transparent !important; box-shadow: 0 12px 30px -12px rgba(250,204,21,.75); }
+    .catbtn b { font-size: 10.5px; font-weight: 800; opacity: .55; }
+    .catbtn.on b { opacity: .8; }
+    html.light .catbtn { background: #FFFFFF; border-color: rgba(0,0,0,.08); }
+    html.light .catbtn:not(.on):hover { border-color: rgba(161,98,7,.45); }
+
+    /* ===== SECTION HEADS ===== */
+    .msect { scroll-margin-top: 160px; }
+    .sect-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    html.light .sect-head { border-color: rgba(0,0,0,.08); }
+    .sect-emoji { font-size: 30px; line-height: 1; filter: drop-shadow(0 10px 18px rgba(250,204,21,.22)); }
+    .sect-title { font-family: 'Bebas Neue'; font-size: clamp(30px, 5vw, 42px); line-height: .92; letter-spacing: -.015em; }
+    .sect-num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; color: #EAB308; font-size: 15px; letter-spacing: .08em; }
+    html.light .sect-num { color: #A16207; }
+    .sect-sub { font-size: 12.5px; font-weight: 600; opacity: .58; margin-top: 5px; letter-spacing: .03em; }
+    .sect-count { font-size: 10.5px; font-weight: 800; letter-spacing: .18em; opacity: .6; white-space: nowrap; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); }
+    html.light .sect-count { border-color: rgba(0,0,0,.1); }
 
     /* ===== DISH CARD ===== */
     .dish {
@@ -136,17 +151,24 @@
     }
     html.light .dish { background: #FFFFFF; border-color: rgba(0,0,0,.06); box-shadow: 0 18px 44px -28px rgba(0,0,0,.35); }
     .dish:hover { transform: translateY(-6px); border-color: rgba(250,204,21,.55); box-shadow: 0 34px 64px -30px rgba(250,204,21,.35), 0 20px 50px -28px rgba(0,0,0,.9); }
-    .dish .ph { position: relative; height: 200px; overflow: hidden; }
+    .dish .ph { position: relative; height: 200px; overflow: hidden; background: #1c1c1c; }
+    html.light .dish .ph { background: #F3EEDC; }
     .dish .ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s cubic-bezier(.2,.7,.2,1); }
     .dish:hover .ph img { transform: scale(1.08); }
-    .dish .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55), transparent 55%); }
-    .dish-tag { position: absolute; top: 12px; left: 12px; z-index: 2; font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: rgba(10,10,10,.85); border: 1px solid rgba(255,255,255,.18); color: #FACC15; backdrop-filter: blur(10px); }
-    .dish-price { font-weight: 800; font-size: 12.5px; border-radius: 999px; padding: 5px 12px; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; box-shadow: 0 10px 24px -12px rgba(250,204,21,.8); }
+    .dish .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.5), transparent 55%); }
+    .dish-tags { position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; gap: 6px; flex-wrap: wrap; max-width: 82%; }
+    .dish-tag { font-size: 9.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: rgba(10,10,10,.85); border: 1px solid rgba(255,255,255,.18); color: #FACC15; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .dish-tag.star { background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; border-color: transparent; }
+    .dish-tag.spicy { color: #FCA5A5; }
+    .dish-price { font-weight: 800; font-size: 12.5px; border-radius: 999px; padding: 5px 12px; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; box-shadow: 0 10px 24px -12px rgba(250,204,21,.8); white-space: nowrap; flex: 0 0 auto; }
     .veg-dot { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid #16A34A; display: grid; place-items: center; background: #FFFFFF; flex: 0 0 auto; }
     .veg-dot i { width: 6px; height: 6px; border-radius: 999px; background: #16A34A; display: block; }
     .add-btn { border-radius: 999px; padding: 10px 16px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; transition: transform .3s, box-shadow .3s, filter .3s; }
     .add-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(250,204,21,.85); filter: brightness(1.04); }
-    .dish.hide { display: none !important; }
+    .dish.hide, .msect.hide { display: none !important; }
+    .spicy-chip { font-size: 11px; letter-spacing: -1px; }
+    #noResults { display: none; }
+    #noResults.show { display: block; }
 
     /* ===== FOOTER ===== */
     .foot-link { letter-spacing: .14em; font-weight: 700; opacity: .6; transition: opacity .25s, color .25s; }
@@ -158,9 +180,8 @@
   <script src="credit.js" defer></script>
   <script src="live-clock.js" defer></script>
 </head>
-
 <body class="bg-ink text-cream font-sans overflow-x-hidden">
-<script src="skeleton.js"></script>
+  <script src="skeleton.js"></script>
   <div id="themeOverlay"></div>
   <div class="fixed top-0 left-0 w-full h-[3px] bg-white/10 z-[100]">
     <div id="progress" class="h-full bg-mustard w-full"></div>
@@ -201,496 +222,5 @@
     <button id="closeDrawer" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white text-ink">✕</button>
   </div>
 
-  <!-- ===== HERO ===== -->
-  <section class="relative pt-[124px] pb-8 bg-ink overflow-hidden">
-    <div class="glow-blob -top-28 -left-28 w-[520px] h-[520px] bg-mustard/15"></div>
-    <div class="glow-blob top-16 right-0 w-[420px] h-[420px] bg-white/5"></div>
-    <div class="noise"></div>
-
-    <div class="relative max-w-[1280px] mx-auto px-4 md:px-6">
-      <div class="grid lg:grid-cols-12 gap-8 items-end">
-        <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 glass rounded-full px-3 py-2 w-fit">
-            <span class="w-7 h-7 rounded-full bg-mustard grid place-items-center text-ink text-xs">✦</span>
-            <span class="text-[11px] font-bold tracking-[0.16em] uppercase">12 Dishes • 100% Veg • Wood-Fired • 48H Dough</span>
-          </div>
-          <h1 class="font-display text-[52px] sm:text-[76px] md:text-[104px] leading-[0.86] mt-4">
-            FULL <span class="font-serif italic">Menu</span>
-          </h1>
-          <p class="text-sm md:text-base opacity-60 mt-4 max-w-[520px] leading-relaxed">
-            Search, filter and order in a tap — wood-fired pizzas, brunch bowls, specialty coffee and desserts.
-            Every dish is 100% vegetarian, with Jain options available.
-          </p>
-          <div class="flex flex-wrap items-center gap-3 mt-6">
-            <span class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-[11px] font-extrabold">
-              <span class="veg-dot"><i></i></span> PURE VEG
-            </span>
-            <span class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-[11px] font-extrabold">🌿 JAIN OPTIONS</span>
-            <a href="reserve.html" class="inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-[12.5px]">BOOK A TABLE ↗</a>
-          </div>
-        </div>
-
-        <!-- ORDER PANEL -->
-        <div class="lg:col-span-5">
-          <div class="glass-dark rounded-[28px] p-4 md:p-5">
-            <div class="text-[10px] font-bold tracking-[0.2em] opacity-60 mb-3">SEARCH &amp; ORDER</div>
-            <div class="relative">
-              <input id="search" placeholder="Search dishes…" class="w-full rounded-full pl-5 pr-11 py-3.5 bg-white/5 border border-white/12 outline-none font-medium text-sm placeholder:opacity-50 focus:border-mustard/60 transition">
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">🔍</span>
-            </div>
-            <label class="flex items-center gap-2 mt-3 glass rounded-full px-4 py-2.5 text-[11.5px] font-extrabold cursor-pointer w-fit">
-              <input type="checkbox" id="jainToggle" class="accent-green-600"> Jain (No Onion/Garlic)
-            </label>
-            <div class="mt-3 flex items-center justify-between gap-3 glass rounded-full px-4 py-3">
-              <div class="text-[11px] font-bold tracking-[0.16em] opacity-70">TOTAL</div>
-              <div class="font-display text-2xl leading-none text-mustard">₹<span id="cartTotal">0</span></div>
-              <button id="cartBtnMobile" class="sm:hidden bg-mustard text-ink rounded-full px-4 py-2 text-[11px] font-extrabold">VIEW CART</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FILTERS -->
-      <div class="flex items-center gap-2 mt-8 overflow-x-auto no-bar pb-1" id="filters">
-        <button data-f="all" class="fbtn on glass">All (12)</button>
-        <button data-f="pizza" class="fbtn glass">Pizza (4)</button>
-        <button data-f="brunch" class="fbtn glass">Brunch (3)</button>
-        <button data-f="coffee" class="fbtn glass">Coffee (3)</button>
-        <button data-f="dessert" class="fbtn glass">Desserts (2)</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== DISHES ===== -->
-  <section class="bg-ink pb-16" id="menu">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="grid">
-
-        <article data-cat="pizza" data-price="399" class="dish liquid-shine lg:col-span-2 lg:flex-row">
-          <div class="ph lg:h-auto lg:w-[52%]"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" alt="Margherita Classico pizza"><span class="dish-tag">★ Bestseller</span></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Margherita Classico</h3>
-              <span class="dish-price">₹399</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">San Marzano • fior di latte • basil • 48h fermented dough, baked at 700°</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="pizza" data-price="549" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=80&auto=format&fit=crop" alt="Paneer Inferno pizza"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Paneer Inferno</h3>
-              <span class="dish-price">₹549</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Paneer tikka • hot honey • capsicum</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="pizza" data-price="599" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=700&q=80&auto=format&fit=crop" alt="Truffle Funghi pizza"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Truffle Funghi</h3>
-              <span class="dish-price">₹599</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Wild mushroom • truffle cream • thyme</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="pizza" data-price="579" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=700&q=80&auto=format&fit=crop" alt="BBQ Paneer pizza"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>BBQ Paneer</h3>
-              <span class="dish-price">₹579</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Smoked paneer • BBQ • onion</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="brunch" data-price="449" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=700&q=80&auto=format&fit=crop" alt="Truffle Brunch Bowl"><span class="dish-tag">Chef's Pick</span></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Truffle Brunch Bowl</h3>
-              <span class="dish-price">₹449</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Mushroom • truffle • herbs • sourdough</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="brunch" data-price="379" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=700&q=80&auto=format&fit=crop" alt="Avocado Sourdough"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Avocado Sourdough</h3>
-              <span class="dish-price">₹379</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Avocado • chili • lime • poached egg</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="brunch" data-price="349" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80&auto=format&fit=crop" alt="Pancake Stack"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Pancake Stack</h3>
-              <span class="dish-price">₹349</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Maple • berries • whipped butter</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="coffee" data-price="249" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=80&auto=format&fit=crop" alt="Cold Brew Tonic"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Cold Brew Tonic</h3>
-              <span class="dish-price">₹249</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Single origin • citrus tonic • ice</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="coffee" data-price="189" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=700&q=80&auto=format&fit=crop" alt="Flat White"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Flat White</h3>
-              <span class="dish-price">₹189</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Double shot • velvet microfoam</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="coffee" data-price="229" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=700&q=80&auto=format&fit=crop" alt="Mocha Crunch"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Mocha Crunch</h3>
-              <span class="dish-price">₹229</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Espresso • cocoa • hazelnut crunch</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="dessert" data-price="299" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&q=80&auto=format&fit=crop" alt="Choco Fondant"><span class="dish-tag">Must Try</span></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Choco Fondant</h3>
-              <span class="dish-price">₹299</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">72% dark chocolate • vanilla gelato</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-        <article data-cat="dessert" data-price="279" class="dish liquid-shine">
-          <div class="ph"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=700&q=80&auto=format&fit=crop" alt="Tiramisu Jar"></div>
-          <div class="p-5 flex-1 flex flex-col">
-            <div class="flex items-start justify-between gap-3">
-              <h3 class="font-extrabold flex items-center gap-2 text-[15px]"><span class="veg-dot"><i></i></span>Tiramisu Jar</h3>
-              <span class="dish-price">₹279</span>
-            </div>
-            <p class="text-xs opacity-60 mt-2 leading-5">Espresso • mascarpone • cocoa dust</p>
-            <div class="mt-auto pt-5"><button class="add-btn w-full">ADD TO CART</button></div>
-          </div>
-        </article>
-
-      </div>
-
-      <div class="text-center mt-10">
-        <a href="reserve.html" class="magnetic inline-flex items-center gap-2 glass rounded-full px-6 py-3 font-extrabold text-sm">
-          RESERVE A TABLE <span class="text-mustard">↗</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== HOURS STRIP ===== -->
-  <section class="bg-mustard text-ink py-8">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <span class="w-10 h-10 rounded-full bg-ink text-mustard grid place-items-center">◷</span>
-        <div>
-          <div class="text-[10px] font-bold tracking-[0.2em] opacity-70">OPEN DAILY</div>
-          <div class="font-display text-2xl leading-none">11AM — 10:45 PM</div>
-        </div>
-      </div>
-      <div class="text-xs font-bold tracking-[0.16em] opacity-70 text-center md:text-right">DINE-IN • TAKEAWAY • WEEKEND BOOKING RECOMMENDED</div>
-      <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="bg-ink text-mustard rounded-full px-6 py-3 font-extrabold text-sm">ORDER ON WHATSAPP ↗</a>
-    </div>
-  </section>
-
-  <!-- ===== LOCATION ===== -->
-  <section id="location" class="bg-ink text-cream py-14 border-t border-white/5">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
-      <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
-        <div>
-          <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">FIND US • JHALAWAR</div>
-          <h2 class="font-display text-[44px] leading-none mt-3">VISIT <span class="font-serif italic text-mustard">Indiana</span></h2>
-          <p class="text-sm opacity-60 mt-2">Rajlaxmi nagar, Jhalawar, Rajasthan 326001 — Exact pin on map.</p>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="hidden lg:inline-flex bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-sm">GET DIRECTIONS ↗</a>
-      </div>
-      <div class="grid lg:grid-cols-5 gap-6">
-        <div class="lg:col-span-2 flex flex-col gap-4">
-          <div class="glass rounded-[24px] p-6">
-            <div class="text-[11px] tracking-[0.18em] font-bold opacity-60">ADDRESS</div>
-            <div class="font-extrabold mt-2">Rajlaxmi nagar, Jhalawar,<br>Rajasthan 326001</div>
-            <div class="mt-4 flex gap-2 flex-wrap">
-              <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-sm">GET DIRECTIONS ↗</a>
-              <a href="https://www.google.com/maps?q=24.587048235784344,76.17682239644377&z=17" target="_blank" rel="noopener" class="glass rounded-full px-5 py-2.5 font-bold text-sm">OPEN IN MAPS</a>
-            </div>
-          </div>
-          <div class="glass rounded-[24px] p-6">
-            <div class="text-[11px] tracking-[0.18em] font-bold opacity-60">COORDINATES — EXACT PIN</div>
-            <div class="font-mono text-[13px] font-bold mt-2 break-all bg-white/5 rounded-full px-4 py-2 border border-white/10">24.587048235784344, 76.17682239644377</div>
-            <button onclick="navigator.clipboard.writeText('24.587048235784344, 76.17682239644377');this.textContent='COPIED ✓';setTimeout(()=>this.textContent='COPY COORDINATES',2000)" class="mt-3 text-xs font-bold tracking-widest opacity-70 hover:opacity-100 underline">COPY COORDINATES</button>
-          </div>
-        </div>
-        <div class="lg:col-span-3">
-          <div class="relative rounded-[32px] overflow-hidden bg-[#111] border border-white/10 h-[420px] md:h-[480px]" style="isolation:isolate">
-            <iframe src="https://maps.google.com/maps?q=24.587048235784344,76.17682239644377&z=17&output=embed" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Indiana Restaurant Location Map"></iframe>
-            <div class="absolute top-4 left-4 glass-dark rounded-full px-4 py-2 text-xs font-bold">📍 INDIANA • PINNED</div>
-            <div class="absolute bottom-4 left-4 right-4 glass-dark rounded-[20px] p-3 flex items-center justify-between gap-3">
-              <div class="text-xs">
-                <div class="font-extrabold">Indiana Restaurant &amp; Cafe</div>
-                <div class="opacity-70">Exact Pin • 24.58704, 76.17682</div>
-              </div>
-              <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="bg-mustard text-ink rounded-full px-4 py-2 font-extrabold text-xs">DIRECTIONS ↗</a>
-            </div>
-          </div>
-          <div class="mt-3 text-center text-[11px] tracking-widest opacity-50 font-bold">GOOGLE MAPS • 24.587048235784344, 76.17682239644377</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="bg-ink border-t border-white/10 py-10">
-    <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
-      <div class="flex items-center gap-3">
-        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40"><img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"></span>
-        <div>
-          <div class="font-display text-[20px] tracking-[0.06em] leading-none">INDIANA</div>
-          <div class="opacity-60 tracking-[0.16em] text-[9px] font-semibold mt-1">THOUSAND FLAVOURS AHEAD</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-        <a href="index.html" class="foot-link">HOME</a>
-        <a href="about.html" class="foot-link">ABOUT</a>
-        <a href="menu.html" class="foot-link">MENU</a>
-        <a href="gallery.html" class="foot-link">GALLERY</a>
-        <a href="reserve.html" class="foot-link">RESERVE</a>
-      </div>
-      <div class="opacity-60 tracking-[0.14em] text-center">© 2026 INDIANA • FULL PREMIUM BUILD</div>
-    </div>
-  </footer>
-
-  <div id="toast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added ✓</div>
-
-  <!-- ===== CART DRAWER ===== -->
-  <div id="cartDrawer" class="fixed inset-0 z-[90] hidden">
-    <div id="cartOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-    <div class="absolute right-0 top-0 h-full w-[92%] max-w-[400px] bg-cream text-ink flex flex-col shadow-2xl">
-      <div class="p-6 flex items-center justify-between border-b border-black/10">
-        <div>
-          <h3 class="font-display text-2xl leading-none">Your Cart</h3>
-          <div class="text-[10px] tracking-[0.18em] font-bold opacity-50 mt-1">INDIANA • JHALAWAR</div>
-        </div>
-        <button id="closeCart" class="w-9 h-9 rounded-full bg-ink text-mustard grid place-items-center">✕</button>
-      </div>
-      <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-      <div class="p-4 border-t border-black/10 space-y-3">
-        <div class="flex justify-between font-extrabold text-lg"><span>Total</span><span>₹<span id="drawerTotal">0</span></span></div>
-        <a id="waOrder" href="#" target="_blank" rel="noopener" class="block text-center bg-[#25D366] text-white rounded-full py-3 font-extrabold">Order on WhatsApp</a>
-        <button id="clearCart" class="w-full glass rounded-full py-2.5 font-bold text-sm">Clear Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-  <script>
-    /* ===== LENIS + GSAP ===== */
-    let lenis = null;
-    try {
-      lenis = new Lenis({ duration: 1.35, lerp: 0.075, smoothWheel: true });
-      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
-      if (window.gsap && window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-        lenis.on('scroll', ScrollTrigger.update);
-        const progress = document.getElementById('progress');
-        lenis.on('scroll', ({ progress: p }) => { progress.style.transform = 'scaleX(' + p + ')'; });
-      }
-    } catch (e) { console.warn('smooth scroll unavailable', e); }
-
-    /* ===== THEME TOGGLE ===== */
-    const tt = document.getElementById('themeToggle'), overlay = document.getElementById('themeOverlay');
-    if (document.documentElement.classList.contains('light')) tt.textContent = '☀️';
-    let toggling = false;
-    tt.addEventListener('click', () => {
-      if (toggling) return; toggling = true;
-      const rect = tt.getBoundingClientRect();
-      const ox = ((rect.left + rect.width / 2) / window.innerWidth * 100).toFixed(2) + '%';
-      const oy = ((rect.top + rect.height / 2) / window.innerHeight * 100).toFixed(2) + '%';
-      overlay.style.setProperty('--ox', ox); overlay.style.setProperty('--oy', oy);
-      const toLight = !document.documentElement.classList.contains('light');
-      if (window.gsap) {
-        gsap.to(tt, {
-          scale: 0.2, rotation: 90, duration: 0.14, ease: 'power2.in', onComplete: () => {
-            tt.textContent = toLight ? '☀️' : '🌙';
-            gsap.to(tt, { scale: 1, rotation: 0, duration: 0.28, ease: 'back.out(1.7)' });
-          }
-        });
-      } else { tt.textContent = toLight ? '☀️' : '🌙'; }
-      overlay.classList.toggle('to-dark', !toLight);
-      overlay.style.transition = 'none'; overlay.style.clipPath = 'circle(0% at ' + ox + ' ' + oy + ')'; overlay.style.opacity = '1';
-      void overlay.offsetWidth;
-      overlay.style.transition = 'clip-path 0.32s cubic-bezier(0.65,0,0.35,1), opacity 0.12s';
-      overlay.classList.add('active');
-      setTimeout(() => {
-        document.documentElement.classList.toggle('light', toLight);
-        localStorage.setItem('indiana-theme', toLight ? 'light' : 'dark');
-      }, 110);
-      setTimeout(() => {
-        overlay.classList.remove('active'); overlay.style.opacity = '0';
-        setTimeout(() => { overlay.style.transition = 'none'; overlay.style.clipPath = 'circle(0% at ' + ox + ' ' + oy + ')'; toggling = false; }, 180);
-      }, 340);
-    });
-
-    /* ===== DRAWER ===== */
-    const drawer = document.getElementById('drawer');
-    document.getElementById('menuBtn')?.addEventListener('click', () => drawer.classList.remove('translate-x-full'));
-    document.getElementById('closeDrawer')?.addEventListener('click', () => drawer.classList.add('translate-x-full'));
-    document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', () => drawer.classList.add('translate-x-full')));
-
-    /* ===== MENU DATA / CART ===== */
-    const cards = Array.from(document.querySelectorAll('.dish'));
-    let cart = [];
-    const cartBtn = document.getElementById('cartBtn'), cartBtnMobile = document.getElementById('cartBtnMobile'),
-      cartDrawer = document.getElementById('cartDrawer'), cartOverlay = document.getElementById('cartOverlay'),
-      closeCart = document.getElementById('closeCart'), cartItems = document.getElementById('cartItems'),
-      cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'),
-      drawerTotal = document.getElementById('drawerTotal'), waOrder = document.getElementById('waOrder'),
-      clearCart = document.getElementById('clearCart'), toast = document.getElementById('toast');
-
-    function showToast(msg) {
-      if (!toast) return;
-      toast.textContent = msg;
-      toast.classList.remove('hidden');
-      if (window.gsap) {
-        gsap.fromTo(toast, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 });
-        setTimeout(() => gsap.to(toast, { opacity: 0, y: 10, duration: 0.3, onComplete: () => toast.classList.add('hidden') }), 1600);
-      } else {
-        setTimeout(() => toast.classList.add('hidden'), 1600);
-      }
-    }
-
-    function updateCart() {
-      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-      const count = cart.reduce((s, i) => s + i.qty, 0);
-      cartCount.textContent = count;
-      cartTotal.textContent = total;
-      drawerTotal.textContent = total;
-      cartItems.innerHTML = cart.length
-        ? cart.map((it, idx) => `<div class="flex justify-between items-center bg-white rounded-2xl p-3 border border-black/5">
-            <div><div class="font-bold text-sm">${it.name}</div><div class="text-xs opacity-60">₹${it.price} × ${it.qty}</div></div>
-            <div class="flex gap-2">
-              <button data-act="dec" data-i="${idx}" class="w-7 h-7 rounded-full bg-ink text-mustard grid place-items-center text-xs">−</button>
-              <button data-act="inc" data-i="${idx}" class="w-7 h-7 rounded-full bg-mustard text-ink grid place-items-center text-xs">+</button>
-            </div>
-          </div>`).join('')
-        : '<p class="text-center opacity-60 py-8">Cart is empty — add something delicious.</p>';
-      const msg = cart.length
-        ? encodeURIComponent('Hi Indiana! Order:\n' + cart.map(i => i.name + ' x' + i.qty + ' - ₹' + (i.price * i.qty)).join('\n') + '\nTotal: ₹' + total)
-        : '';
-      waOrder.href = cart.length ? 'https://wa.me/919876543210?text=' + msg : '#';
-    }
-
-    cartItems.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-act]');
-      if (!btn) return;
-      const i = parseInt(btn.dataset.i, 10);
-      if (btn.dataset.act === 'inc') cart[i].qty++;
-      else { cart[i].qty--; if (cart[i].qty <= 0) cart.splice(i, 1); }
-      updateCart();
-    });
-
-    document.querySelectorAll('.add-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const card = btn.closest('.dish');
-        const name = card.querySelector('h3').textContent.trim();
-        const price = parseInt(card.dataset.price || '0', 10);
-        const existing = cart.find(i => i.name === name);
-        if (existing) existing.qty++; else cart.push({ name, price, qty: 1 });
-        updateCart();
-        showToast('Added ✓ • ' + name);
-      });
-    });
-
-    cartBtn?.addEventListener('click', () => cartDrawer.classList.remove('hidden'));
-    cartBtnMobile?.addEventListener('click', () => cartDrawer.classList.remove('hidden'));
-    closeCart?.addEventListener('click', () => cartDrawer.classList.add('hidden'));
-    cartOverlay?.addEventListener('click', () => cartDrawer.classList.add('hidden'));
-    clearCart?.addEventListener('click', () => { cart = []; updateCart(); });
-
-    /* ===== FILTER ===== */
-    const fbtns = document.querySelectorAll('.fbtn');
-    fbtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        fbtns.forEach(b => { b.classList.remove('on'); b.classList.add('glass'); });
-        btn.classList.add('on'); btn.classList.remove('glass');
-        const f = btn.dataset.f;
-        cards.forEach(c => {
-          const show = f === 'all' || c.dataset.cat === f;
-          c.classList.toggle('hide', !show);
-          c.style.display = show ? '' : 'none';
-        });
-        if (window.gsap) gsap.fromTo(cards.filter(c => !c.classList.contains('hide')), { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.04, ease: 'power3.out', overwrite: true });
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      });
-    });
-
-    /* ===== SEARCH + JAIN ===== */
-    const search = document.getElementById('search'), jainToggle = document.getElementById('jainToggle');
-    function applyFilters() {
-      const q = (search.value || '').toLowerCase().trim();
-      const jainOnly = jainToggle.checked;
-      cards.forEach(c => {
-        const text = c.textContent.toLowerCase();
-        const matchQ = !q || text.includes(q);
-        const jainSafe = !text.includes('onion') && !text.includes('garlic');
-        const show = matchQ && (!jainOnly || jainSafe);
-        c.classList.toggle('hide', !show);
-        c.style.display = show ? '' : 'none';
-      });
-    }
-    search.addEventListener('input', applyFilters);
-    jainToggle.addEventListener('change', applyFilters);
-
-    /* ===== ENTRANCE ===== */
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.from(cards, { y: 26, opacity: 0, stagger: 0.05, duration: 0.65, ease: 'power3.out', scrollTrigger: { trigger: '#grid', start: 'top 88%' } });
-    }
-    updateCart();
-    console.log('✓ Menu premium build — cart, filters, search, jain toggle');
-  </script>
-</body>
-
+  <!--HERO-->
 </html>
