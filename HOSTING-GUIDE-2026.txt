@@ -1,0 +1,672 @@
+================================================================
+  INDIANA RESTAURANT & CAFE
+  COMPLETE FREE HOSTING + BACKEND GUIDE  (Cloudflare 2026)
+  ----------------------------------------------------------------
+  Custom domain + Backend + Database  =  100% FREE
+  Koi credit card NAHI • Koi verification NAHI • Koi trial NAHI
+================================================================
+
+Ye guide aapko A se Z tak batayegi:
+  - Website apne domain pe kaise live karein
+  - Backend (bookings/orders/OPEN-CLOSED) kaise chalayein
+  - Owner roz kaise use kare
+  - Kuch toot jaye to kya karein
+
+Time: ~45 minute  |  Kharcha: Rs 0  |  Card: nahi chahiye
+
+
+================================================================
+SECTION 1 — PEHLE 30 SECOND ME SAMJH LO
+================================================================
+
+  GUEST (mobile/laptop)
+        |
+        v
+  aapkadomain.com          → Cloudflare PAGES   (HTML files)
+        |
+        |  /api/...  (booking bhejna, status dekhna)
+        v
+  aapkadomain.com/api/*    → Cloudflare WORKER  (backend code)
+        |
+        v
+  D1 database              → bookings, orders, door status
+
+  Admin (owner) → aapkadomain.com/admin.html
+                  password daalo → sab kuch dikhega + OPEN/CLOSED switch
+
+  ⚡ Worker "serverless" hai — chalane ki zaroorat NAHI.
+     24x7 apne aap chalta hai. Light band ho, mobile band ho — chalta rahega.
+
+
+================================================================
+SECTION 2 — ZAROORI CHEEZEIN (checklist)
+================================================================
+
+  [ ] Ek domain (aapke paas already hai)
+  [ ] Domain registrar ka login (GoDaddy / Hostinger / BigRock / Namecheap)
+  [ ] Email address (Cloudflare account ke liye)
+  [ ] Ye project folder (saari files)
+  [ ] 45 minute ka time
+  [ ] Credit card  → NAHI chahiye (kisi bhi step me nahi maangta)
+
+
+================================================================
+SECTION 3 — STEP 1: CLOUDFLARE ACCOUNT BANAO (5 min)
+================================================================
+
+  1. Browser me kholo:  https://dash.cloudflare.com/sign-up
+  2. Email + password daalo  →  Create Account
+  3. Email me aaya verification link click karo
+  4. Koi card, koi payment, koi ID — KUCH NAHI maangega
+  5. Login kar lo — dashboard khul jayega
+
+  ✅ Ho gaya. (Dashboard ke top-left me "Account Home" dikhega.)
+
+
+================================================================
+SECTION 4 — STEP 2: APNA DOMAIN ADD KARO (10 min + wait)
+================================================================
+
+  1. Dashboard me:  "Add a site" / "Add a domain" button
+  2. Apna domain likho (bina www ke, jaise: mysite.com) → Continue
+  3. Plan select karo → "Free" choose karo (page scroll karke neeche)
+  4. Cloudflare scanning karega → "Continue" → 2 NAMESERVERS dikhayenge
+     Jaise:  kate.ns.cloudflare.com
+             rick.ns.cloudflare.com
+  5. Ab apne REGISTRAR (jahan domain kharida) me jao:
+        - GoDaddy: My Products → domain → DNS → Nameservers → Change → Custom
+        - Hostinger: Domains → Manage → Nameservers → Change
+        - BigRock: same tarah "Nameservers" option
+     Purane nameservers hatao, Cloudflare ke 2 nameservers paste karo → Save
+  6. Cloudflare pe wapas aao → "Check nameservers now" click karo
+  7. 5 minute se 2 ghante lag sakte hain (usually 15-30 min)
+     Email aayega: "Your site is now active on Cloudflare"
+
+  ⚠️ Ye step skip nahi kar sakte — isi se custom domain + free SSL milta hai.
+
+  ✅ TEST: Cloudflare dashboard → apna domain → "Active" likha hona chahiye.
+
+
+================================================================
+SECTION 5 — STEP 3: DATABASE BANAO (D1) (7 min)
+================================================================
+
+  1. Dashboard → left menu me:  "Workers & Pages"  (ya "Compute")
+  2. Andar "D1 SQL database" option kholo
+     (Direct link: https://dash.cloudflare.com/?to=/:account/workers/d1 )
+  3. "Create Database" button
+  4. Name:  indiana-db      (ya jo pasand ho)
+  5. Location hint:  (optional) Asia (APAC) / Eastern North America — jo bhi
+  6. "Create"  → database ban gaya
+
+  Ab TABLES banao (bahut zaroori):
+  7. Database kholo → "Console" tab → neeche wala SQL copy-paste karke "Execute"
+
+----------------- YAHAN SE COPY KARO -----------------------------
+
+CREATE TABLE IF NOT EXISTS bookings (
+  id TEXT PRIMARY KEY, name TEXT NOT NULL, phone TEXT NOT NULL, email TEXT,
+  date TEXT NOT NULL, time TEXT NOT NULL, guests INTEGER NOT NULL DEFAULT 2,
+  seating TEXT, occasion TEXT, notes TEXT,
+  status TEXT NOT NULL DEFAULT 'pending', createdAt TEXT NOT NULL, updatedAt TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_bookings_date ON bookings(date);
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
+
+CREATE TABLE IF NOT EXISTS orders (
+  id TEXT PRIMARY KEY, name TEXT, phone TEXT, items TEXT, total INTEGER DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'new', createdAt TEXT NOT NULL, updatedAt TEXT
+);
+
+CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT);
+INSERT OR IGNORE INTO settings (key, value) VALUES ('door_open', '1');
+
+CREATE TABLE IF NOT EXISTS sessions (
+  token_hash TEXT PRIMARY KEY, createdAt TEXT NOT NULL, expiresAt TEXT NOT NULL
+);
+
+----------------- YAHAN TAK COPY KARO -----------------------------
+
+  8. "Tables" tab me jao → bookings, orders, settings, sessions dikhni chahiye
+
+  ✅ TEST: 4 tables dikh rahi hain = perfect.
+  (Ye wala SQL project ki file  schema.sql  me bhi saved hai.)
+
+
+================================================================
+SECTION 6 — STEP 4: WORKER (BACKEND) BANAO (10 min)
+================================================================
+
+  1. Dashboard → "Workers & Pages" → "Create application"
+  2. "Start with Hello World!" select karo → "Get started"
+  3. Worker ka naam:  indiana-api   → "Deploy"
+  4. Deploy hone ke baad:  "Edit code"  (ya </> icon) click karo
+  5. Jo editor khulega usme SAB kuch select karke delete karo (Ctrl+A, Delete)
+  6. Ab project folder ki file   worker.js   kholo (Notepad/VS Code me)
+     → pura code copy karo → editor me paste karo
+  7. Upar right me "Deploy" / "Save" click karo
+  8. "Deployments" tab → "Version History" me naya version dikhega
+     → uske saamne "Deploy version" → "Deploy"  (agar zaroorat pade)
+
+  ✅ TEST: Worker ka URL kholo (jaise indiana-api.xxxx.workers.dev/api/health)
+     JSON aana chahiye:  {"ok":true,"service":"indiana-api",...}
+
+  ⚠️ Agar error dikhe "DB is not defined" — tension nahi, agla step karo
+     (binding abhi lagayi nahi hai).
+
+
+================================================================
+SECTION 7 — STEP 5: DATABASE BIND + PASSWORD SECRET (5 min)
+================================================================
+
+  --- 7A: D1 database ko Worker se jodo ---
+  1. "Workers & Pages" → apna worker  indiana-api  kholo
+  2. "Bindings" tab  (naye UI me: Settings → Bindings)
+  3. "Add binding" → "D1 database" → "Add binding"
+  4. Variable name:   DB        ← bilkul yahi likhna hai (capital DB)
+  5. Database: dropdown me  indiana-db  select karo
+  6. "Add binding" / "Save"
+
+  --- 7B: Owner ka password set karo ---
+  7. Usi Worker me: "Settings" → "Variables and Secrets" (Variables & Secrets)
+  8. "Add" → Type: "Secret"   (Secret zaroor karo, Text nahi)
+  9. Name:  ADMIN_PASSWORD
+     Value:  (apna strong password, jaise  Indiana@Jhalawar2026 )
+  10. "Save" / "Deploy"
+
+  ✅ TEST:  <worker-url>/api/health  →  {"ok":true,...}
+           <worker-url>/api/status  →  {"ok":true,"open":true}
+
+  Ab backend database se jud gaya hai. 🎉
+
+
+================================================================
+SECTION 8 — STEP 6: WORKER KO DOMAIN SE JODO (5 min)
+================================================================
+
+  IMPORTANT: hum chahate hain ki API same domain pe rahe —
+  aapkadomain.com/api/...  →  isse website ke andar koi code change nahi karna padega.
+
+  1. "Workers & Pages" →  indiana-api  → "Settings" → "Domains & Routes"
+  2. "Add" → "Route"  select karo
+  3. Zone: apna domain choose karo
+  4. Route pattern:   aapkadomain.com/api/*
+     (jaise  mysite.com/api/*     — www wala na likho)
+  5. "Add route" click karo
+
+  ✅ TEST: browser me kholo  https://aapkadomain.com/api/health
+     {"ok":true,...} aana chahiye.
+     Agar 404 aaye → 5 min wait karo (DNS propagate), phir try karo.
+
+
+================================================================
+SECTION 9 — STEP 7: WEBSITE UPLOAD KARO (Pages) (7 min)
+================================================================
+
+  Sirf ye files upload karni hain (baaki rehne do):
+     index.html
+     menu.html
+     gallery.html
+     reserve.html
+     about.html
+     admin.html
+     protect.js
+     cookie-banner.js
+     credit.js
+
+  1. Dashboard → "Workers & Pages" → "Create application"
+  2. "Pages" tab select karo  (top me tab hota hai)
+  3. "Upload assets" option choose karo (Git nahi)
+  4. Project name:  indiana-site
+  5. Files drag-drop karo (ya "Select from computer")
+     Tip: ek naya folder banao "upload" naam ka, usme upar wali 9 files daalo,
+          phir pura folder upload kar do — kaam aasan rahega
+  6. "Deploy site" click karo
+  7. 30 second me live:  https://indiana-site.pages.dev
+
+  --- Ab apna domain jodo ---
+  8. Pages project → "Custom domains" tab
+  9. "Set up a custom domain" → apna domain likho → Continue → Active
+     (apex domain aur www dono add kar sakte ho, dono free hain)
+  10. Cloudflare khud DNS record + SSL laga dega (1-2 min)
+
+  ✅ TEST:  https://aapkadomain.com  →  aapki website khul jaayegi
+           https://aapkadomain.com/reserve.html  →  booking form
+           https://aapkadomain.com/admin.html    →  owner console
+
+
+================================================================
+SECTION 10 — STEP 8: FINAL TESTING CHECKLIST
+================================================================
+
+  [ ] Website khulti hai + https lagti hai (lock icon 🔒)
+  [ ] Light/dark toggle kaam karta hai (🌙 button navbar me)
+  [ ] Cookie card bottom-left aata hai
+  [ ] reserve.html me form fill karke booking submit karo
+        → success card aana chahiye + reference number (IND-XXXXXX)
+  [ ] admin.html kholo → password daalo → "Unlock Console"
+        → aapki booking list me dikhni chahiye ✅
+  [ ] Admin me OPEN/CLOSED switch flip karo
+        → reserve.html ka pill badal jana chahiye (60 sec me max)
+  [ ] Admin me CONFIRM / SEAT / CANCEL buttons try karo
+  [ ] "CSV" button → Excel file download honi chahiye
+  [ ] menu.html ka cart → order submit → admin me ORDERS tab me dikhe
+  [ ] Mobile pe kholo → sab theek dikhe (menu drawer, buttons)
+
+  Sab ✅ = kaam pura ho gaya. Website LIVE hai. 🎉
+
+
+================================================================
+SECTION 11 — BACKEND "CHALANA" (yaad rakho)
+================================================================
+
+  LOCAL (aapke PC pe, testing ke liye):
+     1. Project folder me terminal kholo
+     2. Command:   node server.js
+     3. Browser:   http://127.0.0.1:8787
+        Admin:     http://127.0.0.1:8787/admin
+     4. Data yahan save hota hai:  data/  folder
+        (bookings.json, orders.json, settings.json...)
+     5. Band karne ke liye: Ctrl + C
+
+  ONLINE (Cloudflare):
+     Kuch bhi chalane ki zaroorat NAHI ❌
+     Worker serverless hai — request aane pe apne aap chalta hai, 24x7.
+     Aapko sirf website use karni hai.
+
+  DONO EK JAISE HAIN:
+     server.js (local)  aur  worker.js (Cloudflare)  — same API:
+     /api/bookings, /api/orders, /api/status, /api/auth/login
+     Isliye website code kabhi badalna nahi padega.
+
+  ⚠️ NOTE: Local server ka data aur Cloudflare ka data ALAG rehta hai.
+     Local = testing only. Live bookings Cloudflare D1 me jati hain.
+
+
+================================================================
+SECTION 12 — OWNER ROZANA KAISE USE KARE (0 technical knowledge)
+================================================================
+
+  1. Mobile/laptop me kholo:  aapkadomain.com/admin.html
+  2. Password daalo (eye 👁️ icon se dekh sakte ho) → UNLOCK CONSOLE
+  3. Kya-kya dikhega:
+       - TILES:  aaj ki bookings, kitne confirm karne hain, guests, orders
+       - SWITCH: kitchen OPEN / CLOSED (ek tap — guests ko turant dikhta hai)
+       - BOOKINGS: naam, phone, date, time, guests, seating, notes
+       - BUTTONS:  CONFIRM | SEAT | NO-SHOW | CANCEL
+       - ORDERS: cart orders + status (PREPARE → SERVED → PAID)
+       - CSV: saara data Excel me download
+  4. Session 12 ghante chalti hai; uske baad dobara password.
+  5. LOGOUT button se turant bahar.
+  6. Bookings khud aa jaati hain (page pe hi refresh hoti rehti hain).
+
+  Owner ko sirf 3 cheezein yaad rakhni hain:
+     (a) admin.html kholna  (b) password  (c) OPEN/CLOSED switch
+
+
+================================================================
+SECTION 13 — BAAD ME UPDATE KAISE KARO
+================================================================
+
+  Website (HTML) update:
+     1. Workers & Pages → Pages project → "Create new deployment"
+     2. Nayi files drag-drop karo → Deploy
+     (Purani deployment auto replace ho jaati hai — website turant update)
+
+  Backend (worker.js) update:
+     1. Workers & Pages → indiana-api → "Edit code"
+     2. Naya code paste karo → Deploy
+
+  Database dekhna/edit karna:
+     D1 → indiana-db → Console → SQL queries
+     Example:  SELECT * FROM bookings ORDER BY createdAt DESC LIMIT 20;
+     Example:  UPDATE bookings SET status = 'confirmed' WHERE id = 'IND-ABC123';
+
+  Backup lena (bahut zaroori, mahine me 1 baar):
+     Admin console → CSV button → file safe rakho
+
+
+================================================================
+SECTION 14 — KUCH TOOT JAYE TO (TROUBLESHOOTING)
+================================================================
+
+  [1] /api/health pe "404 Not Found" aata hai
+      → Route add nahi hui. Section 8 dobara karo.
+      → Zone ko "Active" hona chahiye (Section 4).
+
+  [2] /api/... pe "500 Internal Server Error"
+      → D1 binding ka naam galat hai. Section 7A: Variable name bilkul  DB  hona chahiye.
+
+  [3] Admin login pe "Wrong password"
+      → ADMIN_PASSWORD secret galat ya set nahi hai (Section 7B).
+      → Secret set karne ke baad Worker dobara Deploy karna hai.
+
+  [4] "D1_ERROR: no such table: bookings"
+      → Section 5 ka SQL Console me Execute nahi kiya. Dobara karo.
+
+  [5] Login ho jata hai, lekin refresh pe wapas login maangta hai
+      → Aap http (bina s) pe ho — aajkal https use karo (Cloudflare free SSL deta hai).
+      → Cookies block (browser settings) check karo.
+
+  [6] Website khulti nahi / "522" error
+      → Domain nameserver abhi propagate nahi hue — 1-2 ghante wait karo.
+
+  [7] Booking submit pe "Too many requests"
+      → Rate limit (10 min me 6 bookings). Ye protection hai — wait karo.
+
+  [8] "Worker exceeded limits"
+      → Free plan: 1,00,000 requests/day. Restaurant ke liye itna traffic
+        kabhi nahi aayega (din ke 100-500 requests normal hai).
+        Phir bhi aaye to: Cloudflare Free me hi Workers Paid $5/mo hai (optional).
+
+  [9] Kuch aur samajh nahi aa raha
+      → Cloudflare Docs: https://developers.cloudflare.com/workers/
+      → Ya mujhe (Navmansh Sen) WhatsApp/call karo: +91-7014198045
+
+
+================================================================
+SECTION 15 — PLAN B: BINA CODE WALA BACKEND (Google Sheets)
+================================================================
+
+  Agar Cloudflare Worker wala setup nahi karna, to project me pehle se
+  Google Sheets wala option maujood hai — bilkul free, no card:
+
+     1. GOOGLE_SHEET_SETUP.txt file kholo (project folder me)
+     2. Us me likhe steps follow karte ho: Google Sheet + Apps Script deploy
+     3. Apps Script ka URL mil jayega (GOOGLE_SHEET_URL)
+     4. Vercel/Netlify pe site upload karo aur env variables set karo:
+           GOOGLE_SHEET_URL = <apps script url>
+           ADMIN_PASSWORD   = <aapka password>
+     5. Website bookings Google Sheet me aane lagengi
+
+  Farak:
+     Google Sheets = zero code, lekin thoda slow + 20k requests/day limit
+     Cloudflare    = fast, professional, 1 lakh requests/day, SQL database
+
+  Dono me card nahi chahiye. Cloudflare better hai (recommended).
+
+
+================================================================
+SECTION 16 — KHARCHA (kya kab paisa lagega)
+================================================================
+
+  Cloudflare Pages (website hosting)        Rs 0  — unlimited bandwidth
+  Cloudflare Worker (backend)               Rs 0  — 1,00,000 requests/day
+  Cloudflare D1 (database)                  Rs 0  — 5 GB
+  SSL / HTTPS certificate                   Rs 0  — automatic
+  Custom domain aapke paas already hai      Rs 0  — koi extra nahi
+  ------------------------------------------------------------------
+  TOTAL                                     Rs 0 / month
+
+  Paid kab lagega (agar kabhi zaroorat pade):
+     - Worker $5/month  → jab 1 lakh requests/day se zyada ho (restaurant me nahi hoga)
+     - Domain renewal   → registrar wala normal charge (Cloudflare nahi leta)
+
+
+================================================================
+  FILE MAP (kaunsi file kahan kaam aati hai)
+================================================================
+
+  index.html         → Home page          → Pages pe upload
+  menu.html          → Menu + cart        → Pages pe upload
+  gallery.html       → Photo gallery      → Pages pe upload
+  reserve.html       → Booking page       → Pages pe upload
+  about.html         → About page         → Pages pe upload
+  admin.html         → Owner console      → Pages pe upload
+  protect.js         → Image protection   → Pages pe upload
+  cookie-banner.js   → Cookie card        → Pages pe upload
+  credit.js          → Credit line        → Pages pe upload
+  worker.js          → BACKEND (Cloudflare)→ Worker editor me paste
+  schema.sql         → Database tables    → D1 Console me paste
+  server.js          → LOCAL backend      → sirf PC pe (upload nahi)
+
+================================================================
+SECTION 17 — GOOGLE SHEETS KE SAATH INTEGRATION (2 TARIKE)
+================================================================
+
+  TARIKA A (RECOMMENDED) — Cloudflare D1 + Google Sheet DONO me data
+  ------------------------------------------------------------------
+  Faayda: Admin console D1 se chalta rahega (fast), aur owner ko
+  har booking/order ek Google Sheet me bhi milega (Excel jaisa familiar).
+
+  Steps:
+
+  1. Google Sheet banao:  https://sheets.google.com  → Blank sheet
+     Name:  Indiana Bookings
+
+  2. Row 1 me ye headings likho (ek-ek cell me):
+     ID | TYPE | NAME | PHONE | DATE | TIME | GUESTS | SEATING | OCCASION | NOTES | STATUS | CREATED
+
+  3. Sheet me:  Extensions  →  Apps Script   (naya tab khulega)
+
+  4. Wahan jo default code hai use delete karke ye paste karo:
+
+----------------- YAHAN SE COPY KARO -----------------------------
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+
+  if (data.type === 'order') {
+    const o = data.order || {};
+    sheet.appendRow([o.id||'', 'ORDER', o.name||'', o.phone||'', '', '', '',
+                     '', '', JSON.stringify(o.items||[]), o.status||'new', o.createdAt||'']);
+  } else {
+    const b = data.booking || {};
+    sheet.appendRow([b.id||'', 'BOOKING', b.name||'', b.phone||'', b.date||'', b.time||'',
+                     b.guests||'', b.seating||'', b.occasion||'', b.notes||'', b.status||'pending', b.createdAt||'']);
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({ok:true}))
+                       .setMimeType(ContentService.MimeType.JSON);
+}
+
+----------------- YAHAN TAK COPY KARO -----------------------------
+
+  5. Save karo (Ctrl+S) → Project name: Indiana Webhook
+
+  6. Upar right:  Deploy  →  New deployment
+        - Click "Select type" →  Web app
+        - Description:  v1
+        - Execute as:   Me
+        - Who has access:  Anyone          ← ye zaroori hai
+        - Deploy → "Authorize access" → apna Google account → Allow
+          (screen aa sakti hai: "Google hasn't verified this app"
+           → Advanced → Go to Indiana Webhook (unsafe) → Allow — ye normal hai,
+           app aapka apna hi hai)
+  7. Web app URL copy karo (aisa dikhta hai):
+     https://script.google.com/macros/s/AKfycb...../exec
+
+  8. Ab Cloudflare me:  Workers & Pages → indiana-api → Settings
+     → Variables and Secrets →  Add
+        Type:   Secret
+        Name:   NOTIFY_WEBHOOK
+        Value:  (jo URL copy kiya tha)
+     → Save / Deploy
+
+  9. TEST: website se ek booking karo (reserve.html)
+     → 5 second me Google Sheet me nayi row aani chahiye ✅
+     → Agar na aaye: Apps Script ka "Who has access: Anyone" check karo,
+       aur secret ke baad Worker dubara Deploy hua hai ya nahi.
+
+  NOTE: D1 database primary hi rahega (admin console usi se chalta hai).
+  Sheet sirf mirror/copy hai — owner usme bhi dekh sakta hai.
+  Worker pehle se is feature ke liye ready hai — bas secret add karna hai.
+
+
+  TARIKA B — GOOGLE SHEET HI ASLI DATABASE (Cloudflare ke bina)
+  -------------------------------------------------------------
+  Project me pehle se ready hai (api/ folder + GOOGLE_SHEET_SETUP.txt).
+  Ye tab use karo jab Cloudflare ka setup nahi karna ho.
+
+  1. Upar wale steps 1-7 repeat karo — lekin Apps Script me
+     DO ALAG function chahiye (doPost + doGet).
+     Pura code file me hai:   GOOGLE_SHEET_SETUP.txt   (usi ko copy karo)
+
+  2. Sheet headers (Row 1):
+     id | name | phone | date | guests | message | createdAt | type | items | total
+
+  3. Website ko Vercel/Netlify pe upload karo (Pages ki jagah),
+     kyunki api/ folder serverless functions maangta hai.
+
+  4. Vercel → Project → Settings → Environment Variables → Add:
+        GOOGLE_SHEET_URL = <Apps Script URL>
+        ADMIN_PASSWORD   = <aapka password>
+        (Optional) RESEND_API_KEY + NOTIFY_EMAIL  → email alert ke liye
+
+  5. Redeploy karo → bas. /admin.html pe password se data dikhega.
+
+  Farak yaad rakho:
+     TARIKA A (Cloudflare + Sheet webhook) = FAST + professional + sheet bhi
+     TARIKA B (Sheet hi database)          = simple, lekin slow + 20k/day limit
+
+
+================================================================
+SECTION 18 — PHONE, PASSWORD, HOURS, ADDRESS, PRICES KAISE BADLE
+================================================================
+
+  👉 Best tarika: VS Code me  Ctrl + Shift + H  (Replace in Files)
+     → "Find" me purani value, "Replace" me nayi → "Replace All"
+     → Saari files me ek saath badal jayega (magic ✨)
+
+
+  (A) PHONE / WHATSAPP NUMBER BADALNA
+  ------------------------------------
+  Abhi ka number:  +91 98765 43210   (links me: 919876543210)
+
+  Step 1 — WhatsApp/tel links (2 rounds replace karo):
+     Find:     919876543210
+     Replace:  91XXXXXXXXXX        ← apna naya number, + aur space KE BINA
+     (jaise naya number 70123 45678 hai → likho  917012345678 )
+
+     Isse ye sab theek ho jayenge:
+        https://wa.me/919876543210   →  https://wa.me/917012345678
+        tel:+919876543210            →  tel:+917012345678
+
+  Step 2 — Screen pe dikhne wala number:
+     Find:     +91 98765 43210
+     Replace:  +91 70123 45678      ← apna naya (display format)
+     Find:     CALL +91 98765 43210
+     Replace:  CALL +91 70123 45678
+
+  Ye files badlengi (total ~16 jagah):
+     index.html    (4 jagah)
+     menu.html     (2 jagah)
+     reserve.html  (8 jagah)
+     worker.js     (2 jagah - WhatsApp confirm link)
+     api/booking.js + api/order.js (Vercel wale, 2 jagah)
+
+  ⚠️ IMPORTANT:
+     - worker.js me change karne ke baad → Cloudflare → Worker → Edit code
+       → naya code paste → Deploy (warna purana number chalta rahega)
+     - HTML files change karne ke baad → Pages → Create new deployment
+       → files dobara upload
+     - "credit.js" wala number (+91-7014198045) DEVELOPER ka hai — usse
+       chhedna mat (wo aapka credit hai)
+
+
+  (B) ADMIN PASSWORD BADALNA
+  ---------------------------
+  Cloudflare (live website):
+     1. Workers & Pages → indiana-api → Settings
+     2. Variables and Secrets → ADMIN_PASSWORD → "Edit" (pencil icon)
+     3. Naya password likho → Save / Deploy
+     4. Admin se logout karo → naye password se login karo
+     Tip: Type "Secret" hi rakho (encrypted rehta hai)
+
+  Local PC (node server.js):
+     - Windows PowerShell me:
+           $env:ADMIN_PASSWORD="NayaPassword123"; node server.js
+     - Ya permanent: server.js ke top pe env nahi, system env set karo
+     - Agar ADMIN_PASSWORD set nahi hai to server boot pe ek RANDOM
+       password print karta hai (terminal me dikhega) — usi se login karo
+
+  Vercel (agar wahan host kiya ho):
+     Project → Settings → Environment Variables → ADMIN_PASSWORD →
+     Edit → Save → "Redeploy" (zaroori hai, warna purana chalta rahega)
+
+  Password bhool gaye? → Naya secret set kar do, bas. Data safe rahega.
+
+
+  (C) OPENING HOURS BADALNA (abhi: 11:00 AM — 10:45 PM)
+  ------------------------------------------------------
+  Ye 3 jagah set hain — teeno badalni padti hain (warna status galat dikhega):
+
+     1. worker.js:
+          OPEN_MIN  = 11 * 60          → 11:00 AM  (11 = ghante, 24-hour format)
+          CLOSE_MIN = 22 * 60 + 45     → 10:45 PM
+        Jaise 11:30 AM se 11:00 PM karna hai:
+          OPEN_MIN  = 11 * 60 + 30     (11:30 AM)
+          CLOSE_MIN = 23 * 60          (11:00 PM)
+        → phir Worker me paste + Deploy
+
+     2. reserve.html (JS me):
+          OPEN_MIN aur CLOSE_MIN waise hi badlo (same hisaab)
+        → phir Pages pe files dobara upload
+
+     3. Page pe likha text (display):
+          Find:     11AM — 10:45 PM          (index/menu/gallery/reserve/about)
+          Find:     11:00 AM — 10:45 PM      (admin.html)
+          Find:     TILL 10:45 PM            (reserve.html ke status messages)
+        → nayi timing likh do
+
+     ⚠️ Time slots (11:00 AM, 11:30 AM, 12:00 PM ... 10:30 PM) bhi isi hisaab se hain:
+        - worker.js me  SLOTS  array (Loop: 11*60 se 22*60+30 tak)
+        - reserve.html ke time picker me
+        - server.js me  TIME_SLOTS
+        Teeno match hone chahiye, warna booking reject ho sakti hai.
+
+
+  (D) ADDRESS BADALNA
+  -------------------
+  Find:     Rajlaxmi nagar, Jhalawar, Rajasthan 326001
+  Replace:  (naya address)
+  Files: index.html, menu.html, gallery.html, reserve.html, about.html
+
+  Map ka pin (coordinates) badalna:
+  Find:     24.587048235784344
+  Find:     76.17682239644377
+  Replace:  apne naye coordinates
+  (Google Maps pe apni dukaan pe right-click → coordinates copy → paste)
+  Files: saare 5 public pages (har link me 2-3 jagah)
+
+
+  (E) MENU KE DAAM / DISHES BADALNA
+  ----------------------------------
+  menu.html:  dish ka naam aur ₹ price direct HTML me hai
+     Find karo:  ₹399   (ya jo bhi price ho)  → naya price
+     Dish ka naam bhi usi card me hai — wahi badal do
+
+  reserve.html me "SIGNATURE PLATES" section hai (4 dishes + prices):
+     Margherita ₹399 | Truffle Brunch Bowl ₹449 | Cold Brew Tonic ₹249 | Choco Fondant ₹299
+     → naam aur price dono wahin badlo
+
+  Cart ka total khud calculate hota hai — kuch aur nahi karna.
+
+
+  (F) BAQI CHHOTI CHEEZEIN
+  ------------------------
+  Instagram handle:      Find  @indiana.cafe            → apna handle
+  Google review link:    Find  google.com/maps/place/   → apna review link
+  Google Maps directions:Find  maps/search/?api=1&query= → naya pin
+  Logo:                  Find  i.postimg.cc/2j4wTB2c/image.png
+                         → naya logo URL (postimg pe upload karke link lo)
+                         (index, menu, gallery, reserve, about, admin — sab me)
+
+
+  (G) CHANGE KE BAAD KA CHECKLIST
+  --------------------------------
+  [ ] worker.js badla?     → Cloudflare Worker me paste + Deploy ✅
+  [ ] HTML/JS badla?       → Pages > Create new deployment > upload ✅
+  [ ] Phir test karo:
+        - reserve.html → booking karo → WhatsApp link me naya number aaye
+        - admin.html → login → OPEN/CLOSED switch → kaam kare
+        - website pe naya number/address dikhe
+        - ek booking karke Google Sheet me row aayi? (agar webhook laga hai)
+
+
+================================================================
+  BAS ITNA. 45 MINUTE ME LIVE.  Rs 0.  No card.  🎉
+  Kuch samajh na aaye to: Navmansh Sen — +91-7014198045 (call/WhatsApp)
+================================================================
+
