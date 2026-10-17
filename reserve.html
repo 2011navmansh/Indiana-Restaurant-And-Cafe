@@ -1100,7 +1100,9 @@
         }
       } catch { /* offline / static preview — fall back below */ }
 
-      const ref = (result && result.id) || ('IND-' + Math.random().toString(16).slice(2, 8).toUpperCase());
+      // backend { booking: { id, ... } } bhejta hai — dono shapes support karo
+      const apiBooking = result && (result.booking || result);
+      const ref = (apiBooking && apiBooking.id) || ('IND-' + Math.random().toString(16).slice(2, 8).toUpperCase());
       lastBooking = { ...payload, id: ref };
       try {
         const stored = JSON.parse(localStorage.getItem('indiana-bookings') || '[]');
