@@ -162,10 +162,13 @@ SECTION 7 — STEP 5: DATABASE BIND + PASSWORD SECRET (5 min)
   --- 7A: D1 database ko Worker se jodo ---
   1. "Workers & Pages" → apna worker  indiana-api  kholo
   2. "Bindings" tab  (naye UI me: Settings → Bindings)
-  3. "Add binding" → "D1 database" → "Add binding"
+  3. "Add binding" → left list me "D1 database" par click karo
+     (naya UI: right panel me thoda scroll karo — 2 fields aati hain)
   4. Variable name:   DB        ← bilkul yahi likhna hai (capital DB)
-  5. Database: dropdown me  indiana-db  select karo
-  6. "Add binding" / "Save"
+  5. D1 database: dropdown me  indiana-db  select karo
+  6. Neeche blue "Add Binding" dabao
+     → Phir upar "Deploy" button aayega — usse ZAROOR click karo
+     (warna binding apply nahi hoti — /api/health fail dega)
 
   --- 7B: Owner ka password set karo ---
   7. Usi Worker me: "Settings" → "Variables and Secrets" (Variables & Secrets)
@@ -186,6 +189,11 @@ SECTION 8 — STEP 6: WORKER KO DOMAIN SE JODO (5 min)
 
   IMPORTANT: hum chahate hain ki API same domain pe rahe —
   aapkadomain.com/api/...  →  isse website ke andar koi code change nahi karna padega.
+
+  NOTE: Agar aapke paas apna domain NAHI hai (sirf free *.pages.dev
+  use kar rahe ho), to ye Section SKIP kar do — pages.dev par bhi /api
+  chal jayega, kyunki site ke saath _worker.js proxy upload hota hai
+  (Section 9 dekho).
 
   1. "Workers & Pages" →  indiana-api  → "Settings" → "Domains & Routes"
   2. "Add" → "Route"  select karo
@@ -213,16 +221,35 @@ SECTION 9 — STEP 7: WEBSITE UPLOAD KARO (Pages) (7 min)
      protect.js
      cookie-banner.js
      credit.js
+     live-clock.js
+     skeleton.js
+     menu-data.js    ← 148 dishes ka data (is ke bina menu page khali dikhega)
+     _worker.js      ← /api ko backend Worker se jodta hai (safety net)
 
   1. Dashboard → "Workers & Pages" → "Create application"
   2. "Pages" tab select karo  (top me tab hota hai)
   3. "Upload assets" option choose karo (Git nahi)
   4. Project name:  indiana-site
   5. Files drag-drop karo (ya "Select from computer")
-     Tip: ek naya folder banao "upload" naam ka, usme upar wali 9 files daalo,
-          phir pura folder upload kar do — kaam aasan rahega
+     Tip: upar wali saari files ek saath select karke drag-drop kar do
   6. "Deploy site" click karo
   7. 30 second me live:  https://indiana-site.pages.dev
+
+  ✅ TEST (API bhi chal rahi hai?):
+     https://indiana-site.pages.dev/api/health   →  {"ok":true,...}
+     (Ye _worker.js ki wajah se chalta hai — isliye wo file upload karna
+      mat bhoolna, warna booking/order save nahi honge.)
+
+  --- AGAR AAPKI FILES GITHUB PE HAIN (recommended) ---
+  "Upload assets" ki jagah "Connect to Git" choose karo:
+     → GitHub authorize karo → repo: Indiana-Restaurant-And-Cafe
+     → Production branch: main
+     → Framework preset: None
+     → Build command: (khali chhod do)
+     → Build output directory: /
+     → "Save and Deploy"
+  Faayda: har `git push` par site apne aap update ho jayegi
+          (manual upload dobara karne ki zaroorat nahi).
 
   --- Ab apna domain jodo ---
   8. Pages project → "Custom domains" tab
