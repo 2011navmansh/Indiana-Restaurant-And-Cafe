@@ -48,6 +48,18 @@
     html.light .text-mustard { color: #A16207 !important; }
     html.light #progress { background: #FACC15 !important; }
     html.light [class*="bg-black/70"] { background: rgba(255, 255, 255, .84) !important; }
+    /* LIGHT MODE: dark pill CTAs become mustard on light surfaces (no harsh black pills) */
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink {
+      background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important;
+      color: #0A0A0A !important;
+      box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important;
+    }
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink *,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink * { color: #0A0A0A !important; }
+    /* on mustard bands the dark pill stays (best contrast) */
+    html.light .bg-mustard a.bg-ink, html.light .bg-mustard button.bg-ink { background: #0A0A0A !important; color: #FACC15 !important; }
+    html.light .bg-mustard a.bg-ink *, html.light .bg-mustard button.bg-ink * { color: #FACC15 !important; }
     html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
     html.light .hero-photo::after { background: linear-gradient(180deg, rgba(255, 251, 235, .35), #FFFBEB) !important; }
 
