@@ -81,6 +81,10 @@
     .keep-dark { background: rgba(12,12,12,.66) !important; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,.16) !important; color: #fff !important; box-shadow: 0 18px 40px -20px rgba(0,0,0,.7); }
     .keep-dark * { color: #fff !important; }
     .keep-dark .btn-ink, .keep-dark a.btn-ink { background: #FACC15 !important; color: #0A0A0A !important; }
+    /* LIGHT MODE: keep-dark surfaces stay dark with WHITE text (beats html.light .opacity-* recoloring) */
+    html.light .keep-dark { background: rgba(12,12,12,.74) !important; border-color: rgba(255,255,255,.18) !important; color: #fff !important; }
+    html.light .keep-dark *, html.light .keep-dark .opacity-70, html.light .keep-dark .opacity-60, html.light .keep-dark .opacity-50 { color: #fff !important; opacity: 1 !important; }
+    html.light .keep-dark .btn-ink, html.light .keep-dark a.btn-ink { background: #FACC15 !important; color: #0A0A0A !important; }
 
 
     /* ===== GLASS SYSTEM ===== */
