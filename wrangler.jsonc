@@ -1,0 +1,29 @@
+// ============================================================
+//  Indiana Restaurant & Cafe - Cloudflare Worker (Git deploy)
+//  File: wrangler.jsonc
+// ------------------------------------------------------------
+//  Ye file Cloudflare ko batati hai:
+//   1) worker ka naam (domain isi worker pe juda hai)
+//   2) kaun si script chale        -> _worker.js
+//   3) website ki files kahan hain -> poora repo root (".")
+//   4) assets binding ka naam      -> ASSETS (env.ASSETS)
+//
+//  _worker.js do kaam karta hai:
+//   - /api/...  -> backend worker (indiana-api) ko forward
+//   - baaki sab -> website ki static files
+//
+//  Isliye yahan kuch DB binding ki zaroorat NAHI hai.
+//  DB binding sirf backend worker (indiana-api) me hai.
+// ============================================================
+
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "indiana-restaurant-and-cafe",
+  "main": "_worker.js",
+  "compatibility_date": "2026-10-17",
+
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
+  }
+}
