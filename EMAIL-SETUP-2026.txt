@@ -1,12 +1,21 @@
 =========================================================
 INDIANA — EMAIL AUTOMATION SETUP (FREE, NO CARD)
 =========================================================
-Kaise kaam karega:
+Kaise kaam karega (v2 = 3 tarah ke email):
 
-  Guest booking kare  ->  OWNER ko email aayegi
-  Owner admin me CONFIRM dabaye  ->  GUEST ko confirmation email
-  Owner admin me CANCEL dabaye   ->  GUEST ko cancellation email
-  Menu se order aaye  ->  OWNER ko order email
+  1) Guest booking kare (CONFIRM dabaye)
+       -> GUEST ko turant email: "Booking request received"
+          (English, likha hota hai: PENDING - waiting for confirmation,
+           aur confirming hone pe DOOSRI email aayegi)
+       -> OWNER ko email: "New booking IND-XXXX" + WhatsApp button
+
+  2) Owner admin me CONFIRM dabaye  -> GUEST ko "Table confirmed" email
+     Owner admin me CANCEL dabaye   -> GUEST ko "Booking cancelled" email
+
+  3) Menu se order aaye  ->  OWNER ko "New order" email
+
+  Matlab: ek booking pe GUEST ko 2 email (request received + confirm),
+  OWNER ko 1 email.  Total 3 tarah ke emails.
 
 Email bhejne ka kaam GOOGLE karega (Gmail) — 100 email/din FREE.
 Koi card nahi, koi paisa nahi. Bas 1 baar 5 minute ka setup.
@@ -79,25 +88,43 @@ STEP 4 — Cloudflare me webhook lagao
 FINAL TEST (asli flow)
 ---------------------------------------------------------
 1. reserve.html  ->  form bharo (email ZAROORI hai)  -> CONFIRM
-     => owner ke Gmail pe "📅 Naya booking IND-XXXX" aa jayegi
+     => GUEST ko turant: "Booking request received" (PENDING)
+     => OWNER ko: "New booking IND-XXXX"
 2. admin.html  ->  us booking pe CONFIRM dabao
-     => guest ke email pe "✅ Table confirmed" aa jayegi
+     => GUEST ko doosri email: "Table confirmed"
 3. admin.html  ->  CANCEL dabao
-     => guest ko "Booking cancelled" email
+     => GUEST ko "Booking cancelled" email
 4. menu.html se order (agar orders wire hai) -> owner email
+
+---------------------------------------------------------
+Baad me CODE badalna ho to (IMPORTANT)
+---------------------------------------------------------
+Sirf code save karne se live web app purana hi rehta hai.
+Naya code live karne ke liye:
+
+  Deploy  ->  Manage deployments  ->  pencil (Edit) icon
+  ->  Version: "New version"  ->  Deploy
+
+URL wahi rehta hai, Cloudflare me dobara daalne ki zarurat
+nahi. (Agar "New deployment" karo to NAYA URL milega — us
+case me Cloudflare me NOTIFY_WEBHOOK update karna padega.)
 
 ---------------------------------------------------------
 Kya-kya email me aata hai?
 ---------------------------------------------------------
+GUEST email 1 (booking hote hi): "Booking request received",
+   status PENDING, reference, date, time, guests, seating,
+   note + "confirm hone pe DOOSRI email aayegi".
+
 OWNER email (nayi booking): naam, phone, email, date, time,
    guests, seating, occasion, notes + guest ko WhatsApp karne
    ka button + admin console link.
 
-GUEST email (confirm): reference, date, time, guests, address,
-   phone, Google Maps directions link.
+GUEST email 2 (owner CONFIRM dabaye): "Table confirmed",
+   reference, date, time, guests, address, phone, Maps link.
 
-GUEST email (cancel): saaf message + "reply kar do, hum nayi
-   table set kar denge" + nayi booking ka link.
+GUEST email 2 (owner CANCEL dabaye): cancellation message +
+   "reply kar do, hum nayi table set kar denge" + booking link.
 
 Emails OWNER_EMAIL ke Gmail se jaati hain aur guest ke reply
 seedhe OWNER_EMAIL pe aate hain (replyTo set hai).
