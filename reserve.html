@@ -121,7 +121,9 @@
     html.light .rv-input:hover { background-color: #FFF8E1; border-color: rgba(202, 138, 4, .45); }
     html.light .rv-field input::placeholder, html.light .rv-field textarea::placeholder { color: rgba(10, 10, 10, .35); }
     html.light .rv-input { background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A16207' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
-    html.light .rv-tag, html.light .rv-chip { background: #FFFFFF; border-color: rgba(10, 10, 10, .1); color: #0A0A0A; }
+    html.light .rv-tag, html.light .rv-chip { background: #F7F1DF; border-color: rgba(10, 10, 10, .12); color: #1F2937; }
+    html.light .rv-chip:hover { background: #FDF6E3; border-color: rgba(202, 138, 4, .55); }
+    html.light .rv-chip.on { background: linear-gradient(135deg, #FACC15, #EAB308); color: #0A0A0A; border-color: transparent; box-shadow: 0 12px 26px -16px rgba(202, 138, 4, .8); }
     html.light .rv-err { color: #B91C1C; }
 
     /* ===== POPOVERS ===== */
@@ -188,6 +190,8 @@
     @media (prefers-reduced-motion: reduce) { .liquid-shine::after, .rv-card, .marquee-track { transition: none !important; animation: none !important; } }
   </style>
   <script src="protect.js" defer></script>
+  <script src="cookie-banner.js" defer></script>
+  <script src="credit.js" defer></script>
 </head>
 
 <body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
@@ -961,16 +965,19 @@
         return { mins: ist.getHours() * 60 + ist.getMinutes(), date: ist };
       }
 
+      let doorOverride = null; // set by the owner console (GET /api/status)
+
       function render() {
         const { mins, date } = istParts();
-        const open = mins >= OPEN_MIN && mins <= CLOSE_MIN;
-        const closingSoon = open && mins >= CLOSE_MIN - 60;
-        const openingSoon = !open && mins >= OPEN_MIN - 60 && mins < OPEN_MIN;
+        const timeOpen = mins >= OPEN_MIN && mins <= CLOSE_MIN;
+        const open = doorOverride === null ? timeOpen : doorOverride;
+        const closingSoon = open && timeOpen && mins >= CLOSE_MIN - 60;
+        const openingSoon = !timeOpen && mins >= OPEN_MIN - 60 && mins < OPEN_MIN;
 
         if (openState) {
           openState.textContent = open
             ? (closingSoon ? 'KITCHEN OPEN — CLOSING SOON' : 'KITCHEN OPEN NOW')
-            : 'CLOSED NOW — BOOK FOR LATER';
+            : (doorOverride === false ? 'TEMPORARILY CLOSED — BACK SOON' : 'CLOSED NOW — BOOK FOR LATER');
           const dot = openState.parentElement.querySelector('.animate-pulse');
           if (dot) dot.style.background = open ? '#4ADE80' : '#FACC15';
         }
@@ -981,15 +988,26 @@
           if (statusText) {
             statusText.textContent = open
               ? (closingSoon ? 'OPEN — LAST ORDERS SOON' : 'OPEN NOW — TILL 10:45 PM')
-              : (openingSoon ? 'OPENS IN LESS THAN AN HOUR' : 'CLOSED — OPENS 11:00 AM DAILY');
+              : (doorOverride === false ? 'CLOSED RIGHT NOW — TAKE A BOOKING ANYWAY' : (openingSoon ? 'OPENS IN LESS THAN AN HOUR' : 'CLOSED — OPENS 11:00 AM DAILY'));
           }
         }
         if (heroToday) heroToday.textContent = pretty(date).toUpperCase();
       }
 
+      async function loadDoor() {
+        try {
+          const r = await fetch('/api/status', { headers: { 'Accept': 'application/json' } });
+          if (!r.ok) return;
+          const j = await r.json();
+          if (typeof j.open === 'boolean') { doorOverride = j.open; render(); }
+        } catch (e) { /* offline or static hosting — pure time-based status */ }
+      }
+
       render();
+      loadDoor();
       setInterval(render, 30000);
-      document.addEventListener('visibilitychange', render);
+      setInterval(loadDoor, 60000);
+      document.addEventListener('visibilitychange', () => { render(); if (!document.hidden) loadDoor(); });
     })();
 
     /* ================= SUBMIT ================= */

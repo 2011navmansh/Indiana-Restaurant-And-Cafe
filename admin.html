@@ -1,21 +1,481 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Admin - Indiana</title><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#FFFBEB] text-ink font-sans p-6">
-<div class="max-w-[800px] mx-auto">
-<h1 class="font-display text-3xl">Admin - Bookings</h1>
-<p class="text-sm opacity-60 mt-1">Password protected. Set ADMIN_PASSWORD in Vercel env.</p>
-<div id="login" class="mt-6 flex gap-2"><input id="pw" type="password" placeholder="Password" class="rounded-full px-5 py-3 border border-black/10 flex-1"><button onclick="login()" class="bg-ink text-mustard rounded-full px-6 py-3 font-bold">Login</button></div>
-<div id="panel" class="hidden mt-6">
-<div class="flex gap-2 mb-4"><button onclick="load('bookings')" class="bg-mustard text-ink rounded-full px-5 py-2 font-bold text-sm">Bookings</button><button onclick="load('orders')" class="glass rounded-full px-5 py-2 font-bold text-sm">Orders</button></div>
-<div id="list" class="space-y-3"></div>
-</div>
-</div>
-<script>
-let token='';
-function login(){ token=document.getElementById('pw').value; document.getElementById('panel').classList.remove('hidden'); load('bookings'); }
-async function load(type){
-  const r=await fetch('/api/admin?type='+type, {headers:{'x-admin-pw':token}});
-  const j=await r.json();
-  if(j.error){ alert(j.error); return; }
-  document.getElementById('list').innerHTML=j.data.length?j.data.map(d=>`<div class="bg-white rounded-2xl p-4 border border-black/5"><div class="font-bold">${d.name} - ${d.phone}</div><div class="text-sm opacity-70">${d.date||''} ${d.guests||''} ${d.total?'Total Rs.'+d.total:''}</div><div class="text-xs opacity-50">${d.createdAt}</div></div>`).join(''):'<p class="opacity-60">No data yet. Connect Google Sheet to see bookings.</p>';
-}
-</script>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Owner Console — Indiana Restaurant &amp; Cafe</title>
+<link rel="icon" href="https://i.postimg.cc/2j4wTB2c/image.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{cream:'#FFFBEB',mustard:'#FACC15',mustardDark:'#EAB308',ink:'#0A0A0A',forest:'#0F2A18'},fontFamily:{display:['Bebas Neue'],serif:['Cormorant Garamond'],sans:['Plus Jakarta Sans']}}}}</script>
+<style>
+  *{ -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
+  ::-webkit-scrollbar{ width: 6px; } ::-webkit-scrollbar-thumb{ background: #FACC15; border-radius: 999px; } ::-webkit-scrollbar-track{ background: #0A0A0A; }
+  .glass{ background: rgba(255,255,255,.06); backdrop-filter: blur(22px); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 20px 50px -28px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1); }
+  .glow-blob{ position: absolute; border-radius: 999px; filter: blur(110px); pointer-events: none; }
+  .kpi{ position: relative; overflow: hidden; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+  .kpi:hover{ transform: translateY(-4px); }
+  .kpi::after{ content:''; position:absolute; top:-40px; right:-40px; width:110px; height:110px; border-radius:50%; background: radial-gradient(circle, rgba(250,204,21,.28), transparent 70%); }
+  .row{ display: grid; gap: 12px; grid-template-columns: 1fr; align-items: center; padding: 16px; border-radius: 20px; }
+  @media (min-width: 900px){ .row{ grid-template-columns: 1.5fr 1.1fr .7fr .9fr 1.1fr; } }
+  .st{ display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 12px; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .st-pending{ background: rgba(250,204,21,.14); color: #FDE68A; border: 1px solid rgba(250,204,21,.35); }
+  .st-confirmed{ background: rgba(34,197,94,.14); color: #BBF7D0; border: 1px solid rgba(74,222,128,.35); }
+  .st-seated{ background: rgba(56,189,248,.14); color: #BAE6FD; border: 1px solid rgba(56,189,248,.35); }
+  .st-cancelled{ background: rgba(248,113,113,.14); color: #FECACA; border: 1px solid rgba(248,113,113,.35); }
+  .st-no_show{ background: rgba(161,161,170,.14); color: #E4E4E7; border: 1px solid rgba(161,161,170,.35); }
+  .st-new{ background: rgba(250,204,21,.14); color: #FDE68A; border: 1px solid rgba(250,204,21,.35); }
+  .st-preparing{ background: rgba(56,189,248,.14); color: #BAE6FD; border: 1px solid rgba(56,189,248,.35); }
+  .st-served,.st-paid{ background: rgba(34,197,94,.14); color: #BBF7D0; border: 1px solid rgba(74,222,128,.35); }
+  .tbtn{ border-radius: 999px; padding: 7px 13px; font-size: 11px; font-weight: 800; letter-spacing: .03em; cursor: pointer; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); color: #FFFBEB; transition: all .25s; font-family: inherit; }
+  .tbtn:hover{ background: rgba(255,255,255,.12); transform: translateY(-1px); }
+  .tbtn-go{ background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; border: 0; box-shadow: 0 10px 22px -12px rgba(250,204,21,.8); }
+  .fld{ background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 12px 16px; color: #FFFBEB; font-family: inherit; font-size: 13px; outline: none; transition: border-color .3s; }
+  .fld:focus{ border-color: rgba(250,204,21,.6); }
+  .fld::placeholder{ color: rgba(255,251,235,.4); }
+  .pw-eye{ position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 999px; display: grid; place-items: center; background: transparent; border: 0; color: rgba(255,251,235,.48); cursor: pointer; transition: color .25s, background .25s, transform .25s; }
+  .pw-eye:hover{ color: #FACC15; background: rgba(255,255,255,.07); }
+  .pw-eye:active{ transform: translateY(-50%) scale(.92); }
+  .pw-eye.on{ color: #FACC15; }
+  .tab{ border-radius: 999px; padding: 9px 18px; font-size: 12px; font-weight: 800; letter-spacing: .06em; cursor: pointer; border: 1px solid transparent; color: rgba(255,251,235,.6); background: transparent; font-family: inherit; transition: all .3s; }
+  .tab.on{ background: #FFFBEB; color: #0A0A0A; }
+  .sw{ position: relative; width: 120px; height: 56px; border-radius: 999px; cursor: pointer; border: 1px solid rgba(255,255,255,.18); background: rgba(248,113,113,.16); transition: background .4s; }
+  .sw .knob{ position: absolute; top: 5px; left: 6px; width: 44px; height: 44px; border-radius: 999px; background: linear-gradient(135deg,#FACC15,#EAB308); box-shadow: 0 10px 22px -8px rgba(0,0,0,.7); transition: left .38s cubic-bezier(.2,.8,.2,1); display: grid; place-items: center; font-weight: 800; color: #0A0A0A; font-size: 16px; }
+  .sw.on{ background: rgba(34,197,94,.2); }
+  .sw.on .knob{ left: 70px; }
+  .toast{ display: flex; align-items: center; gap: 10px; background: rgba(14,14,14,.94); border: 1px solid rgba(250,204,21,.3); border-radius: 16px; padding: 12px 16px; font-size: 12.5px; font-weight: 700; box-shadow: 0 24px 50px -20px rgba(0,0,0,.8); transform: translateY(140%); opacity: 0; transition: all .5s cubic-bezier(.2,.85,.2,1); }
+  .toast.show{ transform: translateY(0); opacity: 1; }
+  .spin{ width: 16px; height: 16px; border-radius: 999px; border: 2px solid rgba(250,204,21,.3); border-top-color: #FACC15; animation: sp 0.8s linear infinite; display: inline-block; }
+  @keyframes sp{ to{ transform: rotate(360deg); } }
+  .skeleton{ background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.12), rgba(255,255,255,.06)); background-size: 200% 100%; animation: sk 1.4s linear infinite; border-radius: 14px; }
+  @keyframes sk{ to{ background-position: -200% 0; } }
+  .logo-badge{ border-radius: 999px; overflow: hidden; background: #0A0A0A; display: grid; place-items: center; flex: 0 0 auto; }
+  .logo-badge img{ width: 100%; height: 100%; object-fit: cover; transform: scale(1.14); }
+  input[type="password"]::-ms-reveal{ display: none; }
+</style>
+<script src="credit.js" defer></script>
+</head>
+<body class="bg-ink text-cream font-sans min-h-screen relative selection:bg-mustard selection:text-ink">
+
+  <div class="glow-blob -top-24 -left-24 w-[460px] h-[460px] bg-mustard/15"></div>
+  <div class="glow-blob top-40 right-0 w-[380px] h-[380px] bg-white/5"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="sticky top-0 z-40">
+    <div class="max-w-[1240px] mx-auto px-4 md:px-6 py-3">
+      <div class="glass rounded-2xl px-4 py-3 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="logo-badge w-[42px] h-[42px] ring-1 ring-mustard/40">
+            <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana logo">
+          </span>
+          <div class="min-w-0">
+            <div class="font-display text-[19px] leading-none tracking-[0.04em]">OWNER <span class="font-serif italic font-normal text-mustard">Console</span></div>
+            <div class="text-[10px] font-bold tracking-[0.18em] opacity-55 mt-1 truncate">INDIANA RESTAURANT &amp; CAFE &bull; JHALAWAR</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 md:gap-3">
+          <span id="livePill" class="hidden sm:inline-flex st st-pending"><span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span><span id="liveTxt">CONNECTING</span></span>
+          <span id="clock" class="hidden md:inline text-[11px] font-bold tracking-[0.14em] opacity-60">--:--</span>
+          <a href="index.html" class="tbtn hidden sm:inline-block" style="text-decoration:none">SITE ↗</a>
+          <button id="logoutBtn" class="tbtn hidden">LOGOUT</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1240px] mx-auto px-4 md:px-6 pb-20 relative z-10">
+
+    <!-- ===== LOGIN ===== -->
+    <section id="loginView" class="min-h-[70vh] grid place-items-center py-10">
+      <div class="glass rounded-[32px] p-7 md:p-9 w-full max-w-[440px] relative overflow-hidden">
+        <div class="absolute -top-16 -right-16 w-[180px] h-[180px] rounded-full" style="background:radial-gradient(circle,rgba(250,204,21,.3),transparent 70%)"></div>
+        <div class="flex items-center gap-3">
+          <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/50">
+            <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana logo">
+          </span>
+          <div>
+            <div class="text-[10px] font-extrabold tracking-[0.22em] text-mustard">STAFF ONLY</div>
+            <div class="font-display text-[26px] leading-none mt-1">UNLOCK THE <span class="font-serif italic font-normal">Console</span></div>
+          </div>
+        </div>
+        <p class="text-[12.5px] opacity-65 leading-relaxed mt-4">Bookings, orders, live status &amp; exports — everything the owner needs, in one calm dark room.</p>
+        <div class="mt-6">
+          <label class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">PASSWORD</label>
+          <div class="relative mt-2">
+            <input id="pw" type="password" class="fld w-full" style="padding-right:48px" placeholder="Enter owner password" autocomplete="current-password">
+            <button id="pwEye" type="button" class="pw-eye" aria-label="Show password" title="Show / hide password">
+              <svg id="eyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eyeOff" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="m1 1 22 22"/><path d="M6.71 6.7C3.6 8.6 1 12 1 12s4 8 11 8c2.3 0 4.34-.8 6.03-2"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mt-5">
+          <button id="loginBtn" class="flex-1 bg-mustard text-ink rounded-full py-3.5 font-extrabold text-sm" style="background:linear-gradient(135deg,#FACC15,#EAB308)">UNLOCK CONSOLE</button>
+          <span id="loginSpin" class="hidden spin"></span>
+        </div>
+        <div id="loginMsg" class="hidden mt-4 text-[12px] font-bold rounded-2xl px-4 py-3" style="background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);color:#FECACA"></div>
+        <div class="text-[10.5px] opacity-45 mt-5 leading-relaxed">Works with the local server (<span class="font-mono">node server.js</span>) and with Vercel + Google Sheets. Session stays on this device.</div>
+      </div>
+    </section>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="dashView" class="hidden pt-6">
+
+      <div id="demoBanner" class="hidden glass rounded-2xl px-5 py-3.5 text-[12px] font-bold mb-5" style="border-color:rgba(250,204,21,.35)">⚠ SHOWING SAMPLE DATA — backend not reachable from this page. Start <span class="font-mono">node server.js</span> or host on Vercel to see real bookings.</div>
+
+      <!-- KPIs -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <div class="kpi glass rounded-[24px] p-5">
+          <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">TODAY'S BOOKINGS</div>
+          <div id="kpiToday" class="font-display text-[40px] leading-none mt-2">0</div>
+          <div id="kpiTodaySub" class="text-[11px] opacity-55 mt-1">—</div>
+        </div>
+        <div class="kpi glass rounded-[24px] p-5">
+          <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">WAITING CONFIRM</div>
+          <div id="kpiPending" class="font-display text-[40px] leading-none mt-2 text-mustard">0</div>
+          <div class="text-[11px] opacity-55 mt-1">action needed</div>
+        </div>
+        <div class="kpi glass rounded-[24px] p-5">
+          <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">GUESTS TODAY</div>
+          <div id="kpiGuests" class="font-display text-[40px] leading-none mt-2">0</div>
+          <div class="text-[11px] opacity-55 mt-1">across all tables</div>
+        </div>
+        <div class="kpi glass rounded-[24px] p-5">
+          <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">ORDERS TODAY</div>
+          <div id="kpiOrders" class="font-display text-[40px] leading-none mt-2">0</div>
+          <div id="kpiOrdersSub" class="text-[11px] opacity-55 mt-1">Rs 0 value</div>
+        </div>
+      </div>
+
+      <!-- STATUS CONTROL -->
+      <div class="glass rounded-[28px] p-6 md:p-7 mt-4 md:mt-5 relative overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center gap-6 justify-between">
+          <div>
+            <div class="text-[10px] font-extrabold tracking-[0.22em] text-mustard">LIVE DOOR STATUS</div>
+            <h2 class="font-display text-[34px] md:text-[44px] leading-none mt-2">KITCHEN IS <span id="doorWord" class="font-serif italic font-normal">Open</span></h2>
+            <p class="text-[12.5px] opacity-60 mt-2 max-w-[460px] leading-relaxed">This controls the OPEN / CLOSED pill that guests see on the reserve page. Flip it for holidays, private events or a full house.</p>
+          </div>
+          <div class="flex items-center gap-5">
+            <div class="text-right">
+              <div id="doorTxt" class="font-extrabold text-[15px]">OPEN NOW</div>
+              <div id="doorSub" class="text-[11px] opacity-55 mt-1">11:00 AM — 10:45 PM</div>
+            </div>
+            <div id="doorSwitch" class="sw" role="switch" aria-checked="true" tabindex="0"><span class="knob">✓</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="flex flex-col lg:flex-row lg:items-center gap-3 justify-between mt-6">
+        <div class="flex items-center gap-1.5 glass rounded-full p-1.5 self-start">
+          <button class="tab on" data-tab="bookings">BOOKINGS</button>
+          <button class="tab" data-tab="orders">ORDERS</button>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <input id="search" class="fld w-full sm:w-[240px]" placeholder="Search name / phone / ref…">
+          <select id="statusFilter" class="fld" style="appearance:none">
+            <option value="">All status</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="seated">Seated</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="no_show">No-show</option>
+          </select>
+          <button id="refreshBtn" class="tbtn">⟳ REFRESH</button>
+          <button id="exportBtn" class="tbtn">⤓ CSV</button>
+        </div>
+      </div>
+
+      <div id="listMeta" class="text-[11px] font-bold tracking-[0.14em] opacity-50 mt-4">LOADING…</div>
+
+      <div id="list" class="grid gap-3 mt-3"></div>
+      <div id="empty" class="hidden glass rounded-[24px] p-8 text-center mt-3">
+        <div class="font-display text-[26px]">NOTHING HERE <span class="font-serif italic font-normal text-mustard">yet</span></div>
+        <p class="text-[12.5px] opacity-60 mt-2">New bookings will slide in here automatically.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toasts" class="fixed left-4 bottom-4 z-[120] grid gap-2 max-w-[340px]"></div>
+
+  <script>
+  /* ================= INDIANA OWNER CONSOLE ================= */
+  const $ = s => document.querySelector(s);
+  const LS_PW = 'indiana-admin-pw', LS_DOOR = 'indiana-door-status';
+  let bookings = [], orders = [], tab = 'bookings', doorState = null, pollTimer = null, es = null, lastCount = -1;
+
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function toast(msg, kind) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    if (kind === 'err') t.style.borderColor = 'rgba(248,113,113,.45)';
+    if (kind === 'warn') t.style.borderColor = 'rgba(250,204,21,.45)';
+    t.innerHTML = '<span style="font-size:15px">' + (kind === 'err' ? '⛔' : kind === 'warn' ? '⚠' : '✦') + '</span><span>' + esc(msg) + '</span>';
+    $('#toasts').appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 600); }, 4200);
+  }
+
+  /* ---------- IST helpers ---------- */
+  function istNow() { const n = new Date(); return new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000); }
+  function istDateStr() { const d = istNow(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function clockTick() {
+    const d = istNow();
+    $('#clock').textContent = String(d.getHours() % 12 || 12).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ' ' + (d.getHours() >= 12 ? 'PM' : 'AM') + ' IST';
+  }
+  setInterval(clockTick, 15000); clockTick();
+
+  /* ---------- API ---------- */
+  async function api(path, opts = {}) {
+    opts.credentials = 'include';
+    opts.headers = Object.assign({ 'Accept': 'application/json' }, opts.headers || {});
+    const pw = localStorage.getItem(LS_PW) || '';
+    if (pw) opts.headers['x-admin-pw'] = pw;
+    const r = await fetch(path, opts);
+    if (!r.ok) { const e = new Error('HTTP ' + r.status); e.status = r.status; throw e; }
+    return r.json();
+  }
+
+  /* ---------- demo data ---------- */
+  function demoBookings() {
+    const t = istDateStr();
+    return [
+      { id: 'IND-A1B2C3', name: 'Aarav Sharma', phone: '+91 98290 11223', date: t, time: '7:30 PM', guests: 4, seating: 'Window', occasion: 'Anniversary', notes: 'Cake at the table please', status: 'pending', createdAt: new Date().toISOString() },
+      { id: 'IND-D4E5F6', name: 'Meera Jain', phone: '+91 90011 44556', date: t, time: '8:00 PM', guests: 6, seating: 'Family Booth', occasion: 'Family Get-together', notes: '', status: 'confirmed', createdAt: new Date(Date.now() - 3600e3).toISOString() },
+      { id: 'IND-G7H8I9', name: 'Rohit Meena', phone: '+91 94140 77889', date: t, time: '9:00 PM', guests: 2, seating: 'Outdoor', occasion: 'Date Night', notes: 'Garden if possible', status: 'seated', createdAt: new Date(Date.now() - 7200e3).toISOString() }
+    ];
+  }
+  function demoOrders() {
+    return [
+      { id: 'ORD-X1Y2Z3', name: 'Aarav Sharma', phone: '+91 98290 11223', total: 1247, status: 'new', items: [{ name: 'Wood-Fired Margherita', qty: 1, price: 399 }, { name: 'Truffle Brunch Bowl', qty: 1, price: 449 }, { name: 'Cold Brew Tonic', qty: 2, price: 199 }], createdAt: new Date().toISOString() },
+      { id: 'ORD-P4Q5R6', name: 'Meera Jain', phone: '+91 90011 44556', total: 897, status: 'preparing', items: [{ name: 'Belgian Choco Fondant', qty: 2, price: 299 }, { name: 'Filter Coffee', qty: 3, price: 99 }], createdAt: new Date(Date.now() - 1800e3).toISOString() }
+    ];
+  }
+
+  /* ---------- login ---------- */
+  function showLogin() {
+    $('#loginView').classList.remove('hidden');
+    $('#dashView').classList.add('hidden');
+    $('#logoutBtn').classList.add('hidden');
+  }
+  function showDash() {
+    $('#loginView').classList.add('hidden');
+    $('#dashView').classList.remove('hidden');
+    $('#logoutBtn').classList.remove('hidden');
+    loadStatus(); loadBookings(); loadOrders(); startLive();
+    setTimeout(() => $('#search').focus(), 300);
+  }
+  async function doLogin() {
+    const pw = $('#pw').value.trim();
+    if (!pw) { toast('Enter the owner password', 'err'); return; }
+    $('#loginSpin').classList.remove('hidden');
+    let ok = null;
+    try {
+      const r = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ password: pw }) });
+      if (r.ok) ok = 'session';
+      else if (r.status === 401 || r.status === 403) ok = false;
+      else ok = 'legacy';
+    } catch (e) { ok = 'legacy'; }
+    if (ok === false) { $('#loginSpin').classList.add('hidden'); toast('Wrong password — try again', 'err'); return; }
+    localStorage.setItem(LS_PW, pw);
+    if (ok === 'session') toast('Welcome back, boss ✦');
+    showDash();
+    $('#loginSpin').classList.add('hidden');
+  }
+  $('#loginBtn').addEventListener('click', doLogin);
+  $('#pw').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  var eyeBtn = $('#pwEye');
+  eyeBtn.addEventListener('click', function () {
+    const i = $('#pw'), show = i.type === 'password';
+    i.type = show ? 'text' : 'password';
+    $('#eyeOpen').classList.toggle('hidden', show);
+    $('#eyeOff').classList.toggle('hidden', !show);
+    eyeBtn.classList.toggle('on', show);
+    eyeBtn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+    i.focus();
+  });
+  $('#logoutBtn').addEventListener('click', async () => {
+    try { await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }); } catch (e) { }
+    localStorage.removeItem(LS_PW); stopLive(); bookings = []; orders = [];
+    showLogin(); toast('Logged out');
+  });
+
+  /* ---------- live feed ---------- */
+  function setLive(label, cls) {
+    const p = $('#livePill'); p.className = 'hidden sm:inline-flex st ' + cls;
+    $('#liveTxt').textContent = label;
+  }
+  function startLive() {
+    stopLive();
+    try {
+      es = new EventSource('/api/stream');
+      es.onopen = () => setLive('LIVE', 'st-confirmed');
+      es.onmessage = () => { clearTimeout(es._t); es._t = setTimeout(() => { loadBookings(true); loadOrders(true); }, 400); };
+      es.onerror = () => { if (es) { es.close(); es = null; setLive('POLLING', 'st-pending'); pollTimer = setInterval(() => { loadBookings(true); loadOrders(true); }, 25000); } };
+    } catch (e) { setLive('POLLING', 'st-pending'); pollTimer = setInterval(() => { loadBookings(true); loadOrders(true); }, 25000); }
+  }
+  function stopLive() {
+    if (es) { try { es.close(); } catch (e) { } es = null; }
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+  }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && !$('#dashView').classList.contains('hidden')) { loadBookings(true); loadOrders(true); } });
+
+  /* ---------- loaders ---------- */
+  async function loadBookings(quiet) {
+    try {
+      let j;
+      try { j = await api('/api/bookings?limit=300'); }
+      catch (e) { if (e.status === 404 || e.status === 405) j = await api('/api/admin?type=bookings'); else throw e; }
+      bookings = j.data || j.bookings || [];
+      $('#demoBanner').classList.add('hidden');
+      setLive(es ? 'LIVE' : 'POLLING', es ? 'st-confirmed' : 'st-pending');
+    } catch (e) {
+      if (e.status === 401 || e.status === 403) { localStorage.removeItem(LS_PW); stopLive(); showLogin(); toast('Session expired — log in again', 'err'); return; }
+      if (!bookings.length) { bookings = demoBookings(); orders = orders.length ? orders : demoOrders(); }
+      $('#demoBanner').classList.remove('hidden'); setLive('DEMO', 'st-no_show');
+    }
+    render(quiet);
+  }
+  async function loadOrders(quiet) {
+    try {
+      let j;
+      try { j = await api('/api/orders?limit=200'); }
+      catch (e) { if (e.status === 404 || e.status === 405) j = await api('/api/admin?type=orders'); else throw e; }
+      orders = j.data || j.orders || [];
+    } catch (e) { if (!orders.length) orders = demoOrders(); }
+    renderKpis(); if (tab === 'orders') render(quiet);
+  }
+  async function loadStatus() {
+    try { const j = await api('/api/status'); doorState = typeof j.open === 'boolean' ? j.open : true; }
+    catch (e) { const s = localStorage.getItem(LS_DOOR); doorState = s === null ? true : s === '1'; }
+    renderDoor();
+  }
+  async function pushStatus(open) {
+    doorState = open; localStorage.setItem(LS_DOOR, open ? '1' : '0'); renderDoor();
+    try { await api('/api/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ open }) }); toast(open ? 'Door set OPEN — guests can see it' : 'Door set CLOSED — guests will see it'); }
+    catch (e) { toast('Saved on this device only (backend offline)', 'warn'); }
+  }
+  function renderDoor() {
+    const on = doorState !== false;
+    const sw = $('#doorSwitch'); sw.classList.toggle('on', on); sw.setAttribute('aria-checked', on);
+    sw.querySelector('.knob').textContent = on ? '✓' : '✕';
+    $('#doorWord').textContent = on ? 'Open' : 'Closed';
+    $('#doorTxt').textContent = on ? 'OPEN NOW' : 'CLOSED';
+    $('#doorTxt').style.color = on ? '#4ADE80' : '#F87171';
+    $('#doorSub').textContent = on ? '11:00 AM — 10:45 PM' : 'Guests see: CLOSED — opens 11:00 AM';
+  }
+  $('#doorSwitch').addEventListener('click', () => pushStatus(doorState === false));
+  $('#doorSwitch').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pushStatus(doorState === false); } });
+
+  /* ---------- KPIs ---------- */
+  function renderKpis() {
+    const t = istDateStr();
+    const today = bookings.filter(b => (b.date || '').indexOf(t) === 0);
+    $('#kpiToday').textContent = today.length;
+    $('#kpiTodaySub').textContent = today.length ? 'incl. ' + today.filter(b => b.status === 'seated').length + ' seated' : 'no bookings yet';
+    $('#kpiPending').textContent = bookings.filter(b => b.status === 'pending').length;
+    $('#kpiGuests').textContent = today.filter(b => b.status !== 'cancelled').reduce((s, b) => s + (parseInt(b.guests, 10) || 0), 0);
+    const ot = orders.filter(o => (o.createdAt || '').slice(0, 10) === t || (o.date || '') === t);
+    $('#kpiOrders').textContent = ot.length;
+    $('#kpiOrdersSub').textContent = 'Rs ' + ot.reduce((s, o) => s + (parseInt(o.total, 10) || 0), 0) + ' value';
+  }
+
+  /* ---------- render ---------- */
+  const STATUS_FLOW = { pending: ['confirmed', 'seated', 'cancelled'], confirmed: ['seated', 'no_show', 'cancelled'], seated: ['cancelled'], cancelled: [], no_show: ['confirmed'] };
+  const ORDER_FLOW = { new: ['preparing', 'cancelled'], preparing: ['served', 'cancelled'], served: ['paid'], paid: [], cancelled: [] };
+  const LABEL = { confirmed: 'CONFIRM', seated: 'SEAT', cancelled: 'CANCEL', no_show: 'NO-SHOW', preparing: 'PREPARE', served: 'SERVED', paid: 'PAID' };
+
+  function render() {
+    renderKpis();
+    const q = ($('#search').value || '').toLowerCase().trim();
+    const f = $('#statusFilter').value;
+    const pill = t => '<span class="st st-' + esc(t || 'pending') + '">' + esc(String(t || 'pending').replace('_', ' ')) + '</span>';
+    let rows = '';
+
+    if (tab === 'bookings') {
+      let list = bookings.filter(b => (!f || b.status === f) && (!q || (b.name + ' ' + b.phone + ' ' + (b.id || '')).toLowerCase().includes(q)));
+      list.sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+      if (!list.length) { $('#list').innerHTML = ''; $('#empty').classList.remove('hidden'); $('#listMeta').textContent = '0 BOOKINGS'; return; }
+      $('#empty').classList.add('hidden');
+      $('#listMeta').textContent = list.length + ' BOOKING' + (list.length > 1 ? 'S' : '') + (f ? ' • ' + f.toUpperCase() : '');
+      rows = list.map(b => {
+        const acts = (STATUS_FLOW[b.status] || []).map(s => '<button class="tbtn' + (s === 'confirmed' || s === 'seated' ? ' tbtn-go' : '') + '" data-act="' + s + '" data-id="' + esc(b.id) + '">' + LABEL[s] + '</button>').join('');
+        return '<div class="row glass"><div><div class="font-extrabold text-[14px]">' + esc(b.name) + ' <span class="opacity-40 font-bold text-[11px]">#' + esc(b.id || '') + '</span></div><div class="text-[12px] opacity-60 mt-1">' + esc(b.phone || '') + (b.occasion ? ' &bull; ' + esc(b.occasion) : '') + '</div>' + (b.notes ? '<div class="text-[11px] opacity-50 mt-1 italic">“' + esc(b.notes) + '”</div>' : '') + '</div>'
+          + '<div class="text-[12.5px] font-bold">' + esc(b.date || '') + ' &bull; ' + esc(b.time || '') + '<div class="opacity-55 font-normal text-[11px] mt-0.5">' + esc(b.seating || 'Any seating') + '</div></div>'
+          + '<div class="font-display text-[24px] leading-none">' + esc(b.guests || '—') + ' <span class="text-[10px] font-sans font-bold opacity-50">GUESTS</span></div>'
+          + '<div>' + pill(b.status) + '</div>'
+          + '<div class="flex flex-wrap gap-1.5">' + acts + '</div></div>';
+      }).join('');
+    } else {
+      let list = orders.filter(o => (!q || (o.name + ' ' + o.phone + ' ' + (o.id || '')).toLowerCase().includes(q)));
+      list.sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+      if (!list.length) { $('#list').innerHTML = ''; $('#empty').classList.remove('hidden'); $('#listMeta').textContent = '0 ORDERS'; return; }
+      $('#empty').classList.add('hidden');
+      $('#listMeta').textContent = list.length + ' ORDER' + (list.length > 1 ? 'S' : '');
+      rows = list.map(o => {
+        const items = (o.items || []).map(i => esc(i.qty || 1) + '× ' + esc(i.name)).join(' • ') || '—';
+        const acts = (ORDER_FLOW[o.status] || []).map(s => '<button class="tbtn' + (s === 'preparing' || s === 'served' ? ' tbtn-go' : '') + '" data-oact="' + s + '" data-id="' + esc(o.id) + '">' + LABEL[s] + '</button>').join('');
+        return '<div class="row glass"><div><div class="font-extrabold text-[14px]">' + esc(o.name) + ' <span class="opacity-40 font-bold text-[11px]">#' + esc(o.id || '') + '</span></div><div class="text-[12px] opacity-60 mt-1">' + esc(o.phone || '') + '</div></div>'
+          + '<div class="text-[12px] opacity-75 sm:col-span-2">' + items + '</div>'
+          + '<div class="font-display text-[24px] leading-none">Rs ' + esc(o.total || 0) + '</div>'
+          + '<div class="flex items-center gap-2 flex-wrap">' + pill(o.status) + acts + '</div></div>';
+      }).join('');
+    }
+    $('#list').innerHTML = rows;
+  }
+
+  /* row actions */
+  $('#list').addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'), o = e.target.closest('[data-oact]');
+    if (b) updBooking(b.dataset.id, b.dataset.act);
+    if (o) updOrder(o.dataset.id, o.dataset.oact);
+  });
+  async function updBooking(id, status) {
+    const item = bookings.find(x => x.id === id); if (!item) return;
+    const prev = item.status; item.status = status; render();
+    try {
+      try { await api('/api/bookings/' + encodeURIComponent(id), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) }); }
+      catch (e) { if (e.status === 404 || e.status === 405) { toast('Server update needs the backend running', 'warn'); return; } throw e; }
+      toast('Marked ' + status.replace('_', ' '));
+    } catch (e) { item.status = prev; render(); toast('Could not update on server', 'err'); }
+  }
+  async function updOrder(id, status) {
+    const item = orders.find(x => x.id === id); if (!item) return;
+    const prev = item.status; item.status = status; render();
+    try {
+      try { await api('/api/orders/' + encodeURIComponent(id), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) }); }
+      catch (e) { if (e.status === 404 || e.status === 405) { toast('Server update needs the backend running', 'warn'); return; } throw e; }
+      toast('Order marked ' + status);
+    } catch (e) { item.status = prev; render(); toast('Could not update on server', 'err'); }
+  }
+
+  /* toolbar */
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    t.classList.add('on'); tab = t.dataset.tab;
+    $('#statusFilter').style.display = tab === 'bookings' ? '' : 'none';
+    render();
+  }));
+  let sT; $('#search').addEventListener('input', () => { clearTimeout(sT); sT = setTimeout(render, 150); });
+  $('#statusFilter').addEventListener('change', render);
+  $('#refreshBtn').addEventListener('click', () => { loadBookings(true); loadOrders(true); loadStatus(); toast('Refreshed'); });
+  $('#exportBtn').addEventListener('click', () => {
+    const rows = [['ID', 'Name', 'Phone', 'Date', 'Time', 'Guests', 'Seating', 'Occasion', 'Status', 'Notes', 'Created']];
+    bookings.forEach(b => rows.push([b.id, b.name, b.phone, b.date, b.time, b.guests, b.seating, b.occasion, b.status, (b.notes || '').replace(/[\r\n,]/g, ' '), b.createdAt]));
+    const csv = rows.map(r => r.map(c => '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'indiana-bookings-' + istDateStr() + '.csv'; a.click(); URL.revokeObjectURL(a.href);
+    toast('CSV downloaded');
+  });
+
+  /* ---------- boot ---------- */
+  (function boot() {
+    const pw = localStorage.getItem(LS_PW);
+    if (pw) { $('#pw').value = pw; showDash(); } else { showLogin(); }
+  })();
+  </script>
+</body>
+</html>

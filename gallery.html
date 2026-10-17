@@ -161,6 +161,24 @@
     .gbtn.on { background: linear-gradient(135deg, #FACC15 0%, #EAB308 100%); color: #0A0A0A; border-color: transparent; box-shadow: 0 12px 30px -12px rgba(250,204,21,.75); }
     .gbtn.on .cnt { opacity: .7; }
 
+    /* premium "no crop" badge */
+    .tag-chip {
+      display: inline-flex; align-items: center; gap: 7px; border-radius: 999px;
+      padding: 7px 13px; font-size: 10px; font-weight: 800; letter-spacing: .16em;
+      color: #FDE68A; background: rgba(250,204,21,.14); border: 1px solid rgba(250,204,21,.4);
+      white-space: nowrap; line-height: 1;
+    }
+    .tag-chip i { width: 6px; height: 6px; border-radius: 999px; background: #FACC15; display: block; flex: 0 0 auto; }
+    html.light .tag-chip { color: #92400E; background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-color: rgba(202,138,4,.42); }
+    html.light .tag-chip i { background: #CA8A04; }
+    html.light #toolbar .gbtn:not(.on) {
+      background: #FBF7E8 !important; color: #3F3F46 !important;
+      border: 1px solid rgba(10,10,10,.1) !important; box-shadow: none !important;
+    }
+    html.light #toolbar .gbtn:not(.on):hover { background: #F5EED6 !important; }
+    html.light #toolbar .gbtn:not(.on) .cnt { color: #A16207; opacity: 1; }
+    html.light #shownCount { color: #52525B !important; }
+
     /* ===== GRID — full images, no crop (natural heights) ===== */
     #grid { column-count: 4; column-gap: 14px; }
     @media (max-width: 1024px) { #grid { column-count: 3; } }
@@ -232,6 +250,8 @@
     }
   </style>
   <script src="protect.js" defer></script>
+  <script src="cookie-banner.js" defer></script>
+  <script src="credit.js" defer></script>
 </head>
 
 <body class="bg-ink text-cream font-sans overflow-x-hidden">
@@ -383,7 +403,7 @@
         </div>
         <div class="flex items-center justify-between md:justify-end gap-3">
           <span class="text-[11px] font-bold tracking-[0.16em] opacity-60" id="shownCount">SHOWING 32 OF 32</span>
-          <span class="text-[11px] font-bold tracking-[0.16em] opacity-40">FULL SIZE • NO CROP</span>
+          <span class="tag-chip"><i></i>FULL SIZE • NO CROP</span>
         </div>
       </div>
     </div>

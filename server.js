@@ -500,6 +500,20 @@ async function api(req, res, url) {
     return ok(res, { order: orders[idx] });
   }
 
+  /* ---------- door status (open / closed) ---------- */
+  if (route === '/api/status' && method === 'GET') {
+    const settings = await readJson(path.join(DATA_DIR, 'settings.json'), { open: true });
+    return ok(res, { open: settings.open !== false, updatedAt: settings.updatedAt || null });
+  }
+  if (route === '/api/status' && method === 'POST') {
+    if (!(await requireAdmin(req, res))) return;
+    const body = await readBody(req).catch(() => ({}));
+    const open = !(body && body.open === false);
+    await writeJson(path.join(DATA_DIR, 'settings.json'), { open, updatedAt: nowIso() });
+    broadcast('status-updated', { open });
+    return ok(res, { open });
+  }
+
   /* ---------- admin: stats ---------- */
   if (route === '/api/stats') {
     if (!(await requireAdmin(req, res))) return;
