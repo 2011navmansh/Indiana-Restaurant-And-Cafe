@@ -212,7 +212,7 @@ export default {
       const text = encodeURIComponent(
         'Hi Indiana! Booking ' + id + ' — ' + name + ', ' + date + ' at ' + time + ', ' + guests + ' guests.'
       );
-      return ok({ booking, whatsapp: 'https://wa.me/919876543210?text=' + text }, C);
+      return ok({ booking, whatsapp: 'https://wa.me/919057967791?text=' + text }, C);
     }
 
     if (p === '/api/bookings' && m === 'GET') {
@@ -275,7 +275,7 @@ export default {
       await notify(env, { type: 'order', order });
       const lines = items.map((i) => i.qty + 'x ' + i.name).join(', ');
       const text = encodeURIComponent('Hi Indiana! Order ' + id + ' — ' + lines + '. Total Rs ' + total + '. Name: ' + name);
-      return ok({ order, whatsapp: 'https://wa.me/919876543210?text=' + text }, C);
+      return ok({ order, whatsapp: 'https://wa.me/919057967791?text=' + text }, C);
     }
 
     if (p === '/api/orders' && m === 'GET') {

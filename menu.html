@@ -165,6 +165,12 @@
     .veg-dot i { width: 6px; height: 6px; border-radius: 999px; background: #16A34A; display: block; }
     .add-btn { border-radius: 999px; padding: 10px 16px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em; background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; transition: transform .3s, box-shadow .3s, filter .3s; }
     .add-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(250,204,21,.85); filter: brightness(1.04); }
+    .qty-step { display: inline-flex; align-items: center; gap: 2px; border-radius: 999px; padding: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); flex: 0 0 auto; }
+    html.light .qty-step { background: #F5F0DE; border-color: rgba(0,0,0,.08); }
+    .qty-step button { width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-weight: 800; font-size: 14px; line-height: 1; background: rgba(255,255,255,.1); color: inherit; transition: background .25s, color .25s; }
+    html.light .qty-step button { background: #FFFFFF; border: 1px solid rgba(0,0,0,.06); }
+    .qty-step button:hover { background: #FACC15; color: #0A0A0A; }
+    .qty-step .q-val { min-width: 26px; text-align: center; font-weight: 800; font-size: 13px; }
     .dish.hide, .msect.hide { display: none !important; }
     .spicy-chip { font-size: 11px; letter-spacing: -1px; }
     #noResults { display: none; }
@@ -222,5 +228,407 @@
     <button id="closeDrawer" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white text-ink">✕</button>
   </div>
 
-  <!--HERO-->
+    <!-- ===== HERO ===== -->
+  <section class="relative pt-[124px] pb-10 bg-ink overflow-hidden">
+    <div class="glow-blob -top-28 -left-28 w-[520px] h-[520px] bg-mustard/15"></div>
+    <div class="glow-blob top-16 right-0 w-[420px] h-[420px] bg-white/5"></div>
+    <div class="noise"></div>
+
+    <div class="relative max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="grid lg:grid-cols-12 gap-8 items-end">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 glass rounded-full px-3 py-2 w-fit">
+            <span class="w-7 h-7 rounded-full bg-mustard grid place-items-center text-ink text-xs">✦</span>
+            <span class="text-[11px] font-bold tracking-[0.16em] uppercase"><span id="heroCats">20</span> Categories • <span id="heroCount">148</span> Dishes • Pure Veg</span>
+          </div>
+          <h1 class="font-display text-[52px] sm:text-[76px] md:text-[104px] leading-[0.86] mt-4">
+            FULL <span class="font-serif italic">Menu</span>
+          </h1>
+          <p class="text-sm md:text-base opacity-60 mt-4 max-w-[560px] leading-relaxed">
+            Indiana ka poora spread — soups, tandoori, Indo-Chinese, rich curries, paneer specials, biryani,
+            burgers, breads aur desserts. Sab 100% vegetarian, fresh made to order.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 mt-6">
+            <span class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-[11px] font-extrabold">
+              <span class="veg-dot"><i></i></span> PURE VEG
+            </span>
+            <span class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-[11px] font-extrabold">🌿 JAIN ON REQUEST</span>
+            <a href="reserve.html" class="inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-[12.5px]">BOOK A TABLE ↗</a>
+          </div>
+        </div>
+
+        <!-- ORDER PANEL -->
+        <div class="lg:col-span-5">
+          <div class="glass-dark rounded-[28px] p-4 md:p-5">
+            <div class="text-[10px] font-bold tracking-[0.2em] opacity-60 mb-3">SEARCH &amp; ORDER</div>
+            <div class="relative">
+              <input id="search" placeholder="Search dishes…" class="w-full rounded-full pl-5 pr-11 py-3.5 bg-white/5 border border-white/12 outline-none font-medium text-sm placeholder:opacity-50 focus:border-mustard/60 transition">
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">🔍</span>
+            </div>
+            <div class="mt-3 flex items-center gap-2 text-[11px] font-bold opacity-70 glass rounded-full px-4 py-2.5 w-fit">🛒 ADD dabao — order WhatsApp pe</div>
+            <div class="mt-3 flex items-center justify-between gap-3 glass rounded-full px-4 py-3">
+              <div class="text-[11px] font-bold tracking-[0.16em] opacity-70">TOTAL</div>
+              <div class="font-display text-2xl leading-none text-mustard">₹<span id="cartTotal">0</span></div>
+              <button id="cartBtnMobile" class="sm:hidden bg-mustard text-ink rounded-full px-4 py-2 text-[11px] font-extrabold">VIEW CART</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MENU LIST ===== -->
+  <section class="bg-ink pb-16" id="menu">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div id="catbarWrap" class="relative">
+        <div id="catbar" class="flex items-center gap-2 overflow-x-auto no-bar pb-1"></div>
+      </div>
+      <div id="noResults" class="glass rounded-[24px] p-10 text-center mt-10">
+        <div class="text-3xl mb-2">🍽️</div>
+        <div class="font-extrabold">Kuch nahi mila — doosra naam try karo</div>
+        <div class="text-xs opacity-60 mt-1">Try "paneer", "naan", "momos", "biryani"...</div>
+      </div>
+      <div id="menuRoot" class="mt-10 space-y-14"></div>
+    </div>
+  </section>
+
+  <!-- ===== HOURS STRIP ===== -->
+  <section class="bg-mustard text-ink py-8">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-full bg-ink text-mustard grid place-items-center">◷</span>
+        <div>
+          <div class="text-[10px] font-bold tracking-[0.2em] opacity-70">OPEN DAILY</div>
+          <div class="font-display text-2xl leading-none">11AM — 10:45 PM</div>
+        </div>
+      </div>
+      <div class="text-xs font-bold tracking-[0.16em] opacity-70 text-center md:text-right">DINE-IN • TAKEAWAY • WEEKEND BOOKING RECOMMENDED</div>
+      <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="bg-ink text-mustard rounded-full px-6 py-3 font-extrabold text-sm">ORDER ON WHATSAPP ↗</a>
+    </div>
+  </section>
+
+  <!-- ===== LOCATION ===== -->
+  <section id="location" class="bg-ink text-cream py-14 border-t border-white/5">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div>
+          <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">FIND US • JHALAWAR</div>
+          <h2 class="font-display text-[44px] leading-none mt-3">VISIT <span class="font-serif italic text-mustard">Indiana</span></h2>
+          <p class="text-sm opacity-60 mt-2">Rajlaxmi nagar, Jhalawar, Rajasthan 326001 — Exact pin on map.</p>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="hidden lg:inline-flex bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-sm">GET DIRECTIONS ↗</a>
+      </div>
+      <div class="grid lg:grid-cols-5 gap-6">
+        <div class="lg:col-span-2 flex flex-col gap-4">
+          <div class="glass rounded-[24px] p-6">
+            <div class="text-[11px] tracking-[0.18em] font-bold opacity-60">ADDRESS</div>
+            <div class="font-extrabold mt-2">Rajlaxmi nagar, Jhalawar,<br>Rajasthan 326001</div>
+            <div class="mt-4 flex gap-2 flex-wrap">
+              <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-sm">GET DIRECTIONS ↗</a>
+              <a href="https://www.google.com/maps?q=24.587048235784344,76.17682239644377&z=17" target="_blank" rel="noopener" class="glass rounded-full px-5 py-2.5 font-bold text-sm">OPEN IN MAPS</a>
+            </div>
+          </div>
+          <div class="glass rounded-[24px] p-6">
+            <div class="text-[11px] tracking-[0.18em] font-bold opacity-60">COORDINATES — EXACT PIN</div>
+            <div class="font-mono text-[13px] font-bold mt-2 break-all bg-white/5 rounded-full px-4 py-2 border border-white/10">24.587048235784344, 76.17682239644377</div>
+            <button onclick="navigator.clipboard.writeText('24.587048235784344, 76.17682239644377');this.textContent='COPIED ✓';setTimeout(()=>this.textContent='COPY COORDINATES',2000)" class="mt-3 text-xs font-bold tracking-widest opacity-70 hover:opacity-100 underline">COPY COORDINATES</button>
+          </div>
+        </div>
+        <div class="lg:col-span-3">
+          <div class="relative rounded-[32px] overflow-hidden bg-[#111] border border-white/10 h-[420px] md:h-[480px]" style="isolation:isolate">
+            <iframe src="https://maps.google.com/maps?q=24.587048235784344,76.17682239644377&z=17&output=embed" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Indiana Restaurant Location Map"></iframe>
+            <div class="absolute top-4 left-4 glass-dark rounded-full px-4 py-2 text-xs font-bold">📍 INDIANA • PINNED</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-ink border-t border-white/10 py-10">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
+      <div class="flex items-center gap-3">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40"><img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo"></span>
+        <div>
+          <div class="font-display text-[20px] tracking-[0.06em] leading-none">INDIANA</div>
+          <div class="opacity-60 tracking-[0.16em] text-[9px] font-semibold mt-1">THOUSAND FLAVOURS AHEAD</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="index.html" class="foot-link">HOME</a>
+        <a href="about.html" class="foot-link">ABOUT</a>
+        <a href="menu.html" class="foot-link">MENU</a>
+        <a href="gallery.html" class="foot-link">GALLERY</a>
+        <a href="reserve.html" class="foot-link">RESERVE</a>
+      </div>
+      <div class="opacity-60 tracking-[0.14em] text-center">© 2026 INDIANA • FULL PREMIUM BUILD</div>
+    </div>
+  </footer>
+
+  <div id="toast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added ✓</div>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div id="cartDrawer" class="fixed inset-0 z-[90] hidden">
+    <div id="cartOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div class="absolute right-0 top-0 h-full w-[92%] max-w-[400px] bg-cream text-ink flex flex-col shadow-2xl">
+      <div class="p-6 flex items-center justify-between border-b border-black/10">
+        <div>
+          <h3 class="font-display text-2xl leading-none">Your Cart</h3>
+          <div class="text-[10px] tracking-[0.18em] font-bold opacity-50 mt-1">INDIANA • JHALAWAR</div>
+        </div>
+        <button id="closeCart" class="w-9 h-9 rounded-full bg-ink text-mustard grid place-items-center">✕</button>
+      </div>
+      <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+      <div class="p-4 border-t border-black/10 space-y-3">
+        <div class="flex justify-between font-extrabold text-lg"><span>Total</span><span>₹<span id="drawerTotal">0</span></span></div>
+        <a id="waOrder" href="#" target="_blank" rel="noopener" class="block text-center bg-[#25D366] text-white rounded-full py-3 font-extrabold">Order on WhatsApp</a>
+        <button id="clearCart" class="w-full glass rounded-full py-2.5 font-bold text-sm">Clear Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="menu-data.js"></script>
+  <script>
+    /* ===== LENIS + GSAP ===== */
+    let lenis = null;
+    try {
+      lenis = new Lenis({ duration: 1.35, lerp: 0.075, smoothWheel: true });
+      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        const progress = document.getElementById('progress');
+        lenis.on('scroll', ({ progress: p }) => { progress.style.transform = 'scaleX(' + p + ')'; });
+      }
+    } catch (e) { console.warn('smooth scroll unavailable', e); }
+
+    /* ===== THEME TOGGLE ===== */
+    const tt = document.getElementById('themeToggle'), overlay = document.getElementById('themeOverlay');
+    if (document.documentElement.classList.contains('light')) tt.textContent = '☀️';
+    let toggling = false;
+    tt.addEventListener('click', () => {
+      if (toggling) return; toggling = true;
+      const rect = tt.getBoundingClientRect();
+      const ox = ((rect.left + rect.width / 2) / window.innerWidth * 100).toFixed(2) + '%';
+      const oy = ((rect.top + rect.height / 2) / window.innerHeight * 100).toFixed(2) + '%';
+      overlay.style.setProperty('--ox', ox); overlay.style.setProperty('--oy', oy);
+      const toLight = !document.documentElement.classList.contains('light');
+      if (window.gsap) {
+        gsap.to(tt, {
+          scale: 0.2, rotation: 90, duration: 0.14, ease: 'power2.in', onComplete: () => {
+            tt.textContent = toLight ? '☀️' : '🌙';
+            gsap.to(tt, { scale: 1, rotation: 0, duration: 0.28, ease: 'back.out(1.7)' });
+          }
+        });
+      } else { tt.textContent = toLight ? '☀️' : '🌙'; }
+      overlay.classList.toggle('to-dark', !toLight);
+      overlay.style.transition = 'none'; overlay.style.clipPath = 'circle(0% at ' + ox + ' ' + oy + ')'; overlay.style.opacity = '1';
+      void overlay.offsetWidth;
+      overlay.style.transition = 'clip-path 0.32s cubic-bezier(0.65,0,0.35,1), opacity 0.12s';
+      overlay.classList.add('active');
+      setTimeout(() => {
+        document.documentElement.classList.toggle('light', toLight);
+        localStorage.setItem('indiana-theme', toLight ? 'light' : 'dark');
+      }, 110);
+      setTimeout(() => {
+        overlay.classList.remove('active'); overlay.style.opacity = '0';
+        setTimeout(() => { overlay.style.transition = 'none'; overlay.style.clipPath = 'circle(0% at ' + ox + ' ' + oy + ')'; toggling = false; }, 180);
+      }, 340);
+    });
+
+    /* ===== DRAWER ===== */
+    const drawer = document.getElementById('drawer');
+    document.getElementById('menuBtn')?.addEventListener('click', () => drawer.classList.remove('translate-x-full'));
+    document.getElementById('closeDrawer')?.addEventListener('click', () => drawer.classList.add('translate-x-full'));
+    document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', () => drawer.classList.add('translate-x-full')));
+
+    /* ===== RENDER MENU ===== */
+    const MENU = window.INDIANA_MENU || [];
+    const rootEl = document.getElementById('menuRoot');
+    const catbarEl = document.getElementById('catbar');
+    const noRes = document.getElementById('noResults');
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const LOGO = 'https://i.postimg.cc/2j4wTB2c/image.png';
+    const tagHTML = t => {
+      const chips = [];
+      if (t.includes('star')) chips.push('<span class="dish-tag star">★ Bestseller</span>');
+      if (t.includes('chef')) chips.push('<span class="dish-tag">Chef’s Special</span>');
+      return chips.length ? '<div class="dish-tags">' + chips.join('') + '</div>' : '';
+    };
+    const spiceHTML = t => t.includes('spicy2') ? ' <span class="spicy-chip">🌶️🌶️</span>' : t.includes('spicy') ? ' <span class="spicy-chip">🌶️</span>' : '';
+    const cardHTML = it => '<article class="dish liquid-shine" data-price="' + it.p + '" data-name="' + esc(it.n) + '">'
+      + '<div class="ph"><img loading="lazy" src="' + it.img + '" alt="' + esc(it.n) + '" onerror="this.onerror=null;this.src=\'' + LOGO + '\'">' + tagHTML(it.t) + '</div>'
+      + '<div class="p-5 flex-1 flex flex-col">'
+      + '<div class="flex items-start justify-between gap-3">'
+      + '<h3 class="font-extrabold flex items-center gap-2 text-[15px] leading-snug"><span class="veg-dot"><i></i></span><span>' + esc(it.n) + spiceHTML(it.t) + '</span></h3>'
+      + '<span class="dish-price">₹' + it.p + '</span></div>'
+      + '<p class="text-xs opacity-60 mt-2 leading-5">' + esc(it.d) + '</p>'
+      + '<div class="mt-auto pt-5 flex items-center gap-2">'
+      + '<div class="qty-step"><button type="button" class="q-dec" aria-label="Kam karo">−</button><span class="q-val">1</span><button type="button" class="q-inc" aria-label="Zyada karo">+</button></div>'
+      + '<button type="button" class="add-btn flex-1">ADD</button>'
+      + '</div>'
+      + '</div></article>';
+    const num2 = n => String(n).padStart(2, '0');
+    const sectionHTML = (c, i) => '<section class="msect" id="cat-' + c.id + '" data-cat="' + c.id + '">'
+      + '<div class="sect-head"><div class="flex items-center gap-4">'
+      + '<span class="sect-emoji">' + c.emoji + '</span>'
+      + '<div><div class="sect-num">' + num2(i + 1) + ' — Category</div>'
+      + '<h2 class="sect-title">' + esc(c.label) + '</h2>'
+      + '<div class="sect-sub">' + esc(c.sub) + '</div></div></div>'
+      + '<span class="sect-count">' + c.items.length + ' DISHES</span></div>'
+      + '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">' + c.items.map(cardHTML).join('') + '</div>'
+      + '</section>';
+    const totalCount = MENU.reduce((s, c) => s + c.items.length, 0);
+    if (!MENU.length) {
+      rootEl.innerHTML = '<div class="glass rounded-[24px] p-10 text-center font-bold">Menu load nahi hua — menu-data.js check karo.</div>';
+    } else {
+      rootEl.innerHTML = MENU.map(sectionHTML).join('');
+      const hc = document.getElementById('heroCount'); if (hc) hc.textContent = totalCount;
+      const hcats = document.getElementById('heroCats'); if (hcats) hcats.textContent = MENU.length;
+      const searchEl = document.getElementById('search');
+      if (searchEl) searchEl.placeholder = 'Search ' + totalCount + ' dishes…';
+    }
+    catbarEl.innerHTML = '<button class="catbtn on" data-c="all">✦ All <b>' + totalCount + '</b></button>'
+      + MENU.map(c => '<button class="catbtn" data-c="' + c.id + '">' + c.emoji + ' ' + esc(c.label) + ' <b>' + c.items.length + '</b></button>').join('');
+
+    /* ===== CATBAR: jump + scrollspy + stuck ===== */
+    const catBtns = [...catbarEl.querySelectorAll('.catbtn')];
+    const setActive = id => catBtns.forEach(b => b.classList.toggle('on', b.dataset.c === id));
+    function scrollToEl(el, off) {
+      if (!el) return;
+      if (window.lenis && lenis) lenis.scrollTo(el, { offset: off, duration: 1.1 });
+      else { const y = el.getBoundingClientRect().top + window.scrollY + off; window.scrollTo({ top: y, behavior: 'smooth' }); }
+    }
+    catbarEl.addEventListener('click', e => {
+      const btn = e.target.closest('.catbtn'); if (!btn) return;
+      const id = btn.dataset.c; setActive(id);
+      if (id === 'all') { scrollToEl(document.getElementById('menu'), -80); }
+      else { scrollToEl(document.getElementById('cat-' + id), -150); }
+      const b = catBtns.find(x => x.dataset.c === id);
+      if (b) b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    });
+    if ('IntersectionObserver' in window) {
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(en => { if (en.isIntersecting) setActive(en.target.dataset.cat); });
+      }, { rootMargin: '-38% 0px -55% 0px', threshold: 0 });
+      rootEl.querySelectorAll('.msect').forEach(s => spy.observe(s));
+    }
+    const wrapEl = document.getElementById('catbarWrap');
+    const stuckCheck = () => wrapEl.classList.toggle('stuck', wrapEl.getBoundingClientRect().top <= 88);
+    window.addEventListener('scroll', stuckCheck, { passive: true }); stuckCheck();
+
+    /* ===== SEARCH ===== */
+    const searchInput = document.getElementById('search');
+    const sectEls = [...rootEl.querySelectorAll('.msect')];
+    searchInput?.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      let any = 0;
+      sectEls.forEach(sec => {
+        let vis = 0;
+        sec.querySelectorAll('.dish').forEach(c => {
+          const show = !q || c.textContent.toLowerCase().includes(q);
+          c.style.display = show ? '' : 'none';
+          if (show) vis++;
+        });
+        sec.classList.toggle('hide', vis === 0);
+        any += vis;
+      });
+      noRes.classList.toggle('show', any === 0);
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    });
+
+    /* ===== REVEAL ===== */
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.utils.toArray('.sect-head').forEach(h => gsap.fromTo(h, { y: 22, opacity: 0 },
+        { y: 0, opacity: 1, duration: .6, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 92%', once: true } }));
+      ScrollTrigger.batch('.dish', {
+        start: 'top 94%', once: true,
+        onEnter: b => gsap.fromTo(b, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: { each: .05, amount: .28 }, ease: 'power3.out', overwrite: true })
+      });
+      window.addEventListener('load', () => setTimeout(() => ScrollTrigger.refresh(), 350));
+    }
+
+    /* ===== CART ===== */
+    let cart = [];
+    const cartBtn = document.getElementById('cartBtn'), cartBtnMobile = document.getElementById('cartBtnMobile'),
+      cartDrawer = document.getElementById('cartDrawer'), cartOverlay = document.getElementById('cartOverlay'),
+      closeCart = document.getElementById('closeCart'), cartItems = document.getElementById('cartItems'),
+      cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'),
+      drawerTotal = document.getElementById('drawerTotal'), waOrder = document.getElementById('waOrder'),
+      clearCart = document.getElementById('clearCart'), toast = document.getElementById('toast');
+
+    function showToast(msg) {
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.remove('hidden');
+      if (window.gsap) {
+        gsap.fromTo(toast, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 });
+        setTimeout(() => gsap.to(toast, { opacity: 0, y: 10, duration: 0.3, onComplete: () => toast.classList.add('hidden') }), 1600);
+      } else {
+        setTimeout(() => toast.classList.add('hidden'), 1600);
+      }
+    }
+
+    function updateCart() {
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      cartCount.textContent = count;
+      cartTotal.textContent = total;
+      drawerTotal.textContent = total;
+      cartItems.innerHTML = cart.length
+        ? cart.map((it, idx) => '<div class="flex justify-between items-center bg-white rounded-2xl p-3 border border-black/5">'
+          + '<div><div class="font-bold text-sm">' + it.name + '</div><div class="text-xs opacity-60">₹' + it.price + ' × ' + it.qty + '</div></div>'
+          + '<div class="flex gap-2">'
+          + '<button data-act="dec" data-i="' + idx + '" class="w-7 h-7 rounded-full bg-ink text-mustard grid place-items-center text-xs">−</button>'
+          + '<button data-act="inc" data-i="' + idx + '" class="w-7 h-7 rounded-full bg-mustard text-ink grid place-items-center text-xs">+</button>'
+          + '</div></div>').join('')
+        : '<p class="text-center opacity-60 py-8">Cart is empty — add something delicious.</p>';
+      const msg = cart.length
+        ? encodeURIComponent('Hi Indiana! Order:\n' + cart.map((i, n) => (n + 1) + '. ' + i.name + ' × ' + i.qty + ' = ₹' + (i.price * i.qty)).join('\n')
+          + '\n----------------\nTOTAL = ₹' + total + ' (' + count + ' item' + (count > 1 ? 's' : '') + ')')
+        : '';
+      waOrder.href = cart.length ? 'https://wa.me/919057967791?text=' + msg : '#';
+    }
+
+    rootEl.addEventListener('click', e => {
+      const step = e.target.closest('.qty-step button');
+      if (step) {
+        const card = step.closest('.dish');
+        const val = card.querySelector('.q-val');
+        let q = parseInt(val.textContent, 10) || 1;
+        q = step.classList.contains('q-inc') ? Math.min(30, q + 1) : Math.max(1, q - 1);
+        val.textContent = q;
+        return;
+      }
+      const btn = e.target.closest('.add-btn'); if (!btn) return;
+      const card = btn.closest('.dish'); if (!card) return;
+      const name = card.dataset.name || '';
+      const price = parseInt(card.dataset.price || '0', 10);
+      const qty = Math.max(1, parseInt((card.querySelector('.q-val') || {}).textContent || '1', 10) || 1);
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty += qty; else cart.push({ name, price, qty });
+      updateCart();
+      showToast('Added ✓ ' + name + ' × ' + qty);
+      const val = card.querySelector('.q-val'); if (val) val.textContent = '1';
+    });
+
+    cartItems.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      const i = parseInt(btn.dataset.i, 10);
+      if (btn.dataset.act === 'inc') cart[i].qty++;
+      else { cart[i].qty--; if (cart[i].qty <= 0) cart.splice(i, 1); }
+      updateCart();
+    });
+
+    cartBtn?.addEventListener('click', () => cartDrawer.classList.remove('hidden'));
+    cartBtnMobile?.addEventListener('click', () => cartDrawer.classList.remove('hidden'));
+    closeCart?.addEventListener('click', () => cartDrawer.classList.add('hidden'));
+    cartOverlay?.addEventListener('click', () => cartDrawer.classList.add('hidden'));
+    clearCart?.addEventListener('click', () => { cart = []; updateCart(); });
+  </script>
+</body>
 </html>

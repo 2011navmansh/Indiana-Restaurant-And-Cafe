@@ -534,21 +534,21 @@ SECTION 18 — PHONE, PASSWORD, HOURS, ADDRESS, PRICES KAISE BADLE
 
   (A) PHONE / WHATSAPP NUMBER BADALNA
   ------------------------------------
-  Abhi ka number:  +91 98765 43210   (links me: 919876543210)
+  Abhi ka number:  +91 90579 67791   (links me: 919057967791)
 
   Step 1 — WhatsApp/tel links (2 rounds replace karo):
-     Find:     919876543210
+     Find:     919057967791
      Replace:  91XXXXXXXXXX        ← apna naya number, + aur space KE BINA
      (jaise naya number 70123 45678 hai → likho  917012345678 )
 
      Isse ye sab theek ho jayenge:
-        https://wa.me/919876543210   →  https://wa.me/917012345678
-        tel:+919876543210            →  tel:+917012345678
+        https://wa.me/919057967791   →  https://wa.me/917012345678
+        tel:+919057967791            →  tel:+917012345678
 
   Step 2 — Screen pe dikhne wala number:
-     Find:     +91 98765 43210
+     Find:     +91 90579 67791
      Replace:  +91 70123 45678      ← apna naya (display format)
-     Find:     CALL +91 98765 43210
+     Find:     CALL +91 90579 67791
      Replace:  CALL +91 70123 45678
 
   Ye files badlengi (total ~16 jagah):
@@ -712,7 +712,7 @@ SECTION 19 — 100% FREE EMAIL AUTOMATION (confirm / decline emails)
 /* ===== INDIANA RESTAURANT & CAFE - Sheet + FREE email automation ===== */
 const CONFIG = {
   RESTAURANT: 'Indiana Restaurant & Cafe',
-  PHONE: '+91 98765 43210',
+  PHONE: '+91 90579 67791',
   ADDRESS: 'Rajlaxmi nagar, Jhalawar, Rajasthan 326001',
   OWNER_EMAIL: '',
   NOTIFY_OWNER_ON_NEW: true
@@ -828,7 +828,7 @@ function out(obj) {
 ----------------- YAHAN TAK COPY KARO -----------------------------
 
   3. Code me upar CONFIG me apni details bharo:
-       - PHONE : apna restaurant number (jaise +91 98765 43210)
+       - PHONE : apna restaurant number (jaise +91 90579 67791)
        - ADDRESS: apna address (email ke footer me dikhta hai)
        - OWNER_EMAIL: apna Gmail (har nayi booking pe aapko alert;
          nahi chahiye to NOTIFY_OWNER_ON_NEW: false kar do)

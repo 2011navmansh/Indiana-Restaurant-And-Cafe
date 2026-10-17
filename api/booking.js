@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     }
 
     // Always success - frontend will also open WhatsApp
-    return res.status(200).json({ ok: true, booking, wa: `https://wa.me/919876543210?text=${encodeURIComponent(`Hi Indiana! Reserve table:\nName: ${booking.name}\nPhone: ${booking.phone}\nDate: ${booking.date}\nGuests: ${booking.guests}`)}` });
+    return res.status(200).json({ ok: true, booking, wa: `https://wa.me/919057967791?text=${encodeURIComponent(`Hi Indiana! Reserve table:\nName: ${booking.name}\nPhone: ${booking.phone}\nDate: ${booking.date}\nGuests: ${booking.guests}`)}` });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ error: 'Server error' });

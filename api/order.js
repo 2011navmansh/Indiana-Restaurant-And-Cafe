@@ -36,6 +36,6 @@ export default async function handler(req, res) {
       } catch (e) { console.warn(e.message); }
     }
     const msg = encodeURIComponent(`Hi Indiana! New Order:\n${order.items.map(i => `${i.name} x${i.qty} - Rs.${i.price * i.qty}`).join('\n')}\nTotal: Rs.${order.total}\nName: ${order.name}\nPhone: ${order.phone}`);
-    return res.status(200).json({ ok: true, order, wa: `https://wa.me/919876543210?text=${msg}` });
+    return res.status(200).json({ ok: true, order, wa: `https://wa.me/919057967791?text=${msg}` });
   } catch (e) { return res.status(500).json({ error: 'Server error' }); }
 }
