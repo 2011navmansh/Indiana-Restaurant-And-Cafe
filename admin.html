@@ -99,7 +99,7 @@
             <div class="font-display text-[26px] leading-none mt-1">UNLOCK THE <span class="font-serif italic font-normal">Console</span></div>
           </div>
         </div>
-        <p class="text-[12.5px] opacity-65 leading-relaxed mt-4">Bookings, orders, live status &amp; exports — everything the owner needs, in one calm dark room.</p>
+        <p class="text-[12.5px] opacity-65 leading-relaxed mt-4">Live bookings, door status &amp; CSV exports — everything the owner needs, in one calm dark room.</p>
         <div class="mt-6">
           <label class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">PASSWORD</label>
           <div class="relative mt-2">
@@ -125,7 +125,7 @@
       <div id="demoBanner" class="hidden glass rounded-2xl px-5 py-3.5 text-[12px] font-bold mb-5" style="border-color:rgba(250,204,21,.35)">⚠ SHOWING SAMPLE DATA — backend not reachable from this page. Start <span class="font-mono">node server.js</span> or host on Vercel to see real bookings.</div>
 
       <!-- KPIs -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
         <div class="kpi glass rounded-[24px] p-5">
           <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">TODAY'S BOOKINGS</div>
           <div id="kpiToday" class="font-display text-[40px] leading-none mt-2">0</div>
@@ -140,11 +140,6 @@
           <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">GUESTS TODAY</div>
           <div id="kpiGuests" class="font-display text-[40px] leading-none mt-2">0</div>
           <div class="text-[11px] opacity-55 mt-1">across all tables</div>
-        </div>
-        <div class="kpi glass rounded-[24px] p-5">
-          <div class="text-[10px] font-extrabold tracking-[0.2em] opacity-55">ORDERS TODAY</div>
-          <div id="kpiOrders" class="font-display text-[40px] leading-none mt-2">0</div>
-          <div id="kpiOrdersSub" class="text-[11px] opacity-55 mt-1">Rs 0 value</div>
         </div>
       </div>
 
@@ -169,8 +164,7 @@
       <!-- TOOLBAR -->
       <div class="flex flex-col lg:flex-row lg:items-center gap-3 justify-between mt-6">
         <div class="flex items-center gap-1.5 glass rounded-full p-1.5 self-start">
-          <button class="tab on" data-tab="bookings">BOOKINGS</button>
-          <button class="tab" data-tab="orders">ORDERS</button>
+          <span class="tab on" data-tab="bookings">BOOKINGS</span>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <input id="search" class="fld w-full sm:w-[240px]" placeholder="Search name / phone / ref…">
@@ -379,15 +373,8 @@
     }
     render(quiet);
   }
-  async function loadOrders(quiet) {
-    try {
-      let j;
-      try { j = await api('/api/orders?limit=200'); }
-      catch (e) { if (e.status === 404 || e.status === 405) j = await api('/api/admin?type=orders'); else throw e; }
-      orders = j.data || j.orders || [];
-    } catch (e) { if (!orders.length) orders = demoOrders(); }
-    renderKpis(); if (tab === 'orders') render(quiet);
-  }
+  /* ---------- ORDERS tab hata diya gaya hai — orders sirf WhatsApp pe jaate hain ---------- */
+  async function loadOrders() { }
   async function loadStatus() {
     try { const j = await api('/api/status'); doorState = typeof j.open === 'boolean' ? j.open : true; }
     catch (e) { const s = localStorage.getItem(LS_DOOR); doorState = s === null ? true : s === '1'; }
@@ -418,9 +405,6 @@
     $('#kpiTodaySub').textContent = today.length ? 'incl. ' + today.filter(b => b.status === 'seated').length + ' seated' : 'no bookings yet';
     $('#kpiPending').textContent = bookings.filter(b => b.status === 'pending').length;
     $('#kpiGuests').textContent = today.filter(b => b.status !== 'cancelled').reduce((s, b) => s + (parseInt(b.guests, 10) || 0), 0);
-    const ot = orders.filter(o => istDateStr(o.createdAt) === t || (o.date || '') === t);
-    $('#kpiOrders').textContent = ot.length;
-    $('#kpiOrdersSub').textContent = 'Rs ' + ot.reduce((s, o) => s + (parseInt(o.total, 10) || 0), 0) + ' value';
   }
 
   /* ---------- render ---------- */

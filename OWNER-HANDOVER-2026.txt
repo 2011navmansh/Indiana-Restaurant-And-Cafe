@@ -1,0 +1,484 @@
+=========================================================================
+ INDIANA RESTAURANT & CAFE
+ OWNER HANDOVER + "APNE NAAM PE" CHANGE LIST
+ File: OWNER-HANDOVER-2026.txt
+=========================================================================
+
+Ye file restaurant owner ko dene ke liye hai.
+
+Isme likha hai:
+   PART 1 - Kaun-kaun se account owner ke naam pe karne hain
+   PART 2 - Ek nazar me checklist (kya badalna, kahan badalna)
+   PART 3 - Har cheez ka EXACT detail (Find -> Replace)
+   PART 4 - Admin console kaise chalate hain
+   PART 5 - Booking + email system kaise kaam karta hai
+   PART 6 - Data / backup
+   PART 7 - Kuch kharab ho to kya karna hai
+   PART 8 - Developer credit (achha lage to rakhna, warna hata dena)
+
+NOTE: website abhi bilkul kaam kar rahi hai. Jo cheezein neeche
+di hain, wo "aur acchi / apne naam ki" karne ke liye hain - koi
+jaldi nahi. Jo change karo, use GitHub me push karna zaroori hai
+(Cloudflare 1-2 minute me khud naya build kar deta hai).
+
+
+=========================================================================
+ PART 1 - ACCOUNTS (sabse pehle ye - 20 minute)
+=========================================================================
+
+Abhi sab kuch developer ke accounts pe hai:
+
+   Cloudflare (website + server + database) : 2011navmansh@gmail.com
+   Google / Gmail (booking emails)          : 2011navmansh@gmail.com
+   GitHub (code + auto deploy)              : github.com/2011navmansh
+   Photos ka host (postimg.cc)              : developer ka
+   Domain (free sub-domain)                 : indianarestaurantandcafejwr.dpdns.org
+
+Owner ke naam pe karne ke liye:
+
+ 1) CLOUDFLARE  (website, API, database - sab yahin hai)
+      dash.cloudflare.com -> My Profile -> Members -> Invite
+      -> owner ka email daalo, role: Administrator -> Send invite
+      (Isse owner apne email se login kar sakta hai, sab kuch wahi rahega.)
+
+ 2) EMAIL SERVICE (booking emails)
+      Abhi emails 2011navmansh@gmail.com Gmail se jaati hain.
+      Agar owner chahta hai ki emails RESTAURANT ke apne Gmail se jayein:
+        - EMAIL-SETUP-2026.txt padho, apne Google account se naya
+          Apps Script banao + deploy karo
+        - Cloudflare -> Workers & Pages -> indiana-api -> Settings ->
+          Variables and Secrets -> NOTIFY_WEBHOOK -> Edit -> nayi URL
+          (nayi URL ke aage ?key=... lagana na bhoolo) -> Save/Deploy
+      Agar aisa hi theek hai, to kuch karne ki zaroorat nahi.
+
+ 3) GITHUB (code)
+      Repo: github.com/2011navmansh/Indiana-Restaurant-And-Cafe
+      Settings -> General -> Danger zone -> Transfer ownership
+      (owner ke GitHub account ko)
+
+ 4) GOOGLE BUSINESS PROFILE  (restaurant ke liye bahut zaroori)
+      google.com/business -> "Indiana Restaurant & Cafe, Jhalawar"
+      -> claim karo. Isse reviews, photos aur timings owner khud
+      manage kar payega. Website ke reviews section isi se juda hai.
+
+ 5) DOMAIN
+      Abhi free sub-domain hai: indianarestaurantandcafejwr.dpdns.org
+      Apna domain chahiye (.com / .in, ~Rs 900 saal ka):
+        - kahin se bhi domain lo (GoDaddy / Hostinger / Namecheap)
+        - Cloudflare -> Workers & Pages -> indiana-restaurant-and-cafe
+          -> Settings -> Domains & Routes -> Add -> Custom Domain
+          -> apna domain likho -> DNS instructions follow karo
+      Purana free URL bhi chalta rahega (dono ek saath chal sakte hain).
+
+ 6) PHOTOS ka hosting account (free)
+      postimg.cc pe apna account bana lo (36 photos wahan host hain).
+
+
+=========================================================================
+ PART 2 - CHECKLIST (ek nazar me)
+=========================================================================
+
+ #   Kya badalna hai                  Kitni jagah
+ --- -------------------------------- ------------------------------------
+  1  Phone / WhatsApp number          17 jagah (5 files) + email wali file
+  2  Address                          6 files
+  3  Google Maps pin (coordinates)    34 jagah (6 files)
+  4  Logo                             23 jagah (7 files)
+  5  Instagram handle                 5 jagah (gallery.html)
+  6  Opening hours (11:00 - 10:45)    15 jagah (7 files)
+  7  Menu items + prices              1 file (menu-data.js)
+  8  Photos (gallery + about page)    2 files
+  9  About page ke claims             2 files
+ 10  Admin password                   Cloudflare dashboard
+ 11  Owner email (booking alerts)     Apps Script (1 file)
+ 12  Developer credit (bottom bar)    credit.js (optional)
+ 13  Page titles / browser tab        <head> (6 files)
+
+
+=========================================================================
+ PART 3 - EXACT CHANGE DETAIL
+=========================================================================
+
+-----------------------------------------------------------------------
+ 1) PHONE / WHATSAPP NUMBER   <-- SABSE ZAROORI
+-----------------------------------------------------------------------
+Abhi jo number hai: +91 90579 67791  (= 919057967791)
+Ye developer/test ka number hai. Ise restaurant ke apne number se badlo.
+
+STEP 1 - 4 files me ye 3 cheezein Find/Replace karo:
+
+   Find:  919057967791           Replace:  91<owner-ka-10-digit-number>
+          (jagah: index.html x4, reserve.html x10, menu.html x2)
+
+   Find:  +91 90579 67791        Replace:  +91 <owner-ka-number>
+          (jagah: index.html x4, reserve.html x5)
+
+   Find:  9057967791             Replace:  <owner-ka-10-digit-number>
+          (jagah: index.html x4, reserve.html x10, menu.html x2)
+
+   Dhyaan rakho: 91 = India code, usse hatana nahi.
+
+STEP 2 - BACKEND (server) me bhi 2 jagah:
+   File: worker.js
+   Find:  919057967791     (2 jagah)
+   Replace: 91<owner-number>
+   >>> Ye file badalne ke baad Cloudflare me indiana-api worker
+       dobara Deploy karna ZAROORI hai (warna WhatsApp link purana rahega).
+
+STEP 3 - EMAIL ki file me 1 jagah:
+   File: apps-script-email.gs
+   Find:  const PHONE = '+91 90579 67791';
+   Replace: const PHONE = '+91 <owner-number>';
+   >>> Phir: Deploy -> Manage deployments -> pencil (Edit) ->
+       Version: New version -> Deploy
+   (Email ke footer me ye number dikhta hai.)
+
+STEP 4 - credit.js me 4 jagah (+91-9057967791) - ye DEVELOPER ka
+   number hai (neeche PART 8 dekho).
+
+Aise test karo: website kholo -> kisi bhi "CALL" / "WHATSAPP" button
+dabao -> aapke (owner ke) phone pe call / WhatsApp khulna chahiye.
+
+-----------------------------------------------------------------------
+ 2) ADDRESS
+-----------------------------------------------------------------------
+File me shabd dhoondo:  Rajlaxmi
+(jagah: index.html, reserve.html, menu.html, gallery.html, about.html
+ aur apps-script-email.gs)
+
+   Find:  Rajlaxmi Nagar, Jhalawar, Rajasthan 326001
+   Replace:  <owner ka poora address>
+
+   Find:  Rajlaxmi nagar, Jhalawar, Rajasthan 326001
+   Replace:  <owner ka poora address>
+
+   Kuch jagah address 2 lines me toot-ta hai, jaise:
+        Rajlaxmi Nagar, Jhalawar,<br>Rajasthan 326001
+   Un jagah bhi apna address likh do (line tootne ka <br> waisa hi rakho).
+
+File: apps-script-email.gs
+   Find:  const ADDRESS = 'Rajlaxmi Nagar, Jhalawar, Rajasthan 326001';
+   Replace: const ADDRESS = '<owner ka address>';
+   (Email ke footer me dikhta hai) -> phir "New version" Deploy.
+
+-----------------------------------------------------------------------
+ 3) GOOGLE MAPS PIN (coordinates)
+-----------------------------------------------------------------------
+Abhi ka pin:  24.587048235784344, 76.17682239644377
+(jagah: index.html x9, reserve.html x2, menu.html x6, gallery.html x8,
+ about.html x8) + apps-script-email.gs x1
+
+Apna naya pin kaise lo:
+   Google Maps kholo -> restaurant pe right-click -> coordinates
+   copy karo -> aise dikhte hain: 24.5xxxxx, 76.1xxxxx
+
+   Find:  24.587048235784344     Replace:  <naya latitude>
+   Find:  76.17682239644377      Replace:  <naya longitude>
+
+Ye dono numbers sath me change karo - maps link, map ka box aur
+"GET DIRECTIONS" button sab automatically naya pin dikhayenge.
+
+File: apps-script-email.gs ke andar MAPS link bhi hai:
+   Find:  https://www.google.com/maps?q=24.587048235784344,76.17682239644377
+   Replace: apna naya maps link
+
+-----------------------------------------------------------------------
+ 4) LOGO
+-----------------------------------------------------------------------
+Abhi ka logo:  https://i.postimg.cc/2j4wTB2c/image.png
+(jagah: index.html x5, reserve.html x4, menu.html x5, gallery.html x4,
+ admin.html x3, cookie-banner.js x1, skeleton.js x1)
+
+Naya logo lagane ka tarika:
+   a) postimg.cc (free) pe logo upload karo
+   b) "Direct link" copy karo (aisa: https://i.postimg.cc/XXXX/logo.png)
+   c) sab files me Find/Replace:
+        Find:     https://i.postimg.cc/2j4wTB2c/image.png
+        Replace:  <naya logo ka link>
+   d) browser tab ka favicon bhi isi link se aata hai - apne aap badal jayega.
+
+-----------------------------------------------------------------------
+ 5) INSTAGRAM
+-----------------------------------------------------------------------
+File: gallery.html (5 jagah)
+   Find:  https://www.instagram.com/indiana.cafe
+   Find:  @indiana.cafe
+   Replace:  apna Instagram link / handle
+(agar Instagram nahi hai to ye section hata dena - bata dena, hum hata denge)
+
+-----------------------------------------------------------------------
+ 6) OPENING HOURS
+-----------------------------------------------------------------------
+Abhi: 11:00 AM - 10:45 PM, daily.
+Dhyaan do - hours sirf TEXT nahi hai, CODE me bhi hai (OPEN / CLOSED
+pill isi se chalti hai). Dono badalne padte hain:
+
+(a) Text wali jagah:
+     Find:  11:00 AM — 10:45 PM   (index, reserve, admin)
+     Find:  11AM — 10:45 PM       (index, reserve, menu)
+
+(b) Code wali jagah (minute me likha hai: 11*60 = 11:00 AM,
+    22*60+45 = 10:45 PM):
+       worker.js      : const OPEN_MIN = 11 * 60, CLOSE_MIN = 22 * 60 + 45;
+       live-clock.js  : var OPEN_MIN = 11 * 60, CLOSE_MIN = 22 * 60 + 45;
+       index.html     : var OPEN_MIN = 11 * 60;  /  var CLOSE_MIN = 22 * 60 + 45;
+       reserve.html   : const OPEN_MIN = 11 * 60, CLOSE_MIN = 22 * 60 + 45;
+       admin.html     : line ~157 aur ~395 (text)
+
+     Jaise: subah 10:00 -> 10 * 60     |  raat 11:00 -> 23 * 60
+            raat 10:30 -> 22 * 60 + 30  |  raat 11:30 -> 23 * 60 + 30
+
+     >>> worker.js badla to indiana-api dobara Deploy karo.
+
+     Reserve form ke time slots (11:00 AM se 10:30 PM) worker.js ke
+     OPEN_MIN / CLOSE_MIN se apne aap ban jaate hain.
+
+-----------------------------------------------------------------------
+ 7) MENU ITEMS + PRICES
+-----------------------------------------------------------------------
+File: menu-data.js  (yahi poora menu hai)
+
+Ek line ka format:
+   {"n":"Paneer Jhalawari","d":"Cottage cheese with 3 types of Rajasthani hot chillies.","p":250,"img":"https://...","t":"spicy2"},
+
+   n = dish ka naam
+   d = description
+   p = PRICE (number, sirf digits - Rs nahi likhna)
+   img = dish ki photo ka link
+   t = tag ("" = normal, "spicy", "chef", "star" waghaira)
+
+Naya dish jodna hai? Us jaisi line copy karke neeche paste kar do aur
+comma (,) lagana na bhoolo.
+Price badalni hai? Sirf "p": ke aage ka number badlo: "p":250 -> "p":280
+
+ZAROORI: abhi dish photos internet (Wikimedia) se li gayi hain, wo
+asli dish jaisi nahi hongi. Behtar hoga ki apne restaurant ki asli
+dish photos postimg.cc pe daal ke link badal do.
+
+-----------------------------------------------------------------------
+ 8) PHOTOS
+-----------------------------------------------------------------------
+(a) Gallery (32 photos):  gallery.html
+      Har photo ke liye "https://i.postimg.cc/.../ ... .jpg" link hai.
+      Naya photo: postimg.cc pe upload -> Direct link copy ->
+      purane link ki jagah paste.
+      NOTE: gallery me lightbox nahi hai (design aisa hi hai).
+
+(b) About page (3 stock photos):  about.html
+      "https://images.unsplash.com/photo-..." wale 3 link hain.
+      Inhe apne restaurant / chef / kitchen ki asli photo se badlo
+      (warna guest ko galat photo dikhegi).
+
+(c) Menu dishes: menu-data.js (upar point 7 dekho)
+
+-----------------------------------------------------------------------
+ 9) ABOUT PAGE KI BAATEIN (verify karo)
+-----------------------------------------------------------------------
+about.html aur index.html me likha hai:
+     "EST. 2018", "NAPOLI TRAINED", "12 YEARS EXP",
+     "4.9 ★ 2.4k Reviews", "48H FERMENTED DOUGH", "Maple wood-fired oven"
+
+Agar ye sach nahi hai to badal do (google ka penalty / guest ka
+bharosa - dono ka sawal hai). Find karke apna sach likho.
+"2.4k REVIEWS" wali jagah index.html me hai.
+
+-----------------------------------------------------------------------
+ 10) ADMIN PASSWORD
+-----------------------------------------------------------------------
+   Cloudflare -> Workers & Pages -> indiana-api -> Settings ->
+   Variables and Secrets -> ADMIN_PASSWORD -> Edit ->
+   naya strong password likho -> Save / Deploy
+
+Naya password yaad rakhna (kapital/small letter ka dhyaan).
+Pehle din hi badal lena - purana password sirf developer ke paas hai.
+
+-----------------------------------------------------------------------
+ 11) OWNER EMAIL (booking alerts isi pe aate hain)
+-----------------------------------------------------------------------
+   Apps Script kholo (script.google.com) -> code me:
+        const OWNER_EMAIL = '2011navmansh@gmail.com';
+   -> apna email likho
+   -> Save -> Deploy -> Manage deployments -> pencil -> New version -> Deploy
+
+-----------------------------------------------------------------------
+ 12) DEVELOPER CREDIT (neeche chhota badge)
+-----------------------------------------------------------------------
+Saare pages ke bottom-left me "Website by Navmansh Sen • +91-9057967791"
+dikhta hai. File: credit.js
+   - Rakhna chahte ho (developer ko credit dena hai) -> kuch na karo
+   - Hatana chahte ho -> har HTML file me se ye line delete karo:
+        <script src="credit.js" defer></script>
+     (index / reserve / menu / gallery / about / admin - sab me hai)
+   - Apna naam/number dikhana hai -> credit.js me apna naam + number likh do
+
+-----------------------------------------------------------------------
+ 13) PAGE TITLE (browser tab) / SEO text
+-----------------------------------------------------------------------
+Har page ke <head> me <title> aur <meta name="description"> hai.
+Jaise: "Indiana Restaurant & Cafe, Jhalawar" - ye Google me dikhta hai.
+Naam/area badalna ho to ye bhi badlo.
+
+
+=========================================================================
+ PART 4 - ADMIN CONSOLE (owner ka dashboard)
+=========================================================================
+
+URL       : https://indianarestaurantandcafejwr.dpdns.org/admin.html
+Password  : ADMIN_PASSWORD (PART 3 point 10)
+
+Dashboard me kya-kya hai:
+
+  1. LIVE DOOR STATUS (OPEN / CLOSED switch)
+       - OPEN  -> website pe guest ko "KITCHEN OPEN NOW" (hara dot)
+       - CLOSED-> guest ko "TEMPORARILY CLOSED - BACK SOON"
+       Holiday, private party ya full house ke liye ise CLOSED kar do.
+       (Ye home page + reserve page dono pe 1 minute me dikh jaata hai.)
+
+  2. TODAY'S BOOKINGS   - aaj ki kitni bookings
+     WAITING CONFIRM    - kitni booking aapke action ka intezaar kar rahi hain
+     GUESTS TODAY       - aaj kitne guest aa rahe hain
+
+  3. BOOKINGS LIST
+       Har booking pe ye buttons:
+         CONFIRM  -> guest ko "table confirmed" EMAIL chala jaata hai
+         SEAT     -> guest aa gaya
+         CANCEL   -> guest ko "booking cancelled" EMAIL chala jaata hai
+         NO-SHOW  -> guest nahi aaya
+       Search box: naam / phone / reference se dhoondo
+       Status filter: sirf pending / confirmed etc. dekhna ho to
+
+  4. REFRESH button - naya data
+     CSV button     - saari bookings ka Excel/CSV file download
+
+  5. ORDERS ka koi tab nahi hai (hataya gaya) - order sirf WhatsApp pe
+     aate hain. Menu page ka "ORDER ON WHATSAPP" button guest ki WhatsApp
+     chat seedha restaurant ke number pe kholta hai.
+
+Admin page khud har 25 second me naya data khud le aata hai - baar baar
+refresh karne ki zaroorat nahi.
+
+
+=========================================================================
+ PART 5 - BOOKING + EMAIL SYSTEM (kaise kaam karta hai)
+=========================================================================
+
+GUEST ki taraf:
+  1. reserve.html -> form (naam, phone, email, date, time, guests)
+     Date khud aaj ki lagti hai, time agla khali slot.
+  2. CONFIRM dabate hi:
+        - booking database me save
+        - screen pe reference number (IND-XXXXXX)
+        - GUEST ko email: "Booking request received" (PENDING)
+        - OWNER ko email: "New booking IND-XXXX"
+  3. Owner CONFIRM dabata hai:
+        - GUEST ko dusri email: "Table confirmed" (address + maps ke saath)
+
+Owner ki taraf:
+  - admin.html me booking turant dikh jaati hai (WAITING CONFIRM)
+  - WhatsApp button se guest ko seedha message bhej sakte ho
+
+Email ka poora system: EMAIL-SETUP-2026.txt dekho.
+Emails Google (Gmail) se jaati hain - 100 email/din FREE, koi kharcha nahi.
+Guest ke reply seedhe OWNER ke email pe aate hain.
+
+Koi bhi hosting/email ka kharcha nahi hai - sab free plan pe hai:
+  Cloudflare (hosting + server + database) = FREE
+  Google Apps Script + Gmail               = FREE
+  Github                                    = FREE
+  Domain                                    = FREE (dpdns.org sub-domain)
+
+
+=========================================================================
+ PART 6 - DATA / BACKUP
+=========================================================================
+
+Booking ka data Cloudflare D1 database me rehta hai (naam: indiandatabase).
+
+Backup ke 3 aasan tarike:
+  1. Admin -> CSV button -> bookings ka file download (mahine me ek baar)
+  2. Email: har booking ki email Gmail me padi rehti hai (automatic backup)
+  3. Cloudflare -> Workers & Pages -> D1 -> indiandatabase -> Console ->
+       SELECT * FROM bookings;   (yahan se bhi dekh sakte ho)
+
+Database me tables: bookings, orders, sessions, settings
+Purani booking hatani ho to: admin me CANCEL kar do (record rehta hai,
+lekin "aaj ki" ginti se hat jaati hai).
+
+
+=========================================================================
+ PART 7 - KUCH KHARAB HO TO
+=========================================================================
+
+ Samasya                                    | Kya karo
+ -------------------------------------------|---------------------------
+ Website khul hi nahi rahi                  | Cloudflare -> Workers &
+                                            | Pages -> indiana-restaurant-
+                                            | and-cafe -> Deployments dekho
+                                            | (last build "success" hona
+                                            | chahiye). Dobara dekhne ke liye
+                                            | naya commit push kar do.
+ Guest ko form "error" dikha raha hai      | Uska poora message padho (form ke
+                                            | neeche laal me aata hai) - wahi
+                                            | asli wajah batata hai.
+ Booking admin me nahi aa rahi             | Internet check karo, REFRESH
+                                            | dabao. Phir bhi na aaye to
+                                            | developer ko batao.
+ Email nahi aa rahi                         | (1) Spam folder dekho
+                                            | (2) Cloudflare me
+                                            |     NOTIFY_WEBHOOK set hai?
+                                            | (3) Apps Script -> Deploy ->
+                                            |     Manage deployments -> URL
+                                            |     browser me kholo &test=1
+ Admin me "WRONG PASSWORD"                  | ADMIN_PASSWORD wahi hai jo
+                                            | Cloudflare me hai? (capital/
+                                            | small letters ka dhyaan rakho)
+ OPEN/CLOSED change nahi ho raha            | Admin me toggle ke baad home
+                                            | page refresh karo (Ctrl+Shift+R)
+ Website pe purana data dikh raha hai       | Ctrl + Shift + R (hard refresh)
+ Site pe kuch galat dikh raha hai           | Bookmark kar lo + screenshot
+                                            | le lo + developer ko bhejo
+
+
+=========================================================================
+ PART 8 - DEVELOPER CREDIT
+=========================================================================
+
+Website ke bottom-left me chhota badge hai:
+        "Website by Navmansh Sen  -  +91-9057967791"
+File: credit.js
+
+Aapke paas 3 option hain:
+  1. Waisa hi rehne do (credit)
+  2. Poora hata do -> har HTML file me se
+        <script src="credit.js" defer></script>
+     line delete kar do (6 files: index, reserve, menu, gallery,
+     about, admin)
+  3. Apna naam/number likho -> credit.js ke andar naam aur number badlo
+
+NOTE: credit.js wala number (+91-9057967791) website ke
+"restaurant number" se alag cheez hai. Restaurant ka number PART 3
+point 1 me badalna hai.
+
+
+=========================================================================
+ LAST CHECK - handover se pehle ye 6 cheezein khud test karo
+=========================================================================
+
+  [ ] Home page khulti hai + phone number / address SAHI dikh raha hai
+  [ ] CALL button dabao -> owner ke number pe call jaata hai
+  [ ] WHATSAPP button dabao -> owner ke WhatsApp pe chat khulti hai
+  [ ] GET DIRECTIONS dabao -> Google Maps pe SAHI jagah khulti hai
+  [ ] Admin me CLOSED karo -> home page pe "TEMPORARILY CLOSED" dikhe
+  [ ] Admin me OPEN karo -> wapas "KITCHEN OPEN NOW" dikhe
+  [ ] Ek test booking karo (apne email se) -> 2 email aayein
+      (guest ko "request received" + owner ko "new booking")
+  [ ] Admin me us booking pe CONFIRM -> guest ke email pe
+      "Table confirmed" aaye
+  [ ] Test booking CANCEL kar do
+  [ ] Menu page -> dish add to cart -> ORDER ON WHATSAPP -> chat khule
+
+Sab tick? To website handover ke liye ready hai.
+
+=========================================================================
+ END
+=========================================================================
