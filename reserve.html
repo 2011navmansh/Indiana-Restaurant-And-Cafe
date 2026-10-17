@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <script>try { if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }</script>
+  <script>try { if (localStorage.getItem('indiana-theme-v') !== '2') { localStorage.removeItem('indiana-theme'); localStorage.setItem('indiana-theme-v', '2'); } if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }</script>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Reserve Your Table — Indiana Restaurant &amp; Cafe, Jhalawar</title>
   <meta name="description"

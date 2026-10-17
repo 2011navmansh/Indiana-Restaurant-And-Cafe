@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="https://i.postimg.cc/2j4wTB2c/image.png">
   <meta name="description" content="The complete Indiana Restaurant & Cafe menu — soups, tandoori starters, Indo-Chinese, rich curries, paneer specials, biryani, burgers, breads, desserts & more. 100% vegetarian, made fresh in Jhalawar.">
   <script>
-    try { if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }
+    try { if (localStorage.getItem('indiana-theme-v') !== '2') { localStorage.removeItem('indiana-theme'); localStorage.setItem('indiana-theme-v', '2'); } if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
