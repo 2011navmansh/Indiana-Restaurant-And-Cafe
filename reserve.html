@@ -452,6 +452,7 @@
             </label>
 
             <button type="submit" class="rv-submit mt-1 w-full" id="rvSubmit">CONFIRM RESERVATION ↗</button>
+            <p id="rvErr" class="hidden text-center text-[12.5px] font-bold text-red-500"></p>
             <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10.5px] font-bold tracking-[0.14em] opacity-55">
               <span>✓ NO PREPAYMENT</span><span>✓ INSTANT CONFIRM</span><span>✓ FREE CANCELLATION</span>
             </div>
@@ -922,16 +923,32 @@
     /* popups ke andar wheel-scroll chale (Lenis/smooth-scroll hijack na kare) */
     [cal, timePop, gPop].forEach(p => p && p.setAttribute('data-lenis-prevent', ''));
 
-    /* default: aaj ki date (IST) pehle se selected */
+    /* default: aaj ki date + agla available slot (IST) */
     function istToday() {
       const n = new Date();
       const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
       return new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
     }
-    (function selectToday() {
+    function istMins() {
+      const n = new Date();
+      const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
+      return ist.getHours() * 60 + ist.getMinutes();
+    }
+    function nextSlot(minLead) {
+      for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
+        if (m < minLead) continue;
+        const h24 = Math.floor(m / 60), mm = m % 60;
+        return (h24 % 12 === 0 ? 12 : h24 % 12) + ':' + String(mm).padStart(2, '0') + ' ' + (h24 >= 12 ? 'PM' : 'AM');
+      }
+      return null;
+    }
+    (function defaultWhen() {
       const t = istToday();
-      picked = t; view = new Date(t.getFullYear(), t.getMonth(), 1);
-      dateInput.value = iso(t); dateText.textContent = pretty(t); dateText.classList.remove('rv-ph');
+      const slot = nextSlot(istMins() + 45);          // 30 min ka lead + buffer
+      const d = slot ? t : new Date(t.getFullYear(), t.getMonth(), t.getDate() + 1);
+      picked = d; view = new Date(d.getFullYear(), d.getMonth(), 1);
+      dateInput.value = iso(d); dateText.textContent = pretty(d); dateText.classList.remove('rv-ph');
+      if (slot) { timeInput.value = slot; timeText.textContent = slot; }
       renderCal();
     })();
 
@@ -1099,18 +1116,25 @@
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'SENDING…';
+      const errEl = document.getElementById('rvErr');
+      const showErr = m => { if (!errEl) return; errEl.textContent = m || ''; errEl.classList.toggle('hidden', !m); };
+      showErr('');
       let result = null;
       try {
         const res = await fetch('/api/bookings', {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
         });
-        if (res.ok) result = await res.json();
-        else if (res.status === 422) {
-          const j = await res.json();
-          Object.entries(j.fields || {}).forEach(([k, v]) => {
-            const map = { name: 'f-name', phone: 'f-phone', date: 'f-date', time: 'f-time', guests: 'f-guests' };
-            if (map[k]) document.getElementById(map[k]).classList.add('invalid');
-          });
+        if (res.ok) {
+          result = await res.json();
+        } else {
+          const j = await res.json().catch(() => ({}));
+          if (res.status === 422) {
+            Object.entries(j.fields || {}).forEach(([k, v]) => {
+              const map = { name: 'f-name', phone: 'f-phone', date: 'f-date', time: 'f-time', guests: 'f-guests' };
+              if (map[k]) document.getElementById(map[k]).classList.add('invalid');
+            });
+          }
+          showErr(j.error || ('Booking nahi ho payi (' + res.status + ') — please call +91 90579 67791.'));
           submitBtn.disabled = false; submitBtn.textContent = 'CONFIRM RESERVATION ↗';
           return;
         }

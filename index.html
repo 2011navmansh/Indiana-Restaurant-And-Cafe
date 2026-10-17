@@ -812,8 +812,8 @@
           </div>
           <form id="reserveForm" class="grid gap-4">
             <div class="grid sm:grid-cols-2 gap-4">
-              <label class="rv-field"><span>Full Name</span><input required placeholder="Aarav Sharma" autocomplete="name"></label>
-              <label class="rv-field"><span>Phone</span><input required inputmode="tel" placeholder="12345678910" autocomplete="tel"></label>
+              <label class="rv-field"><span>Full Name</span><input id="hpName" required placeholder="Aarav Sharma" autocomplete="name"></label>
+              <label class="rv-field"><span>Phone</span><input id="hpPhone" required inputmode="tel" placeholder="12345678910" autocomplete="tel"></label>
             </div>
             <div class="grid sm:grid-cols-3 gap-4">
               <div class="rv-field">
@@ -859,8 +859,9 @@
                 </div>
               </div>
             </div>
-            <label class="rv-field"><span>Special Request <em class="not-italic opacity-50">(optional)</em></span><input placeholder="Birthday, window seat, high chair&hellip;"></label>
+            <label class="rv-field"><span>Special Request <em class="not-italic opacity-50">(optional)</em></span><input id="hpNotes" placeholder="Birthday, window seat, high chair&hellip;"></label>
             <button type="submit" class="rv-submit mt-1 w-full">CONFIRM RESERVATION <span aria-hidden="true">↗</span></button>
+            <p id="hpErr" class="hidden text-center text-[12.5px] font-bold text-red-500"></p>
             <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[10.5px] font-bold tracking-[0.14em] opacity-55">
               <span>✓ NO PREPAYMENT</span><span>✓ INSTANT CONFIRM</span><span>✓ FREE CANCELLATION</span>
             </div>
@@ -1329,13 +1330,32 @@
       /* popups ke andar wheel-scroll chale (Lenis hijack na kare) */
       [cal, timePop, gPop].forEach(p => p && p.setAttribute('data-lenis-prevent', ''));
 
-      /* default: aaj ki date (IST) pehle se selected */
-      (function selectToday() {
+      /* default: aaj ki date + agla available slot (IST) */
+      function istToday() {
         const n = new Date();
         const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
-        const t = new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
-        picked = t; view = new Date(t.getFullYear(), t.getMonth(), 1);
-        dateInput.value = iso(t); dateText.textContent = pretty(t); dateText.classList.remove('rv-ph');
+        return new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
+      }
+      function istMins() {
+        const n = new Date();
+        const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
+        return ist.getHours() * 60 + ist.getMinutes();
+      }
+      function nextSlot(minLead) {
+        for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
+          if (m < minLead) continue;
+          const h24 = Math.floor(m / 60), mm = m % 60;
+          return (h24 % 12 === 0 ? 12 : h24 % 12) + ':' + String(mm).padStart(2, '0') + ' ' + (h24 >= 12 ? 'PM' : 'AM');
+        }
+        return null;
+      }
+      (function defaultWhen() {
+        const t = istToday();
+        const slot = nextSlot(istMins() + 45);          // 30 min ka lead + buffer
+        const d = slot ? t : new Date(t.getFullYear(), t.getMonth(), t.getDate() + 1);
+        picked = d; view = new Date(d.getFullYear(), d.getMonth(), 1);
+        dateInput.value = iso(d); dateText.textContent = pretty(d); dateText.classList.remove('rv-ph');
+        if (slot) { timeInput.value = slot; timeText.textContent = slot; }
         render();
       })();
 
@@ -1388,21 +1408,62 @@
       };
     })();
 
-    document.getElementById('reserveForm')?.addEventListener('submit', e => {
+    /* Homepage reserve form -> backend (/api/bookings), bilkul reserve.html jaisa */
+    document.getElementById('reserveForm')?.addEventListener('submit', async e => {
       e.preventDefault();
+      const form = e.target;
       const dEl = document.getElementById('rvDate'), dBtn = document.getElementById('rvDateBtn');
+      const errEl = document.getElementById('hpErr');
+      const showErr = m => { if (!errEl) return; errEl.textContent = m || ''; errEl.classList.toggle('hidden', !m); };
+
       if (!dEl.value) {
         dBtn.style.borderColor = 'rgba(248,113,113,.9)';
         dBtn.style.boxShadow = '0 0 0 4px rgba(248,113,113,.16)';
         dBtn.focus();
         setTimeout(() => { dBtn.style.borderColor = ''; dBtn.style.boxShadow = ''; }, 1500);
+        showErr('Please pick a date');
         return;
       }
-      const ok = document.getElementById('reserveSuccess');
-      ok.classList.remove('hidden');
-      e.target.reset();
-      if (window.__rvReset) window.__rvReset();
-      setTimeout(() => ok.classList.add('hidden'), 4000);
+
+      const val = id => (document.getElementById(id)?.value || '').trim();
+      const payload = {
+        name: val('hpName'),
+        phone: val('hpPhone'),
+        email: '',
+        date: val('rvDate'),
+        time: val('rvTime') || '7:30 PM',
+        guests: parseInt((val('rvGuests') || '2').replace(/\D/g, ''), 10) || 2,
+        seating: 'indoor',
+        occasion: '',
+        notes: val('hpNotes'),
+        source: 'homepage',
+      };
+
+      const btn = form.querySelector('button[type="submit"]');
+      const label = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.innerHTML = 'SENDING…'; }
+      showErr('');
+
+      try {
+        const res = await fetch('/api/bookings', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+        });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          showErr(j.error || ('Booking nahi ho payi (' + res.status + ') — please call +91 90579 67791.'));
+        } else {
+          const ok = document.getElementById('reserveSuccess');
+          const ref = (j.booking && j.booking.id) || '';
+          ok.textContent = '✓ Reservation received — ref ' + ref + ' — see you soon at Indiana!';
+          ok.classList.remove('hidden');
+          form.reset();
+          if (window.__rvReset) window.__rvReset();
+          setTimeout(() => ok.classList.add('hidden'), 8000);
+        }
+      } catch (err) {
+        showErr('Network issue — please call +91 90579 67791 to confirm.');
+      }
+      if (btn) { btn.disabled = false; btn.innerHTML = label; }
     });
     // ===== RECREATED STRAIGHT — translateY ONLY (NO clipPath, NO DIAGONAL) =====
     // Root cause: clipPath with `round 32px` interpolates diagonally in browser.
