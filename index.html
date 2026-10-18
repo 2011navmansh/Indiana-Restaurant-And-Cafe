@@ -32,6 +32,11 @@
             ink: '#0A0A0A',
             stone900: '#1C1917',
             forest: '#0F2A18',
+            goldDeep: '#CA8A04',
+            clay: { DEFAULT: '#C2410C', light: '#FB923C', dark: '#9A3412' },
+            pine: { DEFAULT: '#166534', light: '#86EFAC', dark: '#14532D' },
+            lagoon: { DEFAULT: '#0F766E', light: '#5EEAD4', dark: '#115E59' },
+            wine: { DEFAULT: '#9F1239', light: '#FDA4AF', dark: '#881337' },
           }
         }
       }
@@ -289,6 +294,39 @@
     html.light .bg-mustard a.bg-ink *, html.light .bg-mustard button.bg-ink * { color: #FACC15 !important; }
     html.light .bg-mustard a.bg-ink.text-cream, html.light .bg-mustard button.bg-ink.text-cream { color: #FFFBEB !important; }
     html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
+
+    /* ===== WARM HERITAGE — PREMIUM MULTI-ACCENT SYSTEM (v1) =====
+       gold = brand • clay = wood-fired/hot • pine = fresh/brunch • lagoon = cool/coffee • wine = sweet/evening
+       Accent text classes (.ac-*) auto-flip: bright on dark surfaces, deep on light surfaces. */
+    :root {
+      --ac-clay: #FB923C; --ac-pine: #86EFAC; --ac-lagoon: #5EEAD4; --ac-wine: #FDA4AF; --ac-gold: #FACC15;
+    }
+    html.light {
+      --ac-clay: #C2410C; --ac-pine: #166534; --ac-lagoon: #0F766E; --ac-wine: #9F1239; --ac-gold: #CA8A04;
+    }
+    /* surfaces that stay dark in BOTH themes → always-bright accents */
+    :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine, .bg-\[\#0F2A18\], .glass-chip-dark) {
+      --ac-clay: #FDBA74; --ac-pine: #86EFAC; --ac-lagoon: #5EEAD4; --ac-wine: #FDA4AF; --ac-gold: #FDE047;
+    }
+    /* surfaces that stay light in BOTH themes → always-deep accents */
+    :is(.bg-white, .glass-cream, .bg-cream, .bg-mustard, .bg-\[\#FFFBEB\]) {
+      --ac-clay: #C2410C; --ac-pine: #166534; --ac-lagoon: #0F766E; --ac-wine: #9F1239; --ac-gold: #CA8A04;
+    }
+    .ac-clay { color: var(--ac-clay) !important; }
+    .ac-pine { color: var(--ac-pine) !important; }
+    .ac-lagoon { color: var(--ac-lagoon) !important; }
+    .ac-wine { color: var(--ac-wine) !important; }
+    .ac-gold { color: var(--ac-gold) !important; }
+    .bg-ac-clay { background: var(--ac-clay) !important; }
+    .bg-ac-pine { background: var(--ac-pine) !important; }
+    .bg-ac-lagoon { background: var(--ac-lagoon) !important; }
+    .bg-ac-wine { background: var(--ac-wine) !important; }
+    .bg-ac-gold { background: var(--ac-gold) !important; }
+    /* dark cards keep light text in light mode */
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine).text-cream,
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine) .text-cream { color: #FFFBEB !important; }
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine, .bg-\[\#0F2A18\]) .opacity-60,
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine, .bg-\[\#0F2A18\]) .opacity-70 { color: rgba(255, 251, 235, .72) !important; opacity: 1 !important; }
 
     /* ===== LOGO BADGE (circular crop + inner zoom so the emblem reads clearly) ===== */
     .logo-badge {
@@ -582,7 +620,7 @@
               <div class="text-[11px] tracking-widest opacity-60 font-bold">2.4k REVIEWS</div>
             </div>
             <div class="glass rounded-[18px] p-4">
-              <div class="font-display text-2xl leading-none">42+</div>
+              <div class="font-display text-2xl leading-none ac-clay">42+</div>
               <div class="text-[11px] tracking-widest opacity-60 font-bold">SIGNATURE DISHES</div>
             </div>
             <div class="glass rounded-[18px] p-4">
@@ -695,19 +733,19 @@
         <p class="max-w-[380px] text-sm opacity-60">Wood-fired, 48h fermented dough — filter & add to cart.</p>
       </div>
       <div class="flex flex-wrap gap-2 mb-8" id="menuFilters">
-        <button data-filter="all" class="filter-btn active bg-mustard text-ink rounded-full px-5 py-2 text-xs font-extrabold">All</button>
-        <button data-filter="pizza" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Pizza</button>
-        <button data-filter="brunch" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Brunch</button>
-        <button data-filter="coffee" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Coffee</button>
-        <button data-filter="dessert" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Desserts</button>
+        <button data-filter="all" data-acc="mustard" class="filter-btn active bg-mustard text-ink rounded-full px-5 py-2 text-xs font-extrabold">All</button>
+        <button data-filter="pizza" data-acc="clay" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Pizza</button>
+        <button data-filter="brunch" data-acc="pine" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Brunch</button>
+        <button data-filter="coffee" data-acc="lagoon" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Coffee</button>
+        <button data-filter="dessert" data-acc="wine" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Desserts</button>
       </div>
       <div class="grid md:grid-cols-3 gap-5" id="menuGrid">
-        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Margherita Wood-Fired</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹399</span></div><p class="text-xs opacity-60">San Marzano • Fior di latte</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Pepperoni Inferno</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹549</span></div><p class="text-xs opacity-60">Spicy pepperoni • Honey</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Truffle Brunch Bowl</h3><span class="bg-mustard text-ink rounded-full px-3 py-1 text-xs font-extrabold">₹449</span></div><p class="text-xs opacity-60">Poached egg • Truffle</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="coffee" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Cold Brew Tonic</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹249</span></div><p class="text-xs opacity-60">Single origin • Citrus</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="dessert" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Choco Lava Fondant</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹299</span></div><p class="text-xs opacity-60">72% dark • Gelato</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
-        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Avocado Sourdough</h3><span class="bg-ink text-mustard rounded-full px-3 py-1 text-xs font-extrabold">₹379</span></div><p class="text-xs opacity-60">Chili flakes • Lime</p><button class="addBtn mt-3 w-full bg-ink text-mustard rounded-full py-2 text-xs font-extrabold">ADD TO CART +</button></div></div>
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-clay text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">PIZZA</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Margherita Wood-Fired</h3><span class="bg-clay text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹399</span></div><p class="text-xs opacity-60">San Marzano • Fior di latte</p><button class="addBtn mt-3 w-full bg-clay text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-clay text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">PIZZA</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Pepperoni Inferno</h3><span class="bg-clay text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹549</span></div><p class="text-xs opacity-60">Spicy pepperoni • Honey</p><button class="addBtn mt-3 w-full bg-clay text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-pine text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">BRUNCH</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Truffle Brunch Bowl</h3><span class="bg-pine text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹449</span></div><p class="text-xs opacity-60">Poached egg • Truffle</p><button class="addBtn mt-3 w-full bg-pine text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="coffee" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-lagoon text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">COFFEE</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Cold Brew Tonic</h3><span class="bg-lagoon text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹249</span></div><p class="text-xs opacity-60">Single origin • Citrus</p><button class="addBtn mt-3 w-full bg-lagoon text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="dessert" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-wine text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">DESSERT</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Choco Lava Fondant</h3><span class="bg-wine text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹299</span></div><p class="text-xs opacity-60">72% dark • Gelato</p><button class="addBtn mt-3 w-full bg-wine text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-pine text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">BRUNCH</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Avocado Sourdough</h3><span class="bg-pine text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹379</span></div><p class="text-xs opacity-60">Chili flakes • Lime</p><button class="addBtn mt-3 w-full bg-pine text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
       </div>
       <div id="cartToast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added to cart ✓</div>
     </div>
@@ -745,11 +783,11 @@
     <div id="stackPin" class="relative max-w-[1280px] mx-auto px-4 md:px-6 h-[62vh] md:h-[64vh] min-h-[460px] flex items-center justify-between gap-6 md:gap-10 overflow-visible">
       <!-- LEFT TEXTS -->
       <div id="stackLeft" class="hidden md:flex flex-col justify-center w-[44%] max-w-[500px] pl-4 lg:pl-10 relative h-[460px] shrink-0">
-        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="0"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Margherita<br><span class="font-serif italic font-normal">Classico</span></h3><p class="text-sm opacity-60 mt-3 leading-6">San Marzano • fior di latte • basil • 48h dough. Our bestseller, 700° wood-fired.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
-        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="1"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">02 — INFERNO</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Pepperoni<br><span class="font-serif italic font-normal text-mustard">Inferno</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Spicy pepperoni + hot honey — sweet heat that hits different.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
-        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="2"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">03 — BRUNCH</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Truffle<br><span class="font-serif italic font-normal text-mustard">Bowl</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Poached egg • truffle • sourdough — brunch done right.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
-        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="3"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">04 — BREW</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Cold Brew<br><span class="font-serif italic font-normal">Tonic</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Single-origin • citrus tonic — cold, crisp, clean.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
-        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="4"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">05 — DESSERT</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Choco<br><span class="font-serif italic font-normal">Fondant</span></h3><p class="text-sm opacity-60 mt-3 leading-6">72% dark • vanilla gelato — molten centre.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="0"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Margherita<br><span class="font-serif italic font-normal ac-clay">Classico</span></h3><p class="text-sm opacity-60 mt-3 leading-6">San Marzano • fior di latte • basil • 48h dough. Our bestseller, 700° wood-fired.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="1"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">02 — INFERNO</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Pepperoni<br><span class="font-serif italic font-normal ac-clay">Inferno</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Spicy pepperoni + hot honey — sweet heat that hits different.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="2"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">03 — BRUNCH</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Truffle<br><span class="font-serif italic font-normal ac-pine">Bowl</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Poached egg • truffle • sourdough — brunch done right.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="3"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">04 — BREW</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Cold Brew<br><span class="font-serif italic font-normal ac-lagoon">Tonic</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Single-origin • citrus tonic — cold, crisp, clean.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="4"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">05 — DESSERT</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Choco<br><span class="font-serif italic font-normal ac-wine">Fondant</span></h3><p class="text-sm opacity-60 mt-3 leading-6">72% dark • vanilla gelato — molten centre.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
       </div>
       <!-- RIGHT CARDS — straight vertical stack, no diagonal -->
       <div class="relative w-full md:w-[56%] max-w-[640px] md:max-w-[620px] h-[480px] md:h-[460px] shrink-0 rounded-[32px] overflow-hidden bg-[#111]" id="stackWrap">
@@ -1130,7 +1168,8 @@
     document.querySelectorAll('.filter-btn').forEach(btn=>{
       btn.addEventListener('click',()=>{
         document.querySelectorAll('.filter-btn').forEach(b=>{b.className='filter-btn glass rounded-full px-5 py-2 text-xs font-bold'});
-        btn.className='filter-btn active bg-mustard text-ink rounded-full px-5 py-2 text-xs font-extrabold';
+        const acc = btn.dataset.acc || 'mustard';
+        btn.className = 'filter-btn active bg-'+acc+' '+(acc==='mustard' ? 'text-ink' : 'text-cream')+' rounded-full px-5 py-2 text-xs font-extrabold';
         const f=btn.dataset.filter;
         document.querySelectorAll('.menu-card').forEach(card=>{
           const show=f==='all'||card.dataset.cat===f;
