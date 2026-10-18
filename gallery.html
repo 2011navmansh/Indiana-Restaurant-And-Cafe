@@ -297,6 +297,20 @@
       .magnetic, .magnetic::before, .magnetic > span:last-child { transition: none !important; }
       .magnetic:hover, .magnetic:hover > span:last-child { transform: none !important; }
     }
+
+    /* ===== WARM HERITAGE — PREMIUM MULTI-ACCENT =====
+       gold = brand/all • clay = food • lagoon = interior • wine = vibes */
+    :root{--ac-clay:#FB923C;--ac-pine:#86EFAC;--ac-lagoon:#5EEAD4;--ac-wine:#FDA4AF;--ac-gold:#FACC15}
+    html.light{--ac-clay:#C2410C;--ac-pine:#166534;--ac-lagoon:#0F766E;--ac-wine:#9F1239;--ac-gold:#A16207}
+    .ac-clay{color:var(--ac-clay)!important}.ac-pine{color:var(--ac-pine)!important}.ac-lagoon{color:var(--ac-lagoon)!important}.ac-wine{color:var(--ac-wine)!important}.ac-gold{color:var(--ac-gold)!important}
+    /* filter chips — active chip apni category ka rang leta hai */
+    .gbtn.on[data-f="food"]{background:linear-gradient(135deg,#FDBA74,#FB923C);color:#0A0A0A;border-color:transparent;box-shadow:0 12px 30px -12px rgba(251,146,60,.75)}
+    .gbtn.on[data-f="interior"]{background:linear-gradient(135deg,#5EEAD4,#2DD4BF);color:#0A0A0A;border-color:transparent;box-shadow:0 12px 30px -12px rgba(45,212,191,.6)}
+    .gbtn.on[data-f="vibes"]{background:linear-gradient(135deg,#FDA4AF,#FB7185);color:#0A0A0A;border-color:transparent;box-shadow:0 12px 30px -12px rgba(251,113,133,.6)}
+    /* photo ke upar wala category chip */
+    .gcard[data-cat="food"] .gchip{background:linear-gradient(135deg,#FDBA74,#FB923C);border-color:transparent;color:#0A0A0A!important}
+    .gcard[data-cat="interior"] .gchip{background:linear-gradient(135deg,#5EEAD4,#2DD4BF);border-color:transparent;color:#0A0A0A!important}
+    .gcard[data-cat="vibes"] .gchip{background:linear-gradient(135deg,#FDA4AF,#FB7185);border-color:transparent;color:#0A0A0A!important}
   </style>
   <script src="protect.js" defer></script>
   <script src="cookie-banner.js" defer></script>
@@ -377,15 +391,15 @@
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">PHOTOS</div>
             </div>
             <div class="stat-card glass rounded-[18px] px-4 py-3" data-reveal>
-              <div class="font-display text-[26px] leading-none text-mustard">03</div>
+              <div class="font-display text-[26px] leading-none ac-clay">03</div>
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">COLLECTIONS</div>
             </div>
             <div class="stat-card glass rounded-[18px] px-4 py-3" data-reveal>
-              <div class="font-display text-[26px] leading-none text-mustard">4.9★</div>
+              <div class="font-display text-[26px] leading-none ac-lagoon">4.9★</div>
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">GUEST RATING</div>
             </div>
             <div class="stat-card glass rounded-[18px] px-4 py-3" data-reveal>
-              <div class="font-display text-[26px] leading-none text-mustard">2018</div>
+              <div class="font-display text-[26px] leading-none ac-pine">2018</div>
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">ESTABLISHED</div>
             </div>
           </div>

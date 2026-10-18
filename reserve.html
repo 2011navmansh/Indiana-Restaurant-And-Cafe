@@ -217,6 +217,19 @@
       body { padding-bottom: 76px; }
     }
     @media (prefers-reduced-motion: reduce) { .liquid-shine::after, .rv-card, .marquee-track, .magnetic::before { transition: none !important; animation: none !important; } .magnetic:hover, .magnetic:hover > span:last-child { transform: none !important; } }
+
+    /* ===== WARM HERITAGE — PREMIUM MULTI-ACCENT =====
+       gold = brand • clay = warm/visit • pine = call/whatsapp • lagoon = hours/coffee • wine = evening/sweet */
+    :root{--ac-clay:#FB923C;--ac-pine:#86EFAC;--ac-lagoon:#5EEAD4;--ac-wine:#FDA4AF;--ac-gold:#FACC15}
+    html.light{--ac-clay:#C2410C;--ac-pine:#166534;--ac-lagoon:#0F766E;--ac-wine:#9F1239;--ac-gold:#A16207}
+    .ac-clay{color:var(--ac-clay)!important}.ac-pine{color:var(--ac-pine)!important}.ac-lagoon{color:var(--ac-lagoon)!important}.ac-wine{color:var(--ac-wine)!important}.ac-gold{color:var(--ac-gold)!important}
+    .bg-ac-clay{background:#FB923C;color:#0A0A0A}.bg-ac-pine{background:#86EFAC;color:#0A0A0A}.bg-ac-lagoon{background:#5EEAD4;color:#0A0A0A}.bg-ac-wine{background:#FDA4AF;color:#0A0A0A}.bg-ac-gold{background:#FACC15;color:#0A0A0A}
+    html.light .bg-ac-clay{background:#C2410C;color:#FFFBEB}html.light .bg-ac-pine{background:#166534;color:#FFFBEB}html.light .bg-ac-lagoon{background:#0F766E;color:#FFFBEB}html.light .bg-ac-wine{background:#9F1239;color:#FFFBEB}html.light .bg-ac-gold{background:#FACC15;color:#0A0A0A}
+    /* photo cards ke labels — dono themes me bright rehte hain */
+    .ph-clay{color:#FDBA74!important}.ph-pine{color:#86EFAC!important}.ph-lagoon{color:#5EEAD4!important}.ph-wine{color:#FDA4AF!important}.ph-gold{color:#FDE047!important}
+    /* ghost step numbers */
+    .ghost-clay{color:rgba(251,146,60,.3)}.ghost-lagoon{color:rgba(94,234,212,.3)}.ghost-pine{color:rgba(134,239,172,.3)}
+    html.light .ghost-clay{color:rgba(194,65,12,.26)}html.light .ghost-lagoon{color:rgba(15,118,110,.26)}html.light .ghost-pine{color:rgba(22,101,52,.26)}
   </style>
   <script src="protect.js" defer></script>
   <script src="cookie-banner.js" defer></script>
@@ -310,11 +323,11 @@
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">TO BOOK</div>
             </div>
             <div class="glass rounded-[18px] px-4 py-3" data-reveal>
-              <div class="font-display text-[26px] leading-none text-mustard">0₹</div>
+              <div class="font-display text-[26px] leading-none ac-pine">0₹</div>
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">PREPAYMENT</div>
             </div>
             <div class="glass rounded-[18px] px-4 py-3" data-reveal>
-              <div class="font-display text-[26px] leading-none text-mustard">60+</div>
+              <div class="font-display text-[26px] leading-none ac-clay">60+</div>
               <div class="text-[10px] tracking-[0.16em] font-bold opacity-60 mt-1">SEATS</div>
             </div>
             <div class="glass rounded-[18px] px-4 py-3" data-reveal>
@@ -487,7 +500,7 @@
         <div class="lg:col-span-5 grid gap-4 relative z-10">
           <div class="rv-card glass rounded-[26px] p-6" data-reveal>
             <div class="flex items-start gap-4">
-              <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">◷</span>
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-ac-lagoon grid place-items-center text-lg">◷</span>
               <div class="flex-1">
                 <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">SERVICE HOURS</div>
                 <div class="font-extrabold mt-1">11:00 AM — 10:45 PM • All 7 days</div>
@@ -502,19 +515,19 @@
           <div class="rv-card glass rounded-[26px] p-6" data-reveal>
             <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">WHY GUESTS BOOK HERE</div>
             <div class="grid gap-3 mt-4">
-              <div class="flex items-start gap-3"><span class="text-mustard font-black">01</span><p class="text-[12.5px] font-semibold leading-relaxed opacity-80">Instant confirmation — the owner sees your booking the second you send it.</p></div>
+              <div class="flex items-start gap-3"><span class="ac-clay font-black">01</span><p class="text-[12.5px] font-semibold leading-relaxed opacity-80">Instant confirmation — the owner sees your booking the second you send it.</p></div>
               <div class="flex items-start gap-3"><span class="text-mustard font-black">02</span><p class="text-[12.5px] font-semibold leading-relaxed opacity-80">Tables held 20 minutes past your slot, no questions asked.</p></div>
-              <div class="flex items-start gap-3"><span class="text-mustard font-black">03</span><p class="text-[12.5px] font-semibold leading-relaxed opacity-80">Free cancellation — call or WhatsApp us any time before you arrive.</p></div>
+              <div class="flex items-start gap-3"><span class="ac-lagoon font-black">03</span><p class="text-[12.5px] font-semibold leading-relaxed opacity-80">Free cancellation — call or WhatsApp us any time before you arrive.</p></div>
             </div>
           </div>
 
           <div class="rv-card glass rounded-[26px] p-6" data-reveal>
             <div class="flex items-start gap-4">
-              <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">☎</span>
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-ac-pine grid place-items-center text-lg">☎</span>
               <div class="flex-1">
                 <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">PREFER TO TALK?</div>
                 <a href="tel:+919057967791" class="font-extrabold mt-1 block hover:text-mustard transition">+91 90579 *****</a>
-                <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 text-[11.5px] font-extrabold tracking-[0.1em]">WHATSAPP US ↗</a>
+                <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 bg-ac-pine rounded-full px-5 py-2.5 text-[11.5px] font-extrabold tracking-[0.1em]">WHATSAPP US ↗</a>
               </div>
             </div>
           </div>
@@ -522,8 +535,8 @@
           <div class="rv-card glass rounded-[26px] p-6" data-reveal>
             <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">GOOD FOR</div>
             <div class="flex flex-wrap gap-2 mt-3">
-              <span class="rv-tag">Family Dinners</span><span class="rv-tag">Date Nights</span><span class="rv-tag">Birthdays</span>
-              <span class="rv-tag">Groups 8+</span><span class="rv-tag">Café Work Sessions</span>
+              <span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-clay mr-1.5 align-middle"></span>Family Dinners</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-wine mr-1.5 align-middle"></span>Date Nights</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-gold mr-1.5 align-middle"></span>Birthdays</span>
+              <span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-lagoon mr-1.5 align-middle"></span>Groups 8+</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-pine mr-1.5 align-middle"></span>Café Work Sessions</span>
             </div>
             <p class="text-[11.5px] opacity-55 mt-4 leading-relaxed">Groups of 10 or more? Add a note and we will join tables before you arrive.</p>
           </div>
@@ -544,7 +557,7 @@
         <button type="button" class="occ-card h-[240px] text-left" data-occ="Birthday" data-seat="Indoor" data-reveal>
           <img src="https://i.postimg.cc/fTsw0GPC/unnamed-(6).jpg" alt="Birthday dinner at Indiana" loading="lazy" decoding="async">
           <div class="occ-body absolute inset-x-0 bottom-0 p-5 text-cream">
-            <div class="text-[9.5px] font-extrabold tracking-[0.2em] text-mustard">TAKE THE CAKE</div>
+            <div class="text-[9.5px] font-extrabold tracking-[0.2em] ph-gold">TAKE THE CAKE</div>
             <div class="font-display text-[26px] leading-none mt-1">BIRTHDAY</div>
             <p class="text-[11.5px] opacity-75 mt-1.5 leading-snug">Candles, a corner table & staff who sing a little.</p>
           </div>
@@ -552,7 +565,7 @@
         <button type="button" class="occ-card h-[240px] text-left" data-occ="Date Night" data-seat="Window" data-reveal>
           <img src="https://i.postimg.cc/RVmMnkY7/unnamed-(4).jpg" alt="Date night at Indiana cafe" loading="lazy" decoding="async">
           <div class="occ-body absolute inset-x-0 bottom-0 p-5 text-cream">
-            <div class="text-[9.5px] font-extrabold tracking-[0.2em] text-mustard">JUST THE TWO OF YOU</div>
+            <div class="text-[9.5px] font-extrabold tracking-[0.2em] ph-wine">JUST THE TWO OF YOU</div>
             <div class="font-display text-[26px] leading-none mt-1">DATE NIGHT</div>
             <p class="text-[11.5px] opacity-75 mt-1.5 leading-snug">Soft light, slow coffee, zero rush.</p>
           </div>
@@ -560,7 +573,7 @@
         <button type="button" class="occ-card h-[240px] text-left" data-occ="Family Get-together" data-seat="Family Booth" data-reveal>
           <img src="https://i.postimg.cc/J481BfFZ/unnamed-(3).jpg" alt="Family dining at Indiana" loading="lazy" decoding="async">
           <div class="occ-body absolute inset-x-0 bottom-0 p-5 text-cream">
-            <div class="text-[9.5px] font-extrabold tracking-[0.2em] text-mustard">FULL TABLE</div>
+            <div class="text-[9.5px] font-extrabold tracking-[0.2em] ph-pine">FULL TABLE</div>
             <div class="font-display text-[26px] leading-none mt-1">FAMILY DINNER</div>
             <p class="text-[11.5px] opacity-75 mt-1.5 leading-snug">Long tables joined before you walk in.</p>
           </div>
@@ -568,7 +581,7 @@
         <button type="button" class="occ-card h-[240px] text-left" data-occ="Business" data-seat="Indoor" data-reveal>
           <img src="https://i.postimg.cc/c4Ws8pzT/unnamed-(8).jpg" alt="Coffee and laptop session at Indiana" loading="lazy" decoding="async">
           <div class="occ-body absolute inset-x-0 bottom-0 p-5 text-cream">
-            <div class="text-[9.5px] font-extrabold tracking-[0.2em] text-mustard">WORK &amp; COFFEE</div>
+            <div class="text-[9.5px] font-extrabold tracking-[0.2em] ph-lagoon">WORK &amp; COFFEE</div>
             <div class="font-display text-[26px] leading-none mt-1">CAFÉ MEETING</div>
             <p class="text-[11.5px] opacity-75 mt-1.5 leading-snug">Quiet corner, plugs & the good flat white.</p>
           </div>
@@ -586,19 +599,19 @@
       </div>
       <div class="grid md:grid-cols-3 gap-5 mt-10">
         <div class="glass rounded-[26px] p-6 relative overflow-hidden" data-reveal>
-          <div class="step-num text-[64px] leading-none text-mustard/25 absolute top-2 right-4">01</div>
+          <div class="step-num text-[64px] leading-none ghost-clay absolute top-2 right-4">01</div>
           <div class="text-[11px] font-bold tracking-[0.2em] opacity-55">FILL THE FORM</div>
           <h3 class="font-display text-[26px] mt-2 leading-none">DATE &amp; PARTY SIZE</h3>
           <p class="text-[13px] opacity-70 mt-3 leading-relaxed">Pick your slot in seconds with our custom calendar. No account, no prepayment.</p>
         </div>
         <div class="glass rounded-[26px] p-6 relative overflow-hidden" data-reveal>
-          <div class="step-num text-[64px] leading-none text-mustard/25 absolute top-2 right-4">02</div>
+          <div class="step-num text-[64px] leading-none ghost-lagoon absolute top-2 right-4">02</div>
           <div class="text-[11px] font-bold tracking-[0.2em] opacity-55">INSTANT ALERT</div>
           <h3 class="font-display text-[26px] mt-2 leading-none">OWNER SEES IT LIVE</h3>
           <p class="text-[13px] opacity-70 mt-3 leading-relaxed">Your booking lands straight in the restaurant dashboard and notification log.</p>
         </div>
         <div class="glass rounded-[26px] p-6 relative overflow-hidden" data-reveal>
-          <div class="step-num text-[64px] leading-none text-mustard/25 absolute top-2 right-4">03</div>
+          <div class="step-num text-[64px] leading-none ghost-pine absolute top-2 right-4">03</div>
           <div class="text-[11px] font-bold tracking-[0.2em] opacity-55">WALK IN HAPPY</div>
           <h3 class="font-display text-[26px] mt-2 leading-none">YOUR TABLE WAITS</h3>
           <p class="text-[13px] opacity-70 mt-3 leading-relaxed">Show your booking reference. We hold the table 20 minutes past the slot.</p>
@@ -623,7 +636,7 @@
           <div class="p-5">
             <div class="flex items-center justify-between gap-3">
               <h3 class="font-extrabold text-[14px] leading-tight">Wood-Fired Margherita</h3>
-              <span class="font-display text-mustard text-[22px] leading-none">₹399</span>
+              <span class="font-display ac-clay text-[22px] leading-none">₹399</span>
             </div>
             <p class="text-[12px] opacity-60 mt-2 leading-relaxed">48h dough, San Marzano, torn basil, 90 seconds in the oven.</p>
           </div>
@@ -633,7 +646,7 @@
           <div class="p-5">
             <div class="flex items-center justify-between gap-3">
               <h3 class="font-extrabold text-[14px] leading-tight">Truffle Brunch Bowl</h3>
-              <span class="font-display text-mustard text-[22px] leading-none">₹449</span>
+              <span class="font-display ac-pine text-[22px] leading-none">₹449</span>
             </div>
             <p class="text-[12px] opacity-60 mt-2 leading-relaxed">Poached eggs, truffle oil, avocado — our Sunday favourite.</p>
           </div>
@@ -643,7 +656,7 @@
           <div class="p-5">
             <div class="flex items-center justify-between gap-3">
               <h3 class="font-extrabold text-[14px] leading-tight">Cold Brew Tonic</h3>
-              <span class="font-display text-mustard text-[22px] leading-none">₹249</span>
+              <span class="font-display ac-lagoon text-[22px] leading-none">₹249</span>
             </div>
             <p class="text-[12px] opacity-60 mt-2 leading-relaxed">18-hour cold brew, tonic, orange — the Jhalawar summer cure.</p>
           </div>
@@ -653,7 +666,7 @@
           <div class="p-5">
             <div class="flex items-center justify-between gap-3">
               <h3 class="font-extrabold text-[14px] leading-tight">Belgian Choco Fondant</h3>
-              <span class="font-display text-mustard text-[22px] leading-none">₹299</span>
+              <span class="font-display ac-wine text-[22px] leading-none">₹299</span>
             </div>
             <p class="text-[12px] opacity-60 mt-2 leading-relaxed">Molten centre, vanilla bean ice cream. Order it when you sit.</p>
           </div>
@@ -674,7 +687,7 @@
           <div class="text-mustard text-[15px] tracking-[0.2em]">★★★★★</div>
           <p class="text-[13.5px] opacity-80 leading-relaxed mt-3">“Booked for my parents' anniversary — they kept the corner table ready with a candle. Felt genuinely special.”</p>
           <div class="flex items-center gap-3 mt-5">
-            <span class="w-9 h-9 rounded-full bg-mustard text-ink grid place-items-center font-extrabold text-[13px]">A</span>
+            <span class="w-9 h-9 rounded-full bg-ac-clay grid place-items-center font-extrabold text-[13px]">A</span>
             <div><div class="font-extrabold text-[13px]">Ankit S.</div><div class="text-[11px] opacity-55">Anniversary dinner</div></div>
           </div>
         </div>
@@ -682,7 +695,7 @@
           <div class="text-mustard text-[15px] tracking-[0.2em]">★★★★★</div>
           <p class="text-[13.5px] opacity-80 leading-relaxed mt-3">“Walked in at 8 on a Saturday with 11 people. They had a long table joined before we reached. No waiting.”</p>
           <div class="flex items-center gap-3 mt-5">
-            <span class="w-9 h-9 rounded-full bg-mustard text-ink grid place-items-center font-extrabold text-[13px]">P</span>
+            <span class="w-9 h-9 rounded-full bg-ac-pine grid place-items-center font-extrabold text-[13px]">P</span>
             <div><div class="font-extrabold text-[13px]">Priya M.</div><div class="text-[11px] opacity-55">Family get-together</div></div>
           </div>
         </div>
@@ -690,7 +703,7 @@
           <div class="text-mustard text-[15px] tracking-[0.2em]">★★★★★</div>
           <p class="text-[13.5px] opacity-80 leading-relaxed mt-3">“The garden seating with the wood-fired smell is unbeatable. Booked in 30 seconds, confirmed on WhatsApp instantly.”</p>
           <div class="flex items-center gap-3 mt-5">
-            <span class="w-9 h-9 rounded-full bg-mustard text-ink grid place-items-center font-extrabold text-[13px]">R</span>
+            <span class="w-9 h-9 rounded-full bg-ac-lagoon grid place-items-center font-extrabold text-[13px]">R</span>
             <div><div class="font-extrabold text-[13px]">Rahul K.</div><div class="text-[11px] opacity-55">Date night</div></div>
           </div>
         </div>
@@ -707,7 +720,7 @@
       </div>
       <div class="grid gap-3 mt-8" id="faq">
         <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
-          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Do I need to pay anything to reserve?<span class="faq-ico text-mustard text-xl">+</span></button>
+          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Do I need to pay anything to reserve?<span class="faq-ico ac-clay text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">No. Reservations are completely free — you pay only for what you order. Cancellations are free too.</p></div>
         </div>
         <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
@@ -715,15 +728,15 @@
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Bookings close 30 minutes before the last slot (10:15 PM). For anything later, please call us directly.</p></div>
         </div>
         <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
-          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Can we sit outside?<span class="faq-ico text-mustard text-xl">+</span></button>
+          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Can we sit outside?<span class="faq-ico ac-lagoon text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Yes — choose “Outdoor” as your seating preference. Garden tables are limited, so book ahead on weekends.</p></div>
         </div>
         <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
-          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Do you take large groups?<span class="faq-ico text-mustard text-xl">+</span></button>
+          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Do you take large groups?<span class="faq-ico ac-pine text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Absolutely. Add a note with your party size and we will arrange joined tables. Groups of 15+ please call ahead.</p></div>
         </div>
         <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
-          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Can I request a specific table?<span class="faq-ico text-mustard text-xl">+</span></button>
+          <button class="w-full flex items-center justify-between gap-4 text-left font-extrabold text-[14px]">Can I request a specific table?<span class="faq-ico ac-wine text-xl">+</span></button>
           <div class="faq-a"><p class="text-[13px] opacity-70 leading-relaxed pt-3">Yes — mention window, garden or booth in the notes and we will do our best. Requests are honoured first come, first served.</p></div>
         </div>
         <div class="faq-item glass rounded-[20px] px-5 py-4" data-reveal>
