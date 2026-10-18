@@ -172,11 +172,35 @@
       clip-path: inset(0 0 100% 0);
     }
 
+    /* Buttons — shine sweep + lift on hover (replaces old magnetic mouse-follow) */
     .magnetic {
-      transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow .3s;
+    }
+    .magnetic::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent 32%, rgba(255,255,255,.42) 48%, transparent 64%);
+      transform: translateX(-135%);
+      transition: transform .85s cubic-bezier(.2, .7, .2, 1);
+    }
+    .magnetic:hover::before { transform: translateX(135%); }
+    .magnetic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px -18px rgba(250,204,21,.75);
+    }
+    .magnetic:active { transform: translateY(-1px) scale(.97); }
+    .magnetic > span:last-child { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+    .magnetic:hover > span:last-child { transform: translateX(3px) rotate(-10deg); }
+    @media (prefers-reduced-motion: reduce) {
+      .magnetic, .magnetic::before, .magnetic > span:last-child { transition: none !important; }
+      .magnetic:hover, .magnetic:hover > span:last-child { transform: none !important; }
     }
 
-    /* STEP 2 — Loader + Cursor */
+    /* STEP 2 — Loader */
     #loader {
       clip-path: inset(0 0 0 0);
     }
@@ -184,20 +208,7 @@
       transform-origin: left;
       transform: scaleX(0);
     }
-    .cursor-dot {
-      width: 8px; height: 8px; background: #FACC15; border-radius: 999px;
-      position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999;
-      mix-blend-mode: difference;
-      transform: translate(-50%, -50%);
-    }
-    .cursor-ring {
-      width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.85); border-radius: 999px;
-      position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s;
-      mix-blend-mode: difference;
-    }
-    @media (max-width: 1024px){ .cursor-dot, .cursor-ring{ display:none; } } @media(max-width:640px){ #home h1{font-size:42px!important} .hero-plate{width:280px!important;height:280px!important} } @media(max-width:380px){ #home h1{font-size:34px!important} } html,body{overflow-x:hidden;max-width:100vw} *{box-sizing:border-box}
+    @media(max-width:640px){ #home h1{font-size:42px!important} .hero-plate{width:280px!important;height:280px!important} } @media(max-width:380px){ #home h1{font-size:34px!important} } html,body{overflow-x:hidden;max-width:100vw} *{box-sizing:border-box}
     .hero-line{ overflow: hidden; }
     .hero-line span{ display: inline-block; transform: translateY(110%); }
     .plate-spin{ animation: plateFloat 6s ease-in-out infinite; }
@@ -255,7 +266,7 @@
     /* stack stage: no black frame in light mode */
     html.light #stackWrap { background: #EFE7D2 !important; }
     html.light .stack-card { box-shadow: 0 24px 60px rgba(10,10,10,0.12); }
-    /* nav scrolled state + cursor + scrollbar in light mode */
+    /* nav scrolled state + scrollbar in light mode */
     html.light [class*="bg-black/70"] { background: rgba(255,255,255,0.82) !important; }
     /* LIGHT MODE: dark pill CTAs become mustard on light surfaces (no harsh black pills) */
     html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink,
@@ -277,7 +288,6 @@
     html.light .bg-mustard a.bg-ink.text-mustard, html.light .bg-mustard button.bg-ink.text-mustard,
     html.light .bg-mustard a.bg-ink *, html.light .bg-mustard button.bg-ink * { color: #FACC15 !important; }
     html.light .bg-mustard a.bg-ink.text-cream, html.light .bg-mustard button.bg-ink.text-cream { color: #FFFBEB !important; }
-    html.light .cursor-ring { border-color: rgba(10,10,10,0.4) !important; }
     html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
 
     /* ===== LOGO BADGE (circular crop + inner zoom so the emblem reads clearly) ===== */
@@ -478,9 +488,6 @@
       <div class="w-[220px] h-[2px] bg-white/10 mt-4 overflow-hidden rounded-full mx-auto"><div id="loaderBar" class="h-full bg-mustard w-full"></div></div>
     </div>
   </div>
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
   <div class="fixed top-0 left-0 w-full h-[3px] bg-white/10 z-[100]">
     <div id="progress" class="h-full bg-mustard w-full"></div>
   </div>
@@ -1053,17 +1060,6 @@
       else navbar.querySelector('div').classList.remove('!bg-black/70');
     });
 
-    // Magnetic buttons
-    document.querySelectorAll('.magnetic').forEach(btn => {
-      btn.addEventListener('mousemove', (e) => {
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        gsap.to(btn, { x: x * 0.18, y: y * 0.28, duration: 0.35, ease: 'power3.out' });
-      });
-      btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.35)' }));
-    });
-
     // Hero subtle parallax on scroll
     gsap.to('#home .glass-yellow', {
       yPercent: -6,
@@ -1129,12 +1125,6 @@
     loaderRaf = requestAnimationFrame(tickLoader);
     // Safety fallback 1.8s
     setTimeout(()=>{ if(!loaderDone){ cancelAnimationFrame(loaderRaf); gsap.to(loader,{yPercent:-100,duration:0.6,ease:'power4.inOut',onComplete:()=>{loader.style.display='none'; loaderDone=true}})} },1800);
-    // Custom cursor
-    const dot=document.getElementById('cursorDot'), ring=document.getElementById('cursorRing');
-    let mx=0,my=0,rx=0,ry=0;
-    window.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; gsap.to(dot,{x:mx,y:my,duration:0.08}); });
-    (function rafRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(rafRing); })();
-    document.querySelectorAll('a,button,.magnetic').forEach(el=>{ el.addEventListener('mouseenter',()=>{ gsap.to(ring,{scale:1.6,background:'rgba(255,255,255,0.08)',duration:0.2}) }); el.addEventListener('mouseleave',()=>{ gsap.to(ring,{scale:1,background:'transparent',duration:0.2}) }); });
     console.log('✓ Step 1 Foundation — Lenis + GSAP + Liquid Glass active');
     // STEP 3 — Menu filter + cart toast + GSAP reveal
     document.querySelectorAll('.filter-btn').forEach(btn=>{
@@ -1166,7 +1156,7 @@
       setTimeout(()=> gsap.to(toast,{y:10,opacity:0,duration:0.4,onComplete:()=>toast.classList.add('hidden')}),1800);
     }));
     gsap.from('.menu-card',{y:30,opacity:0,duration:0.7,stagger:0.08,ease:'power3.out',scrollTrigger:{trigger:'#menuGrid',start:'top 85%'}});
-    console.log('✓ Step 2 Loader + Cursor active');
+    console.log('✓ Step 2 Loader active');
     // Theme toggle — animated circle reveal (sun/moon)
     const tt=document.getElementById('themeToggle');
     const overlay=document.getElementById('themeOverlay');
