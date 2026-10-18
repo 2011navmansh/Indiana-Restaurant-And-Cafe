@@ -309,7 +309,7 @@
       --ac-clay: #FDBA74; --ac-pine: #86EFAC; --ac-lagoon: #5EEAD4; --ac-wine: #FDA4AF; --ac-gold: #FDE047;
     }
     /* surfaces that stay light in BOTH themes → always-deep accents */
-    :is(.bg-white, .glass-cream, .bg-cream, .bg-mustard, .bg-\[\#FFFBEB\]) {
+    :is(.bg-white, .glass-cream, .bg-cream, .bg-mustard, .bg-\[\#FFFBEB\], .glass-chip-light) {
       --ac-clay: #C2410C; --ac-pine: #166534; --ac-lagoon: #0F766E; --ac-wine: #9F1239; --ac-gold: #CA8A04;
     }
     .ac-clay { color: var(--ac-clay) !important; }
@@ -443,9 +443,9 @@
     .hero-lc {
       position: relative;
       isolation: isolate;
-      background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%);
+      background: linear-gradient(155deg, #FDE047 0%, #FACC15 24%, #F59E0B 50%, #FB923C 76%, #EA580C 100%);
       border: 1px solid rgba(255, 255, 255, 0.55);
-      box-shadow: 0 44px 90px -42px rgba(250, 204, 21, 0.8), 0 26px 60px -32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      box-shadow: 0 44px 90px -42px rgba(251, 146, 60, 0.6), 0 26px 60px -32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(18px) saturate(180%);
       -webkit-backdrop-filter: blur(18px) saturate(180%);
     }
@@ -490,10 +490,16 @@
     html.light .glass-chip-dark.text-mustard, html.light .glass-chip-dark .text-mustard { color: #FACC15 !important; }
     /* dark surfaces always keep light text — no dark-on-dark in light mode */
     html.light .glass-chip-dark, html.light .glass-chip-dark * { color: #FACC15 !important; }
+    /* dark chips par multi-accent allow (hero card) */
+    html.light :is(.glass-chip-dark.ac-clay, .glass-chip-dark .ac-clay) { color: #FDBA74 !important; }
+    html.light :is(.glass-chip-dark.ac-pine, .glass-chip-dark .ac-pine) { color: #86EFAC !important; }
+    html.light :is(.glass-chip-dark.ac-lagoon, .glass-chip-dark .ac-lagoon) { color: #5EEAD4 !important; }
+    html.light :is(.glass-chip-dark.ac-wine, .glass-chip-dark .ac-wine) { color: #FDA4AF !important; }
+    html.light :is(.glass-chip-dark.ac-gold, .glass-chip-dark .ac-gold) { color: #FDE047 !important; }
     html.light .bg-\[\#0F2A18\], html.light .bg-\[\#0F2A18\] * { color: #FFFBEB !important; }
     html.light .bg-\[\#0F2A18\] .text-mustard, html.light .bg-\[\#0F2A18\] .font-serif.italic { color: #FACC15 !important; }
-    /* the mustard brand card keeps its own colours in both themes */
-    html.light .hero-lc { background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%) !important; }
+    /* the wood-fired sunset card keeps its colours in both themes */
+    html.light .hero-lc { background: linear-gradient(155deg, #FDE047 0%, #FACC15 24%, #F59E0B 50%, #FB923C 76%, #EA580C 100%) !important; }
     html.light .hero-lc .text-ink, html.light .hero-lc .text-ink\/60, html.light .hero-lc .text-ink\/80 { color: #0A0A0A !important; }
     html.light .hero-lc .text-ink\/60 { color: rgba(10, 10, 10, 0.6) !important; }
     html.light .hero-lc .text-ink\/80 { color: rgba(10, 10, 10, 0.8) !important; }
@@ -624,19 +630,19 @@
               <div class="text-[11px] tracking-widest opacity-60 font-bold">SIGNATURE DISHES</div>
             </div>
             <div class="glass rounded-[18px] p-4">
-              <div class="font-display text-2xl leading-none">700°</div>
+              <div class="font-display text-2xl leading-none ac-lagoon">700°</div>
               <div class="text-[11px] tracking-widest opacity-60 font-bold">WOOD OVEN</div>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT YELLOW CARD — Liquid Glass -->
+        <!-- RIGHT SUNSET CARD (gold→clay) — Liquid Glass -->
         <div class="lg:col-span-5 relative">
           <div class="hero-lc rounded-[32px] p-4 md:p-6 relative overflow-hidden">
             <!-- header of card -->
             <div class="relative flex items-center justify-between gap-3">
               <div class="flex items-center gap-2">
-                <span class="w-8 h-8 rounded-full glass-chip-dark text-mustard grid place-items-center text-xs">◉</span>
+                <span class="w-8 h-8 rounded-full glass-chip-dark ac-clay grid place-items-center text-xs">◉</span>
                 <span class="font-extrabold text-ink text-sm tracking-wide">WOOD-FIRED SPECIAL</span>
               </div>
               <span class="glass-chip-dark text-mustard rounded-full px-3 py-1.5 text-[10px] font-extrabold tracking-[0.16em]">BESTSELLER</span>
@@ -654,7 +660,7 @@
               </div>
               <!-- spinning badge -->
               <div
-                class="absolute -right-2 -top-2 w-[88px] h-[88px] rounded-full glass-chip-dark text-mustard grid place-items-center border-4 border-mustard/90 shadow-xl">
+                class="absolute -right-2 -top-2 w-[88px] h-[88px] rounded-full glass-chip-dark ac-pine grid place-items-center border-4 border-pine-light/90 shadow-xl">
                 <div class="text-center leading-none">
                   <div class="text-[10px] tracking-[0.18em] font-bold">FRESH</div>
                   <div class="font-display text-lg leading-none">48H</div>
@@ -662,7 +668,7 @@
                 </div>
               </div>
               <!-- wood oven glass chip -->
-              <div class="absolute -left-3 top-8 glass-chip-light rounded-full px-3 py-2 text-[10px] font-extrabold tracking-[0.16em] text-ink -rotate-6">
+              <div class="absolute -left-3 top-8 glass-chip-light rounded-full px-3 py-2 text-[10px] font-extrabold tracking-[0.16em] ac-clay -rotate-6">
                 700° WOOD OVEN
               </div>
               <!-- price glass pill -->
@@ -675,18 +681,18 @@
                   <div class="text-ink font-extrabold leading-none">Margherita</div>
                   <div class="text-[10px] font-bold tracking-widest text-ink/60">WOOD-FIRED • 12"</div>
                 </div>
-                <div class="ml-1 glass-chip-dark text-mustard rounded-full px-3 py-1.5 font-extrabold text-sm">₹399</div>
+                <div class="ml-1 glass-chip-dark ac-clay rounded-full px-3 py-1.5 font-extrabold text-sm">₹399</div>
               </div>
             </div>
 
             <div class="relative mt-10 grid grid-cols-2 gap-3">
-              <div class="glass-chip-dark rounded-2xl p-4 text-mustard">
+              <div class="glass-chip-dark rounded-2xl p-4 ac-lagoon">
                 <div class="text-[10px] tracking-[0.18em] font-bold opacity-80">OPEN HOURS</div>
                 <div class="font-display text-xl leading-none mt-1">11AM — 10:45 PM</div>
                 <div class="text-[11px] opacity-70 mt-1">Daily • Dine-in &amp; Takeaway</div>
               </div>
               <div class="glass-chip-light rounded-2xl p-4 text-ink">
-                <div class="text-[10px] tracking-[0.18em] font-bold opacity-60">VISIT US</div>
+                <div class="text-[10px] tracking-[0.18em] font-bold ac-pine">VISIT US</div>
                 <div class="font-extrabold leading-tight text-[13px] mt-1">Rajlaxmi nagar, Jhalawar, Rajasthan 326001</div>
                 <a href="https://www.google.com/maps/search/Rajlaxmi+nagar+Jhalawar+Rajasthan+326001" target="_blank" class="text-[11px] opacity-70 hover:opacity-100 underline inline-block mt-1">Get Directions ↗</a>
               </div>

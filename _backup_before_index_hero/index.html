@@ -1,0 +1,1562 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script>try { if (localStorage.getItem('indiana-theme-v') !== '2') { localStorage.removeItem('indiana-theme'); localStorage.setItem('indiana-theme-v', '2'); } if (localStorage.getItem('indiana-theme') !== 'dark') document.documentElement.classList.add('light'); } catch (e) { }</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indiana Restaurant & Cafe - Taste the Joy of Flavour</title>
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/2j4wTB2c/image.png">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/2j4wTB2c/image.png">
+  <meta name="description"
+    content="Premium dining experience in Indiana — wood-fired pizzas, brunch, specialty coffee. Liquid glass design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Bebas Neue', 'cursive'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FFFBEB',
+            mustard: '#FACC15',
+            mustardDark: '#EAB308',
+            ink: '#0A0A0A',
+            stone900: '#1C1917',
+            forest: '#0F2A18',
+            goldDeep: '#CA8A04',
+            clay: { DEFAULT: '#C2410C', light: '#FB923C', dark: '#9A3412' },
+            pine: { DEFAULT: '#166534', light: '#86EFAC', dark: '#14532D' },
+            lagoon: { DEFAULT: '#0F766E', light: '#5EEAD4', dark: '#115E59' },
+            wine: { DEFAULT: '#9F1239', light: '#FDA4AF', dark: '#881337' },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { color-scheme: dark; }
+    html.light { color-scheme: light; }
+    /* ===== LIGHT MODE — proper cream theme ===== */
+    html.light body { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light .bg-ink, html.light .bg-\[\#0A0A0A\], html.light section.bg-ink, html.light section.bg-\[\#0A0A0A\], html.light footer.bg-ink, html.light #drawer { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light #home, html.light #stackedShowcase { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light .bg-forest { background: #FFF8DC !important; color: #0A0A0A !important; border-color: rgba(0,0,0,0.08) !important; }
+    html.light .bg-forest.text-cream { color: #0A0A0A !important; }
+    html.light .text-cream { color: #0A0A0A !important; }
+    html.light .text-white, html.light .text-white\/60, html.light .text-white\/65, html.light [class*=\"text-white\"] { color: #0A0A0A !important; }
+    html.light .text-white\/65, html.light .opacity-60, html.light .opacity-70 { color: rgba(10,10,10,0.65) !important; opacity: 1 !important; }
+    html.light .border-white\/10, html.light .border-white\/5 { border-color: rgba(0,0,0,0.08) !important; }
+    html.light .bg-white\/10 { background: rgba(0,0,0,0.06) !important; }
+    html.light .bg-white { background: #0A0A0A !important; color: #FFFBEB !important; }
+    /* glass in light mode — white frosted */
+    html.light .glass { background: rgba(255,255,255,0.82) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important; color: #0A0A0A !important; }
+    html.light .glass-dark { background: rgba(255,255,255,0.88) !important; border-color: rgba(0,0,0,0.07) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.08) !important; color:#0A0A0A !important; }
+    html.light .glass-dark a { color: #0A0A0A !important; }
+    html.light .glass-dark a.bg-white { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
+    html.light #navbar .glass-dark { background: rgba(255,255,255,0.85) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
+    html.light .glass-cream { background: rgba(255,255,255,0.95) !important; }
+    /* keep mustard accents same */
+    html.light .bg-mustard, html.light .bg-mustardDark { color: #0A0A0A !important; }
+    html.light .text-mustard { color: #A16207 !important; }
+    /* loader & progress in light */
+    html.light #loader { background: #FFFBEB !important; color: #0A0A0A !important; }
+    html.light #progress { background: #FACC15 !important; }
+    /* Theme circle reveal */
+    #themeOverlay{position:fixed;inset:0;pointer-events:none;z-index:9999;clip-path:circle(0% at var(--ox,95%) var(--oy,5%));background:#FFFBEB;opacity:0;transition:none}
+    #themeOverlay.active{clip-path:circle(150% at var(--ox,95%) var(--oy,5%));opacity:1}
+    #themeOverlay.to-dark{background:#0A0A0A}
+    body, section, nav, footer, .glass, .glass-dark{transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease}
+    #themeToggle{transition: transform 0.3s ease}
+    #themeToggle:active{transform: scale(0.88) rotate(12deg)}
+    * {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    /* Liquid Glass System */
+    .glass {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .glass-dark {
+      background: rgba(12, 12, 12, 0.58);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-yellow {
+      background: rgba(250, 204, 21, 0.96);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 20px 40px rgba(250, 204, 21, 0.25);
+    }
+
+    .glass-cream {
+      background: rgba(255, 251, 235, 0.92);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .liquid-shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-shine::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.18) 45%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0.9s ease;
+    }
+
+    .liquid-shine:hover::before {
+      transform: translateX(100%);
+    }
+
+    /* custom scrollbar progress */
+    #progress {
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    /* hide scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #FACC15;
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+
+    .reveal {
+      clip-path: inset(0 0 100% 0);
+    }
+
+    /* Buttons — shine sweep + lift on hover (replaces old magnetic mouse-follow) */
+    .magnetic {
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow .3s;
+    }
+    .magnetic::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent 32%, rgba(255,255,255,.42) 48%, transparent 64%);
+      transform: translateX(-135%);
+      transition: transform .85s cubic-bezier(.2, .7, .2, 1);
+    }
+    .magnetic:hover::before { transform: translateX(135%); }
+    .magnetic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px -18px rgba(250,204,21,.75);
+    }
+    .magnetic:active { transform: translateY(-1px) scale(.97); }
+    .magnetic > span:last-child { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+    .magnetic:hover > span:last-child { transform: translateX(3px) rotate(-10deg); }
+    @media (prefers-reduced-motion: reduce) {
+      .magnetic, .magnetic::before, .magnetic > span:last-child { transition: none !important; }
+      .magnetic:hover, .magnetic:hover > span:last-child { transform: none !important; }
+    }
+
+    /* STEP 2 — Loader */
+    #loader {
+      clip-path: inset(0 0 0 0);
+    }
+    #loaderBar {
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+    @media(max-width:640px){ #home h1{font-size:42px!important} .hero-plate{width:280px!important;height:280px!important} } @media(max-width:380px){ #home h1{font-size:34px!important} } html,body{overflow-x:hidden;max-width:100vw} *{box-sizing:border-box}
+    .hero-line{ overflow: hidden; }
+    .hero-line span{ display: inline-block; transform: translateY(110%); }
+    .plate-spin{ animation: plateFloat 6s ease-in-out infinite; }
+    @keyframes plateFloat{ 0%,100%{ transform: translateY(0) rotate(0deg)} 50%{ transform: translateY(-8px) rotate(0.6deg)} }
+    .badge-spin{ animation: spin 14s linear infinite; }
+    @keyframes spin{ to{ transform: rotate(360deg)} }
+
+    /* Fix: rounded corners — remove dotted/hairline glitch at kone (corner) */
+    .rounded-\[32px\].overflow-hidden:not(.stack-card),
+    .rounded-\[28px\].overflow-hidden:not(.stack-card),
+    .rounded-\[24px\].overflow-hidden:not(.stack-card),
+    .rounded-\[20px\].overflow-hidden:not(.stack-card) {
+      isolation: isolate;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      mask-image: radial-gradient(white, black);
+      /* remove GPU promotion that caused dotted arc — but keep stack-card animatable */
+      transform: none;
+      will-change: auto;
+      backface-visibility: hidden;
+    }
+    .rounded-\[32px\].overflow-hidden > img,
+    .rounded-\[28px\].overflow-hidden > img,
+    .rounded-\[24px\].overflow-hidden > img,
+    .rounded-\[20px\].overflow-hidden > img {
+      border-radius: inherit;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* cover 1px hairline bleed at kone */
+      transform: scale(1.015);
+      transform-origin: center;
+      backface-visibility: hidden;
+    }
+
+    /* ===== LIGHT MODE FIX v2 — cards stay light, chips stay dark ===== */
+    html.light .bg-white { background: #FFFFFF !important; color: #0A0A0A !important; }
+    html.light a.bg-white, html.light button.bg-white { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
+    /* dark pills/badges inside light cards must stay dark */
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink { background: #0A0A0A !important; }
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink.text-cream,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-cream,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-white { color: #FFFBEB !important; }
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink.text-mustard,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,.bg-mustard,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) .bg-ink .text-mustard { color: #FACC15 !important; }
+    /* no harsh black pills in light mode — soft mustard brand chips instead */
+    html.light .menu-card .bg-ink { background: #FEF3C7 !important; color: #92400E !important; box-shadow: inset 0 0 0 1px rgba(202,138,4,.3); }
+    html.light .menu-card .bg-ink.text-mustard { color: #92400E !important; }
+    html.light .menu-card button.bg-ink, html.light .menu-card button.bg-ink.text-mustard { background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important; color: #0A0A0A !important; box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important; }
+    html.light #reviews .bg-ink { background: #FEF3C7 !important; color: #92400E !important; box-shadow: inset 0 0 0 1px rgba(202,138,4,.3); }
+    html.light #reviews .bg-ink.text-mustard { color: #92400E !important; }
+    /* dark coloured cards keep light text */
+    html.light .bg-\[\#0F2A18\] { background: #0F2A18 !important; }
+    html.light .bg-\[\#0F2A18\].text-cream, html.light .bg-\[\#0F2A18\] .text-cream, html.light .bg-\[\#0F2A18\] .text-white { color: #FFFBEB !important; }
+    /* stack stage: no black frame in light mode */
+    html.light #stackWrap { background: #EFE7D2 !important; }
+    html.light .stack-card { box-shadow: 0 24px 60px rgba(10,10,10,0.12); }
+    /* nav scrolled state + scrollbar in light mode */
+    html.light [class*="bg-black/70"] { background: rgba(255,255,255,0.82) !important; }
+    /* LIGHT MODE: dark pill CTAs become mustard on light surfaces (no harsh black pills) */
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink {
+      background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%) !important;
+      box-shadow: 0 14px 30px -16px rgba(234,179,8,.85) !important;
+    }
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink.text-mustard,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink.text-mustard,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink.text-cream,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink.text-cream,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) a.bg-ink *,
+    html.light :is(.bg-white,.glass,.glass-cream,.bg-cream,[style*="#FFFBEB"],[class*="bg-[#FFFBEB]"]) button.bg-ink * { color: #0A0A0A !important; }
+    /* on mustard bands the dark pill stays (best contrast) */
+    html.light .bg-mustard a.bg-ink, html.light .bg-mustard button.bg-ink { background: #0A0A0A !important; }
+    html.light .bg-mustard a.bg-ink, html.light .bg-mustard button.bg-ink,
+    html.light .bg-mustard a.bg-ink.text-mustard, html.light .bg-mustard button.bg-ink.text-mustard,
+    html.light .bg-mustard a.bg-ink *, html.light .bg-mustard button.bg-ink * { color: #FACC15 !important; }
+    html.light .bg-mustard a.bg-ink.text-cream, html.light .bg-mustard button.bg-ink.text-cream { color: #FFFBEB !important; }
+    html.light ::-webkit-scrollbar-track { background: #FFF7DC !important; }
+
+    /* ===== WARM HERITAGE — PREMIUM MULTI-ACCENT SYSTEM (v1) =====
+       gold = brand • clay = wood-fired/hot • pine = fresh/brunch • lagoon = cool/coffee • wine = sweet/evening
+       Accent text classes (.ac-*) auto-flip: bright on dark surfaces, deep on light surfaces. */
+    :root {
+      --ac-clay: #FB923C; --ac-pine: #86EFAC; --ac-lagoon: #5EEAD4; --ac-wine: #FDA4AF; --ac-gold: #FACC15;
+    }
+    html.light {
+      --ac-clay: #C2410C; --ac-pine: #166534; --ac-lagoon: #0F766E; --ac-wine: #9F1239; --ac-gold: #CA8A04;
+    }
+    /* surfaces that stay dark in BOTH themes → always-bright accents */
+    :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine, .bg-\[\#0F2A18\], .glass-chip-dark) {
+      --ac-clay: #FDBA74; --ac-pine: #86EFAC; --ac-lagoon: #5EEAD4; --ac-wine: #FDA4AF; --ac-gold: #FDE047;
+    }
+    /* surfaces that stay light in BOTH themes → always-deep accents */
+    :is(.bg-white, .glass-cream, .bg-cream, .bg-mustard, .bg-\[\#FFFBEB\]) {
+      --ac-clay: #C2410C; --ac-pine: #166534; --ac-lagoon: #0F766E; --ac-wine: #9F1239; --ac-gold: #CA8A04;
+    }
+    .ac-clay { color: var(--ac-clay) !important; }
+    .ac-pine { color: var(--ac-pine) !important; }
+    .ac-lagoon { color: var(--ac-lagoon) !important; }
+    .ac-wine { color: var(--ac-wine) !important; }
+    .ac-gold { color: var(--ac-gold) !important; }
+    .bg-ac-clay { background: var(--ac-clay) !important; }
+    .bg-ac-pine { background: var(--ac-pine) !important; }
+    .bg-ac-lagoon { background: var(--ac-lagoon) !important; }
+    .bg-ac-wine { background: var(--ac-wine) !important; }
+    .bg-ac-gold { background: var(--ac-gold) !important; }
+    /* dark cards keep light text in light mode */
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine).text-cream,
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine) .text-cream { color: #FFFBEB !important; }
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine, .bg-\[\#0F2A18\]) .opacity-60,
+    html.light :is(.bg-clay, .bg-pine, .bg-lagoon, .bg-wine, .bg-\[\#0F2A18\]) .opacity-70 { color: rgba(255, 251, 235, .72) !important; opacity: 1 !important; }
+
+    /* ===== LOGO BADGE (circular crop + inner zoom so the emblem reads clearly) ===== */
+    .logo-badge {
+      position: relative; display: inline-grid; place-items: center; flex: 0 0 auto;
+      border-radius: 999px; overflow: hidden; background: #0A0A0A;
+    }
+    .logo-badge > img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.12); }
+
+    /* ===== RESERVE SECTION ===== */
+    .rv-field { position: relative; display: flex; flex-direction: column; gap: 7px; }
+    .rv-field--r .rv-pop { left: auto; right: 0; }
+    .rv-field > span { font-size: 9.5px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; opacity: .6; }
+    .rv-field input, .rv-field select, .rv-input {
+      width: 100%; border-radius: 16px; padding: 13px 16px; font-size: 14px; font-weight: 600;
+      font-family: inherit; color: inherit; outline: none; appearance: none; -webkit-appearance: none;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+      transition: border-color .3s, background .3s, box-shadow .3s;
+    }
+    .rv-field input::placeholder { color: rgba(255,251,235,.4); font-weight: 500; }
+    .rv-field input:focus, .rv-field select:focus, .rv-input:focus-visible {
+      border-color: rgba(250,204,21,.8); background: rgba(250,204,21,.09);
+      box-shadow: 0 0 0 4px rgba(250,204,21,.14);
+    }
+    .rv-input {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      text-align: left; cursor: pointer; padding-right: 42px; position: relative;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FACC15' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 16px;
+    }
+    .rv-input:hover { border-color: rgba(250,204,21,.45); background-color: rgba(250,204,21,.05); }
+    .rv-input.open { border-color: rgba(250,204,21,.8); box-shadow: 0 0 0 4px rgba(250,204,21,.14); }
+    .rv-input .rv-ph { opacity: .45; font-weight: 500; }
+    .rv-submit {
+      border-radius: 999px; padding: 17px 22px; font-size: 12.5px; font-weight: 800; letter-spacing: .14em;
+      background: linear-gradient(135deg,#FACC15 0%,#EAB308 100%); color: #0A0A0A;
+      box-shadow: 0 22px 44px -20px rgba(250,204,21,.9), inset 0 1px 0 rgba(255,255,255,.5);
+      transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, filter .3s;
+    }
+    .rv-submit:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .rv-card { position: relative; overflow: hidden; transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s; }
+    .rv-card:hover { transform: translateY(-4px); box-shadow: 0 26px 54px -30px rgba(250,204,21,.5); }
+    .rv-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: .02em; padding: 7px 13px; border-radius: 999px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); color: inherit;
+    }
+
+    /* ===== PREMIUM POPOVER PICKERS (date / time / guests) ===== */
+    .rv-pop {
+      position: absolute; z-index: 60; top: calc(100% + 10px); left: 0; width: 306px; max-width: calc(100vw - 40px);
+      padding: 14px; border-radius: 22px; color: #FFFBEB;
+      background: rgba(14,14,14,.94); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: 0 36px 72px -32px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.08);
+      opacity: 0; transform: translateY(-10px) scale(.97); pointer-events: none;
+      transition: opacity .24s ease, transform .32s cubic-bezier(.2,.7,.2,1);
+    }
+    .rv-pop.open { opacity: 1; transform: none; pointer-events: auto; }
+    .rv-pop-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+    .rv-mo { font-size: 13.5px; font-weight: 800; letter-spacing: .04em; }
+    .rv-mo em { font-style: normal; opacity: .5; font-weight: 700; }
+    .rv-nav {
+      width: 32px; height: 32px; border-radius: 999px; display: grid; place-items: center; font-size: 16px; line-height: 1;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13); color: inherit; cursor: pointer; transition: .25s;
+    }
+    .rv-nav:hover { background: #FACC15; color: #0A0A0A; border-color: transparent; transform: translateY(-1px); }
+    .rv-dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 5px; }
+    .rv-dow span { text-align: center; font-size: 9px; font-weight: 800; letter-spacing: .12em; opacity: .42; }
+    .rv-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .rv-day {
+      height: 34px; border-radius: 12px; display: grid; place-items: center;
+      font-size: 12.5px; font-weight: 700; font-family: inherit; color: inherit;
+      background: transparent; border: 1px solid transparent; cursor: pointer; transition: .2s;
+    }
+    .rv-day:hover { background: rgba(250,204,21,.16); border-color: rgba(250,204,21,.4); transform: translateY(-1px); }
+    .rv-day.other { opacity: .22; cursor: default; }
+    .rv-day.other:hover { background: transparent; border-color: transparent; transform: none; }
+    .rv-day.off { opacity: .22; cursor: not-allowed; }
+    .rv-day.off:hover { background: transparent; border-color: transparent; transform: none; }
+    .rv-day.today { border-color: rgba(250,204,21,.55); box-shadow: inset 0 0 0 0 transparent; }
+    .rv-day.sel { background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; border-color: transparent; box-shadow: 0 12px 24px -12px rgba(250,204,21,.95); }
+    .rv-day.sel:hover { background: linear-gradient(135deg,#FACC15,#EAB308); }
+    .rv-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 11px; border-top: 1px solid rgba(255,255,255,.1); }
+    .rv-foot button { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; opacity: .65; transition: .25s; }
+    .rv-foot button:hover { opacity: 1; color: #FACC15; }
+    .rv-pop-lbl { font-size: 9.5px; font-weight: 800; letter-spacing: .2em; opacity: .45; margin-bottom: 9px; }
+    .rv-list { display: grid; gap: 3px; max-height: 236px; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; margin: -3px; padding: 3px; }
+    .rv-opt {
+      text-align: left; padding: 10px 13px; border-radius: 12px; font-size: 13px; font-weight: 700;
+      font-family: inherit; color: inherit; cursor: pointer; transition: .2s;
+    }
+    .rv-opt:hover { background: rgba(250,204,21,.14); }
+    .rv-opt.sel { background: linear-gradient(135deg,#FACC15,#EAB308); color: #0A0A0A; }
+    .rv-list::-webkit-scrollbar { width: 5px; }
+    .rv-list::-webkit-scrollbar-thumb { background: rgba(250,204,21,.6); border-radius: 999px; }
+    html.light .rv-field input, html.light .rv-field select, html.light .rv-input {
+      background-color: #FFFDF6; border-color: rgba(10,10,10,.1); color: #0A0A0A;
+      box-shadow: inset 0 1px 2px rgba(10,10,10,.04);
+    }
+    html.light .rv-input:hover { background-color: #FFF8E1; border-color: rgba(202,138,4,.45); }
+    html.light .rv-field input::placeholder { color: rgba(10,10,10,.35); }
+    html.light .rv-input { background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CA8A04' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+    html.light .rv-pop {
+      background: rgba(255,253,246,.98); color: #0A0A0A; border-color: rgba(10,10,10,.08);
+      box-shadow: 0 36px 72px -34px rgba(10,10,10,.4), inset 0 1px 0 #fff;
+    }
+    html.light .rv-nav { background: #FFFFFF; border-color: rgba(10,10,10,.1); }
+    html.light .rv-day:hover { background: rgba(202,138,4,.12); }
+    html.light .rv-foot { border-color: rgba(10,10,10,.08); }
+    html.light .rv-foot button { opacity: .55; }
+    html.light .rv-foot button:hover { opacity: 1; color: #A16207; }
+    html.light .rv-tag { background: #FFFFFF; border-color: rgba(10,10,10,.1); color: #0A0A0A; }
+
+    /* ===== PREMIUM LIQUID-GLASS HERO CARD ===== */
+    .hero-lc {
+      position: relative;
+      isolation: isolate;
+      background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: 0 44px 90px -42px rgba(250, 204, 21, 0.8), 0 26px 60px -32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+    }
+    .hero-lc::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(120% 85% at 12% 0%, rgba(255, 255, 255, 0.6), transparent 55%),
+        radial-gradient(80% 60% at 100% 100%, rgba(255, 255, 255, 0.25), transparent 60%);
+    }
+    .hero-lc::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -140%;
+      width: 55%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: skewX(-16deg);
+      transition: left 0.95s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .hero-lc:hover::after { left: 140%; }
+    .glass-chip-dark {
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 14px 32px -16px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    .glass-chip-light {
+      background: rgba(255, 255, 255, 0.74);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+    html.light .glass-chip-dark.text-mustard, html.light .glass-chip-dark .text-mustard { color: #FACC15 !important; }
+    /* dark surfaces always keep light text — no dark-on-dark in light mode */
+    html.light .glass-chip-dark, html.light .glass-chip-dark * { color: #FACC15 !important; }
+    html.light .bg-\[\#0F2A18\], html.light .bg-\[\#0F2A18\] * { color: #FFFBEB !important; }
+    html.light .bg-\[\#0F2A18\] .text-mustard, html.light .bg-\[\#0F2A18\] .font-serif.italic { color: #FACC15 !important; }
+    /* the mustard brand card keeps its own colours in both themes */
+    html.light .hero-lc { background: linear-gradient(160deg, #FDE047 0%, #FACC15 46%, #EAB308 100%) !important; }
+    html.light .hero-lc .text-ink, html.light .hero-lc .text-ink\/60, html.light .hero-lc .text-ink\/80 { color: #0A0A0A !important; }
+    html.light .hero-lc .text-ink\/60 { color: rgba(10, 10, 10, 0.6) !important; }
+    html.light .hero-lc .text-ink\/80 { color: rgba(10, 10, 10, 0.8) !important; }
+    @media (max-width: 640px) { .hero-lc::after { display: none; } }
+
+    /* ===== PREMIUM FOOTER ===== */
+    .foot-link { letter-spacing: 0.14em; font-weight: 700; opacity: 0.6; transition: opacity 0.25s, color 0.25s; }
+    .foot-link:hover { opacity: 1; color: #FACC15; }
+    html.light .foot-link:hover { color: #A16207; }
+  </style>
+  <script src="protect.js" defer></script>
+  <script src="cookie-banner.js" defer></script>
+  <script src="credit.js" defer></script>
+  <script src="live-clock.js" defer></script>
+</head>
+
+<body class="bg-ink text-cream font-sans overflow-x-hidden selection:bg-mustard selection:text-ink">
+<script src="skeleton.js"></script>
+  <div id="themeOverlay"></div>
+
+  
+  <div id="loader" class="fixed inset-0 z-[200] bg-ink flex flex-col items-center justify-center">
+    <div class="text-center">
+      <span class="logo-badge w-[92px] h-[92px] mx-auto ring-1 ring-mustard/40 shadow-[0_20px_50px_-20px_rgba(250,204,21,0.55)]">
+        <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo">
+      </span>
+      <div class="font-display text-4xl tracking-[0.12em] mt-4">INDIANA</div>
+      <div class="text-[10px] tracking-[0.3em] opacity-60 font-semibold">RESTAURANT & CAFE</div>
+      <div id="loaderPercent" class="font-display text-6xl text-mustard mt-6 leading-none">0%</div>
+      <div class="w-[220px] h-[2px] bg-white/10 mt-4 overflow-hidden rounded-full mx-auto"><div id="loaderBar" class="h-full bg-mustard w-full"></div></div>
+    </div>
+  </div>
+  <div class="fixed top-0 left-0 w-full h-[3px] bg-white/10 z-[100]">
+    <div id="progress" class="h-full bg-mustard w-full"></div>
+  </div>
+
+
+
+  <nav id="navbar"
+    class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1280px] z-50 transition-all duration-500">
+    <div class="glass-dark rounded-[20px] md:rounded-full px-3 md:px-6 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40 shrink-0">
+          <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo">
+        </span>
+        <span class="font-display text-[22px] tracking-[0.04em] leading-none hidden sm:block">INDIANA</span>
+        <span class="hidden sm:block text-[10px] tracking-[0.18em] opacity-60 -ml-1 font-semibold">RESTAURANT &
+          CAFE</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-2 text-[12.5px] font-semibold tracking-wide">
+        <a href="#home" class="px-4 py-2 rounded-full bg-white text-ink">Home</a>
+        <a href="about.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">About ↗</a>
+        <a href="menu.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Menu ↗</a>
+        <a href="gallery.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Gallery ↗</a>
+        <a href="reserve.html" class="px-4 py-2 rounded-full hover:bg-white/10 transition">Reserve</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" title="Toggle Light/Dark" class="w-10 h-10 rounded-full glass grid place-items-center text-sm">🌙</button>
+        <a href="reserve.html"
+          class="magnetic hidden md:inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-[10px] font-extrabold text-[13px] tracking-wide">
+          BOOK TABLE <span class="w-6 h-6 rounded-full bg-ink text-mustard grid place-items-center text-[12px]">↗</span>
+        </a>
+        <button id="menuBtn"
+          class="lg:hidden w-10 h-10 rounded-full bg-white text-ink grid place-items-center">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div id="drawer"
+    class="fixed inset-0 z-40 bg-ink/90 backdrop-blur-xl translate-x-full transition duration-500 lg:hidden flex flex-col p-8 pt-24 gap-6 text-2xl font-display tracking-widest">
+    <a href="#home" class="drawer-link">HOME</a><a href="about.html" class="drawer-link">ABOUT</a><a href="#menu"
+      class="drawer-link">MENU</a><a href="reserve.html" class="drawer-link">RESERVE</a>
+    <button id="closeDrawer" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white text-ink">✕</button>
+  </div>
+
+  <!-- HERO — Dribbble INDIANA Style (Full Width Premium) -->
+  <section id="home" class="relative min-h-[100vh] bg-[#0A0A0A] pt-[112px] pb-10 overflow-hidden">
+    <!-- soft glow -->
+    <div
+      class="pointer-events-none absolute -top-32 -left-32 w-[520px] h-[520px] bg-mustard/15 blur-[90px] rounded-full">
+    </div>
+    <div class="pointer-events-none absolute top-20 right-0 w-[420px] h-[420px] bg-white/5 blur-[70px] rounded-full">
+    </div>
+
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="grid lg:grid-cols-12 gap-6 items-start">
+
+        <!-- LEFT COPY -->
+        <div class="lg:col-span-7 flex flex-col gap-5">
+          <!-- badge -->
+          <div class="inline-flex items-center gap-2 glass rounded-full px-3 py-2 w-fit">
+            <span class="w-7 h-7 rounded-full bg-mustard grid place-items-center text-ink text-xs">✦</span>
+            <span class="text-xs font-bold tracking-[0.14em] uppercase">Wood-fired • Since 2018 • Indiana</span>
+            <span class="hidden sm:inline text-xs opacity-60">— Taste the Joy</span>
+          </div>
+
+          <h1 class="font-display leading-[0.88] tracking-[-0.02em]">
+            <span class="block text-[52px] md:text-[84px] lg:text-[92px]">TASTE <span
+                class="font-serif italic font-normal normal-case tracking-normal text-[42px] md:text-[68px] align-middle">the</span></span>
+            <span class="block text-[52px] md:text-[84px] lg:text-[92px]">JOY <span
+                class="font-serif italic font-normal text-mustard">OF</span></span>
+            <span class="block text-[52px] md:text-[84px] lg:text-[92px]">FLAVOUR</span>
+          </h1>
+
+          <p class="max-w-[520px] text-white/65 text-[14.5px] leading-6">
+            Hand-tossed sourdough, 48h fermented dough, 700°F wood oven. Brunch to late-night.
+          </p>
+
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a href="#menu"
+              class="magnetic inline-flex items-center gap-3 bg-mustard text-ink rounded-full px-6 py-3 font-extrabold text-sm">
+              EXPLORE MENU <span class="w-7 h-7 rounded-full bg-ink text-mustard grid place-items-center">→</span>
+            </a>
+            <a href="#reserve" class="inline-flex items-center gap-2 glass rounded-full px-6 py-3 font-bold text-sm">
+              <span class="w-7 h-7 rounded-full bg-white text-ink grid place-items-center">◷</span> RESERVE TABLE
+            </a>
+          </div>
+
+          <!-- stats + mini cards row -->
+          <div class="grid grid-cols-3 gap-3 pt-4 max-w-[560px]">
+            <div class="glass rounded-[18px] p-4">
+              <div class="font-display text-2xl leading-none">4.9<span class="text-mustard">★</span></div>
+              <div class="text-[11px] tracking-widest opacity-60 font-bold">2.4k REVIEWS</div>
+            </div>
+            <div class="glass rounded-[18px] p-4">
+              <div class="font-display text-2xl leading-none ac-clay">42+</div>
+              <div class="text-[11px] tracking-widest opacity-60 font-bold">SIGNATURE DISHES</div>
+            </div>
+            <div class="glass rounded-[18px] p-4">
+              <div class="font-display text-2xl leading-none">700°</div>
+              <div class="text-[11px] tracking-widest opacity-60 font-bold">WOOD OVEN</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT YELLOW CARD — Liquid Glass -->
+        <div class="lg:col-span-5 relative">
+          <div class="hero-lc rounded-[32px] p-4 md:p-6 relative overflow-hidden">
+            <!-- header of card -->
+            <div class="relative flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full glass-chip-dark text-mustard grid place-items-center text-xs">◉</span>
+                <span class="font-extrabold text-ink text-sm tracking-wide">WOOD-FIRED SPECIAL</span>
+              </div>
+              <span class="glass-chip-dark text-mustard rounded-full px-3 py-1.5 text-[10px] font-extrabold tracking-[0.16em]">BESTSELLER</span>
+            </div>
+
+            <!-- circular pizza plate -->
+            <div class="relative mt-8 mx-auto w-[280px] h-[280px] md:w-[340px] md:h-[340px]">
+              <!-- liquid glass rings -->
+              <div class="pointer-events-none absolute -inset-4 rounded-full border border-white/45"></div>
+              <div class="pointer-events-none absolute -inset-7 rounded-full border border-dashed border-white/40 badge-spin"></div>
+              <div class="absolute inset-0 rounded-full bg-white shadow-[0_35px_70px_-25px_rgba(0,0,0,0.5)] border-[10px] border-white/90 overflow-hidden plate-spin">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80&auto=format&fit=crop"
+                  alt="Wood fired pizza" class="w-full h-full object-cover">
+                <div class="pointer-events-none absolute inset-0 rounded-full shadow-[inset_0_-45px_60px_-30px_rgba(0,0,0,0.6)]"></div>
+              </div>
+              <!-- spinning badge -->
+              <div
+                class="absolute -right-2 -top-2 w-[88px] h-[88px] rounded-full glass-chip-dark text-mustard grid place-items-center border-4 border-mustard/90 shadow-xl">
+                <div class="text-center leading-none">
+                  <div class="text-[10px] tracking-[0.18em] font-bold">FRESH</div>
+                  <div class="font-display text-lg leading-none">48H</div>
+                  <div class="text-[8px] tracking-widest opacity-70">DOUGH</div>
+                </div>
+              </div>
+              <!-- wood oven glass chip -->
+              <div class="absolute -left-3 top-8 glass-chip-light rounded-full px-3 py-2 text-[10px] font-extrabold tracking-[0.16em] text-ink -rotate-6">
+                700° WOOD OVEN
+              </div>
+              <!-- price glass pill -->
+              <div
+                class="absolute -left-4 bottom-6 glass-chip-light rounded-full p-2 pr-3 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden shrink-0"><img
+                    src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=80&auto=format&fit=crop"
+                    class="w-full h-full object-cover"></div>
+                <div>
+                  <div class="text-ink font-extrabold leading-none">Margherita</div>
+                  <div class="text-[10px] font-bold tracking-widest text-ink/60">WOOD-FIRED • 12"</div>
+                </div>
+                <div class="ml-1 glass-chip-dark text-mustard rounded-full px-3 py-1.5 font-extrabold text-sm">₹399</div>
+              </div>
+            </div>
+
+            <div class="relative mt-10 grid grid-cols-2 gap-3">
+              <div class="glass-chip-dark rounded-2xl p-4 text-mustard">
+                <div class="text-[10px] tracking-[0.18em] font-bold opacity-80">OPEN HOURS</div>
+                <div class="font-display text-xl leading-none mt-1">11AM — 10:45 PM</div>
+                <div class="text-[11px] opacity-70 mt-1">Daily • Dine-in &amp; Takeaway</div>
+              </div>
+              <div class="glass-chip-light rounded-2xl p-4 text-ink">
+                <div class="text-[10px] tracking-[0.18em] font-bold opacity-60">VISIT US</div>
+                <div class="font-extrabold leading-tight text-[13px] mt-1">Rajlaxmi nagar, Jhalawar, Rajasthan 326001</div>
+                <a href="https://www.google.com/maps/search/Rajlaxmi+nagar+Jhalawar+Rajasthan+326001" target="_blank" class="text-[11px] opacity-70 hover:opacity-100 underline inline-block mt-1">Get Directions ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- floating tiny avatars glass -->
+          <div class="hidden md:flex absolute -bottom-6 -left-6 glass-dark rounded-full px-3 py-2 items-center gap-3">
+            <div class="flex -space-x-2">
+              <img src="https://i.pravatar.cc/100?img=11" class="w-8 h-8 rounded-full border-2 border-white/20">
+              <img src="https://i.pravatar.cc/100?img=32" class="w-8 h-8 rounded-full border-2 border-white/20">
+              <img src="https://i.pravatar.cc/100?img=15" class="w-8 h-8 rounded-full border-2 border-white/20">
+            </div>
+            <div class="text-xs leading-none pr-2">
+              <div class="font-bold">Loved by 2k+</div>
+              <div class="opacity-60">Happy diners</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARQUEE -->
+      <div class="mt-8 overflow-hidden rounded-full glass py-3">
+        <div
+          class="flex whitespace-nowrap animate-[marquee_10s_linear_infinite] gap-8 text-xs font-extrabold tracking-[0.18em]">
+          <span>WOOD-FIRED PIZZA • </span><span>48H FERMENTED DOUGH • </span><span>SPECIALTY COFFEE •
+          </span><span>BRUNCH DAILY • </span><span>WOOD-FIRED PIZZA • </span><span>48H FERMENTED DOUGH •
+          </span><span>SPECIALTY COFFEE • </span><span>BRUNCH DAILY • </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- STEP 3 — SIGNATURE MENU BENTO -->
+  <section id="menu" class="bg-ink text-cream py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div>
+          <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">OUR SIGNATURE</div>
+          <h2 class="font-display text-[44px] md:text-[64px] leading-[0.9] mt-3">BITES <span class="font-serif italic font-normal text-mustard">Menu</span></h2>
+        </div>
+        <p class="max-w-[380px] text-sm opacity-60">Wood-fired, 48h fermented dough — filter & add to cart.</p>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-8" id="menuFilters">
+        <button data-filter="all" data-acc="mustard" class="filter-btn active bg-mustard text-ink rounded-full px-5 py-2 text-xs font-extrabold">All</button>
+        <button data-filter="pizza" data-acc="clay" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Pizza</button>
+        <button data-filter="brunch" data-acc="pine" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Brunch</button>
+        <button data-filter="coffee" data-acc="lagoon" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Coffee</button>
+        <button data-filter="dessert" data-acc="wine" class="filter-btn glass rounded-full px-5 py-2 text-xs font-bold">Desserts</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5" id="menuGrid">
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-clay text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">PIZZA</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Margherita Wood-Fired</h3><span class="bg-clay text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹399</span></div><p class="text-xs opacity-60">San Marzano • Fior di latte</p><button class="addBtn mt-3 w-full bg-clay text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="pizza" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-clay text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">PIZZA</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Pepperoni Inferno</h3><span class="bg-clay text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹549</span></div><p class="text-xs opacity-60">Spicy pepperoni • Honey</p><button class="addBtn mt-3 w-full bg-clay text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-pine text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">BRUNCH</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Truffle Brunch Bowl</h3><span class="bg-pine text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹449</span></div><p class="text-xs opacity-60">Poached egg • Truffle</p><button class="addBtn mt-3 w-full bg-pine text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="coffee" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-lagoon text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">COFFEE</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Cold Brew Tonic</h3><span class="bg-lagoon text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹249</span></div><p class="text-xs opacity-60">Single origin • Citrus</p><button class="addBtn mt-3 w-full bg-lagoon text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="dessert" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-wine text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">DESSERT</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Choco Lava Fondant</h3><span class="bg-wine text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹299</span></div><p class="text-xs opacity-60">72% dark • Gelato</p><button class="addBtn mt-3 w-full bg-wine text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+        <div data-cat="brunch" class="menu-card glass-cream rounded-[28px] p-3 liquid-shine"><div class="relative h-[180px] rounded-[20px] overflow-hidden"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop" class="w-full h-full object-cover"><span class="absolute top-3 left-3 bg-pine text-cream text-[9px] font-extrabold tracking-[0.16em] px-3 py-1.5 rounded-full">BRUNCH</span></div><div class="p-4 text-ink"><div class="flex justify-between"><h3 class="font-extrabold">Avocado Sourdough</h3><span class="bg-pine text-cream rounded-full px-3 py-1 text-xs font-extrabold">₹379</span></div><p class="text-xs opacity-60">Chili flakes • Lime</p><button class="addBtn mt-3 w-full bg-pine text-cream rounded-full py-2 text-xs font-extrabold hover:brightness-110 transition">ADD TO CART +</button></div></div>
+      </div>
+      <div id="cartToast" class="fixed bottom-6 right-6 z-[80] hidden glass-dark rounded-full px-5 py-3 text-sm font-bold">Added to cart ✓</div>
+    </div>
+  </section>
+    <!-- SIGNATURE STACK — REBUILT STRAIGHT (NO DIAGONAL, PERFECTLY ALIGNED) -->
+  <section id="stackedShowcase" class="relative bg-[#0A0A0A] text-cream overflow-hidden">
+    <style>
+      #stackedShowcase #stackWrap{
+        position:relative;
+        overflow:hidden;
+        border-radius:32px;
+        background:#111;
+        /* isolate stacking */
+        isolation:isolate;
+      }
+      #stackedShowcase .stack-card{
+        position:absolute; inset:0;
+        border-radius:32px; overflow:hidden;
+        will-change: transform;
+        backface-visibility:hidden;
+        transform: translate3d(0,0,0);
+        /* kill any diagonal — lock X */
+        left:0 !important; right:0 !important; top:0 !important; bottom:0 !important;
+        margin:0 !important;
+      }
+      #stackedShowcase #stackPin{ align-items:center; }
+    </style>
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 pt-10 text-center">
+      <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">SIGNATURE STACK • SCROLL TO EXPLORE</div>
+      <h2 class="font-display text-[44px] md:text-[56px] leading-none mt-3">CRAFTED <span class="font-serif italic text-mustard">Dishes</span></h2>
+      <p class="text-sm opacity-60 mt-1">Scroll — next dish rises straight from bottom, perfectly aligned.</p>
+      <div class="flex justify-center gap-2 mt-3" id="stackDots"><span class="dot w-8 h-[6px] rounded-full bg-ac-gold"></span><span class="dot w-6 h-[6px] rounded-full bg-ac-clay opacity-30"></span><span class="dot w-6 h-[6px] rounded-full bg-ac-pine opacity-30"></span><span class="dot w-6 h-[6px] rounded-full bg-ac-lagoon opacity-30"></span><span class="dot w-6 h-[6px] rounded-full bg-ac-wine opacity-30"></span></div>
+    </div>
+    <!-- PIN ROW — left text + right cards perfectly aligned STRAIGHT -->
+    <div id="stackPin" class="relative max-w-[1280px] mx-auto px-4 md:px-6 h-[62vh] md:h-[64vh] min-h-[460px] flex items-center justify-between gap-6 md:gap-10 overflow-visible">
+      <!-- LEFT TEXTS -->
+      <div id="stackLeft" class="hidden md:flex flex-col justify-center w-[44%] max-w-[500px] pl-4 lg:pl-10 relative h-[460px] shrink-0">
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="0"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Margherita<br><span class="font-serif italic font-normal ac-clay">Classico</span></h3><p class="text-sm opacity-60 mt-3 leading-6">San Marzano • fior di latte • basil • 48h dough. Our bestseller, 700° wood-fired.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="1"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">02 — INFERNO</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Pepperoni<br><span class="font-serif italic font-normal ac-clay">Inferno</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Spicy pepperoni + hot honey — sweet heat that hits different.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="2"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">03 — BRUNCH</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Truffle<br><span class="font-serif italic font-normal ac-pine">Bowl</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Poached egg • truffle • sourdough — brunch done right.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="3"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">04 — BREW</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Cold Brew<br><span class="font-serif italic font-normal ac-lagoon">Tonic</span></h3><p class="text-sm opacity-60 mt-3 leading-6">Single-origin • citrus tonic — cold, crisp, clean.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+        <div class="stack-text absolute inset-0 flex flex-col justify-center" data-i="4"><div class="text-[11px] tracking-[0.2em] font-bold opacity-50">05 — DESSERT</div><h3 class="font-display text-[52px] leading-[0.9] mt-2">Choco<br><span class="font-serif italic font-normal ac-wine">Fondant</span></h3><p class="text-sm opacity-60 mt-3 leading-6">72% dark • vanilla gelato — molten centre.</p><a href="menu.html" class="mt-5 inline-flex w-fit border border-cream/20 rounded-full px-6 py-2.5 text-xs font-bold tracking-widest hover:bg-cream hover:text-ink transition">View more</a></div>
+      </div>
+      <!-- RIGHT CARDS — straight vertical stack, no diagonal -->
+      <div class="relative w-full md:w-[56%] max-w-[640px] md:max-w-[620px] h-[480px] md:h-[460px] shrink-0 rounded-[32px] overflow-hidden bg-[#111]" id="stackWrap">
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#FFFBEB] text-ink" data-i="0" style="z-index:5">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold tracking-[0.2em] opacity-50">01 — WOOD-FIRED</div><h3 class="font-display text-[36px] leading-none mt-1">MARGHERITA <span class="font-serif italic ac-clay">Classico</span></h3><p class="text-sm opacity-70 mt-3">San Marzano • fior di latte • basil • 48h dough</p><div class="flex gap-3 mt-6 items-center"><span class="bg-clay text-cream rounded-full px-5 py-2 font-extrabold">₹399</span><span class="text-xs font-bold opacity-60">BESTSELLER</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-clay text-cream" data-i="1" style="z-index:4">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">02 — INFERNO</div><h3 class="font-display text-[36px] leading-none mt-1">PEPPERONI <span class="font-serif italic text-mustard">Inferno</span></h3><p class="text-sm opacity-70 mt-3">Spicy pepperoni + hot honey — sweet heat</p><div class="flex gap-3 mt-6 items-center"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹549</span><span class="text-xs font-bold opacity-60">SPICY</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-[#0F2A18] text-cream" data-i="2" style="z-index:3">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">03 — BRUNCH</div><h3 class="font-display text-[36px] leading-none mt-1">TRUFFLE <span class="font-serif italic ac-pine">Bowl</span></h3><p class="text-sm opacity-70 mt-3">Poached egg • truffle • sourdough</p><div class="flex gap-3 mt-6 items-center"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹449</span><span class="text-xs font-bold opacity-60">CHEF\'S PICK</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-lagoon text-cream" data-i="3" style="z-index:2">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">04 — BREW</div><h3 class="font-display text-[36px] leading-none mt-1">COLD BREW <span class="font-serif italic ac-lagoon">Tonic</span></h3><p class="text-sm opacity-70 mt-3">Single-origin • citrus tonic</p><div class="flex gap-3 mt-6 items-center"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹249</span><span class="text-xs font-bold opacity-60">SINGLE ORIGIN</span></div></div>
+        </div>
+        <div class="stack-card absolute inset-0 rounded-[32px] overflow-hidden p-4 md:p-6 flex flex-col md:flex-row gap-6 items-center bg-wine text-cream" data-i="4" style="z-index:1">
+          <div class="w-full md:w-[52%] h-[260px] md:h-full rounded-[24px] overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+          <div class="flex-1 text-left"><div class="text-xs font-bold opacity-60">05 — DESSERT</div><h3 class="font-display text-[36px] leading-none mt-1">CHOCO <span class="font-serif italic ac-wine">Fondant</span></h3><p class="text-sm opacity-70 mt-3">72% dark • vanilla gelato</p><div class="flex gap-3 mt-6 items-center"><span class="bg-mustard text-ink rounded-full px-5 py-2 font-extrabold">₹299</span><span class="text-xs font-bold opacity-60">MUST TRY</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="h-[6vh] flex items-center justify-center text-xs tracking-[0.2em] opacity-40 font-bold">↓ SCROLL — NEXT DISH</div>
+  </section>
+  <section id="story" class="bg-cream text-ink py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="border border-black/10 rounded-full px-4 py-2 text-[11px] font-bold inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-clay"></span>OUR STORY</div>
+        <h2 class="font-display text-[44px] leading-none mt-4">FIRE • DOUGH • <span class="font-serif italic ac-clay">Soul</span></h2>
+        <p class="mt-4 text-sm opacity-70 leading-7">48h fermented dough, 700°F wood fire, hand-stretched. Indiana is a ritual.</p>
+        <div class="grid grid-cols-3 gap-3 mt-8">
+          <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl ac-clay">10+</div><div class="text-xs font-bold opacity-60">YEARS</div></div>
+          <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl ac-pine">2k+</div><div class="text-xs font-bold opacity-60">DINERS</div></div>
+          <div class="glass rounded-2xl p-4 text-center bg-white/60 border-black/10"><div class="font-display text-3xl">4.9<span class="text-goldDeep">★</span></div><div class="text-xs font-bold opacity-60">RATING</div></div>
+        </div>
+      </div>
+      <div class="rounded-[32px] overflow-hidden h-[420px]"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+    </div>
+  </section>
+  <section class="bg-mustard py-3 overflow-hidden whitespace-nowrap"><div class="animate-[marquee_9s_linear_infinite] inline-flex font-display text-lg tracking-widest"><span class="px-4">WOOD-FIRED •</span><span class="px-4">48H DOUGH •</span><span class="px-4">FRESH •</span><span class="px-4">HAND-TOSSED •</span><span class="px-4">WOOD-FIRED •</span><span class="px-4">48H DOUGH •</span><span class="px-4">FRESH •</span><span class="px-4">HAND-TOSSED •</span></div></section>
+  <section id="reviews" class="bg-cream text-ink py-16" style="background:#FFFBEB"><div class="max-w-[1280px] mx-auto px-4 md:px-6"><h2 class="font-display text-[40px] md:text-[48px] text-center leading-none">LOVED BY <span class="font-serif italic text-mustard" style="color:#CA8A04">Diners</span></h2><p class="text-center text-sm opacity-60 mt-2">Real Google Reviews &bull; Food 5 &bull; Service 5 &bull; Atmosphere 5 &bull; <a href="https://www.google.com/maps/place/Indiana+Restaurant+And+Cafe+-+Best+Restaurant,+Cafe,+Veg+Restaurant/@24.5867946,76.1768224,19z/data=!4m6!3m5!1s0x39653f5e97994c59:0x845456ba8f1efc7f!8m2!3d24.5867946!4d76.1768224!16s%2Fg%2F11fsbc3fn1?entry=ttu" target="_blank" class="underline hover:text-mustard">View on Google Maps &rarr;</a></p><div class="grid lg:grid-cols-3 gap-5 mt-8 items-start"><!-- FEATURED REAL REVIEW - Sanmeet --><div class="lg:col-span-2 bg-white rounded-[24px] p-6 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5 flex flex-col"><div class="flex flex-wrap gap-2 mb-4"><span class="bg-mustard text-ink rounded-full px-4 py-1.5 text-xs font-extrabold">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0</span><span class="bg-clay text-cream rounded-full px-3 py-1.5 text-xs font-bold">Food: 5</span><span class="bg-pine text-cream rounded-full px-3 py-1.5 text-xs font-bold">Service: 5</span><span class="bg-lagoon text-cream rounded-full px-3 py-1.5 text-xs font-bold">Atmosphere: 5</span></div><p class="text-[15px] leading-7 text-ink/80">&ldquo;Great place to have all fast food items. They have indoor as well as outdoor sitting - both sitting areas are clean and have great vibe. Food menu is very dynamic with great choices of pastas, pizzas, sandwich and even main course. They have great drinks menu as well - lot of choices in coffee. They have items for kids as well. Lot of parking available outside.&rdquo;</p><p class="text-[15px] leading-7 text-ink/80 mt-3">&ldquo;Overall this is a great place to have lunch / dinner with family. May get busy on weekends&rdquo;</p><div class="grid grid-cols-3 gap-3 mt-6"><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[16px] overflow-hidden h-[160px]"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex gap-3 mt-6 items-center bg-[#FFFBEB] border border-black/5 rounded-full px-4 py-3"><img src="https://i.postimg.cc/SQDXFf1M/image.png" class="w-10 h-10 rounded-full object-cover shrink-0 border border-black/10"><div class="min-w-0"><div class="font-bold text-sm leading-tight">Sanmeet Gurudatta &bull; Verified Diner &bull; Google Review</div><div class="text-xs opacity-60 leading-tight">Family dining &bull; Jhalawar &bull; Indiana Restaurant & Cafe</div></div><span class="ml-auto hidden sm:inline-flex bg-mustard text-ink rounded-full px-3 py-1 text-[11px] font-bold shrink-0">&#10003; Verified</span></div></div><div class="flex flex-col gap-5"><div class="bg-clay text-cream rounded-[24px] p-6 shadow-[0_14px_34px_rgba(194,65,12,0.45)]"><div class="text-sm text-mustard">&#9733;&#9733;&#9733;&#9733;&#9733; <span class="font-extrabold ml-1 text-cream">5.0</span></div><p class="mt-3 text-sm font-medium leading-6">&ldquo;48h dough is real! Wood-fired crust is unbeatable. Pure veg & super tasty!&rdquo;</p><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full object-cover"><span class="text-sm font-bold">Sara &bull; Mumbai</span><span class="ml-auto text-[11px] bg-ink text-mustard rounded-full px-2.5 py-1 font-bold">Dine in</span></div></div><div class="bg-white rounded-[24px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-black/5"><div class="flex items-center gap-2"><span class="text-[#CA8A04] text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="bg-mustard text-ink rounded-full px-2.5 py-0.5 text-[11px] font-extrabold">5.0</span><span class="ml-auto text-[11px] font-bold opacity-50">2 weeks ago</span></div><p class="mt-3 text-[14px] leading-6 text-ink/80">&ldquo;Bohot badia restaurant hai, bohot acha khana he, hamare pas paise kam pad gaye the to hamse Kam pese lie inhone. bhagwan apko khush rakhe hamesha&rdquo;</p><div class="grid grid-cols-3 gap-2 mt-4"><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/dt9JRWMB/unnamed-(18).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div><div class="rounded-[12px] overflow-hidden h-[84px]"><img src="https://i.postimg.cc/3JZ3jLMZ/unnamed-(17).jpg" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div></div><div class="flex flex-wrap gap-2 mt-4"><span class="bg-lagoon/10 text-lagoon rounded-full px-3 py-1 text-[11px] font-bold">Dine in</span><span class="bg-clay/10 text-clay rounded-full px-3 py-1 text-[11px] font-bold">&#8377;600&ndash;800 / person</span></div><div class="flex gap-3 mt-4 items-center"><img src="https://i.pravatar.cc/100?img=26" class="w-9 h-9 rounded-full object-cover"><div><div class="text-sm font-bold leading-tight">Payal Yadav</div><div class="text-[11px] opacity-60 leading-tight">Verified &bull; Google Review</div></div><span class="ml-auto w-7 h-7 rounded-full bg-mustard text-ink grid place-items-center text-xs">&#10003;</span></div></div><a href="gallery.html" class="bg-white rounded-[24px] p-5 flex items-center justify-between hover:shadow-lg transition shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-black/5"><div><div class="font-extrabold text-sm">View all 32 photos</div><div class="text-xs opacity-60">Gallery &bull; Real ambience &bull; postimg.cc</div></div><span class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">&rarr;</span></a></div></div></div></section>
+  <!-- STEP 6 RESERVE -->
+  <section id="reserve" class="relative overflow-hidden bg-forest text-cream py-20 md:py-24">
+    <div class="pointer-events-none absolute -top-28 -left-24 w-[460px] h-[460px] rounded-full bg-mustard/10 blur-[120px]"></div>
+    <div class="pointer-events-none absolute -bottom-32 -right-16 w-[420px] h-[420px] rounded-full bg-mustard/10 blur-[120px]"></div>
+
+    <div class="relative max-w-[1280px] mx-auto px-4 md:px-6">
+      <!-- HEADER -->
+      <div class="max-w-[720px] mx-auto text-center">
+        <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2">
+          <span class="w-6 h-6 rounded-full bg-mustard text-ink grid place-items-center text-[11px]">✦</span>
+          <span class="text-[10.5px] font-bold tracking-[0.2em] uppercase">Reservations &bull; Open All 7 Days</span>
+        </div>
+        <h2 class="font-display text-[46px] md:text-[64px] leading-[0.88] mt-5">RESERVE <span class="font-serif italic text-mustard">Your Table</span></h2>
+        <p class="text-sm md:text-[15px] opacity-60 mt-4 max-w-[520px] mx-auto leading-relaxed">Thirty seconds, one form, zero waiting. Tell us when you are coming and we will keep the table warm &mdash; indoors or out.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-6 mt-12 items-start">
+        <!-- CTA CARD — booking ab reserve.html pe hoti hai -->
+        <div class="lg:col-span-7 glass rounded-[32px] p-6 md:p-8 relative z-30">
+          <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] opacity-55">
+            <span class="w-2 h-2 rounded-full bg-mustard"></span> TABLE BOOKING
+          </div>
+          <h3 class="font-display text-[30px] md:text-[40px] leading-[0.94] mt-4">READY IN <span class="font-serif italic text-mustard">30 seconds</span></h3>
+          <p class="text-sm md:text-[15px] opacity-60 mt-4 max-w-[540px] leading-relaxed">Name, phone, email, date and time &mdash; that is all. You get a booking reference instantly, and the moment the owner confirms it, a confirmation email lands in your inbox. No prepayment, ever.</p>
+          <div class="flex flex-wrap gap-3 mt-7">
+            <a href="reserve.html" class="inline-flex items-center justify-center gap-2 bg-mustard text-ink rounded-full px-8 py-4 text-[12px] font-extrabold tracking-[0.14em] w-full sm:w-auto hover:brightness-105 transition">BOOK A TABLE <span aria-hidden="true">↗</span></a>
+            <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-7 py-4 text-[12px] font-extrabold tracking-[0.14em] hover:bg-white/10 transition" style="border:1px solid rgba(128,128,128,.4)">WHATSAPP US</a>
+          </div>
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10.5px] font-bold tracking-[0.14em] opacity-55 mt-7">
+            <span>✓ NO PREPAYMENT</span><span>✓ INSTANT REFERENCE</span><span>✓ EMAIL CONFIRMATION</span>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-4 mt-7">
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(128,128,128,.12)">
+              <div class="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] opacity-55"><span class="w-1.5 h-1.5 rounded-full bg-ac-clay"></span>STEP 1</div>
+              <div class="text-[12.5px] font-bold mt-1">FILL THE FORM</div>
+            </div>
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(128,128,128,.12)">
+              <div class="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] opacity-55"><span class="w-1.5 h-1.5 rounded-full bg-ac-gold"></span>STEP 2</div>
+              <div class="text-[12.5px] font-bold mt-1">GET YOUR REFERENCE</div>
+            </div>
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(128,128,128,.12)">
+              <div class="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] opacity-55"><span class="w-1.5 h-1.5 rounded-full bg-ac-lagoon"></span>STEP 3</div>
+              <div class="text-[12.5px] font-bold mt-1">EMAIL CONFIRMATION</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="lg:col-span-5 grid gap-4 relative z-10">
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-clay text-cream grid place-items-center text-lg">📍</span>
+              <div>
+                <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">VISIT US</div>
+                <div class="font-extrabold mt-1 leading-snug">Rajlaxmi Nagar, Jhalawar,<br>Rajasthan 326001</div>
+                <a href="https://www.google.com/maps?q=24.587048235784344,76.17682239644377" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-[11px] font-extrabold tracking-[0.14em] text-mustard">GET DIRECTIONS ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-lagoon text-cream grid place-items-center text-lg">◷</span>
+              <div class="flex-1">
+                <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">OPEN DAILY</div>
+                <div class="font-extrabold mt-1">11:00 AM — 10:45 PM</div>
+                <div class="flex items-center gap-2 mt-3 text-[11px] font-bold tracking-[0.1em]">
+                  <span data-door-dot class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> <span id="openState">KITCHEN OPEN NOW</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="flex items-start gap-4">
+              <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">☎</span>
+              <div class="flex-1">
+                <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">CALL OR WHATSAPP</div>
+                <a href="tel:+919057967791" class="font-extrabold mt-1 block hover:text-mustard transition">+91 90579 *****</a>
+                <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 text-[11.5px] font-extrabold tracking-[0.1em]">RESERVE ON WHATSAPP ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="rv-card glass rounded-[26px] p-6">
+            <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">GOOD FOR</div>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-clay mr-1.5 align-middle"></span>Family Dinners</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-wine mr-1.5 align-middle"></span>Date Nights</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-gold mr-1.5 align-middle"></span>Birthdays</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-lagoon mr-1.5 align-middle"></span>Groups 8+</span><span class="rv-tag"><span class="inline-block w-1.5 h-1.5 rounded-full bg-ac-pine mr-1.5 align-middle"></span>Outdoor Seating</span>
+            </div>
+            <p class="text-[11.5px] opacity-55 mt-4 leading-relaxed">Coming with a big group? Give us a ring so we can join the tables before you arrive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- GALLERY — Real Photos (32) — Preview 8 -->
+  <section class="bg-cream text-ink py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex items-end justify-between gap-4 mb-8">
+        <div>
+          <h2 class="font-display text-[44px] leading-none">GALLERY <span class="font-serif italic ac-lagoon">Moments</span></h2>
+          <p class="text-xs font-bold tracking-widest opacity-60 mt-2">32 REAL PHOTOS &bull; INDOOR & OUTDOOR &bull; FOOD & VIBE</p>
+        </div>
+        <a href="gallery.html" class="hidden md:inline-flex bg-ink text-mustard rounded-full px-5 py-2.5 font-extrabold text-sm">VIEW ALL 32 &rarr;</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/J4QR3TVW/unnamed.jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/MKwWjCLy/unnamed-(1).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/m24bFvn7/unnamed-(2).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/J481BfFZ/unnamed-(3).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/RVmMnkY7/unnamed-(4).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/gkpY6C7y/unnamed-(5).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/fTsw0GPC/unnamed-(6).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+        <div class="rounded-[20px] overflow-hidden h-[220px]"><img src="https://i.postimg.cc/CL0Ff324/unnamed-(7).jpg" class="w-full h-full object-cover hover:scale-110 transition duration-700"></div>
+      </div>
+      <div class="text-center mt-6"><a href="gallery.html" class="inline-flex bg-ink text-cream rounded-full px-6 py-3 font-extrabold text-sm">VIEW ALL 32 PHOTOS &rarr;</a></div>
+    </div>
+  </section>
+  <!-- CHEF SECTION — Bigger -->
+  <section class="bg-ink text-cream py-16">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div class="rounded-[32px] overflow-hidden h-[460px]"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&q=80&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+      <div>
+        <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">MEET THE CHEF</div>
+        <h2 class="font-display text-[44px] leading-none mt-4">CRAFTED BY <span class="font-serif italic ac-clay">Maestros</span></h2>
+        <p class="mt-4 text-sm opacity-70 leading-7">Our chefs trained in Naples, bringing authentic wood-fire techniques to Indiana. Every dough is hand-kneaded, every sauce slow-cooked for 6 hours.</p>
+        <div class="flex gap-4 mt-6"><span class="glass rounded-full px-5 py-2 text-xs font-bold inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-ac-clay"></span>NAPOLI TRAINED</span><span class="glass rounded-full px-5 py-2 text-xs font-bold inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-ac-lagoon"></span>12 YEARS EXP</span></div>
+      </div>
+    </div>
+  </section>
+  <!-- LOCATION MAP — Indiana Restaurant Exact Coordinates -->
+  <section id="location" class="bg-ink text-cream py-16 border-t border-white/5">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+        <div>
+          <div class="inline-flex glass rounded-full px-4 py-2 text-[11px] font-bold tracking-[0.18em]">FIND US • JHALAWAR</div>
+          <h2 class="font-display text-[44px] md:text-[56px] leading-none mt-3">VISIT <span class="font-serif italic text-mustard">Indiana</span></h2>
+          <p class="text-sm opacity-60 mt-2 max-w-[520px]">Rajlaxmi nagar, Jhalawar, Rajasthan 326001 — exact pin on the map. Tap to get directions.</p>
+        </div>
+        <div class="hidden md:flex items-center gap-2 text-xs font-bold">
+          <span class="glass rounded-full px-4 py-2 inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-ac-lagoon"></span>11AM — 10:45 PM • Daily</span>
+          <span class="glass rounded-full px-4 py-2 inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-ac-pine"></span>DINE-IN • TAKEAWAY</span>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-6 items-stretch">
+        <!-- LEFT INFO -->
+        <div class="lg:col-span-2 flex flex-col gap-4">
+          <div class="glass rounded-[24px] p-6">
+            <div class="text-[11px] tracking-[0.18em] font-bold opacity-60">ADDRESS</div>
+            <div class="font-extrabold leading-tight mt-2 text-[15px]">Rajlaxmi nagar, Jhalawar,<br>Rajasthan 326001</div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" class="inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 font-extrabold text-sm hover:brightness-105 transition">GET DIRECTIONS ↗</a>
+              <a href="https://www.google.com/maps?q=24.587048235784344,76.17682239644377&z=17" target="_blank" class="inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 font-bold text-sm">OPEN IN MAPS</a>
+            </div>
+          </div>
+          <div class="glass rounded-[24px] p-6">
+            <div class="text-[11px] tracking-[0.18em] font-bold opacity-60">COORDINATES — EXACT PIN</div>
+            <div class="font-mono text-[13px] font-bold mt-2 break-all bg-white/5 rounded-full px-4 py-2 border border-white/10">24.587048235784344, 76.17682239644377</div>
+            <button onclick="navigator.clipboard.writeText('24.587048235784344, 76.17682239644377');this.textContent='COPIED ✓';setTimeout(()=>this.textContent='COPY COORDINATES',2000)" class="mt-3 text-xs font-bold tracking-widest opacity-70 hover:opacity-100 underline">COPY COORDINATES</button>
+            <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
+              <div class="bg-white/5 rounded-2xl p-3 border border-white/5"><div class="opacity-60 font-bold tracking-widest text-[10px]">LATITUDE</div><div class="font-bold font-mono">24.587048</div></div>
+              <div class="bg-white/5 rounded-2xl p-3 border border-white/5"><div class="opacity-60 font-bold tracking-widest text-[10px]">LONGITUDE</div><div class="font-bold font-mono">76.176822</div></div>
+            </div>
+          </div>
+          <div class="glass rounded-[24px] p-6 flex items-center justify-between">
+            <div><div class="text-xs font-bold opacity-60 tracking-widest">CALL</div><div class="font-extrabold">+91 90579 *****</div></div>
+            <a href="tel:+919057967791" class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">↗</a>
+          </div>
+        </div>
+
+        <!-- RIGHT MAP -->
+        <div class="lg:col-span-3">
+          <div class="relative rounded-[32px] overflow-hidden bg-[#111] border border-white/10 h-[420px] md:h-[520px]" style="isolation:isolate; -webkit-mask-image:-webkit-radial-gradient(white,black); mask-image:radial-gradient(white,black);">
+            <iframe
+              src="https://maps.google.com/maps?q=24.587048235784344,76.17682239644377&z=17&output=embed"
+              width="100%" height="100%" style="border:0; filter: saturate(1.08) contrast(1.04);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Indiana Restaurant Location Map - 24.587048235784344, 76.17682239644377"></iframe>
+            <!-- Top badge -->
+            <div class="absolute top-4 left-4 right-4 flex justify-between items-start gap-3 pointer-events-none">
+              <div class="glass-dark rounded-full px-4 py-2 text-xs font-bold pointer-events-auto shadow-lg">📍 INDIANA • PINNED LOCATION</div>
+              <div class="hidden sm:flex glass-cream rounded-full px-3 py-2 text-[11px] font-bold text-ink pointer-events-auto shadow-lg">24.58704, 76.17682</div>
+            </div>
+            <!-- Bottom bar -->
+            <div class="absolute bottom-4 left-4 right-4 glass-dark rounded-[20px] p-3 flex items-center justify-between gap-3 shadow-xl">
+              <div class="text-xs leading-tight"><div class="font-extrabold">Indiana Restaurant & Cafe</div><div class="opacity-70">Rajlaxmi nagar, Jhalawar • Exact Pin</div></div>
+              <a href="https://www.google.com/maps/search/?api=1&query=24.587048235784344,76.17682239644377" target="_blank" class="shrink-0 bg-mustard text-ink rounded-full px-4 py-2 font-extrabold text-xs hover:brightness-105 transition">DIRECTIONS ↗</a>
+            </div>
+          </div>
+          <div class="mt-3 text-center text-[11px] tracking-widest opacity-50 font-bold">GOOGLE MAPS • EXACT PIN • 24.587048235784344, 76.17682239644377</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-ink border-t border-white/10 py-10">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
+      <div class="flex items-center gap-3">
+        <span class="logo-badge w-[52px] h-[52px] ring-1 ring-mustard/40">
+          <img src="https://i.postimg.cc/2j4wTB2c/image.png" alt="Indiana Restaurant & Cafe logo">
+        </span>
+        <div>
+          <div class="font-display text-[20px] tracking-[0.06em] leading-none">INDIANA</div>
+          <div class="opacity-60 tracking-[0.18em] text-[9px] font-bold mt-1">THOUSAND FLAVOURS AHEAD</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="#home" class="foot-link">HOME</a>
+        <a href="about.html" class="foot-link">ABOUT</a>
+        <a href="menu.html" class="foot-link">MENU</a>
+        <a href="gallery.html" class="foot-link">GALLERY</a>
+        <a href="reserve.html" class="foot-link">RESERVE</a>
+      </div>
+      <div class="opacity-60 tracking-[0.14em] text-center">© 2026 INDIANA • FULL PREMIUM BUILD</div>
+    </div>
+  </footer>
+
+  <style>
+    @keyframes marquee {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+  </style>
+
+  <!-- LIBS -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script>
+    // Lenis smooth scroll — premium settings
+    const lenis = new Lenis({
+      duration: 1.35,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+      lerp: 0.075,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.35,
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // GSAP + ScrollTrigger sync
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Progress bar
+    const progress = document.getElementById('progress');
+    lenis.on('scroll', ({ progress: p }) => {
+      progress.style.transform = `scaleX(${p})`;
+    });
+
+    // Navbar glass intensify on scroll
+    const navbar = document.getElementById('navbar');
+    lenis.on('scroll', ({ scroll }) => {
+      if (scroll > 20) navbar.querySelector('div').classList.add('!bg-black/70');
+      else navbar.querySelector('div').classList.remove('!bg-black/70');
+    });
+
+    // Hero subtle parallax on scroll
+    gsap.to('#home .glass-yellow', {
+      yPercent: -6,
+      ease: 'none',
+      scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    // Reveal animation
+    gsap.from('#home h1 span', { y: 60, opacity: 0, duration: 1, stagger: 0.12, ease: 'power4.out', delay: 0.2 });
+    gsap.from('#home .glass, #home .glass-yellow', { y: 24, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', delay: 0.6 });
+
+    // Mobile drawer
+    const drawer = document.getElementById('drawer');
+    document.getElementById('menuBtn')?.addEventListener('click', () => drawer.classList.remove('translate-x-full'));
+    document.getElementById('closeDrawer')?.addEventListener('click', () => drawer.classList.add('translate-x-full'));
+    document.querySelectorAll('.drawer-link').forEach(a => a.addEventListener('click', () => drawer.classList.add('translate-x-full')));
+
+    // Smooth anchor with Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          e.preventDefault();
+          const el = document.querySelector(id);
+          if (el) lenis.scrollTo(el, { offset: -88, duration: 1.2 });
+        }
+      });
+    });
+
+    // STEP 2 — Loader + Cursor logic
+    let loaderDone=false;
+    const loader=document.getElementById('loader'), lp=document.getElementById('loaderPercent'), lb=document.getElementById('loaderBar');
+    // Ultra-smooth % — requestAnimationFrame + ease + roll effect (like your 99% image)
+    const loaderState={v:0};
+    const loaderEase = (t)=> 1 - Math.pow(1-t, 3); // easeOutCubic
+    const loaderDur = 1100; // total smooth count — half, snappy
+    const loaderStart = performance.now();
+    let loaderRaf;
+    function tickLoader(now){
+      const elapsed = now - loaderStart;
+      const p = Math.min(1, elapsed / loaderDur);
+      const eased = loaderEase(p);
+      const target = eased * 100;
+      // smooth lerp to target
+      loaderState.v += (target - loaderState.v) * 0.18;
+      if(p >= 1) loaderState.v = 100;
+      const shown = Math.floor(loaderState.v);
+      // rolling digits effect: tiny y flick on change
+      if(lp.textContent !== shown+'%'){
+        lp.textContent = shown+'%';
+        gsap.fromTo(lp, {y:6, opacity:0.7}, {y:0, opacity:1, duration:0.22, ease:'power2.out', overwrite:true});
+        gsap.to(lb, {scaleX: loaderState.v/100, duration:0.35, ease:'power2.out', overwrite:true});
+      }
+      if(p < 1 && !loaderDone){
+        loaderRaf = requestAnimationFrame(tickLoader);
+      } else {
+        // complete — slide out
+        lp.textContent='100%';
+        gsap.to(lb,{scaleX:1,duration:0.4, ease:'power2.out'});
+        setTimeout(()=>{ gsap.to(loader,{yPercent:-100,duration:0.65,ease:'power4.inOut',onComplete:()=>{loader.style.display='none'; loaderDone=true; gsap.from('#home h1 span',{y:60,opacity:0,duration:0.9,stagger:0.1,ease:'power4.out',delay:0.05})}})},120);
+      }
+    }
+    loaderRaf = requestAnimationFrame(tickLoader);
+    // Safety fallback 1.8s
+    setTimeout(()=>{ if(!loaderDone){ cancelAnimationFrame(loaderRaf); gsap.to(loader,{yPercent:-100,duration:0.6,ease:'power4.inOut',onComplete:()=>{loader.style.display='none'; loaderDone=true}})} },1800);
+    console.log('✓ Step 1 Foundation — Lenis + GSAP + Liquid Glass active');
+    // STEP 3 — Menu filter + cart toast + GSAP reveal
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>{b.className='filter-btn glass rounded-full px-5 py-2 text-xs font-bold'});
+        const acc = btn.dataset.acc || 'mustard';
+        btn.className = 'filter-btn active bg-'+acc+' '+(acc==='mustard' ? 'text-ink' : 'text-cream')+' rounded-full px-5 py-2 text-xs font-extrabold';
+        const f=btn.dataset.filter;
+        document.querySelectorAll('.menu-card').forEach(card=>{
+          const show=f==='all'||card.dataset.cat===f;
+          gsap.to(card,{scale:show?1:0.92,opacity:show?1:0.3,duration:0.35,display:show?'block':'block'});
+          card.style.pointerEvents=show?'auto':'none';
+          if(show) card.style.display='block'; else setTimeout(()=>{ if(card.style.opacity<0.5) card.style.display='none'; },350);
+          if(show) card.style.display='block';
+        });
+        // fix display properly
+        setTimeout(()=>{
+          document.querySelectorAll('.menu-card').forEach(card=>{
+            const show=f==='all'||card.dataset.cat===f;
+            card.style.display=show?'block':'none';
+            if(show) gsap.fromTo(card,{scale:0.92,opacity:0},{scale:1,opacity:1,duration:0.4,ease:'power3.out'});
+          });
+        },360);
+      });
+    });
+    const toast=document.getElementById('cartToast');
+    document.querySelectorAll('.addBtn').forEach(b=> b.addEventListener('click',()=>{
+      toast.textContent='Added to cart ✓ — ' + b.closest('.menu-card').querySelector('h3').textContent;
+      toast.classList.remove('hidden'); gsap.fromTo(toast,{y:20,opacity:0},{y:0,opacity:1,duration:0.4});
+      setTimeout(()=> gsap.to(toast,{y:10,opacity:0,duration:0.4,onComplete:()=>toast.classList.add('hidden')}),1800);
+    }));
+    gsap.from('.menu-card',{y:30,opacity:0,duration:0.7,stagger:0.08,ease:'power3.out',scrollTrigger:{trigger:'#menuGrid',start:'top 85%'}});
+    console.log('✓ Step 2 Loader active');
+    // Theme toggle — animated circle reveal (sun/moon)
+    const tt=document.getElementById('themeToggle');
+    const overlay=document.getElementById('themeOverlay');
+    const saved=localStorage.getItem('indiana-theme');
+    if(saved!=='dark'){ document.documentElement.classList.add('light'); tt.textContent='☀️'; }
+    let toggling=false;
+    tt.addEventListener('click',(e)=>{
+      if(toggling) return; toggling=true;
+      const rect=tt.getBoundingClientRect();
+      const ox=((rect.left+rect.width/2)/window.innerWidth*100).toFixed(2)+'%';
+      const oy=((rect.top+rect.height/2)/window.innerHeight*100).toFixed(2)+'%';
+      document.documentElement.style.setProperty('--ox', ox);
+      document.documentElement.style.setProperty('--oy', oy);
+      overlay.style.setProperty('--ox', ox); overlay.style.setProperty('--oy', oy);
+      const toLight=!document.documentElement.classList.contains('light');
+      // animate icon - snappier (lag kam)
+      gsap.to(tt,{scale:0.2,rotation:90,duration:0.14,ease:'power2.in',onComplete:()=>{
+        tt.textContent=toLight?'☀️':'🌙';
+        gsap.to(tt,{scale:1,rotation:0,duration:0.28,ease:'back.out(1.7)'});
+      }});
+      // circle overlay - fast reveal
+      overlay.classList.toggle('to-dark', !toLight);
+      overlay.style.transition='none'; overlay.style.clipPath=`circle(0% at ${ox} ${oy})`; overlay.style.opacity='1';
+      // force reflow
+      void overlay.offsetWidth;
+      overlay.style.transition='clip-path 0.32s cubic-bezier(0.65,0,0.35,1), opacity 0.12s';
+      overlay.classList.add('active');
+      setTimeout(()=>{
+        document.documentElement.classList.toggle('light', toLight);
+        localStorage.setItem('indiana-theme', toLight?'light':'dark');
+      }, 110);
+      setTimeout(()=>{
+        overlay.classList.remove('active');
+        overlay.style.opacity='0';
+        setTimeout(()=>{ overlay.style.transition='none'; overlay.style.clipPath=`circle(0% at ${ox} ${oy})`; toggling=false; }, 180);
+      }, 340);
+    });
+    /* ========== PREMIUM DATE • TIME • GUESTS PICKERS ========== */
+    (function () {
+      const MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const DAY = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const $ = id => document.getElementById(id);
+      if (!$('rvDateBtn')) return;
+
+      const now = new Date(); now.setHours(0,0,0,0);
+      let view = new Date(now.getFullYear(), now.getMonth(), 1);
+      let picked = null;
+
+      const dateBtn = $('rvDateBtn'), dateText = $('rvDateText'), dateInput = $('rvDate');
+      const cal = $('rvCal'), monthEl = $('rvMonth'), daysEl = $('rvDays');
+      const timeBtn = $('rvTimeBtn'), timeText = $('rvTimeText'), timeInput = $('rvTime');
+      const timePop = $('rvTimePop'), timeList = $('rvTimeList');
+      const gBtn = $('rvGuestsBtn'), gText = $('rvGuestsText'), gInput = $('rvGuests');
+      const gPop = $('rvGuestsPop'), gList = $('rvGuestsList');
+
+      const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      const pretty = d => DAY[d.getDay()].slice(0, 3) + ', ' + d.getDate() + ' ' + MON[d.getMonth()].slice(0, 3) + ' ' + d.getFullYear();
+
+      const pops = [[cal, dateBtn], [timePop, timeBtn], [gPop, gBtn]];
+      function closeAll(except) {
+        pops.forEach(([p, b]) => {
+          if (p === except) return;
+          p.classList.remove('open'); b.classList.remove('open'); b.setAttribute('aria-expanded', 'false');
+        });
+      }
+      function toggle(pop, btn) {
+        const wasOpen = pop.classList.contains('open');
+        closeAll();
+        if (wasOpen) return;
+        pop.classList.add('open'); btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+        pop.style.left = ''; pop.style.right = '';
+        requestAnimationFrame(() => {
+          pop.style.left = ''; pop.style.right = '';
+          const r = pop.getBoundingClientRect();
+          if (r.right > window.innerWidth - 16) { pop.style.left = 'auto'; pop.style.right = '0'; }
+          else if (r.left < 16) { pop.style.left = '0'; pop.style.right = 'auto'; }
+        });
+      }
+      document.addEventListener('click', e => { if (!e.target.closest('.rv-field')) closeAll(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+      /* ---------- CALENDAR ---------- */
+      function render() {
+        monthEl.innerHTML = MON[view.getMonth()] + ' <em>' + view.getFullYear() + '</em>';
+        const start = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+        const dim = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+        const prevDim = new Date(view.getFullYear(), view.getMonth(), 0).getDate();
+        daysEl.innerHTML = '';
+        for (let i = 0; i < 42; i++) {
+          const n = i - start + 1;
+          let d, other = false;
+          if (n < 1) { d = new Date(view.getFullYear(), view.getMonth() - 1, prevDim + n); other = true; }
+          else if (n > dim) { d = new Date(view.getFullYear(), view.getMonth() + 1, n - dim); other = true; }
+          else d = new Date(view.getFullYear(), view.getMonth(), n);
+          const b = document.createElement('button');
+          b.type = 'button'; b.className = 'rv-day'; b.textContent = d.getDate();
+          if (other) b.classList.add('other');
+          if (d.getTime() === now.getTime()) b.classList.add('today');
+          if (d < now) b.classList.add('off');
+          if (picked && iso(d) === iso(picked)) b.classList.add('sel');
+          b.addEventListener('click', () => {
+            if (other || d < now) return;
+            picked = d;
+            dateInput.value = iso(d);
+            dateText.textContent = pretty(d);
+            dateText.classList.remove('rv-ph');
+            render(); closeAll();
+          });
+          daysEl.appendChild(b);
+        }
+      }
+      dateBtn.addEventListener('click', e => { e.stopPropagation(); render(); toggle(cal, dateBtn); });
+      $('rvPrev').addEventListener('click', e => { e.stopPropagation(); view.setMonth(view.getMonth() - 1); render(); });
+      $('rvNext').addEventListener('click', e => { e.stopPropagation(); view.setMonth(view.getMonth() + 1); render(); });
+      $('rvToday').addEventListener('click', e => {
+        e.stopPropagation();
+        picked = new Date(now); view = new Date(now.getFullYear(), now.getMonth(), 1);
+        dateInput.value = iso(picked); dateText.textContent = pretty(picked);
+        dateText.classList.remove('rv-ph'); render(); closeAll();
+      });
+      $('rvClear').addEventListener('click', e => {
+        e.stopPropagation(); picked = null; dateInput.value = '';
+        dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph'); render();
+      });
+
+      /* popups ke andar wheel-scroll chale (Lenis hijack na kare) */
+      [cal, timePop, gPop].forEach(p => p && p.setAttribute('data-lenis-prevent', ''));
+
+      /* default: aaj ki date + agla available slot (IST) */
+      function istToday() {
+        const n = new Date();
+        const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
+        return new Date(ist.getFullYear(), ist.getMonth(), ist.getDate());
+      }
+      function istMins() {
+        const n = new Date();
+        const ist = new Date(n.getTime() + (n.getTimezoneOffset() + 330) * 60000);
+        return ist.getHours() * 60 + ist.getMinutes();
+      }
+      function nextSlot(minLead) {
+        for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
+          if (m < minLead) continue;
+          const h24 = Math.floor(m / 60), mm = m % 60;
+          return (h24 % 12 === 0 ? 12 : h24 % 12) + ':' + String(mm).padStart(2, '0') + ' ' + (h24 >= 12 ? 'PM' : 'AM');
+        }
+        return null;
+      }
+      (function defaultWhen() {
+        const t = istToday();
+        const slot = nextSlot(istMins() + 45);          // 30 min ka lead + buffer
+        const d = slot ? t : new Date(t.getFullYear(), t.getMonth(), t.getDate() + 1);
+        picked = d; view = new Date(d.getFullYear(), d.getMonth(), 1);
+        dateInput.value = iso(d); dateText.textContent = pretty(d); dateText.classList.remove('rv-ph');
+        if (slot) { timeInput.value = slot; timeText.textContent = slot; }
+        render();
+      })();
+
+      /* ---------- TIME SLOTS ---------- */
+      const slots = [];
+      for (let m = 11 * 60; m <= 22 * 60 + 30; m += 30) {
+        const h24 = Math.floor(m / 60), mm = m % 60;
+        slots.push((h24 % 12 === 0 ? 12 : h24 % 12) + ':' + String(mm).padStart(2, '0') + ' ' + (h24 >= 12 ? 'PM' : 'AM'));
+      }
+      slots.forEach(s => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'rv-opt' + (s === timeInput.value ? ' sel' : ''); b.textContent = s;
+        b.addEventListener('click', e => {
+          e.stopPropagation(); timeInput.value = s; timeText.textContent = s;
+          [...timeList.children].forEach(c => c.classList.toggle('sel', c === b)); closeAll();
+        });
+        timeList.appendChild(b);
+      });
+      timeBtn.addEventListener('click', e => {
+        e.stopPropagation(); toggle(timePop, timeBtn);
+        const sel = timeList.querySelector('.sel'); if (sel) sel.scrollIntoView({ block: 'center' });
+      });
+
+      /* ---------- GUESTS ---------- */
+      const sizes = [];
+      for (let i = 1; i <= 12; i++) sizes.push(i + (i === 1 ? ' Guest' : ' Guests'));
+      sizes.push('13+ Guests (call us)');
+      sizes.forEach(s => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'rv-opt' + (s === gInput.value ? ' sel' : ''); b.textContent = s;
+        b.addEventListener('click', e => {
+          e.stopPropagation(); gInput.value = s; gText.textContent = s;
+          [...gList.children].forEach(c => c.classList.toggle('sel', c === b)); closeAll();
+        });
+        gList.appendChild(b);
+      });
+      gBtn.addEventListener('click', e => {
+        e.stopPropagation(); toggle(gPop, gBtn);
+        const sel = gList.querySelector('.sel'); if (sel) sel.scrollIntoView({ block: 'center' });
+      });
+
+      window.__rvReset = () => {
+        picked = null; view = new Date(now.getFullYear(), now.getMonth(), 1);
+        dateInput.value = '';
+        dateText.textContent = 'Pick a date'; dateText.classList.add('rv-ph');
+        timeText.textContent = '7:30 PM'; gText.textContent = '2 Guests';
+        [...timeList.children].forEach(c => c.classList.toggle('sel', c.textContent === '7:30 PM'));
+        [...gList.children].forEach(c => c.classList.toggle('sel', c.textContent === '2 Guests'));
+        closeAll();
+      };
+    })();
+
+    /* Homepage reserve form -> backend (/api/bookings), bilkul reserve.html jaisa */
+    document.getElementById('reserveForm')?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const dEl = document.getElementById('rvDate'), dBtn = document.getElementById('rvDateBtn');
+      const errEl = document.getElementById('hpErr');
+      const showErr = m => { if (!errEl) return; errEl.textContent = m || ''; errEl.classList.toggle('hidden', !m); };
+
+      if (!dEl.value) {
+        dBtn.style.borderColor = 'rgba(248,113,113,.9)';
+        dBtn.style.boxShadow = '0 0 0 4px rgba(248,113,113,.16)';
+        dBtn.focus();
+        setTimeout(() => { dBtn.style.borderColor = ''; dBtn.style.boxShadow = ''; }, 1500);
+        showErr('Please pick a date');
+        return;
+      }
+
+      const val = id => (document.getElementById(id)?.value || '').trim();
+      const payload = {
+        name: val('hpName'),
+        phone: val('hpPhone'),
+        email: '',
+        date: val('rvDate'),
+        time: val('rvTime') || '7:30 PM',
+        guests: parseInt((val('rvGuests') || '2').replace(/\D/g, ''), 10) || 2,
+        seating: 'indoor',
+        occasion: '',
+        notes: val('hpNotes'),
+        source: 'homepage',
+      };
+
+      const btn = form.querySelector('button[type="submit"]');
+      const label = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.innerHTML = 'SENDING…'; }
+      showErr('');
+
+      try {
+        const res = await fetch('/api/bookings', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+        });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          showErr(j.error || ('Booking nahi ho payi (' + res.status + ') — please call +91 90579 *****.'));
+        } else {
+          const ok = document.getElementById('reserveSuccess');
+          const ref = (j.booking && j.booking.id) || '';
+          ok.textContent = '✓ Reservation received — ref ' + ref + ' — see you soon at Indiana!';
+          ok.classList.remove('hidden');
+          form.reset();
+          if (window.__rvReset) window.__rvReset();
+          setTimeout(() => ok.classList.add('hidden'), 8000);
+        }
+      } catch (err) {
+        showErr('Network issue — please call +91 90579 ***** to confirm.');
+      }
+      if (btn) { btn.disabled = false; btn.innerHTML = label; }
+    });
+    // ===== RECREATED STRAIGHT — translateY ONLY (NO clipPath, NO DIAGONAL) =====
+    // Root cause: clipPath with `round 32px` interpolates diagonally in browser.
+    // Fix: use yPercent (straight vertical) + overflow:hidden parent. Pure Y, X locked 0.
+    (() => {
+      const cards = gsap.utils.toArray('.stack-card');
+      const texts = gsap.utils.toArray('.stack-text');
+      const dots  = document.querySelectorAll('#stackDots .dot');
+      if(!cards.length) return;
+
+      // Kill any previous clipPath / transform
+      cards.forEach(c=>{ c.style.clipPath='none'; c.style.webkitClipPath='none'; });
+
+      // z-index: 1 bottom → 5 top, so next card slides OVER previous straight
+      cards.forEach((c,i)=>{
+        c.style.zIndex = String(i+1);
+        // lock X, rotation, scale — only Y will animate
+        gsap.set(c, { x:0, xPercent:0, rotation:0, scale:1, transformOrigin:'center center', willChange:'transform' });
+        if(i===0) gsap.set(c, { yPercent:0 });
+        else      gsap.set(c, { yPercent:100 }); // hidden straight below, no X offset
+      });
+      gsap.set(texts, { autoAlpha:0, y:16, x:0, rotation:0 });
+      gsap.set(texts[0], { autoAlpha:1, y:0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger:{
+          trigger:'#stackedShowcase',
+          start:'top top',
+          end:'+=4000',
+          pin:'#stackPin',
+          scrub:1,
+          anticipatePin:1,
+          pinSpacing:true,
+          invalidateOnRefresh:true,
+          onUpdate:self=>{
+            const idx = Math.min(cards.length-1, Math.floor(self.progress * cards.length + 0.0001));
+            const dotAcc = ['gold','clay','pine','lagoon','wine'];
+            dots.forEach((d,i)=> d.className = i===idx ? 'dot w-8 h-[6px] rounded-full bg-ac-'+dotAcc[i] : 'dot w-6 h-[6px] rounded-full bg-ac-'+dotAcc[i]+' opacity-30');
+          }
+        }
+      });
+
+      // Each next card slides STRAIGHT UP: yPercent 100 → 0 (only Y, X=0 locked)
+      cards.forEach((_, i)=>{
+        if(i >= cards.length-1) return;
+        const next = cards[i+1];
+        tl.to(next, { yPercent:0, x:0, xPercent:0, rotation:0, ease:'none', duration:1 }, i*1);
+        tl.to(texts[i],   { autoAlpha:0, y:-16, x:0, ease:'none', duration:0.4 }, i*1 + 0.30);
+        tl.to(texts[i+1], { autoAlpha:1, y:0,  x:0, ease:'none', duration:0.4 }, i*1 + 0.34);
+      });
+      ScrollTrigger.refresh();
+    })();
+    console.log('✓ Step 3 Menu Bento active');
+    console.log('✓ AM-ARC 5-Cards Stack Pin+Scrub active');
+    console.log('✓ Step 4 Story + Step 5 Marquee/Testimonials + Step 6 Reserve active');
+  </script>
+
+  <!-- ================= LIVE DOOR STATUS (owner console toggle) ================= -->
+  <script>
+    (function () {
+      var text = document.getElementById('openState');
+      var dot = document.querySelector('[data-door-dot]');
+      if (!text) return;
+
+      var OPEN_MIN = 11 * 60;          // 11:00 AM IST
+      var CLOSE_MIN = 22 * 60 + 45;    // 10:45 PM IST
+      var doorOverride = null;         // owner ke toggle se aata hai (GET /api/status)
+
+      function istMinutes() {
+        var now = new Date();
+        var ist = new Date(now.getTime() + (now.getTimezoneOffset() + 330) * 60000);
+        return ist.getHours() * 60 + ist.getMinutes();
+      }
+
+      function paint() {
+        var mins = istMinutes();
+        var timeOpen = mins >= OPEN_MIN && mins <= CLOSE_MIN;
+        var open = doorOverride === null ? timeOpen : doorOverride;
+        var closingSoon = open && timeOpen && mins >= CLOSE_MIN - 60;
+
+        text.textContent = open
+          ? (closingSoon ? 'KITCHEN OPEN — CLOSING SOON' : 'KITCHEN OPEN NOW')
+          : (doorOverride === false ? 'TEMPORARILY CLOSED — BACK SOON' : 'CLOSED NOW — BOOK FOR LATER');
+        if (dot) dot.style.background = open ? '#4ADE80' : '#FACC15';
+      }
+
+      function load() {
+        fetch('/api/status', { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) { if (j && typeof j.open === 'boolean') { doorOverride = j.open; paint(); } })
+          .catch(function () { /* offline: time-based status hi rehne do */ });
+      }
+
+      paint();
+      load();
+      setInterval(load, 60000);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+    })();
+  </script>
+</body>
+
+</html>
