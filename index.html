@@ -872,7 +872,7 @@
               <span class="w-11 h-11 shrink-0 rounded-2xl bg-mustard text-ink grid place-items-center text-lg">☎</span>
               <div class="flex-1">
                 <div class="text-[10px] font-bold tracking-[0.2em] opacity-55">CALL OR WHATSAPP</div>
-                <a href="tel:+919057967791" class="font-extrabold mt-1 block hover:text-mustard transition">+91 90579 67791</a>
+                <a href="tel:+919057967791" class="font-extrabold mt-1 block hover:text-mustard transition">+91 90579 *****</a>
                 <a href="https://wa.me/919057967791" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 bg-mustard text-ink rounded-full px-5 py-2.5 text-[11.5px] font-extrabold tracking-[0.1em]">RESERVE ON WHATSAPP ↗</a>
               </div>
             </div>
@@ -960,7 +960,7 @@
             </div>
           </div>
           <div class="glass rounded-[24px] p-6 flex items-center justify-between">
-            <div><div class="text-xs font-bold opacity-60 tracking-widest">CALL</div><div class="font-extrabold">+91 90579 67791</div></div>
+            <div><div class="text-xs font-bold opacity-60 tracking-widest">CALL</div><div class="font-extrabold">+91 90579 *****</div></div>
             <a href="tel:+919057967791" class="w-10 h-10 rounded-full bg-mustard text-ink grid place-items-center font-bold">↗</a>
           </div>
         </div>
@@ -1405,7 +1405,7 @@
         });
         const j = await res.json().catch(() => ({}));
         if (!res.ok) {
-          showErr(j.error || ('Booking nahi ho payi (' + res.status + ') — please call +91 90579 67791.'));
+          showErr(j.error || ('Booking nahi ho payi (' + res.status + ') — please call +91 90579 *****.'));
         } else {
           const ok = document.getElementById('reserveSuccess');
           const ref = (j.booking && j.booking.id) || '';
@@ -1416,7 +1416,7 @@
           setTimeout(() => ok.classList.add('hidden'), 8000);
         }
       } catch (err) {
-        showErr('Network issue — please call +91 90579 67791 to confirm.');
+        showErr('Network issue — please call +91 90579 ***** to confirm.');
       }
       if (btn) { btn.disabled = false; btn.innerHTML = label; }
     });

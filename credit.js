@@ -1,6 +1,6 @@
 /* ============================================================
    Indiana Restaurant & Cafe — Site Credit (every page, bottom)
-   Website by Navmansh Sen • [whatsapp icon] +91-9057967791 for work
+   Website by Navm**** S** • [whatsapp icon] +91-90579***** for work
    ============================================================ */
 (function () {
   'use strict';
@@ -46,12 +46,12 @@
     var d = document.createElement('div');
     d.className = 'credit-bar';
     d.innerHTML = ''
-      + '<span>Website by <b>Navmansh Sen</b></span>'
+      + '<span>Website by <b>Navm**** S**</b></span>'
       + '<span class="cb-dot">\u2022</span>'
       + '<span class="cb-for">'
-      + '  <a class="cb-call" href="https://wa.me/919057967791" target="_blank" rel="noopener" title="WhatsApp Navmansh Sen for work" aria-label="WhatsApp +91-9057967791 for work">'
+      + '  <a class="cb-call" href="https://wa.me/919057967791" target="_blank" rel="noopener" title="WhatsApp Navm**** S** for work" aria-label="WhatsApp +91-90579***** for work">'
       + '    <i class="cb-ic">' + WA_SVG + '</i>'
-      + '    <span class="cb-num">+91-9057967791</span>'
+      + '    <span class="cb-num">+91-90579*****</span>'
       + '  </a>'
       + '  for work</span>';
     document.body.appendChild(d);
